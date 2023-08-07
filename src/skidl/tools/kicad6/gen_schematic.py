@@ -635,18 +635,16 @@ def preprocess_circuit(circuit, **options):
         """Calculate the labeled bounding boxes and store it in the part."""
 
         # Find part/unit bounding boxes excluding any net labels on pins.
-        # TODO: part.lbl_bbox could be substituted for part.bbox.
-        # TODO: Part ref and value should be updated before calculating bounding box.
-        bare_bboxes = calc_symbol_bbox(part)[1:]
+        calc_symbol_bbox(part)
 
-        for part_unit, bare_bbox in zip(units(part), bare_bboxes):
+        for part_unit in part.unit.values():
             # Expand the bounding box if it's too small in either dimension.
             resize_wh = Vector(0, 0)
-            if bare_bbox.w < 100:
-                resize_wh.x = (100 - bare_bbox.w) / 2
-            if bare_bbox.h < 100:
-                resize_wh.y = (100 - bare_bbox.h) / 2
-            bare_bbox = bare_bbox.resize(resize_wh)
+            if part_unit.bbox.w < 100:
+                resize_wh.x = (100 - part_unit.bbox.w) / 2
+            if part_unit.bbox.h < 100:
+                resize_wh.y = (100 - part_unit.bbox.h) / 2
+            bare_bbox = part_unit.bbox.resize(resize_wh)
 
             # Find expanded bounding box that includes any hier labels attached to pins.
             part_unit.lbl_bbox = BBox()
@@ -712,10 +710,11 @@ def gen_schematic(
         options (dict, optional): Dict of options and values, usually for drawing/debugging.
     """
 
-    raise NotImplementedError
-
-    from skidl.tools import tool_modules, KICAD
+    import skidl
+    from skidl.tools import tool_modules
     from skidl.schematics.node import Node
+
+    tool = options.get("tool", skidl.config.tool)
 
     # Part placement options that should always be turned on.
     options["use_push_pull"] = True
@@ -730,7 +729,7 @@ def gen_schematic(
     for _ in range(retries):
         preprocess_circuit(circuit, **options)
 
-        node = Node(circuit, tool_modules[KICAD], filepath, top_name, title, flatness)
+        node = Node(circuit, tool_modules[tool], filepath, top_name, title, flatness)
 
         try:
             # Place parts.

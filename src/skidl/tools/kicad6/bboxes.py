@@ -30,6 +30,8 @@ from skidl.schematics.geometry import (
     tx_rot_90,
     tx_rot_180,
     tx_rot_270,
+    mils_per_mm,
+    mms_per_mil,
 )
 from skidl.utilities import export_to_all
 from .constants import HIER_TERM_SIZE, PIN_LABEL_FONT_SIZE
@@ -52,259 +54,172 @@ def calc_symbol_bbox(part, **options):
     Returns: List of BBoxes for all units in the part symbol.
     """
 
-    raise NotImplementedError
-
-    def make_pin_dir_tbl(abs_xoff=20):
-
-        # abs_xoff is the absolute distance of name/num from the end of the pin.
-        rel_yoff_num = -0.15  # Relative distance of number above pin line.
-        rel_yoff_name = (
-            0.2  # Relative distance that places name midline even with pin line.
-        )
-
-        # Tuple for storing information about pins in each of four directions:
-        #     direction: The direction the pin line is drawn from start to end.
-        #     side: The side of the symbol the pin is on. (Opposite of the direction.)
-        #     angle: The angle of the name/number text for the pin (usually 0, -90.).
-        #     num_justify: Text justification of the pin number.
-        #     name_justify: Text justification of the pin name.
-        #     num_offset: (x,y) offset of the pin number w.r.t. the end of the pin.
-        #     name_offset: (x,y) offset of the pin name w.r.t. the end of the pin.
-        PinDir = namedtuple(
-            "PinDir",
-            "direction side angle num_justify name_justify num_offset name_offset net_offset",
-        )
-
-        return {
-            "U": PinDir(
-                Point(0, 1),
-                "bottom",
-                -90,
-                "end",
-                "start",
-                Point(-abs_xoff, rel_yoff_num),
-                Point(abs_xoff, rel_yoff_name),
-                Point(abs_xoff, rel_yoff_num),
-            ),
-            "D": PinDir(
-                Point(0, -1),
-                "top",
-                -90,
-                "start",
-                "end",
-                Point(abs_xoff, rel_yoff_num),
-                Point(-abs_xoff, rel_yoff_name),
-                Point(-abs_xoff, rel_yoff_num),
-            ),
-            "L": PinDir(
-                Point(-1, 0),
-                "right",
-                0,
-                "start",
-                "end",
-                Point(abs_xoff, rel_yoff_num),
-                Point(-abs_xoff, rel_yoff_name),
-                Point(-abs_xoff, rel_yoff_num),
-            ),
-            "R": PinDir(
-                Point(1, 0),
-                "left",
-                0,
-                "end",
-                "start",
-                Point(-abs_xoff, rel_yoff_num),
-                Point(abs_xoff, rel_yoff_name),
-                Point(abs_xoff, rel_yoff_num),
-            ),
-        }
+    def find(lst, key):
+        """Find an sexpr clause with the given keyword."""
+        for item in lst:
+            if isinstance(item, (list, tuple)):
+                if item[0].lower() == key:
+                    return item
+        return None
 
     default_pin_name_offset = 20
 
     # Go through each graphic object that makes up the component symbol.
-    for obj in part.draw:
+    for unit_num, unit in part.unit.items():
 
-        obj_bbox = BBox()  # Bounding box of all the component objects.
-        thickness = 0
+        # Bounding box for this part unit.
+        unit.bbox = BBox()
 
-        if isinstance(obj, DrawDef):
-            def_ = obj
-            # Make pin direction table with symbol-specific name offset.
-            pin_dir_tbl = make_pin_dir_tbl(def_.name_offset or default_pin_name_offset)
-            # Make structures for holding info on each part unit.
-            num_units = def_.num_units
-            unit_bboxes = [BBox() for _ in range(num_units + 1)]
+        # Process the drawing objects for each unit which are stored in a dict in the part.
+        for obj in part.draw[unit_num]:
 
-        elif isinstance(obj, DrawF0) and not options.get("graphics_only", False):
-            # obj attributes: x y size orientation visibility halign valign
-            # Skip if the object is invisible.
-            if obj.visibility.upper() == "I":
-                continue
+            # First item is the object type, and the remainder are object parameters.
+            obj_type = obj[0].lower()
+            obj_params = obj[1:]
 
-            # Calculate length and height of part reference.
-            # Use ref from the SKiDL part since the ref in the KiCAD part
-            # hasn't been updated from its generic value.
-            length = len(part.ref) * obj.size
-            height = obj.size
+            if obj_type == "reference" and not options.get("graphics_only", False):
+                raise NotImplementedError
 
-            # Create bbox with lower-left point at (0, 0).
-            bbox = BBox(Point(0,0), Point(length, height))
+                # obj attributes: x y size orientation visibility halign valign
+                # Skip if the object is invisible.
+                if obj.visibility.upper() == "I":
+                    continue
 
-            # Rotate bbox around origin.
-            rot_tx = {"H": Tx(), "V": tx_rot_90}[obj.orientation.upper()]
-            bbox *= rot_tx
+                # Calculate length and height of part reference.
+                # Use ref from the SKiDL part since the ref in the KiCAD part
+                # hasn't been updated from its generic value.
+                length = len(part.ref) * obj.size
+                height = obj.size
 
-            # Horizontally align bbox.
-            halign = obj.halign.upper()
-            if halign == "L":
-                pass
-            elif halign == "R":
-                bbox *= Tx().move(Point(-bbox.w, 0))
-            elif halign == "C":
-                bbox *= Tx().move(Point(-bbox.w/2, 0))
-            else:
-                raise Exception("Inconsistent horizontal alignment: {}".format(halign))
+                # Create bbox with lower-left point at (0, 0).
+                bbox = BBox(Point(0,0), Point(length, height))
 
-            # Vertically align bbox.
-            valign = obj.valign[:1].upper() # valign is first letter.
-            if valign == "B":
-                pass
-            elif valign == "T":
-                bbox *= Tx().move(Point(0, -bbox.h))
-            elif valign == "C":
-                bbox *= Tx().move(Point(0, -bbox.h/2))
-            else:
-                raise Exception("Inconsistent vertical alignment: {}".format(valign))
+                # Rotate bbox around origin.
+                rot_tx = {"H": Tx(), "V": tx_rot_90}[obj.orientation.upper()]
+                bbox *= rot_tx
+
+                # Horizontally align bbox.
+                halign = obj.halign.upper()
+                if halign == "L":
+                    pass
+                elif halign == "R":
+                    bbox *= Tx().move(Point(-bbox.w, 0))
+                elif halign == "C":
+                    bbox *= Tx().move(Point(-bbox.w/2, 0))
+                else:
+                    raise Exception("Inconsistent horizontal alignment: {}".format(halign))
+
+                # Vertically align bbox.
+                valign = obj.valign[:1].upper() # valign is first letter.
+                if valign == "B":
+                    pass
+                elif valign == "T":
+                    bbox *= Tx().move(Point(0, -bbox.h))
+                elif valign == "C":
+                    bbox *= Tx().move(Point(0, -bbox.h/2))
+                else:
+                    raise Exception("Inconsistent vertical alignment: {}".format(valign))
+                
+                bbox *= Tx().move(Point(obj.x, obj.y))
+                obj_bbox.add(bbox)
+
+            elif obj_type == "value" and not options.get("graphics_only", False):
+                raise NotImplementedError
             
-            bbox *= Tx().move(Point(obj.x, obj.y))
-            obj_bbox.add(bbox)
+                # Skip if the object is invisible.
+                if obj.visibility.upper() == "I":
+                    continue
 
-        elif isinstance(obj, DrawF1) and not options.get("graphics_only", False):
-            # Skip if the object is invisible.
-            if obj.visibility.upper() == "I":
-                continue
+                # Calculate length and height of part value.
+                # Use value from the SKiDL part since the value in the KiCAD part
+                # hasn't been updated from its generic value.
+                length = len(str(part.value)) * obj.size
+                height = obj.size
 
-            # Calculate length and height of part value.
-            # Use value from the SKiDL part since the value in the KiCAD part
-            # hasn't been updated from its generic value.
-            length = len(str(part.value)) * obj.size
-            height = obj.size
+                # Create bbox with lower-left point at (0, 0).
+                bbox = BBox(Point(0,0), Point(length, height))
 
-            # Create bbox with lower-left point at (0, 0).
-            bbox = BBox(Point(0,0), Point(length, height))
+                # Rotate bbox around origin.
+                rot_tx = {"H": Tx(), "V": tx_rot_90}[obj.orientation.upper()]
+                bbox *= rot_tx
 
-            # Rotate bbox around origin.
-            rot_tx = {"H": Tx(), "V": tx_rot_90}[obj.orientation.upper()]
-            bbox *= rot_tx
+                # Horizontally align bbox.
+                halign = obj.halign.upper()
+                if halign == "L":
+                    pass
+                elif halign == "R":
+                    bbox *= Tx().move(Point(-bbox.w, 0))
+                elif halign == "C":
+                    bbox *= Tx().move(Point(-bbox.w/2, 0))
+                else:
+                    raise Exception("Inconsistent horizontal alignment: {}".format(halign))
 
-            # Horizontally align bbox.
-            halign = obj.halign.upper()
-            if halign == "L":
+                # Vertically align bbox.
+                valign = obj.valign[:1].upper() # valign is first letter.
+                if valign == "B":
+                    pass
+                elif valign == "T":
+                    bbox *= Tx().move(Point(0, -bbox.h))
+                elif valign == "C":
+                    bbox *= Tx().move(Point(0, -bbox.h/2))
+                else:
+                    raise Exception("Inconsistent vertical alignment: {}".format(valign))
+                
+                bbox *= Tx().move(Point(obj.x, obj.y))
+                obj_bbox.add(bbox)
+
+            elif obj_type == "arc":
+                start = find(obj_params, "start")
+                start_pt = Point(start[1], start[2])
+                mid = find(obj_params, "mid")
+                mid_pt = Point(mid[1], mid[2])
+                end = find(obj_params, "end")
+                end_pt = Point(end[end[1], end[2]])
+                unit_bbox.add(start_pt, mid_pt, end_pt)
+
+            elif obj_type == "circle":
+                center = find(obj_params, "center")
+                center_pt = Point(center[1], center[2])
+                radius = find(obj_params, "radius")
+                radius = radius[1]
+                radius_pt = Point(radius, radius)
+                unit.bbox.add(center_pt + radius_pt, center_pt - radius_pt)
+
+            elif obj_type == "polyline":
+                pts = find(obj_params, "pts")
+                obj_bbox = BBox()
+                for pt in pts[1:]:
+                    unit.bbox.add(Point(pt[1], pt[2]))
+
+            elif obj_type == "rectangle":
+                start = find(obj_params, "start")
+                start_pt = Point(start[1], start[2])
+                end = find(obj_params, "end")
+                end_pt = Point(end[1], end[2])
+                unit.bbox.add(start_pt, end_pt)
+
+            elif obj_type == "text" and not options.get("graphics_only", False):
                 pass
-            elif halign == "R":
-                bbox *= Tx().move(Point(-bbox.w, 0))
-            elif halign == "C":
-                bbox *= Tx().move(Point(-bbox.w/2, 0))
+
+            elif obj_type == "pin":
+                if "hide" not in obj_params:
+                    x, y, angle = find(obj_params, "at")[1:4]
+                    length = find(obj_params, "length")[1]
+                    pt1 = Point(x, y)
+                    pt2 = pt1 + Point(length, 0) * Tx().rot(angle)
+                    unit.bbox.add(pt1, pt2)
+                    # TODO: Add pin number and name to bbox.
+
             else:
-                raise Exception("Inconsistent horizontal alignment: {}".format(halign))
-
-            # Vertically align bbox.
-            valign = obj.valign[:1].upper() # valign is first letter.
-            if valign == "B":
-                pass
-            elif valign == "T":
-                bbox *= Tx().move(Point(0, -bbox.h))
-            elif valign == "C":
-                bbox *= Tx().move(Point(0, -bbox.h/2))
-            else:
-                raise Exception("Inconsistent vertical alignment: {}".format(valign))
-            
-            bbox *= Tx().move(Point(obj.x, obj.y))
-            obj_bbox.add(bbox)
-
-        elif isinstance(obj, DrawArc):
-            arc = obj
-            center = Point(arc.cx, arc.cy)
-            thickness = arc.thickness
-            radius = arc.radius
-            start = Point(arc.startx, arc.starty)
-            end = Point(arc.endx, arc.endy)
-            start_angle = arc.start_angle / 10
-            end_angle = arc.end_angle / 10
-            clock_wise = int(end_angle < start_angle)
-            large_arc = int(abs(end_angle - start_angle) > 180)
-            radius_pt = Point(radius, radius)
-            obj_bbox.add(center - radius_pt)
-            obj_bbox.add(center + radius_pt)
-
-        elif isinstance(obj, DrawCircle):
-            circle = obj
-            center = Point(circle.cx, circle.cy)
-            thickness = circle.thickness
-            radius = circle.radius
-            radius_pt = Point(radius, radius)
-            obj_bbox.add(center - radius_pt)
-            obj_bbox.add(center + radius_pt)
-
-        elif isinstance(obj, DrawPoly):
-            poly = obj
-            thickness = obj.thickness
-            pts = [Point(x, y) for x, y in zip(poly.points[0::2], poly.points[1::2])]
-            path = []
-            for pt in pts:
-                obj_bbox.add(pt)
-
-        elif isinstance(obj, DrawRect):
-            rect = obj
-            thickness = obj.thickness
-            start = Point(rect.x1, rect.y1)
-            end = Point(rect.x2, rect.y2)
-            obj_bbox.add(start)
-            obj_bbox.add(end)
-
-        elif isinstance(obj, DrawText) and not options.get("graphics_only", False):
-            pass
-
-        elif isinstance(obj, DrawPin):
-            pin = obj
-
-            try:
-                visible = pin.shape[0] != "N"
-            except IndexError:
-                visible = True  # No pin shape given, so it is visible by default.
-
-            if visible:
-                # Draw pin if it's not invisible.
-
-                # Create line for pin lead.
-                dir = pin_dir_tbl[pin.orientation].direction
-                start = Point(pin.x, pin.y)
-                l = dir * pin.length
-                end = start + l
-                obj_bbox.add(start)
-                obj_bbox.add(end)
-
-        else:
-            active_logger.error(
-                "Unknown graphical object {} in part symbol {}.".format(
-                    type(obj), part.name
+                active_logger.error(
+                    "Unknown graphical object {} in part symbol {}.".format(
+                        obj_type, part.name
+                    )
                 )
-            )
 
-        # REMOVE: Maybe we shouldn't do this?
-        # Expand bounding box to account for object line thickness.
-        # obj_bbox.resize(Vector(round(thickness / 2), round(thickness / 2)))
-
-        # Enter the current object into the SVG for this part.
-        unit = getattr(obj, "unit", 0)
-        if unit == 0:
-            for bbox in unit_bboxes:
-                bbox.add(obj_bbox)
-        else:
-            unit_bboxes[unit].add(obj_bbox)
-
-    # End of loop through all the component objects.
-
-    return unit_bboxes
+        # After the unit bounding box is calculated, change it from mm to mils.
+        unit.bbox *= mils_per_mm
+        unit.bbox = unit.bbox.round()
 
 
 @export_to_all

@@ -19,6 +19,10 @@ from future import standard_library
 
 standard_library.install_aliases()
 
+# TODO: Remove this file?
+
+PropertyObj = namedtuple("PropertyObj", "obj")
+DrawObj = namedtuple("DrawObj", "unit obj")
 
 DrawDef = namedtuple(
     "DrawDef",

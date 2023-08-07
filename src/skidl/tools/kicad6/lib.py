@@ -15,13 +15,14 @@ from __future__ import (  # isort:skip
 
 import os.path
 from builtins import int
-from collections import OrderedDict
+from collections import defaultdict, OrderedDict
 
 import sexpdata
 
 from future import standard_library
 
 from skidl.part import LIBRARY
+from skidl.schematics.geometry import mils_per_mm
 from skidl.utilities import export_to_all, find_and_open_file, num_to_chars, to_list
 
 standard_library.install_aliases()
@@ -193,7 +194,8 @@ def parse_lib_part(part, partial_parse):
 
     part.aliases = []  # Part aliases.
     part.fplist = []  # Footprint list.
-    part.draw = []  # Drawing commands for symbol, including pins.
+    part.draw = {} # Drawing commands for the part units.
+    draw_cmds = defaultdict(list) # Drawing commands for symbol units, including pins.
 
     for item in part.part_defn:
         if item[0].value().lower() == "extends":
@@ -245,23 +247,23 @@ def parse_lib_part(part, partial_parse):
 
             break
 
-    # Populate part fields from symbol properties.
-    properties = {
+    # Populate part fields from symbol properties. Properties will also be included below in drawing commands.
+    properties = [item[1:] for item in part.part_defn if item[0].value().lower() == "property"]
+    fields = {prop[0].lower(): prop[1] for prop in properties}
+    part.ref_prefix = fields["reference"]
+    part.value = fields["value"]
+    part.fplist.append(fields["footprint"])
+    part.datasheet = fields["datasheet"]
+
+    # Find all the units within a symbol. Skip the first item which is the
+    # 'symbol' marking the start of the entire part definition.
+    units = {
         item[1]: item[2:]
-        for item in part.part_defn
-        if item[0].value().lower() == "property"
+        for item in part.part_defn[1:]
+        if item[0].value().lower() == "symbol"
     }
-    for name, data in properties.items():
-        value = data[0]
-        for item in data[1:]:
-            if item[0].value().lower() == "id":
-                part.fields["F" + str(item[1])] = value
-                break
-        part.fields[name] = value
 
-    part.ref_prefix = part.fields["F0"]  # Part ref prefix (e.g., 'R').
-
-    # Association between KiCad and SKiDL pin types.
+    # Association between KiCad : SKiDL pin types.
     pin_io_type_translation = {
         "input": Pin.types.INPUT,
         "output": Pin.types.OUTPUT,
@@ -276,57 +278,65 @@ def parse_lib_part(part, partial_parse):
         "no_connect": Pin.types.NOCONNECT,
     }
 
-    # Find all the units within a symbol. Skip the first item which is the
-    # 'symbol' marking the start of the entire part definition.
-    units = {
-        item[1]: item[2:]
-        for item in part.part_defn[1:]
-        if item[0].value().lower() == "symbol"
-    }
-    part.num_units = len(units)
-
     # Get pins and assign them to each unit as well as the entire part.
+    # Also assign any graphic objects to each unit.
     unit_nums = []  # Stores unit numbers for units with pins.
     for unit_name, unit_data in units.items():
-        # Extract the part name, unit number, and conversion flag.
-        unit_name_pieces = unit_name.split("_")  # unit name follows 'symbol'
-        symbol_name = "_".join(unit_name_pieces[:-2])
-        assert symbol_name == part.name
-        unit_num = int(unit_name_pieces[-2])
-        conversion_flag = int(unit_name_pieces[-1])
+        # Extract the major and minor unit numbers from the last two numbers in the name.
+        # A major number of 0 means the unit contains global stuff for all the other units,
+        # but it isn't an actual usable unit itself. A non-global unit with a minor number
+        # greater than 1 indicates a DeMorgan-equivalent unit.
+        major, minor = [int(n) for n in unit_name.split("_")[-2:]]
 
-        # Don't add this unit to the part if the conversion flag is 0.
-        if not conversion_flag:
+        # Skip DeMorgan equivalent units.
+        if major != 0 and minor > 1:
             continue
+
+        # Store any drawing objects for this unit.
+        drw_cmd_lst = [item for item in unit_data if item[0].value().lower() in ("arc", "bezier", "circle", "pin", "polyline", "rectangle", "text")]
+        draw_cmds[major].extend(drw_cmd_lst)
 
         # Get the pins for this unit.
         unit_pins = [item for item in unit_data if item[0].value().lower() == "pin"]
 
         # Save unit number if the unit has pins. Use this to create units
         # after the entire part is created.
-        if unit_pins:
-            unit_nums.append(unit_num)
+        if unit_pins and major != 0:
+            unit_nums.append(major)
 
         # Process the pins for the current unit.
         for pin in unit_pins:
+
             # Pin electrical type immediately follows the "pin" tag.
             pin_func = pin_io_type_translation[pin[1].value().lower()]
 
-            # Find the pin name and number starting somewhere after the pin function and shape.
+            # Find the pin name, number, and X/Y position.
             pin_name = ""
             pin_number = None
-            for item in pin[3:]:
+            for item in pin:
                 item = to_list(item)
-                if item[0].value().lower() == "name":
+                token_name = item[0].value().lower()
+                if token_name == "name":
                     pin_name = item[1]
-                elif item[0].value().lower() == "number":
+                elif token_name == "number":
                     pin_number = item[1]
+                elif token_name == "at":
+                    pin_x, pin_y, pin_angle = item[1:4]
+                    pin_x = round(pin_x * mils_per_mm)
+                    pin_y = round(pin_y * mils_per_mm)
+                    pin_angle = {0:"R", 90:"D", 180:"L", 270:"U"}[pin_angle]
 
             # Add the pins that were found to the total part. Include the unit identifier
             # in the pin so we can find it later when the part unit is created.
             part.add_pins(
-                Pin(name=pin_name, num=pin_number, func=pin_func, unit=unit_num)
+                Pin(name=pin_name, num=pin_number, func=pin_func, unit=major, x=pin_x, y=pin_y, orientation=pin_angle)
             )
+
+    # Copy drawing objects from the global unit to all the other units.
+    for unit_major, unit_cmds in draw_cmds.items():
+        if unit_major != 0:
+            # Update non-global units with the global unit drawing commands.
+            unit_cmds.extend(draw_cmds.get(0, []))
 
     # Clear the part reference field directly. Don't use the setter function
     # since it will try to generate and assign a unique part reference if
@@ -337,10 +347,13 @@ def parse_lib_part(part, partial_parse):
     part.associate_pins()
 
     # Create the units now that all the part pins have been added.
-    if len(unit_nums) > 1:
-        for unit_num in unit_nums:
-            unit_label = "u" + num_to_chars(unit_num)
-            part.make_unit(unit_label, unit=unit_num)
+    # When a part is not divied into subunits, then the entire part is considered a unit of itself.
+    for unit_num in unit_nums:
+        unit_label = "u" + num_to_chars(unit_num)
+        part.make_unit(unit_label, unit=unit_num)
+        # Store drawing commands and and property fields in part unit for use in calculating its bounding box.
+        part.draw[unit_label] = draw_cmds[unit_num]
+        part.draw[unit_label].extend(properties)
 
     # Part definition has been parsed, so clear it out. This prevents a
     # part from being parsed more than once.

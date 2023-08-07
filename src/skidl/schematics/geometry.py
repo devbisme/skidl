@@ -9,7 +9,7 @@ from __future__ import (  # isort:skip
 )
 
 
-import math
+from math import sqrt, sin, cos, pi
 from copy import copy
 
 from future import standard_library
@@ -17,6 +17,8 @@ from future import standard_library
 from ..utilities import export_to_all
 
 __all__ = [
+    "mms_per_mil",
+    "mils_per_mm",
     "Vector",
     "tx_rot_0",
     "tx_rot_90",
@@ -32,6 +34,20 @@ Stuff for handling geometry:
     bounding boxes,
     line segments.
 """
+
+# Millimeters/thousandths-of-inch conversion factor.
+mils_per_mm = 39.37008
+mms_per_mil = 0.0254
+
+@export_to_all
+def to_mils(mm):
+    """Convert millimeters to thousandths-of-inch and return."""
+    return mm * mils_per_mm
+
+@export_to_all
+def to_mms(mils):
+    """Convert thousandths-of-inch to millimeters and return."""
+    return mils * mms_per_mil
 
 
 @export_to_all
@@ -115,6 +131,11 @@ class Tx:
     def rot_90cw(self):
         """Return Tx with 90-deg clock-wise rotation around (0, 0)."""
         return self * Tx(a=0, b=1, c=-1, d=0)
+    
+    def rot(self, angle):
+        """Return Tx rotated by the given angle (in degrees)."""
+        angle *= pi / 180  # Convert degrees to radians.
+        return self * Tx(a=cos(angle), b=sin(angle), c=-sin(angle), d=cos(angle))
 
     def flip_x(self):
         """Return Tx with X coords flipped around (0, 0)."""
@@ -222,7 +243,7 @@ class Point:
     @property
     def magnitude(self):
         """Get the distance of the point from the origin."""
-        return math.sqrt(self.x**2 + self.y**2)
+        return sqrt(self.x**2 + self.y**2)
 
     @property
     def norm(self):
