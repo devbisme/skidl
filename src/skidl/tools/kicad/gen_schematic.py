@@ -25,8 +25,6 @@ from skidl.schematics.net_terminal import NetTerminal
 from skidl.utilities import export_to_all
 from .constants import BLK_INT_PAD, BOX_LABEL_FONT_SIZE, GRID, PIN_LABEL_FONT_SIZE
 from .bboxes import calc_symbol_bbox, calc_hier_label_bbox
-from skidl.schematics.place import PlacementFailure
-from skidl.schematics.route import RoutingFailure
 from skidl.utilities import rmv_attr
 
 standard_library.install_aliases()
@@ -713,6 +711,8 @@ def gen_schematic(
     """
 
     from skidl import KICAD
+    from skidl.schematics.place import PlacementFailure
+    from skidl.schematics.route import RoutingFailure
     from skidl.tools import tool_modules
     from skidl.schematics.node import Node
 

@@ -67,6 +67,7 @@ from .skidl import (
     lib_search_paths,
     no_files,
     reset,
+    get_default_tool,
     set_default_tool,
 )
 from .utilities import Rgx

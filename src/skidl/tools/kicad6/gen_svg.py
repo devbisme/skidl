@@ -221,7 +221,7 @@ def symbol_to_svg(symbol):
             class_ = "part_name_text"
             extra = 's:attribute="value"'
         elif "hide" not in shape["effects"]["misc"]:
-            raise RuntimeError(f"Unknown property {symbol[1]} is not hidden")
+            raise RuntimeError("Unknown property {symbol[1]} is not hidden.".format(**locals()))
         x = shape["at"][0]
         y = -shape["at"][1]
         rotation = shape["at"][2]
@@ -300,7 +300,7 @@ def symbol_to_svg(symbol):
         rotation=shape["at"][2]
         length=shape["length"]
         start, end, side = get_pin_info(x,y,rotation,length)
-        points_str = f"{start[0]}, {start[1]}, {end[0]}, {end[1]}"
+        points_str = "{start[0]}, {start[1]}, {end[0]}, {end[1]}".format(**locals())
         name = shape["name"]["misc"]
         number = shape["number"]["misc"]
         stroke= shape["stroke"]["type"]
@@ -377,7 +377,7 @@ def symbol_to_svg(symbol):
             shape_bbox.add(Point(rect_start_x+rect_width, rect_start_y+rect_height))
 
     else:
-        raise RuntimeError(f"Unrecognized shape type: {shape_type}")
+        raise RuntimeError("Unrecognized shape type: {shape_type}".format(**locals()))
     #print(shape_svg)
     return shape_svg, shape_bbox
 

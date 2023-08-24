@@ -771,13 +771,19 @@ class Part(SkidlBaseObject):
 
     def __getattr__(self, attr):
         """Normal attribute wasn't found, so check pin aliases."""
+        from skidl.netpinlist import NetPinList
 
         # Look for the attribute name in the list of pin aliases.
         pins = [pin for pin in self if pin.aliases == attr]
 
         if pins:
-            # Return the pin/pins if one or more alias matches were found.
-            return list_or_scalar(pins)
+            if len(pins) == 1:
+                # Return a single pin if only one alias match was found.
+                return pins[0]
+            else:
+                # Return list of pins if multiple matches were found.
+                # Return a NetPinList instead of a vanilla list so += operator works!
+                return NetPinList(pins)
 
         # No pin aliases matched, so use the __getattr__ for the subclass.
         # Don't use super(). It leads to long runtimes under Python 2.7.

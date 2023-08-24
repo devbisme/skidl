@@ -85,6 +85,11 @@ POWER = Pin.drives.POWER
 
 
 @export_to_all
+def get_default_tool():
+    """Get the ECAD tool that will be used by default."""
+    return config.tool
+
+@export_to_all
 def set_default_tool(tool):
     """Set the ECAD tool that will be used by default."""
     config.tool = tool
