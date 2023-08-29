@@ -48,6 +48,16 @@ except ImportError:
 lib_suffix = [".lib", ".spice"]
 
 
+@export_to_all
+def default_lib_paths():
+    """Return default list of directories to search for part libraries."""
+
+    # Start search for part libraries in the current directory.
+    paths = ["."]
+
+    return paths
+
+
 def _gather_statement(file):
     """Return list of words in a complete statement read from a SPICE file."""
 

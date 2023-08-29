@@ -14,8 +14,10 @@ from __future__ import (  # isort:skip
 )
 
 from builtins import str
+import os.path
 
 from future import standard_library
+
 
 from skidl.utilities import export_to_all
 
@@ -27,6 +29,19 @@ standard_library.install_aliases()
 lib_suffix = "_sklib.py"
 
 __all__ = ["lib_suffix"]
+
+
+@export_to_all
+def default_lib_paths():
+    """Return default list of directories to search for part libraries."""
+
+    # Start search for part libraries in the current directory.
+    paths = ["."]
+
+    # Add the location of the default SKiDL part libraries.
+    paths.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "libs"))
+
+    return paths
 
 
 @export_to_all

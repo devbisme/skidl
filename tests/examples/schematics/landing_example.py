@@ -1,14 +1,16 @@
 from skidl import *
 
-# def my_empty_footprint_handler(part):
-#     part.fields["footprint"] = ":"
-#     # part.footprint = ":"
+set_default_tool(KICAD6)
 
-# import skidl
-# skidl.empty_footprint_handler = my_empty_footprint_handler
+def my_empty_footprint_handler(part):
+    part.fields["footprint"] = ":"
+    part.footprint = ":"
+
+import skidl
+skidl.empty_footprint_handler = my_empty_footprint_handler
 
 # Create part templates.
-q = PartTmplt(lib="Device.lib", name="Q_PNP_CBE", symtx="V")
+q = PartTmplt(lib="Device", name="Q_PNP_CBE", symtx="V")
 r = PartTmplt("Device", "R")
 
 # Create nets.

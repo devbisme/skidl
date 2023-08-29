@@ -13,7 +13,8 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-import os.path
+import os
+# import os.path
 from builtins import int
 from collections import defaultdict, OrderedDict
 
@@ -21,6 +22,7 @@ import sexpdata
 
 from future import standard_library
 
+from skidl.logger import active_logger
 from skidl.part import LIBRARY
 from skidl.schematics.geometry import mils_per_mm
 from skidl.utilities import export_to_all, find_and_open_file, num_to_chars, to_list
@@ -31,6 +33,24 @@ __all__ = ["lib_suffix"]
 
 
 lib_suffix = [".kicad_sym"]
+
+
+@export_to_all
+def default_lib_paths():
+    """Return default list of directories to search for part libraries."""
+
+    # Start search for part libraries in the current directory.
+    paths = ["."]
+
+    # Add the location of the default KiCad part libraries.
+    try:
+        paths.append(os.environ["KICAD7_SYMBOL_DIR"])
+    except KeyError:
+        active_logger.warning(
+            "KICAD7_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
+        )
+
+    return paths
 
 
 @export_to_all

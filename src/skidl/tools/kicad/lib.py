@@ -13,7 +13,8 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-import os.path
+import os
+# import os.path
 from builtins import range
 import os
 import re
@@ -32,6 +33,24 @@ __all__ = ["lib_suffix"]
 
 
 lib_suffix = [".lib"]
+
+
+@export_to_all
+def default_lib_paths():
+    """Return default list of directories to search for part libraries."""
+
+    # Start search for part libraries in the current directory.
+    paths = ["."]
+
+    # Add the location of the default KiCad part libraries.
+    try:
+        paths.append(os.environ["KICAD_SYMBOL_DIR"])
+    except KeyError:
+        active_logger.warning(
+            "KICAD_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
+        )
+
+    return paths
 
 
 @export_to_all

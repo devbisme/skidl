@@ -45,7 +45,7 @@ except ImportError:
 
 else:
     from skidl import SKIDL, SPICE
-    from .libs.pyspice_sklib import *
+    from .tools.skidl.libs.pyspice_sklib import *
 
     _splib = SchLib("pyspice", tool=SKIDL)  # Read-in the SPICE part library.
 

@@ -23,7 +23,7 @@ from future import standard_library
 from .logger import active_logger
 from .part_query import footprint_cache
 from .scriptinfo import get_script_name
-from .tools import ALL_TOOLS, lib_suffixes
+from .tools import ALL_TOOLS, lib_suffixes, tool_modules
 from .tools.kicad import get_kicad_lib_tbl_dir
 from .utilities import TriggerDict, export_to_all, merge_dicts
 
@@ -97,25 +97,9 @@ class SkidlConfig(Config):
         if "tool" not in self:
             self.tool = KICAD
 
-        # If no configuration files were found, set some default lib search paths.
+        # If no configuration files were found, set some default part lib search paths.
         if "lib_search_paths" not in self:
-
-            # No lib search paths, so start with the current directory for all tools.
-            self["lib_search_paths"] = {tool: ["."] for tool in ALL_TOOLS}
-
-            # Add the location of the default KiCad part libraries.
-            try:
-                self["lib_search_paths"][KICAD].append(os.environ["KICAD_SYMBOL_DIR"])
-            except KeyError:
-                active_logger.warning(
-                    "KICAD_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
-                )
-
-            # Add the location of the default SKiDL part libraries.
-            default_skidl_libs = os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), "libs"
-            )
-            self["lib_search_paths"][SKIDL].append(default_skidl_libs)
+            self["lib_search_paths"] = {tool: tool_modules[tool].default_lib_paths() for tool in ALL_TOOLS}
 
         # If no configuration files were found, set base name of default backup part library.
         if "backup_lib_name" not in self:
