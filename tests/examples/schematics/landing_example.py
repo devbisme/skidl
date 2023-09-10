@@ -31,4 +31,5 @@ q1["C"] & r3 & gnd
 vcc += q1["E"], q2["E"], vcct
 gnd += gndt
 
-generate_schematic(draw=True, fanout_attenuation=True)
+generate_svg()
+# generate_schematic(draw=True, fanout_attenuation=True)

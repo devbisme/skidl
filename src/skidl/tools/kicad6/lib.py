@@ -367,7 +367,7 @@ def parse_lib_part(part, partial_parse):
     part.associate_pins()
 
     # Create the units now that all the part pins have been added.
-    # When a part is not divied into subunits, then the entire part is considered a unit of itself.
+    # When a part is not divided into subunits, then the entire part is considered a unit of itself.
     for unit_num in unit_nums:
         unit_label = "u" + num_to_chars(unit_num)
         part.make_unit(unit_label, unit=unit_num)

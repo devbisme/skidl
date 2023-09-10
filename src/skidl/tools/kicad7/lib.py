@@ -84,11 +84,11 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         lib_section: Only used for SPICE simulations.
     """
 
-    from skidl import Part, KICAD6
+    from skidl import Part, KICAD7
     from skidl.tools import lib_suffixes
 
     # Try to open the file using allowable suffixes for the versions of KiCAD.
-    suffixes = lib_suffixes[KICAD6]
+    suffixes = lib_suffixes[KICAD7]
     base, suffix = os.path.splitext(filename)
     if suffix:
         # If an explicit file extension was given, use it instead of tool lib default extensions.
@@ -173,7 +173,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         lib.add_parts(
             Part(
                 part_defn=part_defn,
-                tool=KICAD6,
+                tool=KICAD7,
                 dest=LIBRARY,
                 filename=filename,
                 name=part_name,
