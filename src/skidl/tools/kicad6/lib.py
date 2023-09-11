@@ -290,6 +290,7 @@ def parse_lib_part(part, partial_parse):
         "bidirectional": Pin.types.BIDIR,
         "tri_state": Pin.types.TRISTATE,
         "passive": Pin.types.PASSIVE,
+        "free": Pin.types.FREE,
         "unspecified": Pin.types.UNSPEC,
         "power_in": Pin.types.PWRIN,
         "power_out": Pin.types.PWROUT,

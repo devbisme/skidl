@@ -240,8 +240,8 @@ def test_all_pin_funcs_1():
             r[2].func = f2
             r[1] += r[2]
     ERC()
-    assert erc_logger.warning.count == 109  # 35 from pin conflicts.
-    assert erc_logger.error.count == 43  # 43 from pin conflicts.
+    assert erc_logger.warning.count == 124
+    assert erc_logger.error.count == 45
 
 
 def test_assert_1():

@@ -75,6 +75,7 @@ class Pin(SkidlBaseObject):
             "PULLUP",
             "PULLDN",
             "NOCONNECT",
+            "FREE",
         ),
     )
 
@@ -206,6 +207,13 @@ class Pin(SkidlBaseObject):
             "func_str": "NOCONNECT",
             "drive": drives.NOCONNECT,
             "max_rcv": drives.NOCONNECT,
+            "min_rcv": drives.NOCONNECT,
+        },
+        types.FREE: {
+            "function": "FREE",
+            "func_str": "FREE",
+            "drive": drives.NONE,
+            "max_rcv": drives.POWER,
             "min_rcv": drives.NOCONNECT,
         },
     }
@@ -768,12 +776,13 @@ conflict_matrix[Pin.types.PWROUT][Pin.types.TRISTATE] = [ERROR, ""]
 conflict_matrix[Pin.types.PWROUT][Pin.types.UNSPEC] = [WARNING, ""]
 conflict_matrix[Pin.types.PWROUT][Pin.types.PWROUT] = [ERROR, ""]
 conflict_matrix[Pin.types.OPENCOLL][Pin.types.OUTPUT] = [ERROR, ""]
+conflict_matrix[Pin.types.OPENCOLL][Pin.types.BIDIR] = [WARNING, ""]
 conflict_matrix[Pin.types.OPENCOLL][Pin.types.TRISTATE] = [ERROR, ""]
 conflict_matrix[Pin.types.OPENCOLL][Pin.types.UNSPEC] = [WARNING, ""]
 conflict_matrix[Pin.types.OPENCOLL][Pin.types.PWROUT] = [ERROR, ""]
 conflict_matrix[Pin.types.OPENEMIT][Pin.types.OUTPUT] = [ERROR, ""]
 conflict_matrix[Pin.types.OPENEMIT][Pin.types.BIDIR] = [WARNING, ""]
-conflict_matrix[Pin.types.OPENEMIT][Pin.types.TRISTATE] = [WARNING, ""]
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.TRISTATE] = [ERROR, ""]
 conflict_matrix[Pin.types.OPENEMIT][Pin.types.UNSPEC] = [WARNING, ""]
 conflict_matrix[Pin.types.OPENEMIT][Pin.types.PWROUT] = [ERROR, ""]
 conflict_matrix[Pin.types.NOCONNECT][Pin.types.INPUT] = [ERROR, ""]
