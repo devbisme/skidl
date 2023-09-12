@@ -71,6 +71,6 @@ from .skidl import (
     set_default_tool,
 )
 from .utilities import Rgx
-import skidl.scripts # Necessary to get access to netlist_to_skidl_main.
+from . import scripts # Necessary to get access to netlist_to_skidl_main.
 
 standard_library.install_aliases()
