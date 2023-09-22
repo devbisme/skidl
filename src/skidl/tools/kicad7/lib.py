@@ -19,9 +19,10 @@ from builtins import int
 from collections import defaultdict, OrderedDict
 
 import sexpdata
+import inspect
 
 from future import standard_library
-
+from skidl import Pin
 from skidl.logger import active_logger
 from skidl.part import LIBRARY
 from skidl.schematics.geometry import mils_per_mm
@@ -44,7 +45,10 @@ def default_lib_paths():
 
     # Add the location of the default KiCad part libraries.
     try:
-        paths.append(os.environ["KICAD7_SYMBOL_DIR"])
+        kicad_symbol_dir = os.environ["KICAD7_SYMBOL_DIR"]
+        paths.append(kicad_symbol_dir)
+        active_logger.warning( f"KICAD7_SYMBOL_DIR found as {kicad_symbol_dir}" ) 
+        
     except KeyError:
         active_logger.warning(
             "KICAD7_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
@@ -116,7 +120,6 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
 
     # Convert S-expression library into a list of symbols.
     lib_list = sexpdata.loads(lib_txt)
-
     # Skip over the 'kicad_symbol_lib' label and extract symbols into a dictionary with
     # symbol names as keys. Use an ordered dictionary to keep parts in the same order as
     # they appeared in the library file because in KiCad V6 library symbols can "extend"
@@ -132,7 +135,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
     # Create Part objects for each symbol in the library.
     for part_name, part_defn in symbols.items():
         properties = {}
-
+        pins = {}
         # See if this symbol extends a previous parent symbol.
         for item in part_defn:
             if item[0].value().lower() == "extends":
@@ -151,15 +154,17 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
                     properties["ki_description"] = parent_part.description
                     properties["datasheet"] = parent_part.datasheet
 
-        # Get symbol properties, primarily to get the reference id.
-        properties.update(
-            {
-                item[1].lower(): item[2]
-                for item in part_defn
-                if item[0].value().lower() == "property"
-            }
-        )
-
+            # Get symbol properties, primarily to get the reference id.
+            properties.update(
+                {
+                    item[1].lower(): item[2]
+                    for item in part_defn
+                    if item[0].value().lower() == "property"
+                }
+            )
+            pins.update({ item[6][1] : item[5][1] for item in part_defn if item[0].value().lower() == 'pin'})
+            
+        
         # Get part properties.
         keywords = properties.get("ki_keywords", "")
         datasheet = properties.get("datasheet", "")
@@ -170,8 +175,16 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         search_text = "\n".join([filename, part_name, description, keywords])
 
         # Create a Part object and add it to the library object.
-        lib.add_parts(
-            Part(
+        # avoid overwriting other properties already set by the part inst
+        keys_to_avoid = [key for key,param in inspect.signature(Part).parameters.items() ]
+        keys_to_avoid.append("keywords")
+        keys_to_avoid.append("datasheet")
+        keys_to_avoid.append("description")
+
+        filtered_dict = {k.replace(' ', '_').replace('/','_'):v for k,v in properties.items() if k not in keys_to_avoid}
+        
+        print(f"{keys_to_avoid}, do not use these. Use these {filtered_dict}")
+        part = Part(
                 part_defn=part_defn,
                 tool=KICAD7,
                 dest=LIBRARY,
@@ -182,7 +195,19 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
                 datasheet=datasheet,
                 description=description,
                 search_text=search_text,
+                **filtered_dict,
             )
+        # Add pins to part
+        pin_lst = []
+        for pnumber,pname in pins.items():
+            print(f"name {pname}, number {pnumber}")
+            pin = Pin(name=pname,num=pnumber,func=Pin.TRISTATE)
+            pin_lst.append(pin)
+        part.add_pins(pin_lst)
+        
+        # Add part to lib
+        lib.add_parts(
+            part
         )
 
 
