@@ -11,6 +11,7 @@ import skidl
 from skidl import (
     KICAD,
     KICAD6,
+    KICAD7,
     SKIDL,
     TEMPLATE,
     Part,
@@ -21,8 +22,8 @@ from skidl import (
     lib_search_paths,
     set_default_tool,
 )
-from skidl.tools import ALL_TOOLS
-from skidl.utilities import find_and_read_file
+from skidl.tools import ALL_TOOLS, lib_suffixes
+from skidl.utilities import to_list, find_and_read_file
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -140,24 +141,37 @@ def test_part_from_non_existing_lib_cannot_be_instantiated():
             part = Part("non-existing", "P", tool=tool)
 
 
+def check_lib_part(part):
+    part.parse()  # Parse lib part to fully instantiate pins, etc.
+    pins = to_list(part.get_pins())
+    if not pins:
+        raise Exception("Part {} has no pins!".format(part.name))
+    unit_pins = []
+    for unit in part.unit.values():
+        unit_pins.extend(unit.get_pins())
+    if part.unit and len(unit_pins) != len(pins):
+        raise Exception("Part {} with {} pins in {} units doesn't match {} total part pins!".format(part.name, len(unit_pins), len(part.unit), len(pins)))
+
 def test_lib_kicad_v5():
     SchLib.reset()
-    lib_name = "Device.lib"
+    lib_name = "Device"
     lib_v5 = SchLib(lib_name)
     v5_part_names = [part.name for part in lib_v5.parts]
-    lines = find_and_read_file(lib_name, paths=lib_search_paths[KICAD])[0].split("\n")
+    lines = find_and_read_file(lib_name, ext=lib_suffixes[KICAD], paths=lib_search_paths[KICAD])[0].split("\n")
     part_cnt = len([l for l in lines if l.startswith("ENDDEF")])
     print("# of parts in {} = {}".format(lib_name, part_cnt))
     assert part_cnt == len(v5_part_names)
     assert part_cnt == 502
+    for part in lib_v5.parts:
+        check_lib_part(part)
 
 
 def test_lib_kicad_v6_1():
     SchLib.reset()
-    lib_name = "Device.kicad_sym"
+    lib_name = "Device"
     lib_v6 = SchLib(lib_name, tool=KICAD6)
     v6_part_names = [part.name for part in lib_v6.parts]
-    sexp, _ = find_and_read_file(lib_name, paths=lib_search_paths[KICAD6])
+    sexp, _ = find_and_read_file(lib_name, ext=lib_suffixes[KICAD7], paths=lib_search_paths[KICAD6])
     nested_list = sexpdata.loads(sexp)
     parts = {
         item[1]: item[2:]
@@ -168,14 +182,16 @@ def test_lib_kicad_v6_1():
     assert len(parts.keys()) == len(v6_part_names)
     for name in parts.keys():
         part = lib_v6[name]
+    for part in lib_v6.parts:
+        check_lib_part(part)
 
 
 def test_lib_kicad_v6_2():
     SchLib.reset()
-    lib_name = "4xxx.kicad_sym"
+    lib_name = "4xxx"
     lib_v6 = SchLib(lib_name, tool=KICAD6)
     v6_part_names = [part.name for part in lib_v6.parts]
-    sexp, _ = find_and_read_file(lib_name, paths=lib_search_paths[KICAD6])
+    sexp, _ = find_and_read_file(lib_name, ext=lib_suffixes[KICAD6], paths=lib_search_paths[KICAD6])
     nested_list = sexpdata.loads(sexp)
     parts = {
         item[1]: item[2:]
@@ -186,21 +202,67 @@ def test_lib_kicad_v6_2():
     assert len(parts.keys()) == len(v6_part_names)
     for name in parts.keys():
         part = lib_v6[name]
+    for part in lib_v6.parts:
+        check_lib_part(part)
+
+
+def test_lib_kicad_v7_1():
+    SchLib.reset()
+    lib_name = "Device"
+    lib_v7 = SchLib(lib_name, tool=KICAD7)
+    v7_part_names = [part.name for part in lib_v7.parts]
+    sexp, _ = find_and_read_file(lib_name, ext=lib_suffixes[KICAD7], paths=lib_search_paths[KICAD7])
+    nested_list = sexpdata.loads(sexp)
+    parts = {
+        item[1]: item[2:]
+        for item in nested_list[1:]
+        if item[0].value().lower() == "symbol"
+    }
+    print("# of parts in {} = {}".format(lib_name, len(lib_v7.parts)))
+    assert len(parts.keys()) == len(v7_part_names)
+    for name in parts.keys():
+        part = lib_v7[name]
+    for part in lib_v7.parts:
+        check_lib_part(part)
+
+
+def test_lib_kicad_v7_2():
+    SchLib.reset()
+    lib_name = "4xxx"
+    lib_v7 = SchLib(lib_name, tool=KICAD7)
+    v7_part_names = [part.name for part in lib_v7.parts]
+    sexp, _ = find_and_read_file(lib_name, ext=lib_suffixes[KICAD7], paths=lib_search_paths[KICAD7])
+    nested_list = sexpdata.loads(sexp)
+    parts = {
+        item[1]: item[2:]
+        for item in nested_list[1:]
+        if item[0].value().lower() == "symbol"
+    }
+    print("# of parts in {} = {}".format(lib_name, len(lib_v7.parts)))
+    assert len(parts.keys()) == len(v7_part_names)
+    for name in parts.keys():
+        part = lib_v7[name]
+    for part in lib_v7.parts:
+        check_lib_part(part)
 
 
 def test_lib_kicad5_repository():
     SchLib.reset()
-    lib_name = "4xxx.lib"
+    lib_name = "4xxx"
     repo_url = "https://raw.githubusercontent.com/KiCad/kicad-symbols/master/"
     lib_search_paths[KICAD] = [repo_url]
     lib_4xxx = SchLib(lib_name, tool=KICAD)
     print("# of parts in {} = {}".format(lib_name, len(lib_4xxx.parts)))
+    for part in lib_4xxx.parts:
+        check_lib_part(part)
 
 
 def test_lib_kicad6_repository():
     SchLib.reset()
-    lib_name = "4xxx.kicad_sym"
+    lib_name = "4xxx"
     repo_url = "https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master"
     lib_search_paths[KICAD6] = [repo_url]
     lib_4xxx = SchLib(lib_name, tool=KICAD6)
     print("# of parts in {} = {}".format(lib_name, len(lib_4xxx.parts)))
+    for part in lib_4xxx.parts:
+        check_lib_part(part)
