@@ -151,6 +151,8 @@ def check_lib_part(part):
         unit_pins.extend(unit.get_pins())
     if part.unit and len(unit_pins) != len(pins):
         raise Exception("Part {} with {} pins in {} units doesn't match {} total part pins!".format(part.name, len(unit_pins), len(part.unit), len(pins)))
+    if len(part.pins) == 0:
+        raise Exception(f"Part {part.name} has no pins: {part.pins}")
 
 def test_lib_kicad_v5():
     SchLib.reset()
@@ -245,6 +247,24 @@ def test_lib_kicad_v7_2():
     for part in lib_v7.parts:
         check_lib_part(part)
 
+def test_lib_kicad_ecad_v7_2():
+    SchLib.reset()
+    lib_name = "ecad_example"
+    lib_v7 = SchLib(lib_name, tool=KICAD7)
+    v7_part_names = [part.name for part in lib_v7.parts]
+    sexp, _ = find_and_read_file(lib_name, ext=lib_suffixes[KICAD7], paths=lib_search_paths[KICAD7])
+    nested_list = sexpdata.loads(sexp)
+    parts = {
+        item[1]: item[2:]
+        for item in nested_list[1:]
+        if item[0].value().lower() == "symbol"
+    }
+    print("# of parts in {} = {}".format(lib_name, len(lib_v7.parts)))
+    assert len(parts.keys()) == len(v7_part_names)
+    for name in parts.keys():
+        part = lib_v7[name]
+    for part in lib_v7.parts:
+        check_lib_part(part)
 
 def test_lib_kicad5_repository():
     SchLib.reset()
