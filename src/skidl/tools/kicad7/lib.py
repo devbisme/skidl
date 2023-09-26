@@ -217,6 +217,15 @@ def parse_lib_part(part, partial_parse):
     part.draw = {} # Drawing commands for the part units.
     draw_cmds = defaultdict(list) # Drawing commands for symbol units, including pins.
 
+    property_keys = (
+                "part_defn",
+                "name",
+                "aliases",
+                "description",
+                "datasheet",
+                "keywords",
+                "search_text",
+            )
     for item in part.part_defn:
         if item[0].value().lower() == "extends":
             # Populate this part (child) from another part (parent) it is extended from.
@@ -226,15 +235,7 @@ def parse_lib_part(part, partial_parse):
 
             # Remove parent attributes that we don't want to overwrite in the child.
             parent_part_dict = parent_part.__dict__
-            for key in (
-                "part_defn",
-                "name",
-                "aliases",
-                "description",
-                "datasheet",
-                "keywords",
-                "search_text",
-            ):
+            for key in property_keys:
                 try:
                     del parent_part_dict[key]
                 except KeyError:
@@ -266,14 +267,6 @@ def parse_lib_part(part, partial_parse):
                     pass
 
             break
-
-    # Populate part fields from symbol properties. Properties will also be included below in drawing commands.
-    properties = [item[1:] for item in part.part_defn if item[0].value().lower() == "property"]
-    fields = {prop[0].lower(): prop[1] for prop in properties}
-    part.ref_prefix = fields["reference"]
-    part.value = fields["value"]
-    part.fplist.append(fields["footprint"])
-    part.datasheet = fields["datasheet"]
 
     # Find all the units within a symbol. Skip the first item which is the
     # 'symbol' marking the start of the entire part definition.
@@ -364,8 +357,35 @@ def parse_lib_part(part, partial_parse):
     # passed a value of None.
     part._ref = None
 
+    # check if the units attribute space is empty, ecad parts sometimes do not format parts in
+    # the kicad parts annotation space, for now just add the pins to the part
+    if not units:
+        print(f"ECAD DETECTED!!!!!")
+        pins = { item[6][1] : item[5][1] for item in part.part_defn if item[0].value().lower() == 'pin'}
+        pin_lst = []
+        for pnumber,pname in pins.items():
+            print(f"name {pname}, number {pnumber}")
+            pin = Pin(name=pname,num=pnumber,func=Pin.TRISTATE)
+            pin_lst.append(pin)
+        part.add_pins(pin_lst)
+
     # Make sure all the pins have a valid reference to this part.
     part.associate_pins()
+
+    # Populate part fields from symbol properties. Properties will also be included below in drawing commands.
+    properties = [item[1:] for item in part.part_defn if item[0].value().lower() == "property"]
+    fields = {prop[0].lower(): prop[1] for prop in properties}
+    part.ref_prefix = fields["reference"]
+    part.value = fields["value"]
+    part.fplist.append(fields["footprint"])
+    part.datasheet = fields["datasheet"]
+
+    # Construct the rest of the part attribute space, avoid keys that are already defined
+    keys_to_avoid = vars(part).keys()
+
+    filtered_dict = {k.replace(' ', '_').replace('/','_'):v for k,v in fields.items() if k not in keys_to_avoid}
+    for k,v in filtered_dict.items():
+        setattr(part,k,v)
 
     # Create the units now that all the part pins have been added.
     # When a part is not divided into subunits, then the entire part is considered a unit of itself.
