@@ -357,8 +357,8 @@ def parse_lib_part(part, partial_parse):
     # passed a value of None.
     part._ref = None
 
-    # check if the units attribute space is empty, ecad parts sometimes do not format parts in
-    # the kicad parts annotation space, for now just add the pins to the part
+    # check if ```units``` is empty, ecad parts sometimes do not format parts in
+    # the same way as kicad does, for now just add the pins to the part
     if not units:
         pins = { item[6][1] : item[5][1] for item in part.part_defn if item[0].value().lower() == 'pin'}
         pin_lst = []
