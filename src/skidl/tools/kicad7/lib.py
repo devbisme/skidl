@@ -360,11 +360,9 @@ def parse_lib_part(part, partial_parse):
     # check if the units attribute space is empty, ecad parts sometimes do not format parts in
     # the kicad parts annotation space, for now just add the pins to the part
     if not units:
-        print(f"ECAD DETECTED!!!!!")
         pins = { item[6][1] : item[5][1] for item in part.part_defn if item[0].value().lower() == 'pin'}
         pin_lst = []
         for pnumber,pname in pins.items():
-            print(f"name {pname}, number {pnumber}")
             pin = Pin(name=pname,num=pnumber,func=Pin.TRISTATE)
             pin_lst.append(pin)
         part.add_pins(pin_lst)
