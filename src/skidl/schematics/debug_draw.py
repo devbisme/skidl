@@ -19,14 +19,17 @@ from enum import Enum
 from itertools import chain, zip_longest
 from random import choice, randint
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from skidl import Part
 from skidl.tools.kicad.constants import GRID
 from skidl.utilities import export_to_all
 from .geometry import BBox, Point, Segment, Tx, Vector
 
-standard_library.install_aliases()
 
 
 # Dictionary for storing colors to visually distinguish routed nets.

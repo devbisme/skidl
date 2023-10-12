@@ -20,14 +20,17 @@ import os
 import re
 from builtins import int, range, zip
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from skidl.logger import active_logger
 from skidl.part import LIBRARY
 from skidl.utilities import export_to_all, find_and_read_file, find_and_open_file, num_to_chars, rmv_quotes
 from .draw_objs import *
 
-standard_library.install_aliases()
 
 __all__ = ["lib_suffix"]
 

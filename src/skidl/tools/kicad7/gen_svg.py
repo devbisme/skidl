@@ -14,11 +14,14 @@ from __future__ import (  # isort:skip
 )
 
 from collections import namedtuple
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from skidl.utilities import export_to_all
 
-standard_library.install_aliases()
 
 def symbol_to_dict(symbol):
     """

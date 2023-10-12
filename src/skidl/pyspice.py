@@ -13,7 +13,11 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .bus import Bus
 from .group import subcircuit
@@ -31,7 +35,6 @@ from .skidl import (
 )
 from .tools.spice import Parameters, XspiceModel, node
 
-standard_library.install_aliases()
 
 # PySpice only works with Python 3, so don't set up SPICE simulation for Python 2.
 try:

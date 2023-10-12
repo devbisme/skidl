@@ -19,13 +19,16 @@ import queue
 import sys
 from builtins import object, super
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .scriptinfo import get_script_name, get_skidl_trace
 from .skidlbaseobj import WARNING
 from .utilities import export_to_all
 
-standard_library.install_aliases()
 
 __all__ = ["rt_logger", "erc_logger", "active_logger"]
 

@@ -14,14 +14,17 @@ import re
 from collections import defaultdict
 from itertools import chain
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from skidl.utilities import export_to_all, rmv_attr
 from .geometry import BBox, Point, Tx, Vector
 from .place import Placer
 from .route import Router
 
-standard_library.install_aliases()
 
 
 """

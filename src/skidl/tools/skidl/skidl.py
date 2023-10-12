@@ -16,12 +16,15 @@ from __future__ import (  # isort:skip
 from builtins import str
 import os.path
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 
 from skidl.utilities import export_to_all
 
-standard_library.install_aliases()
 
 
 # These aren't used here, but they are used in modules

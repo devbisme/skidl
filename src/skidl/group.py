@@ -17,11 +17,14 @@ import functools
 from builtins import str
 from collections import Counter
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .utilities import export_to_all
 
-standard_library.install_aliases()
 
 __all__ = ["subcircuit"]
 

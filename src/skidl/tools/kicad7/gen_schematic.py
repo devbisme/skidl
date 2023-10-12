@@ -17,7 +17,11 @@ import time
 from builtins import range, str
 from collections import Counter, OrderedDict
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from skidl.scriptinfo import get_script_name
 from skidl.schematics.geometry import BBox, Point, Tx, Vector
@@ -29,7 +33,6 @@ from skidl.schematics.place import PlacementFailure
 from skidl.schematics.route import RoutingFailure
 from skidl.utilities import rmv_attr
 
-standard_library.install_aliases()
 
 __all__ = []
 

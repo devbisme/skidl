@@ -16,11 +16,14 @@ from __future__ import (  # isort:skip
 import re
 from builtins import super
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .utilities import export_to_all, flatten
 
-standard_library.install_aliases()
 
 
 @export_to_all

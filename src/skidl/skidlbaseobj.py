@@ -18,13 +18,16 @@ from builtins import object, range, str, super
 from collections import namedtuple
 from copy import deepcopy
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .alias import Alias
 from .note import Note
 from .utilities import export_to_all
 
-standard_library.install_aliases()
 
 __all__ = ["OK", "WARNING", "ERROR"]
 

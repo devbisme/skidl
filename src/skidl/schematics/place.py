@@ -22,7 +22,11 @@ from builtins import range, zip
 from collections import Counter, defaultdict
 from copy import copy
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from skidl import Pin
 from skidl.utilities import export_to_all, rmv_attr, sgn
@@ -36,7 +40,6 @@ from .debug_draw import (
 )
 from .geometry import BBox, Point, Segment, Tx, Vector
 
-standard_library.install_aliases()
 
 __all__ = [
     "PlacementFailure",

@@ -12,7 +12,11 @@ from __future__ import (  # isort:skip
 import sys
 from builtins import open
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .circuit import Circuit
 from .common import builtins
@@ -21,7 +25,6 @@ from .part import default_empty_footprint_handler
 from .pin import Pin
 from .utilities import export_to_all
 
-standard_library.install_aliases()
 
 __all__ = [
     "config",

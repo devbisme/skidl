@@ -12,7 +12,10 @@ from __future__ import (  # isort:skip
 from math import sqrt, sin, cos, pi
 from copy import copy
 
-from future import standard_library
+try:
+    from future import standard_library
+except ImportError:
+    pass
 
 from ..utilities import export_to_all
 

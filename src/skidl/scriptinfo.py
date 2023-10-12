@@ -18,11 +18,14 @@ import sys
 import traceback
 from builtins import str
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .utilities import export_to_all
 
-standard_library.install_aliases()
 
 
 @export_to_all

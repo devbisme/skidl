@@ -15,7 +15,11 @@ from __future__ import (  # isort:skip
 
 from builtins import range, super
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .logger import active_logger
 from .net import Net
@@ -24,7 +28,6 @@ from .pin import Pin
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import expand_buses, export_to_all, flatten
 
-standard_library.install_aliases()
 
 
 @export_to_all

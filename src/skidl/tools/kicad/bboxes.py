@@ -18,7 +18,11 @@ import os
 from builtins import int, range, zip
 from collections import namedtuple
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from skidl.logger import active_logger
 from skidl.schematics.geometry import (
@@ -36,7 +40,6 @@ from .constants import HIER_TERM_SIZE, PIN_LABEL_FONT_SIZE
 from skidl.schematics.geometry import BBox, Point, Tx, Vector
 from .draw_objs import *
 
-standard_library.install_aliases()
 
 
 @export_to_all

@@ -17,14 +17,17 @@ from builtins import range, str
 from builtins import int, range, zip
 from collections import namedtuple
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from skidl.logger import active_logger
 from skidl.utilities import export_to_all
 from .draw_objs import *
 from skidl.schematics.geometry import BBox, Point
 
-standard_library.install_aliases()
 
 
 @export_to_all

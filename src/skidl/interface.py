@@ -15,7 +15,11 @@ from __future__ import (  # isort:skip
 
 from builtins import str, super
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .alias import Alias
 from .bus import Bus
@@ -34,7 +38,6 @@ from .utilities import (
     to_list,
 )
 
-standard_library.install_aliases()
 
 
 @export_to_all

@@ -16,13 +16,16 @@ from __future__ import (  # isort:skip
 import os.path
 import time
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from skidl.pckg_info import __version__
 from skidl.scriptinfo import scriptinfo
 from skidl.utilities import add_quotes, export_to_all
 
-standard_library.install_aliases()
 
 
 def gen_netlist_comp(part):

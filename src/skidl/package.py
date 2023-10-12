@@ -17,7 +17,12 @@ from builtins import super, zip
 from copy import copy
 
 from deprecation import deprecated
-from future import standard_library
+
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .bus import Bus
 from .group import subcircuit
@@ -27,7 +32,6 @@ from .part import NETLIST
 from .protonet import ProtoNet
 from .utilities import export_to_all
 
-standard_library.install_aliases()
 
 
 @export_to_all

@@ -23,7 +23,12 @@ from __future__ import (  # isort:skip
     print_function,
     unicode_literals,
 )
-from future import standard_library
+
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .alias import Alias
 from .bus import Bus
@@ -72,4 +77,3 @@ from .skidl import (
 from .utilities import Rgx
 from . import scripts # Necessary to get access to netlist_to_skidl_main.
 
-standard_library.install_aliases()

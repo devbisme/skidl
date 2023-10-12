@@ -15,7 +15,11 @@ from __future__ import (  # isort:skip
 
 from builtins import range
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .alias import Alias
 from .logger import active_logger
@@ -25,7 +29,6 @@ from .pin import Pin
 from .protonet import ProtoNet
 from .utilities import expand_buses, export_to_all, flatten, set_iadd
 
-standard_library.install_aliases()
 
 
 @export_to_all

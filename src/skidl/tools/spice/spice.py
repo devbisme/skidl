@@ -18,7 +18,11 @@ import re
 import sys
 from builtins import dict, int, object, range, str, zip
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from skidl import Alias, Net, LIBRARY, Part, Pin
 from skidl.logger import active_logger
@@ -29,7 +33,6 @@ from skidl.utilities import (
     find_and_read_file,
 )
 
-standard_library.install_aliases()
 
 __all__ = ["lib_suffix", "DeviceModel", "XspiceModel", "Parameters"]
 

@@ -19,7 +19,11 @@ from builtins import dict, int, object, range, str, super
 from copy import copy
 from random import randint
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .erc import dflt_part_erc
 from .logger import active_logger
@@ -39,7 +43,6 @@ from .utilities import (
     Rgx,
 )
 
-standard_library.install_aliases()
 
 __all__ = ["NETLIST", "LIBRARY", "TEMPLATE", "PartTmplt"]
 

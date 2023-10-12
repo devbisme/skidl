@@ -18,7 +18,11 @@ import json
 import os.path
 from builtins import open, super
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .logger import active_logger
 from .part_query import footprint_cache
@@ -27,7 +31,6 @@ from .tools import ALL_TOOLS, lib_suffixes, tool_modules
 from .tools.kicad import get_kicad_lib_tbl_dir
 from .utilities import TriggerDict, export_to_all, merge_dicts
 
-standard_library.install_aliases()
 
 
 @export_to_all

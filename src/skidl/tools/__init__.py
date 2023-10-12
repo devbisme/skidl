@@ -17,9 +17,12 @@ import os
 import os.path
 import sys
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
-standard_library.install_aliases()
 
 # List of all supported ECAD tools.
 ALL_TOOLS = []

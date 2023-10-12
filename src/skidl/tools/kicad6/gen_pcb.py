@@ -13,13 +13,16 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from skidl.scriptinfo import get_script_name
 from skidl.utilities import export_to_all
 from skidl.logger import active_logger
 
-standard_library.install_aliases()
 
 
 @export_to_all

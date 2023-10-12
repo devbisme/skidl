@@ -22,7 +22,12 @@ from builtins import range, str, super
 from collections import Counter, deque
 
 import graphviz
-from future import standard_library
+
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .bus import Bus
 from .common import builtins
@@ -45,7 +50,6 @@ from .utilities import (
     reset_get_unique_name,
 )
 
-standard_library.install_aliases()
 
 
 HIER_SEP = "."  # Separator for hierarchy labels.

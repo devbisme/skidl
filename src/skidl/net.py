@@ -18,7 +18,11 @@ import re
 from builtins import range, super
 from copy import copy, deepcopy
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .erc import dflt_net_erc
 from .logger import active_logger
@@ -36,7 +40,6 @@ from .utilities import (
     set_iadd,
 )
 
-standard_library.install_aliases()
 
 __all__ = ["NET_PREFIX"]
 

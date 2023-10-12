@@ -20,12 +20,15 @@ import shutil
 import sys
 from builtins import open
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from skidl.netlist_to_skidl import netlist_to_skidl
 from skidl.pckg_info import __version__
 
-standard_library.install_aliases()
 
 
 ###############################################################################

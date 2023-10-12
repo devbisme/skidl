@@ -21,14 +21,17 @@ from collections import defaultdict, OrderedDict
 
 import sexpdata
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from skidl.logger import active_logger
 from skidl.part import LIBRARY
 from skidl.schematics.geometry import mils_per_mm
 from skidl.utilities import export_to_all, find_and_open_file, num_to_chars, to_list
 
-standard_library.install_aliases()
 
 __all__ = ["lib_suffix"]
 

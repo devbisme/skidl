@@ -22,7 +22,11 @@ from copy import copy
 from enum import IntEnum
 from functools import total_ordering
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
 from .logger import active_logger
 from .skidlbaseobj import ERROR, OK, WARNING, SkidlBaseObject
@@ -38,7 +42,6 @@ from .utilities import (
     to_list,
 )
 
-standard_library.install_aliases()
 
 
 @export_to_all

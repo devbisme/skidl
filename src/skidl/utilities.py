@@ -13,9 +13,12 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-from future import standard_library
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 
-standard_library.install_aliases()
 
 import collections
 import os
