@@ -152,7 +152,7 @@ def check_lib_part(part):
     if part.unit and len(unit_pins) != len(pins):
         raise Exception("Part {} with {} pins in {} units doesn't match {} total part pins!".format(part.name, len(unit_pins), len(part.unit), len(pins)))
     if len(part.pins) == 0:
-        raise Exception(f"Part {part.name} has no pins: {part.pins}")
+        raise Exception("Part {part.name} has no pins: {part.pins}".format(**locals()))
 
 def test_lib_kicad_v5():
     SchLib.reset()

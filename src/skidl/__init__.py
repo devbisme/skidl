@@ -12,12 +12,11 @@ circuits. It provides classes for working with:
 * Groups of related nets (``Bus``).
 
 Using these classes, you can concisely describe the interconnection of
-parts using a flat or hierarchical structure.
-A resulting Python script outputs a netlist that can be
-imported into a PCB layout tool or Spice simulator.
-The script can also
-check the resulting circuitry for electrical rule violations.
+parts using a flat or hierarchical structure. The resulting Python script
+outputs a netlist that can be imported into a PCB layout tool or Spice simulator.
+The script can also check the resulting circuitry for electrical rule violations.
 """
+
 from __future__ import (  # isort:skip
     absolute_import,
     division,

@@ -14,6 +14,7 @@ from __future__ import (  # isort:skip
 )
 
 import os
+
 # import os.path
 from builtins import int
 from collections import defaultdict, OrderedDict
@@ -139,6 +140,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
                 # Get the properties from the parent symbol.
                 parent_part = lib[item[1]]
                 if parent_part.part_defn:
+                    # Properties are stored as lists: ["property", name, value].
                     properties.update(
                         {
                             item[1].lower(): item[2]
@@ -152,6 +154,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
                     properties["datasheet"] = parent_part.datasheet
 
         # Get symbol properties, primarily to get the reference id.
+        # Properties are stored as lists: ["property", name, value].
         properties.update(
             {
                 item[1].lower(): item[2]
@@ -172,7 +175,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         # Create a Part object and add it to the library object.
         lib.add_parts(
             Part(
-                part_defn=part_defn,
+                part_defn=part_defn, # A list of lists that define the part.
                 tool=KICAD7,
                 dest=LIBRARY,
                 filename=filename,
@@ -214,10 +217,19 @@ def parse_lib_part(part, partial_parse):
 
     part.aliases = []  # Part aliases.
     part.fplist = []  # Footprint list.
-    part.draw = {} # Drawing commands for the part units.
-    draw_cmds = defaultdict(list) # Drawing commands for symbol units, including pins.
+    part.draw = {}  # Drawing commands for the part units.
+    draw_cmds = defaultdict(list)  # Drawing commands for symbol units, including pins.
 
-    property_keys = (
+    # Search for a parent that this part inherits from.
+    for item in part.part_defn:
+        if item[0].value().lower() == "extends":
+
+            # Make a copy of the parent part from the library.
+            parent_part = part.lib[item[1]].copy(dest=TEMPLATE)
+
+            # Remove parent attributes that we don't want to overwrite in the child.
+            parent_part_dict = parent_part.__dict__
+            for property_key in (
                 "part_defn",
                 "name",
                 "aliases",
@@ -225,19 +237,9 @@ def parse_lib_part(part, partial_parse):
                 "datasheet",
                 "keywords",
                 "search_text",
-            )
-    for item in part.part_defn:
-        if item[0].value().lower() == "extends":
-            # Populate this part (child) from another part (parent) it is extended from.
-
-            # Make a copy of the parent part from the library.
-            parent_part = part.lib[item[1]].copy(dest=TEMPLATE)
-
-            # Remove parent attributes that we don't want to overwrite in the child.
-            parent_part_dict = parent_part.__dict__
-            for key in property_keys:
+            ):
                 try:
-                    del parent_part_dict[key]
+                    del parent_part_dict[property_key]
                 except KeyError:
                     pass
 
@@ -268,59 +270,30 @@ def parse_lib_part(part, partial_parse):
 
             break
 
-    # Find all the units within a symbol. Skip the first item which is the
-    # 'symbol' marking the start of the entire part definition.
-    units = {
-        item[1]: item[2:]
-        for item in part.part_defn[1:]
-        if item[0].value().lower() == "symbol"
-    }
+    def parse_pins(symbol, unit_id):
+        '''Parse the pins within a symbol and add them to the Part object.'''
 
-    # Association between KiCad : SKiDL pin types.
-    pin_io_type_translation = {
-        "input": Pin.types.INPUT,
-        "output": Pin.types.OUTPUT,
-        "bidirectional": Pin.types.BIDIR,
-        "tri_state": Pin.types.TRISTATE,
-        "passive": Pin.types.PASSIVE,
-        "free": Pin.types.FREE,
-        "unspecified": Pin.types.UNSPEC,
-        "power_in": Pin.types.PWRIN,
-        "power_out": Pin.types.PWROUT,
-        "open_collector": Pin.types.OPENCOLL,
-        "open_emitter": Pin.types.OPENEMIT,
-        "no_connect": Pin.types.NOCONNECT,
-    }
+        # Association between KiCad : SKiDL pin types.
+        pin_io_type_translation = {
+            "input": Pin.types.INPUT,
+            "output": Pin.types.OUTPUT,
+            "bidirectional": Pin.types.BIDIR,
+            "tri_state": Pin.types.TRISTATE,
+            "passive": Pin.types.PASSIVE,
+            "free": Pin.types.FREE,
+            "unspecified": Pin.types.UNSPEC,
+            "power_in": Pin.types.PWRIN,
+            "power_out": Pin.types.PWROUT,
+            "open_collector": Pin.types.OPENCOLL,
+            "open_emitter": Pin.types.OPENEMIT,
+            "no_connect": Pin.types.NOCONNECT,
+        }
 
-    # Get pins and assign them to each unit as well as the entire part.
-    # Also assign any graphic objects to each unit.
-    unit_nums = []  # Stores unit numbers for units with pins.
-    for unit_name, unit_data in units.items():
-        # Extract the major and minor unit numbers from the last two numbers in the name.
-        # A major number of 0 means the unit contains global stuff for all the other units,
-        # but it isn't an actual usable unit itself. A non-global unit with a minor number
-        # greater than 1 indicates a DeMorgan-equivalent unit.
-        major, minor = [int(n) for n in unit_name.split("_")[-2:]]
+        # Get the pins for this symbol.
+        symbol_pins = [item for item in symbol if item[0].value().lower() == "pin"]
 
-        # Skip DeMorgan equivalent units.
-        if major != 0 and minor > 1:
-            continue
-
-        # Store any drawing objects for this unit.
-        drw_cmd_lst = [item for item in unit_data if item[0].value().lower() in ("arc", "bezier", "circle", "pin", "polyline", "rectangle", "text")]
-        draw_cmds[major].extend(drw_cmd_lst)
-
-        # Get the pins for this unit.
-        unit_pins = [item for item in unit_data if item[0].value().lower() == "pin"]
-
-        # Save unit number if the unit has pins. Use this to create units
-        # after the entire part is created.
-        if unit_pins and major != 0:
-            unit_nums.append(major)
-
-        # Process the pins for the current unit.
-        for pin in unit_pins:
-
+        # Process the pins for the symbol.
+        for pin in symbol_pins:
             # Pin electrical type immediately follows the "pin" tag.
             pin_func = pin_io_type_translation[pin[1].value().lower()]
 
@@ -338,13 +311,70 @@ def parse_lib_part(part, partial_parse):
                     pin_x, pin_y, pin_angle = item[1:4]
                     pin_x = round(pin_x * mils_per_mm)
                     pin_y = round(pin_y * mils_per_mm)
-                    pin_angle = {0:"R", 90:"D", 180:"L", 270:"U"}[pin_angle]
+                    pin_angle = {0: "R", 90: "D", 180: "L", 270: "U"}[pin_angle]
 
             # Add the pins that were found to the total part. Include the unit identifier
             # in the pin so we can find it later when the part unit is created.
             part.add_pins(
-                Pin(name=pin_name, num=pin_number, func=pin_func, unit=major, x=pin_x, y=pin_y, orientation=pin_angle)
+                Pin(
+                    name=pin_name,
+                    num=pin_number,
+                    func=pin_func,
+                    unit=unit_id,
+                    x=pin_x,
+                    y=pin_y,
+                    orientation=pin_angle,
+                )
             )
+
+        # Return true if the symbol had pins.
+        return bool(symbol_pins)
+    
+    def parse_draw_cmds(symbol):
+        '''Return a list of graphic drawing commands contained in the symbol.'''
+        return [
+            item
+            for item in symbol
+            if item[0].value().lower()
+            in ("arc", "bezier", "circle", "pin", "polyline", "rectangle", "text")
+        ]
+    
+    # Parse top-level pins. (Pins in any units are parsed later.)
+    parse_pins(part.part_defn, unit_id="main")
+
+    # Parse any graphics commands in the top-level part definition.
+    draw_cmds["main"].extend(parse_draw_cmds(part.part_defn))
+
+    # Find all the units within a symbol. Skip the first item which is the
+    # 'symbol' marking the start of the entire part definition.
+    units = {
+        item[1]: item[2:]
+        for item in part.part_defn[1:]
+        if item[0].value().lower() == "symbol"
+    }
+
+    # Get pins and assign them to each unit as well as the entire part.
+    # Also assign any graphic objects to each unit.
+    unit_nums = []  # Stores unit numbers for units with pins.
+    for unit_name, unit_data in units.items():
+        # Extract the major and minor unit numbers from the last two numbers in the name.
+        # A major number of 0 means the unit contains global stuff for all the other units,
+        # but it isn't an actual usable unit itself. A non-global unit with a minor number
+        # greater than 1 indicates a DeMorgan-equivalent unit.
+        major, minor = [int(n) for n in unit_name.split("_")[-2:]]
+
+        # Skip DeMorgan equivalent units.
+        if major != 0 and minor > 1:
+            continue
+
+        # Get any graphic drawing commands for this unit.
+        draw_cmds[major].extend(parse_draw_cmds(unit_data))
+
+        # Save unit number if the unit has pins. Use this to create units
+        # after the entire part is created.
+        unit_has_pins = parse_pins(unit_data, unit_id=major)
+        if major != 0 and unit_has_pins:
+            unit_nums.append(major)
 
     # Copy drawing objects from the global unit to all the other units.
     for unit_major, unit_cmds in draw_cmds.items():
@@ -357,21 +387,13 @@ def parse_lib_part(part, partial_parse):
     # passed a value of None.
     part._ref = None
 
-    # check if ```units``` is empty, ecad parts sometimes do not format parts in
-    # the same way as kicad does, for now just add the pins to the part
-    if not units:
-        pins = { item[6][1] : item[5][1] for item in part.part_defn if item[0].value().lower() == 'pin'}
-        pin_lst = []
-        for pnumber,pname in pins.items():
-            pin = Pin(name=pname,num=pnumber,func=Pin.TRISTATE)
-            pin_lst.append(pin)
-        part.add_pins(pin_lst)
-
     # Make sure all the pins have a valid reference to this part.
     part.associate_pins()
 
     # Populate part fields from symbol properties. Properties will also be included below in drawing commands.
-    properties = [item[1:] for item in part.part_defn if item[0].value().lower() == "property"]
+    properties = [
+        item[1:] for item in part.part_defn if item[0].value().lower() == "property"
+    ]
     fields = {prop[0].lower(): prop[1] for prop in properties}
     part.ref_prefix = fields["reference"]
     part.value = fields["value"]
@@ -380,10 +402,13 @@ def parse_lib_part(part, partial_parse):
 
     # Construct the rest of the part attribute space, avoid keys that are already defined
     keys_to_avoid = vars(part).keys()
-
-    filtered_dict = {k.replace(' ', '_').replace('/','_'):v for k,v in fields.items() if k not in keys_to_avoid}
-    for k,v in filtered_dict.items():
-        setattr(part,k,v)
+    filtered_dict = {
+        k.replace(" ", "_").replace("/", "_"): v
+        for k, v in fields.items()
+        if k not in keys_to_avoid
+    }
+    for k, v in filtered_dict.items():
+        setattr(part, k, v)
 
     # Create the units now that all the part pins have been added.
     # When a part is not divided into subunits, then the entire part is considered a unit of itself.
@@ -393,6 +418,7 @@ def parse_lib_part(part, partial_parse):
         # Store drawing commands and and property fields in part unit for use in calculating its bounding box.
         part.draw[unit_label] = draw_cmds[unit_num]
         part.draw[unit_label].extend(properties)
+    part.draw["main"] = draw_cmds["main"]
 
     # Part definition has been parsed, so clear it out. This prevents a
     # part from being parsed more than once.
