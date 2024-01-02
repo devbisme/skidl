@@ -153,7 +153,7 @@ class Bus(SkidlBaseObject):
             if isinstance(obj, int):
                 # Add a number of new nets to the bus.
                 for _ in range(obj):
-                    self.nets.insert(index, Net(circuit=obj.circuit))
+                    self.nets.insert(index, Net(circuit=self.circuit))
                 index += obj
             elif isinstance(obj, Net):
                 # Add an existing net to the bus.
@@ -166,9 +166,9 @@ class Bus(SkidlBaseObject):
                     self.nets.insert(index, obj.get_nets()[0])
                 except IndexError:
                     # OK, the pin wasn't already connected to a net,
-                    # so create a new net, add it to the bus, and
-                    # connect the pin to it.
-                    n = Net(circuit=obj.circuit)
+                    # so create a new net, connect the pin to it,
+                    # and add it to the bus.
+                    n = Net(circuit=self.circuit)
                     n += obj
                     self.nets.insert(index, n)
                 index += 1
