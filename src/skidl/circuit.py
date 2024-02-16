@@ -86,25 +86,23 @@ class Circuit(SkidlBaseObject):
         for k, v in list(kwargs.items()):
             setattr(self, k, v)
 
-    def reset(self, init=False):
-        """Clear any circuitry and cached part libraries and start over."""
+    def __iadd__(self, *stuff):
+        """Add Parts, Nets, Buses, and Interfaces to the circuit."""
+        return self.add_stuff(*stuff)
+    
+    def __isub__(self, *stuff):
+        """Remove Parts, Nets, Buses, and Interfaces from the circuit."""
+        return self.rmv_stuff(*stuff)
 
-        try:
-            from . import skidl
-            config = skidl.config
-        except ImportError:
-            # For Python 2. Always gotta be different...
-            from .skidl import config
+    def __enter__(self):
+        """Create a context for making this circuit the default_circuit."""
+        self.circuit_stack.append(default_circuit)
+        builtins.default_circuit = self
+        return self
 
-        # Clear circuitry.
-        self.mini_reset(init)
-
-        # Also clear any cached libraries.
-        SchLib.reset()
-        
-        # Clear out any old backup lib so the new one will get reloaded when it's needed.
-        config.backup_lib = None
-
+    def __exit__(self, type, value, traceback):
+        builtins.default_circuit = self.circuit_stack.pop()
+    
     def mini_reset(self, init=False):
         """Clear any circuitry but don't erase any loaded part libraries."""
 
@@ -140,14 +138,24 @@ class Circuit(SkidlBaseObject):
         if not init and self is default_circuit:
             builtins.NC = self.NC
 
-    def __enter__(self):
-        """Create a context for making this circuit the default_circuit."""
-        self.circuit_stack.append(default_circuit)
-        builtins.default_circuit = self
-        return self
+    def reset(self, init=False):
+        """Clear any circuitry and cached part libraries and start over."""
 
-    def __exit__(self, type, value, traceback):
-        builtins.default_circuit = self.circuit_stack.pop()
+        try:
+            from . import skidl
+            config = skidl.config
+        except ImportError:
+            # For Python 2. Always gotta be different...
+            from .skidl import config
+
+        # Clear circuitry.
+        self.mini_reset(init)
+
+        # Also clear any cached libraries.
+        SchLib.reset()
+        
+        # Clear out any old backup lib so the new one will get reloaded when it's needed.
+        config.backup_lib = None
 
     def add_hierarchical_name(self, name):
         """Record a new hierarchical name.  Throw an error if it is a duplicate."""
@@ -436,9 +444,6 @@ class Circuit(SkidlBaseObject):
                 )
         return self
 
-    __iadd__ = add_stuff
-    __isub__ = rmv_stuff
-
     def get_nets(self):
         """Get all the distinct nets for the circuit."""
 
@@ -480,13 +485,6 @@ class Circuit(SkidlBaseObject):
                 # Call the function to instantiate the package with its arguments.
                 package.subcircuit(**package)
 
-    def _cull_unconnected_parts(self):
-        """Remove parts that aren't connected to anything."""
-
-        for part in self.parts:
-            if not part.is_connected():
-                self -= part
-
     def merge_net_names(self):
         """Assign same name to all segments of multi-segment nets."""
 
@@ -513,21 +511,6 @@ class Circuit(SkidlBaseObject):
 
         # Remove merged nets from the circuit.
         self.nets = list(set(self.nets) - merged_nets)
-
-    def _check_for_empty_footprints(self):
-        """Make sure part footprints aren't empty before generating netlist/PCB."""
-
-        for part in self.parts:
-            if getattr(part, "footprint", "") == "":
-                import skidl
-
-                skidl.empty_footprint_handler(part)
-
-    def _preprocess(self):
-        self.instantiate_packages()
-        # self._cull_unconnected_parts()
-        self.merge_nets()
-        self._check_for_empty_footprints()
 
     def ERC(self, *args, **kwargs):
         """Run class-wide and local ERC functions on this circuit."""
@@ -1175,6 +1158,30 @@ class Circuit(SkidlBaseObject):
         file_ = file_ or skidl.config.backup_lib_file_name
 
         lib.export(libname=skidl.config.backup_lib_name, file_=file_)
+
+    def _check_for_empty_footprints(self):
+        """Make sure part footprints aren't empty before generating netlist/PCB."""
+
+        for part in self.parts:
+            if getattr(part, "footprint", "") == "":
+                import skidl
+
+                skidl.empty_footprint_handler(part)
+
+    def _cull_unconnected_parts(self):
+        """Remove parts that aren't connected to anything."""
+
+        for part in self.parts:
+            if not part.is_connected():
+                self -= part
+
+    def _preprocess(self):
+        """Prepare the circuit for generating a netlist, PCB, etc."""
+
+        self.instantiate_packages()
+        # self._cull_unconnected_parts()
+        self.merge_nets()
+        self._check_for_empty_footprints()
 
     @property
     def no_files(self):
