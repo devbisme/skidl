@@ -20,6 +20,7 @@ from copy import copy, deepcopy
 
 try:
     from future import standard_library
+
     standard_library.install_aliases()
 except ImportError:
     pass
@@ -69,35 +70,6 @@ class Net(SkidlBaseObject):
     # Set the default ERC functions for all Net instances.
     erc_list = [dflt_net_erc]
 
-    @classmethod
-    def get(cls, name, circuit=None):
-        """Get the net with the given name from a circuit, or return None."""
-
-        from .alias import Alias
-
-        circuit = circuit or default_circuit
-
-        search_params = (("name", name, True), ("aliases", name, True))
-
-        for attr, name, do_str_match in search_params:
-            # filter_list() always returns a list. A net can consist of multiple
-            # interconnected Net objects. If the list is non-empty,
-            # just return the first Net object on the list.
-            nets = filter_list(circuit.nets, do_str_match=do_str_match, **{attr: name})
-            try:
-                return nets[0]
-            except IndexError:
-                pass
-
-        return None
-
-    @classmethod
-    def fetch(cls, name, *args, **attribs):
-        """Get the net with the given name from a circuit, or create it if not found."""
-
-        circuit = attribs.get("circuit", default_circuit)
-        return cls.get(name, circuit=circuit) or cls(name, *args, **attribs)
-
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
         from .pin import Pin
 
@@ -128,68 +100,166 @@ class Net(SkidlBaseObject):
         for k, v in list(attribs.items()):
             setattr(self, k, v)
 
-    def _traverse(self):
-        """Return all the nets and pins attached to this net, including itself."""
+    def __bool__(self):
+        """Any valid Net is True"""
+        return True
 
-        try:
-            return self.traversal  # Return pre-existing traversal.
-        except AttributeError:
-            pass  # Compute the traversal if it's not available.
+    __nonzero__ = __bool__  # Python 2 compatibility.
 
-        from .pin import PhantomPin
-
+    def __str__(self):
+        """Return a list of the pins on this net as a string."""
         self.test_validity()
-        prev_nets = set([self])
-        nets = set([self])
-        prev_pins = set([])
-        pins = set(self._pins)
-        while pins != prev_pins:
+        pins = self.pins
+        return (
+            self.name + ": " + ", ".join([p.__str__() for p in sorted(pins, key=str)])
+        )
 
-            # Add the nets attached to any unvisited pins.
-            for pin in pins - prev_pins:
-                # No use visiting a pin that is not connected to a net.
-                if pin.is_connected():
-                    nets |= set(pin.nets)
+    __repr__ = __str__  # TODO: This is a temporary fix. The __repr__ should be more informative.
 
-            # Update the set of previously visited pins.
-            prev_pins = copy(pins)
+    # Use += to connect to nets.
+    def __iadd__(self, *pins_nets_buses):
+        """Return the net after connecting other pins, nets, and buses to it."""
+        return self.connect(*pins_nets_buses)
 
-            # Add the pins attached to any unvisited nets.
-            for net in nets - prev_nets:
-                pins |= set(net._pins)
+    def __and__(self, obj):
+        """Attach a net and another part/pin/net in serial."""
+        from .network import Network
 
-            # Update the set of previously visited nets.
-            prev_nets = copy(nets)
+        return Network(self) & obj
 
-        # Remove any phantom pins that may have existed for tieing nets together.
-        pins = set([p for p in pins if not isinstance(p, PhantomPin)])
+    def __rand__(self, obj):
+        """Attach a net and another part/pin/net in serial."""
+        from .network import Network
 
-        # Store the traversal.
-        self.traversal = Traversal(nets=list(nets), pins=list(pins))
+        return obj & Network(self)
 
-        # Every net connected to this one should have the same traversal.
-        for n in self.traversal.nets:
-            n.traversal = self.traversal
+    def __or__(self, obj):
+        """Attach a net and another part/pin/net in parallel."""
+        from .network import Network
 
-        return self.traversal
+        return Network(self) | obj
+
+    def __ror__(self, obj):
+        """Attach a net and another part/pin/net in parallel."""
+        from .network import Network
+
+        return obj | Network(self)
+
+    def __len__(self):
+        """Return the number of pins attached to this net."""
+        self.test_validity()
+        return len(self.pins)
+
+    def __getitem__(self, *ids):
+        """
+        Return the net if the indices resolve to a single index of 0.
+
+        Args:
+            ids: A list of indices. These can be individual
+                numbers, net names, nested lists, or slices.
+
+        Returns:
+            The net, otherwise None or raises an Exception.
+        """
+
+        # Resolve the indices.
+        indices = list(set(expand_indices(0, self.width - 1, False, *ids)))
+        if indices is None or len(indices) == 0:
+            return None
+        if len(indices) > 1:
+            active_logger.raise_(ValueError, "Can't index a net with multiple indices.")
+        if indices[0] != 0:
+            active_logger.raise_(ValueError, "Can't use a non-zero index for a net.")
+        return self
+
+    def __setitem__(self, ids, *pins_nets_buses):
+        """
+        You can't assign to Nets. You must use the += operator.
+
+        This method is a work-around that allows the use of the += for making
+        connections to nets while prohibiting direct assignment. Python
+        processes something like net[0] += Pin() as follows::
+
+            1. Net.__getitem__ is called with '0' as the index. This
+               returns a single Net.
+            2. The Net.__iadd__ method is passed the net and
+               the thing to connect to it (a Pin in this case). This
+               method makes the actual connection to the pin. Then
+               it creates an iadd_flag attribute in the object it returns.
+            3. Finally, Net.__setitem__ is called. If the iadd_flag attribute
+               is true in the passed argument, then __setitem__ was entered
+               as part of processing the += operator. If there is no
+               iadd_flag attribute, then __setitem__ was entered as a result
+               of using a direct assignment, which is not allowed.
+        """
+
+        # If the iadd_flag is set, then it's OK that we got
+        # here and don't issue an error. Also, delete the flag.
+        if from_iadd(pins_nets_buses):
+            rmv_iadd(pins_nets_buses)
+            return
+
+        # No iadd_flag or it wasn't set. This means a direct assignment
+        # was made to the pin, which is not allowed.
+        active_logger.raise_(TypeError, "Can't assign to a Net! Use the += operator.")
+
+    def __iter__(self):
+        """
+        Return an iterator for stepping through the net.
+        """
+        # You can only iterate a Net one time.
+        return (self[i] for i in [0])  # Return generator expr.
+
+    def __call__(self, num_copies=None, circuit=None, **attribs):
+        """Make one or more copies of this net."""
+        return self.copy(num_copies=num_copies, circuit=circuit, **attribs)
+
+    def __mul__(self, num_copies):
+        """Use multiplication operator to make copies of a net."""
+        if num_copies is None:
+            num_copies = 0
+        return self.copy(num_copies=num_copies)
+
+    __rmul__ = __mul__
+
+    @classmethod
+    def get(cls, name, circuit=None):
+        """Get the net with the given name from a circuit, or return None."""
+
+        from .alias import Alias
+
+        circuit = circuit or default_circuit
+
+        search_params = (("name", name, True), ("aliases", name, True))
+
+        for attr, name, do_str_match in search_params:
+            # filter_list() always returns a list. A net can consist of multiple
+            # interconnected Net objects. If the list is non-empty,
+            # just return the first Net object on the list.
+            nets = filter_list(circuit.nets, do_str_match=do_str_match, **{attr: name})
+            try:
+                return nets[0]
+            except IndexError:
+                pass
+
+        return None
+
+    @classmethod
+    def fetch(cls, name, *args, **attribs):
+        """Get the net with the given name from a circuit, or create it if not found."""
+
+        circuit = attribs.get("circuit", default_circuit)
+        return cls.get(name, circuit=circuit) or cls(name, *args, **attribs)
 
     def get_pins(self):
         """Return a list of pins attached to this net."""
         self.test_validity()
         return self._traverse().pins
 
-    @property
-    def pins(self):
-        return self.get_pins()
-
     def get_nets(self):
         """Return a list of nets attached to this net, including this net."""
         self.test_validity()
         return self._traverse().nets
-
-    @property
-    def nets(self):
-        return self.get_nets()
 
     def is_attached(self, pin_net_bus):
         """Return true if the pin, net or bus is attached to this one."""
@@ -217,6 +287,15 @@ class Net(SkidlBaseObject):
         from .circuit import Circuit
 
         return not isinstance(self.circuit, Circuit) or not self._pins
+
+    def is_implicit(self):
+        """Return true if the net name is implicit."""
+
+        from .bus import BUS_PREFIX
+
+        self.test_validity()
+        prefix_re = "({}|{})+".format(re.escape(NET_PREFIX), re.escape(BUS_PREFIX))
+        return re.match(prefix_re, self.name)
 
     def copy(self, num_copies=None, circuit=None, **attribs):
         """
@@ -317,85 +396,6 @@ class Net(SkidlBaseObject):
         if return_list:
             return copies
         return copies[0]
-
-    # Make copies with the multiplication operator or by calling the object.
-    __call__ = copy
-
-    def __mul__(self, num_copies):
-        if num_copies is None:
-            num_copies = 0
-        return self.copy(num_copies=num_copies)
-
-    __rmul__ = __mul__
-
-    def __getitem__(self, *ids):
-        """
-        Return the net if the indices resolve to a single index of 0.
-
-        Args:
-            ids: A list of indices. These can be individual
-                numbers, net names, nested lists, or slices.
-
-        Returns:
-            The net, otherwise None or raises an Exception.
-        """
-
-        # Resolve the indices.
-        indices = list(set(expand_indices(0, self.width - 1, False, *ids)))
-        if indices is None or len(indices) == 0:
-            return None
-        if len(indices) > 1:
-            active_logger.raise_(ValueError, "Can't index a net with multiple indices.")
-        if indices[0] != 0:
-            active_logger.raise_(ValueError, "Can't use a non-zero index for a net.")
-        return self
-
-    def __setitem__(self, ids, *pins_nets_buses):
-        """
-        You can't assign to Nets. You must use the += operator.
-
-        This method is a work-around that allows the use of the += for making
-        connections to nets while prohibiting direct assignment. Python
-        processes something like net[0] += Pin() as follows::
-
-            1. Net.__getitem__ is called with '0' as the index. This
-               returns a single Net.
-            2. The Net.__iadd__ method is passed the net and
-               the thing to connect to it (a Pin in this case). This
-               method makes the actual connection to the pin. Then
-               it creates an iadd_flag attribute in the object it returns.
-            3. Finally, Net.__setitem__ is called. If the iadd_flag attribute
-               is true in the passed argument, then __setitem__ was entered
-               as part of processing the += operator. If there is no
-               iadd_flag attribute, then __setitem__ was entered as a result
-               of using a direct assignment, which is not allowed.
-        """
-
-        # If the iadd_flag is set, then it's OK that we got
-        # here and don't issue an error. Also, delete the flag.
-        if from_iadd(pins_nets_buses):
-            rmv_iadd(pins_nets_buses)
-            return
-
-        # No iadd_flag or it wasn't set. This means a direct assignment
-        # was made to the pin, which is not allowed.
-        active_logger.raise_(TypeError, "Can't assign to a Net! Use the += operator.")
-
-    def __iter__(self):
-        """
-        Return an iterator for stepping through the net.
-        """
-        # You can only iterate a Net one time.
-        return (self[i] for i in [0])  # Return generator expr.
-
-    def is_implicit(self):
-        """Return true if the net name is implicit."""
-
-        from .bus import BUS_PREFIX
-
-        self.test_validity()
-        prefix_re = "({}|{})+".format(re.escape(NET_PREFIX), re.escape(BUS_PREFIX))
-        return re.match(prefix_re, self.name)
 
     def connect(self, *pins_nets_buses):
         """
@@ -546,9 +546,6 @@ class Net(SkidlBaseObject):
 
         return self
 
-    # Use += to connect to nets.
-    __iadd__ = connect
-
     def disconnect(self, pin):
         """Remove the pin from this net but not any other nets it's attached to."""
         try:
@@ -630,30 +627,6 @@ class Net(SkidlBaseObject):
         ntwk.append(self)
         return ntwk
 
-    def __and__(self, obj):
-        """Attach a net and another part/pin/net in serial."""
-        from .network import Network
-
-        return Network(self) & obj
-
-    def __rand__(self, obj):
-        """Attach a net and another part/pin/net in serial."""
-        from .network import Network
-
-        return obj & Network(self)
-
-    def __or__(self, obj):
-        """Attach a net and another part/pin/net in parallel."""
-        from .network import Network
-
-        return Network(self) | obj
-
-    def __ror__(self, obj):
-        """Attach a net and another part/pin/net in parallel."""
-        from .network import Network
-
-        return obj | Network(self)
-
     def generate_netlist_net(self, tool=None):
         """
         Generate the net information for inclusion in a netlist.
@@ -698,20 +671,50 @@ class Net(SkidlBaseObject):
 
         return tool_modules[tool].gen_xml_net(self)
 
-    def __str__(self):
-        """Return a list of the pins on this net as a string."""
-        self.test_validity()
-        pins = self.pins
-        return (
-            self.name + ": " + ", ".join([p.__str__() for p in sorted(pins, key=str)])
-        )
+    def _traverse(self):
+        """Return all the nets and pins attached to this net, including itself."""
 
-    __repr__ = __str__
+        try:
+            return self.traversal  # Return pre-existing traversal.
+        except AttributeError:
+            pass  # Compute the traversal if it's not available.
 
-    def __len__(self):
-        """Return the number of pins attached to this net."""
+        from .pin import PhantomPin
+
         self.test_validity()
-        return len(self.pins)
+        prev_nets = set([self])
+        nets = set([self])
+        prev_pins = set([])
+        pins = set(self._pins)
+        while pins != prev_pins:
+
+            # Add the nets attached to any unvisited pins.
+            for pin in pins - prev_pins:
+                # No use visiting a pin that is not connected to a net.
+                if pin.is_connected():
+                    nets |= set(pin.nets)
+
+            # Update the set of previously visited pins.
+            prev_pins = copy(pins)
+
+            # Add the pins attached to any unvisited nets.
+            for net in nets - prev_nets:
+                pins |= set(net._pins)
+
+            # Update the set of previously visited nets.
+            prev_nets = copy(nets)
+
+        # Remove any phantom pins that may have existed for tieing nets together.
+        pins = set([p for p in pins if not isinstance(p, PhantomPin)])
+
+        # Store the traversal.
+        self.traversal = Traversal(nets=list(nets), pins=list(pins))
+
+        # Every net connected to this one should have the same traversal.
+        for n in self.traversal.nets:
+            n.traversal = self.traversal
+
+        return self.traversal
 
     @property
     def width(self):
@@ -746,6 +749,14 @@ class Net(SkidlBaseObject):
     def name(self):
         self.test_validity()
         super(Net, self.__class__).name.fdel(self)
+
+    @property
+    def pins(self):
+        return self.get_pins()
+
+    @property
+    def nets(self):
+        return self.get_nets()
 
     @property
     def netclass(self):
@@ -843,7 +854,7 @@ class Net(SkidlBaseObject):
     @property
     def stub(self):
         return self._stub
-    
+
     @stub.setter
     def stub(self, val):
         self._stub = val
@@ -866,12 +877,6 @@ class Net(SkidlBaseObject):
             ValueError,
             "Net {} is no longer valid. Do not use it!".format(self.name),
         )
-
-    def __bool__(self):
-        """Any valid Net is True"""
-        return True
-
-    __nonzero__ = __bool__  # Python 2 compatibility.
 
 
 @export_to_all
