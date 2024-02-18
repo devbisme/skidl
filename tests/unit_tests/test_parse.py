@@ -13,8 +13,10 @@ from .setup_teardown import setup_function, teardown_function
 
 
 def test_parser_1():
-    netlist_to_skidl(
+    skidl_code = netlist_to_skidl(
         find_and_read_file(
             "Arduino_Uno_R3_From_Scratch.net", paths=lib_search_paths[KICAD]
         )[0]
     )
+    # FIX: Under Python 2.7, the following line produces "SyntaxError: encoding declaration in Unicode string".
+    # compile(skidl_code, "netlist_to_skidl_test_1", "exec")
