@@ -33,6 +33,31 @@ from .utilities import expand_buses, export_to_all, flatten, set_iadd
 
 @export_to_all
 class NetPinList(list):
+
+    def __len__(self):
+        """Return the number of individual pins/nets in this interface."""
+        return len(expand_buses(self))
+
+    def __and__(self, obj):
+        """Attach a NetPinList and another part/pin/net in serial."""
+
+        return Network(self) & obj
+
+    def __rand__(self, obj):
+        """Attach a NetPinList and another part/pin/net in serial."""
+
+        return obj & Network(self)
+
+    def __or__(self, obj):
+        """Attach a NetPinList and another part/pin/net in parallel."""
+
+        return Network(self) | obj
+
+    def __ror__(self, obj):
+        """Attach a NetPinList and another part/pin/net in parallel."""
+
+        return obj | Network(self)
+
     def __iadd__(self, *nets_pins_buses):
         nets_pins_a = expand_buses(self)
         len_a = len(nets_pins_a)
@@ -100,30 +125,6 @@ class NetPinList(list):
         """Create a network from a list of pins and nets."""
 
         return Network(*self)  # An error will occur if list has more than 2 items.
-
-    def __and__(self, obj):
-        """Attach a NetPinList and another part/pin/net in serial."""
-
-        return Network(self) & obj
-
-    def __rand__(self, obj):
-        """Attach a NetPinList and another part/pin/net in serial."""
-
-        return obj & Network(self)
-
-    def __or__(self, obj):
-        """Attach a NetPinList and another part/pin/net in parallel."""
-
-        return Network(self) | obj
-
-    def __ror__(self, obj):
-        """Attach a NetPinList and another part/pin/net in parallel."""
-
-        return obj | Network(self)
-
-    def __len__(self):
-        """Return the number of individual pins/nets in this interface."""
-        return len(expand_buses(self))
 
     @property
     def circuit(self):
