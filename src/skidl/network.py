@@ -118,9 +118,9 @@ def tee(ntwk):
     which becomes:
 
         vi---r1---r2-+-r5---gnd
-                    |
-                    |
-                    r3---r4---gnd
+                     |
+                     |
+                     r3---r4---gnd
 
     """
     if not isinstance(ntwk, Network):
