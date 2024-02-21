@@ -41,6 +41,14 @@ class Note(list):
         super().__init__()
         self.__iadd__(*notes)
 
+    def __str__(self):
+        """Return notes as a concatenated set of strings.
+
+        Returns:
+            A string made up of the concatenated notes in the object joined by newlines.
+        """
+        return "\n".join(self)
+
     def __iadd__(self, *notes):
         """Add new notes to a Note object.
 
@@ -56,11 +64,3 @@ class Note(list):
             else:
                 self.append(note)
         return self
-
-    def __str__(self):
-        """Return notes as a concatenated set of strings.
-
-        Returns:
-            A string made up of the concatenated notes in the object joined by newlines.
-        """
-        return "\n".join(self)
