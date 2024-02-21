@@ -36,7 +36,7 @@ __all__ = ["search", "show"]
 #       https://stackoverflow.com/questions/4284991/parsing-nested-parentheses-in-python-grab-content-by-level
 
 
-def parse_search_terms(terms):
+def _parse_search_terms(terms):
     """
     Return a regular expression for a sequence of search terms.
 
@@ -70,7 +70,7 @@ def search_parts_iter(terms, tool=None):
 
     tool = tool or skidl.config.tool
 
-    terms = parse_search_terms(terms)
+    terms = _parse_search_terms(terms)
 
     def mk_list(l):
         """Make a list out of whatever is given."""
@@ -294,7 +294,7 @@ def search_footprints_iter(terms, tool=None):
 
     tool = tool or skidl.config.tool
 
-    terms = parse_search_terms(terms)
+    terms = _parse_search_terms(terms)
 
     # If the cache isn't valid, then make it valid by gathering all the
     # footprint files from all the directories in the search paths.
