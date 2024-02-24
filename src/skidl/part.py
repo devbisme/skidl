@@ -21,6 +21,7 @@ from random import randint
 
 try:
     from future import standard_library
+
     standard_library.install_aliases()
 except ImportError:
     pass
@@ -44,7 +45,7 @@ from .utilities import (
 )
 
 
-__all__ = ["NETLIST", "LIBRARY", "TEMPLATE", "PartTmplt"]
+__all__ = ["NETLIST", "LIBRARY", "TEMPLATE", "PartTmplt", "SkidlPart"]
 
 
 try:
@@ -282,9 +283,237 @@ class Part(SkidlBaseObject):
         # because part searching only checks the aliases for name matches.
         self.aliases += name
 
-    @property
-    def ordered_pins(self):
-        return sorted(self.pins)
+    def __str__(self):
+        """Return a description of the pins on this part as a string."""
+        return "\n {name} ({aliases}): {desc}\n    {pins}".format(
+            name=self.name,
+            aliases=", ".join(self.aliases),
+            desc=self.description,
+            pins="\n    ".join([p.__str__() for p in self.pins]),
+        )
+
+    __repr__ = __str__
+
+    def __bool__(self):
+        """Any valid Part is True"""
+        return True
+
+    __nonzero__ = __bool__  # Python 2 compatibility.
+
+    def __len__(self):
+        """Return the number of pins in this part."""
+        return len(self.pins)
+
+    # Make copies with the multiplication operator or by calling the object.
+    def __call__(self, num_copies=None, dest=NETLIST, circuit=None, io=None, **attribs):
+        """
+        Make zero or more copies of this part while maintaining all pin/net
+        connections.
+
+        Args:
+            num_copies: Number of copies to make of this part.
+            dest: Indicates where the copy is destined for (e.g., NETLIST).
+            circuit: The circuit this part should be added to.
+            io: XSPICE I/O names.
+
+        Keyword Args:
+            attribs: Name/value pairs for setting attributes for the copy.
+
+        Returns:
+            A list of Part copies or a single Part if num_copies==1.
+
+        Raises:
+            Exception if the requested number of copies is a non-integer or negative.
+
+        Notes:
+            An instance of a part can be copied just by calling it like so::
+
+                res = Part("Device",'R')    # Get a resistor.
+                res_copy = res(value='1K')  # Copy the resistor and set resistance value.
+
+            You can also use the multiplication operator to make copies::
+
+                cap = Part("Device", 'C')   # Get a capacitor
+                caps = 10 * cap             # Make an array with 10 copies of it.
+        """
+        return self.copy(num_copies=num_copies, dest=dest, circuit=circuit, io=io, **attribs)
+
+    def __mul__(self, num_copies):
+        if num_copies is None:
+            num_copies = 0
+        return self.copy(num_copies=num_copies)
+
+    __rmul__ = __mul__
+
+    def __iadd__(self, *pins):
+        """Add one or more pins to a part and return the part."""
+        return self.add_pins(*pins)
+
+    def __and__(self, obj):
+        """Attach a part and another part/pin/net in serial."""
+        from .network import Network
+
+        return Network(self) & obj
+
+    def __rand__(self, obj):
+        """Attach a part and another part/pin/net in serial."""
+        from .network import Network
+
+        return obj & Network(self)
+
+    def __or__(self, obj):
+        """Attach a part and another part/pin/net in parallel."""
+        from .network import Network
+
+        return Network(self) | obj
+
+    def __ror__(self, obj):
+        """Attach a part and another part/pin/net in parallel."""
+        from .network import Network
+
+        return obj | Network(self)
+
+    def _get_fields(self):
+        """
+        Return a list of component field names.
+        """
+
+        from .pin import Pin
+
+        # Get all the component attributes and subtract all the ones that
+        # should not appear under "fields" in the netlist or XML.
+        # Also, skip all the Pin and PartUnit attributes.
+        fields = set(
+            [
+                k
+                for k, v in list(self.__dict__.items())
+                if not isinstance(v, (Pin, PartUnit))
+            ]
+        )
+        non_fields = set(
+            [
+                "name",
+                "min_pin",
+                "max_pin",
+                "hierarchy",
+                "_tag",
+                "_value",
+                "_ref",
+                "ref_prefix",
+                "unit",
+                "num_units",
+                "part_defn",
+                "definition",
+                "fields",
+                "draw",
+                "lib",
+                "fplist",
+                "do_erc",
+                "aliases",
+                "tool",
+                "pins",
+                "footprint",
+                "circuit",
+                "skidl_trace",
+                "search_text",
+                "filename",
+                "p",
+                "n",
+            ]
+        )
+        return list(fields - non_fields)
+
+    # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
+    def __getitem__(self, *pin_ids, **criteria):
+        """
+        Return list of part pins selected by pin numbers or names.
+
+        Args:
+            pin_ids: A list of strings containing pin names, numbers,
+                regular expressions, slices, lists or tuples. If empty,
+                then it will select all pins.
+
+        Keyword Args:
+            criteria: Key/value pairs that specify attribute values the
+                pins must have in order to be selected.
+
+        Returns:
+            A list of pins matching the given IDs and satisfying all the criteria,
+            or just a single Pin object if only a single match was found.
+            Or None if no match was found.
+
+        Notes:
+            Pins can be selected from a part by using brackets like so::
+
+                atmega = Part('atmel', 'ATMEGA16U2')
+                net = Net()
+                atmega[1] += net  # Connects pin 1 of chip to the net.
+                net += atmega['RESET']  # Connects reset pin to the net.
+        """
+        return self.get_pins(*pin_ids, **criteria)
+
+    def __setitem__(self, ids, pins_nets_buses):
+        """
+        You can't assign to the pins of parts. You must use the += operator.
+
+        This method is a work-around that allows the use of the += for making
+        connections to pins while prohibiting direct assignment. Python
+        processes something like my_part['GND'] += gnd as follows::
+
+            1. Part.__getitem__ is called with 'GND' as the index. This
+               returns a single Pin or a NetPinList.
+            2. The Pin.__iadd__ or NetPinList.__iadd__ method is passed
+               the thing to connect to the pin (gnd in this case). This method
+               makes the actual connection to the part pin or pins. Then it
+               creates an iadd_flag attribute in the object it returns.
+            3. Finally, Part.__setitem__ is called. If the iadd_flag attribute
+               is true in the passed argument, then __setitem__ was entered
+               as part of processing the += operator. If there is no
+               iadd_flag attribute, then __setitem__ was entered as a result
+               of using a direct assignment, which is not allowed.
+        """
+
+        # If the iadd_flag is set, then it's OK that we got
+        # here and don't issue an error. Also, delete the flag.
+        if from_iadd(pins_nets_buses):
+            rmv_iadd(pins_nets_buses)
+            return
+
+        # No iadd_flag or it wasn't set. This means a direct assignment
+        # was made to the pin, which is not allowed.
+        active_logger.raise_(TypeError, "Can't assign to a part! Use the += operator.")
+
+    def __getattr__(self, attr):
+        """Normal attribute wasn't found, so check pin aliases."""
+        from skidl.netpinlist import NetPinList
+
+        # Look for the attribute name in the list of pin aliases.
+        pins = [pin for pin in self if pin.aliases == attr]
+
+        if pins:
+            if len(pins) == 1:
+                # Return a single pin if only one alias match was found.
+                return pins[0]
+            else:
+                # Return list of pins if multiple matches were found.
+                # Return a NetPinList instead of a vanilla list so += operator works!
+                return NetPinList(pins)
+
+        # No pin aliases matched, so use the __getattr__ for the subclass.
+        # Don't use super(). It leads to long runtimes under Python 2.7.
+        return SkidlBaseObject.__getattr__(self, attr)
+
+    def __iter__(self):
+        """
+        Return an iterator for stepping thru individual pins of the part.
+        """
+
+        # Get the list pf pins for this part using the getattribute for the
+        # basest object to prevent infinite recursion within the __getattr__ method.
+        # Don't use super() because it leads to long runtimes under Python 2.7.
+        self_pins = object.__getattribute__(self, "pins")
+
+        return (p for p in self_pins)  # Return generator expr.
 
     @classmethod
     def get(cls, text, circuit=None):
@@ -320,6 +549,11 @@ class Part(SkidlBaseObject):
             )
 
         return list_or_scalar(parts)
+
+    def value_to_str(self):
+        """Return value of part as a string."""
+        value = getattr(self, "value", getattr(self, "name", self.ref_prefix))
+        return str(value)
 
     def similarity(self, part, **options):
         """Return a measure of how similar two parts are.
@@ -357,24 +591,6 @@ class Part(SkidlBaseObject):
             score += score_pins()
 
         return score / 3
-
-    def _find_min_max_pins(self):
-        """Return the minimum and maximum pin numbers for the part."""
-        pin_nums = []
-        try:
-            for p in self.pins:
-                try:
-                    pin_nums.append(int(p.num))
-                except ValueError:
-                    pass
-        except AttributeError:
-            # This happens if the part has no pins.
-            pass
-        try:
-            return min(pin_nums), max(pin_nums)
-        except ValueError:
-            # This happens if the part has no integer-labeled pins.
-            return 0, 0
 
     def parse(self, partial_parse=False):
         """
@@ -554,16 +770,6 @@ class Part(SkidlBaseObject):
         for unit in self.unit.values():
             unit.validate()
 
-    # Make copies with the multiplication operator or by calling the object.
-    __call__ = copy
-
-    def __mul__(self, num_copies):
-        if num_copies is None:
-            num_copies = 0
-        return self.copy(num_copies=num_copies)
-
-    __rmul__ = __mul__
-
     def copy_units(self, src):
         """Make copies of the units from the source part."""
         self.unit = {}  # Remove references to any existing units.
@@ -576,7 +782,7 @@ class Part(SkidlBaseObject):
             self.unit[label].num = unit.num
 
     def add_pins(self, *pins):
-        """Add one or more pins to a part."""
+        """Add one or more pins to a part and return the part."""
         for pin in flatten(pins):
             pin.part = self
             self.pins.append(pin)
@@ -585,8 +791,6 @@ class Part(SkidlBaseObject):
             pin.aliases += pin.name
             pin.aliases += "p" + str(pin.num)
         return self
-
-    __iadd__ = add_pins
 
     def rmv_pins(self, *pin_ids):
         """Remove one or more pins from a part."""
@@ -738,72 +942,6 @@ class Part(SkidlBaseObject):
 
         return list_or_scalar(pins)
 
-    # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
-    __getitem__ = get_pins
-
-    def __setitem__(self, ids, pins_nets_buses):
-        """
-        You can't assign to the pins of parts. You must use the += operator.
-
-        This method is a work-around that allows the use of the += for making
-        connections to pins while prohibiting direct assignment. Python
-        processes something like my_part['GND'] += gnd as follows::
-
-            1. Part.__getitem__ is called with 'GND' as the index. This
-               returns a single Pin or a NetPinList.
-            2. The Pin.__iadd__ or NetPinList.__iadd__ method is passed
-               the thing to connect to the pin (gnd in this case). This method
-               makes the actual connection to the part pin or pins. Then it
-               creates an iadd_flag attribute in the object it returns.
-            3. Finally, Part.__setitem__ is called. If the iadd_flag attribute
-               is true in the passed argument, then __setitem__ was entered
-               as part of processing the += operator. If there is no
-               iadd_flag attribute, then __setitem__ was entered as a result
-               of using a direct assignment, which is not allowed.
-        """
-
-        # If the iadd_flag is set, then it's OK that we got
-        # here and don't issue an error. Also, delete the flag.
-        if from_iadd(pins_nets_buses):
-            rmv_iadd(pins_nets_buses)
-            return
-
-        # No iadd_flag or it wasn't set. This means a direct assignment
-        # was made to the pin, which is not allowed.
-        active_logger.raise_(TypeError, "Can't assign to a part! Use the += operator.")
-
-    def __getattr__(self, attr):
-        """Normal attribute wasn't found, so check pin aliases."""
-        from skidl.netpinlist import NetPinList
-
-        # Look for the attribute name in the list of pin aliases.
-        pins = [pin for pin in self if pin.aliases == attr]
-
-        if pins:
-            if len(pins) == 1:
-                # Return a single pin if only one alias match was found.
-                return pins[0]
-            else:
-                # Return list of pins if multiple matches were found.
-                # Return a NetPinList instead of a vanilla list so += operator works!
-                return NetPinList(pins)
-
-        # No pin aliases matched, so use the __getattr__ for the subclass.
-        # Don't use super(). It leads to long runtimes under Python 2.7.
-        return SkidlBaseObject.__getattr__(self, attr)
-
-    def __iter__(self):
-        """
-        Return an iterator for stepping thru individual pins of the part.
-        """
-
-        # Get the list pf pins for this part using the getattribute for the
-        # basest object to prevent infinite recursion within the __getattr__ method.
-        # Don't use super() because it leads to long runtimes under Python 2.7.
-        self_pins = object.__getattribute__(self, "pins")
-
-        return (p for p in self_pins)  # Return generator expr.
-
     def disconnect(self):
         """Disconnect all the part's pins from nets."""
 
@@ -923,80 +1061,6 @@ class Part(SkidlBaseObject):
         ntwk = Network(self[:])  # An error will occur if part has more than 2 pins.
         return ntwk
 
-    def __and__(self, obj):
-        """Attach a part and another part/pin/net in serial."""
-        from .network import Network
-
-        return Network(self) & obj
-
-    def __rand__(self, obj):
-        """Attach a part and another part/pin/net in serial."""
-        from .network import Network
-
-        return obj & Network(self)
-
-    def __or__(self, obj):
-        """Attach a part and another part/pin/net in parallel."""
-        from .network import Network
-
-        return Network(self) | obj
-
-    def __ror__(self, obj):
-        """Attach a part and another part/pin/net in parallel."""
-        from .network import Network
-
-        return obj | Network(self)
-
-    def _get_fields(self):
-        """
-        Return a list of component field names.
-        """
-
-        from .pin import Pin
-
-        # Get all the component attributes and subtract all the ones that
-        # should not appear under "fields" in the netlist or XML.
-        # Also, skip all the Pin and PartUnit attributes.
-        fields = set(
-            [
-                k
-                for k, v in list(self.__dict__.items())
-                if not isinstance(v, (Pin, PartUnit))
-            ]
-        )
-        non_fields = set(
-            [
-                "name",
-                "min_pin",
-                "max_pin",
-                "hierarchy",
-                "_tag",
-                "_value",
-                "_ref",
-                "ref_prefix",
-                "unit",
-                "num_units",
-                "part_defn",
-                "definition",
-                "fields",
-                "draw",
-                "lib",
-                "fplist",
-                "do_erc",
-                "aliases",
-                "tool",
-                "pins",
-                "footprint",
-                "circuit",
-                "skidl_trace",
-                "search_text",
-                "filename",
-                "p",
-                "n",
-            ]
-        )
-        return list(fields - non_fields)
-
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
         """
         Generate the SVG for displaying a part in an SVG schematic.
@@ -1013,17 +1077,6 @@ class Part(SkidlBaseObject):
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""
         return "{p.name}/{p.ref}".format(p=self)
-
-    def __str__(self):
-        """Return a description of the pins on this part as a string."""
-        return "\n {name} ({aliases}): {desc}\n    {pins}".format(
-            name=self.name,
-            aliases=", ".join(self.aliases),
-            desc=self.description,
-            pins="\n    ".join([p.__str__() for p in self.pins]),
-        )
-
-    __repr__ = __str__
 
     def export(self):
         """Return a string to recreate a Part object."""
@@ -1063,6 +1116,28 @@ class Part(SkidlBaseObject):
         from .tools.spice import convert_for_spice
 
         convert_for_spice(self, spice_part, pin_map)
+
+    def _find_min_max_pins(self):
+        """Return the minimum and maximum pin numbers for the part."""
+        pin_nums = []
+        try:
+            for p in self.pins:
+                try:
+                    pin_nums.append(int(p.num))
+                except ValueError:
+                    pass
+        except AttributeError:
+            # This happens if the part has no pins.
+            pass
+        try:
+            return min(pin_nums), max(pin_nums)
+        except ValueError:
+            # This happens if the part has no integer-labeled pins.
+            return 0, 0
+
+    @property
+    def ordered_pins(self):
+        return sorted(self.pins)
 
     @property
     def hierarchical_name(self):
@@ -1155,11 +1230,6 @@ class Part(SkidlBaseObject):
         """Delete the part value."""
         del self._value
 
-    def value_to_str(self):
-        """Return value of part as a string."""
-        value = getattr(self, "value", getattr(self, "name", self.ref_prefix))
-        return str(value)
-
     @property
     def foot(self):
         """Get, set and delete the part footprint."""
@@ -1193,44 +1263,6 @@ class Part(SkidlBaseObject):
     def match_pin_regex(self):
         """Delete the regex matching flag."""
         del self._match_pin_regex
-
-    def __bool__(self):
-        """Any valid Part is True"""
-        return True
-
-    __nonzero__ = __bool__  # Python 2 compatibility.
-
-    def __len__(self):
-        """Return the number of pins in this part."""
-        return len(self.pins)
-
-
-##############################################################################
-
-"""Shortcut for creating a Part template."""
-PartTmplt = functools.partial(Part, dest=TEMPLATE)
-
-##############################################################################
-
-
-@export_to_all
-class SkidlPart(Part):
-    """
-    A class for storing a SKiDL definition of a schematic part. It's identical
-    to its Part superclass except:
-
-    + The tool defaults to SKIDL.
-    + The destination defaults to TEMPLATE so that it's easier to start
-        a part and then add pins to it without it being added to the netlist.
-    """
-
-    def __init__(
-        self, lib=None, name=None, dest=TEMPLATE, tool=None, connections=None, **attribs
-    ):
-        from skidl import SKIDL
-
-        tool = tool or SKIDL
-        super().__init__(lib, name, dest, tool, connections, attribs)
 
 
 ##############################################################################
@@ -1342,6 +1374,23 @@ class PartUnit(Part):
         from .circuit import HIER_SEP
 
         return HIER_SEP.join((self.parent.ref, self.label))
+
+
+##############################################################################
+
+
+PartTmplt = functools.partial(Part, dest=TEMPLATE)
+PartTmplt.__doc__ = """Shortcut for creating a Part template."""
+
+SkidlPart = functools.partial(Part, tool="skidl", dest=TEMPLATE)
+SkidlPart.__doc__ = """ 
+    A class for storing a SKiDL definition of a schematic part. It's identical
+    to its Part superclass except:
+
+    + The tool defaults to SKIDL.
+    + The destination defaults to TEMPLATE so that it's easier to start
+        a part and then add pins to it without it being added to the netlist.
+    """
 
 
 ##############################################################################
