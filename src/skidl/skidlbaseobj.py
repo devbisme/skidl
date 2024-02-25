@@ -57,64 +57,6 @@ class SkidlBaseObject(object):
         else:
             self.fields[key] = value
 
-    @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, nm):
-        del self.name  # Remove any pre-existing name.
-        self.aliases += nm
-        self._name = nm
-
-    @name.deleter
-    def name(self):
-        try:
-            self.aliases.discard(self._name)
-            self._name = None
-        except AttributeError:
-            pass
-
-    @property
-    def aliases(self):
-        try:
-            return self._aliases
-        except AttributeError:
-            return Alias([])  # No aliases, so just return an empty list.
-
-    @aliases.setter
-    def aliases(self, name_or_list):
-        if not name_or_list:
-            return
-        self._aliases = Alias(name_or_list)
-
-    @aliases.deleter
-    def aliases(self):
-        try:
-            del self._aliases
-        except AttributeError:
-            pass
-
-    @property
-    def notes(self):
-        try:
-            return self._notes
-        except AttributeError:
-            return Note([])  # No notes, so just return empty list.
-
-    @notes.setter
-    def notes(self, text_or_notes):
-        if not text_or_notes:
-            return
-        self._notes = Note(text_or_notes)
-
-    @notes.deleter
-    def notes(self):
-        try:
-            del self._notes
-        except AttributeError:
-            pass
-
     def copy(self):
         cpy = SkidlBaseObject()
         cpy.fields = deepcopy(self.fields)
@@ -197,3 +139,61 @@ class SkidlBaseObject(object):
         # Execute any instance functions for this particular instance.
         for f in self.erc_list:
             f(self, *args, **kwargs)
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, nm):
+        del self.name  # Remove any pre-existing name.
+        self.aliases += nm
+        self._name = nm
+
+    @name.deleter
+    def name(self):
+        try:
+            self.aliases.discard(self._name)
+            self._name = None
+        except AttributeError:
+            pass
+
+    @property
+    def aliases(self):
+        try:
+            return self._aliases
+        except AttributeError:
+            return Alias([])  # No aliases, so just return an empty list.
+
+    @aliases.setter
+    def aliases(self, name_or_list):
+        if not name_or_list:
+            return
+        self._aliases = Alias(name_or_list)
+
+    @aliases.deleter
+    def aliases(self):
+        try:
+            del self._aliases
+        except AttributeError:
+            pass
+
+    @property
+    def notes(self):
+        try:
+            return self._notes
+        except AttributeError:
+            return Note([])  # No notes, so just return empty list.
+
+    @notes.setter
+    def notes(self, text_or_notes):
+        if not text_or_notes:
+            return
+        self._notes = Note(text_or_notes)
+
+    @notes.deleter
+    def notes(self):
+        try:
+            del self._notes
+        except AttributeError:
+            pass
