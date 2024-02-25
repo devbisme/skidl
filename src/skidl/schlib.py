@@ -105,6 +105,26 @@ class SchLib(object):
                 # Cache a reference to the library.
                 self._cache[filename] = self
 
+    def __str__(self):
+        """Return a list of the part names in this library as a string."""
+        return "\n".join(["{}: {}".format(p.name, p.description) for p in self.parts])
+
+    __repr__ = __str__
+
+    def __len__(self):
+        """
+        Return number of parts in library.
+        """
+        return len(self.parts)
+
+    def __getitem__(self, id):
+        """Get part by name or alias."""
+        return list_or_scalar(self.get_parts_by_name(id))
+
+    def __iadd__(self, *parts):
+        """Add one or more parts to a library."""
+        return self.add_parts(*parts)
+
     @classmethod
     def reset(cls):
         """Clear the cache of processed library files."""
@@ -124,8 +144,6 @@ class SchLib(object):
                 # Place a pointer to this library into the added part.
                 self.parts[-1].lib = self
         return self
-
-    __iadd__ = add_parts
 
     def get_parts(self, use_backup_lib=True, **criteria):
         """
@@ -207,16 +225,6 @@ class SchLib(object):
 
         return parts
 
-    def __getitem__(self, id):
-        """Get part by name or alias."""
-        return list_or_scalar(self.get_parts_by_name(id))
-
-    def __str__(self):
-        """Return a list of the part names in this library as a string."""
-        return "\n".join(["{}: {}".format(p.name, p.description) for p in self.parts])
-
-    __repr__ = __str__
-
     def export(self, libname, file_=None, tool=None):
         """
         Export a library into a file.
@@ -254,12 +262,6 @@ class SchLib(object):
         export_str = prettify(export_str)
         with opened(file_, "w") as f:
             f.write(export_str)
-
-    def __len__(self):
-        """
-        Return number of parts in library.
-        """
-        return len(self.parts)
 
 
 @export_to_all
