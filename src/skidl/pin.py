@@ -82,22 +82,6 @@ class Pin(SkidlBaseObject):
         ),
     )
 
-    @classmethod
-    def add_type(cls, *pin_types):
-        """
-        Add new pin type identifiers to the list of pin types.
-
-        Args:
-            pin_types: Strings identifying zero or more pin types.
-        """
-        cls.types = IntEnum("types", [m.name for m in cls.types] + list(pin_types))
-
-        # Also add the pin types as attributes of the Pin class so
-        # existing SKiDL part libs will still work (e.g. Pin.INPUT
-        # still works as well as the newer Pin.types.INPUT).
-        for m in cls.types:
-            setattr(cls, m.name, m)
-
     # Various drive levels a pin can output.
     # The order of these is important! The first entry has the weakest
     # drive and the drive increases for each successive entry.
@@ -241,28 +225,19 @@ class Pin(SkidlBaseObject):
         for k, v in list(attribs.items()):
             setattr(self, k, v)
 
-    def _normalize_num(self):
-        """Normalize pin numbers into a tuple for comparison purposes.
+    def __str__(self):
+        """Return a description of this pin as a string."""
+        ref = getattr(self.part, "ref", "???")
+        num, names, func = self.get_pin_info()
+        return "Pin {ref}/{num}/{names}/{func}".format(**locals())
 
-        Returns:
-            tuple: Tuple consisting of BGA row identifier and numeric column.
-                If it's not a BGA pin, then the tuple contains just a single number.
-        """
+    __repr__ = __str__
 
-        # Split the pin number into an initial alpha BGA row followed by column number.
-        n = list(re.match(r"(\D*)(.*)", str(self.num)).group(1, 2))
+    def __bool__(self):
+        """Any valid Pin is True."""
+        return True
 
-        # Uppercase the BGA row. This has no effect if it's not a BGA.
-        n[0] = n[0].upper()
-
-        # Convert the column number (or just the single pin number) to an integer if possible.
-        try:
-            n[-1] = int(n[-1])
-        except ValueError:
-            pass
-
-        # return the pin number tuple.
-        return n
+    __nonzero__ = __bool__  # Python 2 compatibility.
 
     def __lt__(self, o):
         if not isinstance(o, type(self)):
@@ -276,9 +251,156 @@ class Pin(SkidlBaseObject):
             return NotImplemented
         return self.part == o.part and self._normalize_num() == o._normalize_num()
 
+    def __and__(self, obj):
+        """Attach a pin and another part/pin/net in serial."""
+        from .network import Network
+
+        return Network(self) & obj
+
+    def __rand__(self, obj):
+        """Attach a pin and another part/pin/net in serial."""
+        from .network import Network
+
+        return obj & Network(self)
+
+    def __or__(self, obj):
+        """Attach a pin and another part/pin/net in parallel."""
+        from .network import Network
+
+        return Network(self) | obj
+
+    def __ror__(self, obj):
+        """Attach a pin and another part/pin/net in parallel."""
+        from .network import Network
+
+        return obj | Network(self)
+
     # Defining an __eq__ method will make Pins unhashable unless we
     # explicitly define a hash method.
     __hash__ = SkidlBaseObject.__hash__
+
+    # Make copies with the multiplication operator or by calling the object.
+    def __call__(self, num_copies=None, **attribs):
+        """
+        Return copy or list of copies of a pin including any net connection.
+
+        Args:
+            num_copies: Number of copies to make of pin.
+
+        Keyword Args:
+            attribs: Name/value pairs for setting attributes for the pin.
+
+        Notes:
+            An instance of a pin can be copied just by calling it like so::
+
+                p = Pin()     # Create a pin.
+                p_copy = p()  # This is a copy of the pin.
+        """
+
+        return self.copy(num_copies=num_copies, **attribs)
+
+    def __mul__(self, num_copies):
+        if num_copies is None:
+            num_copies = 0
+        return self.copy(num_copies=num_copies)
+
+    __rmul__ = __mul__
+
+    def __getitem__(self, *ids):
+        """
+        Return the pin if the indices resolve to a single index of 0.
+
+        Args:
+            ids: A list of indices. These can be individual
+                numbers, net names, nested lists, or slices.
+
+        Returns:
+            The pin, otherwise None or raises an Exception.
+        """
+
+        # Resolve the indices.
+        indices = list(set(expand_indices(0, self.width - 1, False, *ids)))
+        if indices is None or len(indices) == 0:
+            return None
+        if len(indices) > 1:
+            active_logger.raise_(ValueError, "Can't index a pin with multiple indices.")
+        if indices[0] != 0:
+            active_logger.raise_(ValueError, "Can't use a non-zero index for a pin.")
+        return self
+
+    def __setitem__(self, ids, *pins_nets_buses):
+        """
+        You can't assign to Pins. You must use the += operator.
+
+        This method is a work-around that allows the use of the += for making
+        connections to pins while prohibiting direct assignment. Python
+        processes something like net[0] += Net() as follows::
+
+            1. Pin.__getitem__ is called with '0' as the index. This
+               returns a single Pin.
+            2. The Pin.__iadd__ method is passed the pin and
+               the thing to connect to it (a Net in this case). This
+               method makes the actual connection to the net. Then
+               it creates an iadd_flag attribute in the object it returns.
+            3. Finally, Pin.__setitem__ is called. If the iadd_flag attribute
+               is true in the passed argument, then __setitem__ was entered
+               as part of processing the += operator. If there is no
+               iadd_flag attribute, then __setitem__ was entered as a result
+               of using a direct assignment, which is not allowed.
+        """
+
+        # If the iadd_flag is set, then it's OK that we got
+        # here and don't issue an error. Also, delete the flag.
+        if from_iadd(pins_nets_buses):
+            rmv_iadd(pins_nets_buses)
+            return
+
+        # No iadd_flag or it wasn't set. This means a direct assignment
+        # was made to the pin, which is not allowed.
+        active_logger.raise_(TypeError, "Can't assign to a Net! Use the += operator.")
+
+    def __iter__(self):
+        """
+        Return an iterator for stepping through the pin.
+        """
+        # You can only iterate a Pin one time.
+        return (self for i in [0])  # Return generator expr.
+
+    def __iadd__(self, *pins_nets_buses):
+        """
+        Return the pin after connecting it to one or more nets or pins using the += operator.
+
+        Args:
+            pins_nets_buses: One or more Pin, Net or Bus objects or
+                lists/tuples of them.
+
+        Returns:
+            The updated pin with the new connections.
+
+        Notes:
+            You can connect nets or pins to a pin like so::
+
+                p = Pin()     # Create a pin.
+                n = Net()     # Create a net.
+                p += net      # Connect the net to the pin.
+        """
+        return self.connect(*pins_nets_buses)
+
+    @classmethod
+    def add_type(cls, *pin_types):
+        """
+        Add new pin type identifiers to the list of pin types.
+
+        Args:
+            pin_types: Strings identifying zero or more pin types.
+        """
+        cls.types = IntEnum("types", [m.name for m in cls.types] + list(pin_types))
+
+        # Also add the pin types as attributes of the Pin class so
+        # existing SKiDL part libs will still work (e.g. Pin.INPUT
+        # still works as well as the newer Pin.types.INPUT).
+        for m in cls.types:
+            setattr(cls, m.name, m)
 
     def copy(self, num_copies=None, **attribs):
         """
@@ -348,76 +470,6 @@ class Pin(SkidlBaseObject):
         if return_list:
             return copies
         return copies[0]
-
-    # Make copies with the multiplication operator or by calling the object.
-    __call__ = copy
-
-    def __mul__(self, num_copies):
-        if num_copies is None:
-            num_copies = 0
-        return self.copy(num_copies=num_copies)
-
-    __rmul__ = __mul__
-
-    def __getitem__(self, *ids):
-        """
-        Return the pin if the indices resolve to a single index of 0.
-
-        Args:
-            ids: A list of indices. These can be individual
-                numbers, net names, nested lists, or slices.
-
-        Returns:
-            The pin, otherwise None or raises an Exception.
-        """
-
-        # Resolve the indices.
-        indices = list(set(expand_indices(0, self.width - 1, False, *ids)))
-        if indices is None or len(indices) == 0:
-            return None
-        if len(indices) > 1:
-            active_logger.raise_(ValueError, "Can't index a pin with multiple indices.")
-        if indices[0] != 0:
-            active_logger.raise_(ValueError, "Can't use a non-zero index for a pin.")
-        return self
-
-    def __setitem__(self, ids, *pins_nets_buses):
-        """
-        You can't assign to Pins. You must use the += operator.
-
-        This method is a work-around that allows the use of the += for making
-        connections to pins while prohibiting direct assignment. Python
-        processes something like net[0] += Net() as follows::
-
-            1. Pin.__getitem__ is called with '0' as the index. This
-               returns a single Pin.
-            2. The Pin.__iadd__ method is passed the pin and
-               the thing to connect to it (a Net in this case). This
-               method makes the actual connection to the net. Then
-               it creates an iadd_flag attribute in the object it returns.
-            3. Finally, Pin.__setitem__ is called. If the iadd_flag attribute
-               is true in the passed argument, then __setitem__ was entered
-               as part of processing the += operator. If there is no
-               iadd_flag attribute, then __setitem__ was entered as a result
-               of using a direct assignment, which is not allowed.
-        """
-
-        # If the iadd_flag is set, then it's OK that we got
-        # here and don't issue an error. Also, delete the flag.
-        if from_iadd(pins_nets_buses):
-            rmv_iadd(pins_nets_buses)
-            return
-
-        # No iadd_flag or it wasn't set. This means a direct assignment
-        # was made to the pin, which is not allowed.
-        active_logger.raise_(TypeError, "Can't assign to a Net! Use the += operator.")
-
-    def __iter__(self):
-        """
-        Return an iterator for stepping through the pin.
-        """
-        # You can only iterate a Pin one time.
-        return (self for i in [0])  # Return generator expr.
 
     def is_connected(self):
         """Return true if a pin is connected to a net (but not a no-connect net)."""
@@ -542,9 +594,6 @@ class Pin(SkidlBaseObject):
 
         return self
 
-    # Connect a net to a pin using the += operator.
-    __iadd__ = connect
-
     def disconnect(self):
         """Disconnect this pin from all nets."""
         if not self.net:
@@ -572,10 +621,6 @@ class Pin(SkidlBaseObject):
         """Return a list containing this pin."""
         return to_list(self)
 
-    @property
-    def pins(self):
-        return self.get_pins()
-
     def create_network(self):
         """Create a network from a single pin."""
         from .network import Network
@@ -583,30 +628,6 @@ class Pin(SkidlBaseObject):
         ntwk = Network()
         ntwk.append(self)
         return ntwk
-
-    def __and__(self, obj):
-        """Attach a pin and another part/pin/net in serial."""
-        from .network import Network
-
-        return Network(self) & obj
-
-    def __rand__(self, obj):
-        """Attach a pin and another part/pin/net in serial."""
-        from .network import Network
-
-        return obj & Network(self)
-
-    def __or__(self, obj):
-        """Attach a pin and another part/pin/net in parallel."""
-        from .network import Network
-
-        return Network(self) | obj
-
-    def __ror__(self, obj):
-        """Attach a pin and another part/pin/net in parallel."""
-        from .network import Network
-
-        return obj | Network(self)
 
     def chk_conflict(self, other_pin):
         """Check for electrical rule conflicts between this pin and another."""
@@ -656,14 +677,6 @@ class Pin(SkidlBaseObject):
         func = Pin.pin_info[self.func]["function"]
         return num, names, func
 
-    def __str__(self):
-        """Return a description of this pin as a string."""
-        ref = getattr(self.part, "ref", "???")
-        num, names, func = self.get_pin_info()
-        return "Pin {ref}/{num}/{names}/{func}".format(**locals())
-
-    __repr__ = __str__
-
     def export(self):
         """Return a string to recreate a Pin object."""
         attribs = []
@@ -679,6 +692,33 @@ class Pin(SkidlBaseObject):
                     v = repr(v)
                 attribs.append("{}={}".format(k, v))
         return "Pin({})".format(",".join(attribs))
+
+    def _normalize_num(self):
+        """Normalize pin numbers into a tuple for comparison purposes.
+
+        Returns:
+            tuple: Tuple consisting of BGA row identifier and numeric column.
+                If it's not a BGA pin, then the tuple contains just a single number.
+        """
+
+        # Split the pin number into an initial alpha BGA row followed by column number.
+        n = list(re.match(r"(\D*)(.*)", str(self.num)).group(1, 2))
+
+        # Uppercase the BGA row. This has no effect if it's not a BGA.
+        n[0] = n[0].upper()
+
+        # Convert the column number (or just the single pin number) to an integer if possible.
+        try:
+            n[-1] = int(n[-1])
+        except ValueError:
+            pass
+
+        # return the pin number tuple.
+        return n
+
+    @property
+    def pins(self):
+        return self.get_pins()
 
     @property
     def net(self):
@@ -723,12 +763,6 @@ class Pin(SkidlBaseObject):
     def circuit(self):
         """Return the circuit of the part the pin belongs to."""
         return self.part.circuit
-
-    def __bool__(self):
-        """Any valid Pin is True."""
-        return True
-
-    __nonzero__ = __bool__  # Python 2 compatibility.
 
 
 ##############################################################################
