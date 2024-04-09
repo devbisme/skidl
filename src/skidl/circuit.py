@@ -926,14 +926,13 @@ class Circuit(SkidlBaseObject):
 
                 # Assign I/O to each part pin by either using the pin's symio
                 # attribute or by using its pin function.
-                part_pin_dirs = {
-                    pin.num: io_dict[
-                        getattr(pin, "symio", pin_dir_tbl[pin.func]).lower()[0]
-                    ]
-                    for pin in pins
-                }
-                # Remove no-connect pins.
-                part_pin_dirs = {n: d for n, d in part_pin_dirs.items() if d}
+                part_pin_dirs = {}
+                for pin in pins:
+                    pin_dir = getattr(pin, "symio", pin_dir_tbl[pin.func]).lower()[0]
+
+                    # Leave out no-connect pins
+                    if pin_dir != "n":
+                        part_pin_dirs[pin.num] = io_dict[pin_dir]
 
                 # Determine which symbol in the skin file goes with this part.
                 unit_symtx = part_symtx + getattr(unit, "symtx", "")
