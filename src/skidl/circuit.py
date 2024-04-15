@@ -947,7 +947,7 @@ class Circuit(SkidlBaseObject):
                 # Create the cell that netlistsvg uses to draw the part and connections.
                 cells[ref] = {
                     "type": name,
-                    "port_directions": part_pin_dirs,
+                    # "port_directions": part_pin_dirs,
                     "connections": connections,
                     "attributes": {
                         "value": str(part.value),
