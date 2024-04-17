@@ -859,7 +859,7 @@ class Circuit(SkidlBaseObject):
                 if n.name not in net_nums:
                     net_nums[n.name] = num
 
-        io_dict = {"i": "input", "o": "output"}
+        io_dict = {"i": "input", "o": "output", "n": "nc"}
 
         # Assign I/O ports to any named net that has a netio attribute.
         ports = {}
@@ -932,8 +932,8 @@ class Circuit(SkidlBaseObject):
                     ]
                     for pin in pins
                 }
-                # Remove no-connect pins.
-                part_pin_dirs = {n: d for n, d in part_pin_dirs.items() if d}
+                # Keep only input/output pins. Remove no-connect pins.
+                part_pin_dirs = {n: d for n, d in part_pin_dirs.items() if d[0] in "io"}
 
                 # Determine which symbol in the skin file goes with this part.
                 unit_symtx = part_symtx + getattr(unit, "symtx", "")
@@ -947,7 +947,7 @@ class Circuit(SkidlBaseObject):
                 # Create the cell that netlistsvg uses to draw the part and connections.
                 cells[ref] = {
                     "type": name,
-                    # "port_directions": part_pin_dirs,
+                    "port_directions": part_pin_dirs,
                     "connections": connections,
                     "attributes": {
                         "value": str(part.value),
