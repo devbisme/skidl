@@ -232,25 +232,25 @@ def test_svg_10():
 
     generate_svg()
 
-def test_svg_11():
-    return # This test is not working properly.
+# def test_svg_11():
+#     # This test is not working properly.
 
-    vcc = Part("Device", "Battery", value=5 @ u_V)
-    r1 = Part("Device", "R", value=1 @ u_kOhm)
-    r2 = Part("Device", "R", value=2 @ u_kOhm)
+#     vcc = Part("Device", "Battery", value=5 @ u_V)
+#     r1 = Part("Device", "R", value=1 @ u_kOhm)
+#     r2 = Part("Device", "R", value=2 @ u_kOhm)
 
-    vcc.convert_for_spice(V, {1: "p", 2: "n"})
-    r1.convert_for_spice(R, {1: "p", 2: "n"})
-    r2.convert_for_spice(R, {1: "p", 2: "n"})
+#     vcc.convert_for_spice(V, {1: "p", 2: "n"})
+#     r1.convert_for_spice(R, {1: "p", 2: "n"})
+#     r2.convert_for_spice(R, {1: "p", 2: "n"})
 
-    vin, vout, gnd = Net("Vin"), Net("Vout"), Net("GND")
-    vin.netio = "i"
-    vout.netio = "o"
-    gnd.netio = "o"
+#     vin, vout, gnd = Net("Vin"), Net("Vout"), Net("GND")
+#     vin.netio = "i"
+#     vout.netio = "o"
+#     gnd.netio = "o"
 
-    gnd & vcc["n p"] & vin & r1 & vout & r2 & gnd
+#     gnd & vcc["n p"] & vin & r1 & vout & r2 & gnd
 
-    generate_svg()
+#     generate_svg()
 
 def test_svg_12():
     return # This test is not working properly.
