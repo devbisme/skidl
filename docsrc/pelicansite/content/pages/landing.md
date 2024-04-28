@@ -425,7 +425,7 @@ a final netlist for your circuit.
 Since a part is stored in a Python object, you may add any
 other attributes you want using `setattr()`.
 But if you want those attributes to be passed on within the netlist, then you
-should probably add them as [part fields](#Part-Fields).
+should probably add them as [part fields](#part-fields).
 
 
 ## Connecting Pins
@@ -608,7 +608,7 @@ If you're designing with KiCad and want to skip some steps, you may go
 directly to a PCB like this:
 
 ```terminal
->>> generate_pcb()`
+>>> generate_pcb()
 ```
 
 This outputs a `.kicad_pcb` file that you can open in PCBNEW without
@@ -637,7 +637,7 @@ bag of `Pin` objects with a few other attributes attached
 (like the part number, name, reference, value, footprint, etc.).
 
 The `Pin` object represents a terminal that brings an electronic signal into
-and out of the part. Each `Pin` object store information on which part it belongs to
+and out of the part. Each `Pin` object stores information on which part it belongs to
 and which nets it is attached to.
 
 A `Net` object is kind of like a `Part`: it's a simple bag of pins.
@@ -1124,7 +1124,7 @@ As a first example, let's connect a net to a pin on a part:
 ```terminal
 >>> pic10 = Part('MCU_Microchip_PIC10', 'pic10f220-iot')  # Get a part.
 >>> io = Net('IO_NET')  # Create a net.
->>> pic10.GP0] += io    # Connect the net to a part pin.
+>>> pic10.GP0 += io    # Connect the net to a part pin.
 >>> io                  # Show the pins connected to the net.
 IO_NET: Pin U5/1/GP0/BIDIRECTIONAL
 ```
@@ -1135,7 +1135,7 @@ with the same result:
 ```terminal
 >>> pic10 = Part('MCU_Microchip_PIC10', 'pic10f220-iot')
 >>> io = Net('IO_NET')
->>> io += pic10*GP0     # Connect a part pin to the net.
+>>> io += pic10.GP0     # Connect a part pin to the net.
 >>> io
 IO_NET_1: Pin U6/1/GP0/BIDIRECTIONAL
 ```
