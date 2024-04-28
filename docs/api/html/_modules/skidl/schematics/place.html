@@ -2,19 +2,17 @@
 
 <!doctype html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.schematics.place &#8212; SKiDL 1.2.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
+    <title>skidl.schematics.place &#8212; SKiDL 1.2.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -34,7 +32,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.place</a></li> 
       </ul>
@@ -48,7 +46,7 @@
   <h1>Source code for skidl.schematics.place</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Autoplacer for arranging symbols in a schematic.</span>
@@ -70,11 +68,14 @@
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
 
-<span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+    <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
 
-<span class="kn">from</span> <span class="nn">..circuit</span> <span class="kn">import</span> <span class="n">Circuit</span>
-<span class="kn">from</span> <span class="nn">..pin</span> <span class="kn">import</span> <span class="n">Pin</span>
-<span class="kn">from</span> <span class="nn">..utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">rmv_attr</span><span class="p">,</span> <span class="n">sgn</span>
+<span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">Pin</span>
+<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">rmv_attr</span><span class="p">,</span> <span class="n">sgn</span>
 <span class="kn">from</span> <span class="nn">.debug_draw</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">draw_end</span><span class="p">,</span>
     <span class="n">draw_pause</span><span class="p">,</span>
@@ -85,7 +86,6 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">.geometry</span> <span class="kn">import</span> <span class="n">BBox</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Segment</span><span class="p">,</span> <span class="n">Tx</span><span class="p">,</span> <span class="n">Vector</span>
 
-<span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;PlacementFailure&quot;</span><span class="p">,</span>
@@ -123,10 +123,13 @@
 <span class="c1">###################################################################</span>
 
 
-<div class="viewcode-block" id="PlacementFailure"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.PlacementFailure">[docs]</a><span class="k">class</span> <span class="nc">PlacementFailure</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="PlacementFailure">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.PlacementFailure">[docs]</a>
+<span class="k">class</span> <span class="nc">PlacementFailure</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception raised when parts or blocks could not be placed.&quot;&quot;&quot;</span>
 
     <span class="k">pass</span></div>
+
 
 
 <span class="c1"># Small functions for summing Points and Vectors.</span>
@@ -135,7 +138,7 @@
 
 
 <span class="k">def</span> <span class="nf">is_net_terminal</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">skidl.schematics.gen_schematic</span> <span class="kn">import</span> <span class="n">NetTerminal</span>
+    <span class="kn">from</span> <span class="nn">skidl.schematics.net_terminal</span> <span class="kn">import</span> <span class="n">NetTerminal</span>
 
     <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">)</span>
 
@@ -181,7 +184,7 @@
 
 <span class="k">def</span> <span class="nf">add_placement_bboxes</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Expand part bounding boxes to include space for subsequent routing.&quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">skidl.schematics.gen_schematic</span> <span class="kn">import</span> <span class="n">NetTerminal</span>
+    <span class="kn">from</span> <span class="nn">skidl.schematics.net_terminal</span> <span class="kn">import</span> <span class="n">NetTerminal</span>
 
     <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
         <span class="c1"># Placement bbox starts off with the part bbox (including any net labels).</span>
@@ -521,7 +524,9 @@
 <span class="c1"># net_tension = net_torque_dist</span>
 
 
-<div class="viewcode-block" id="net_force_dist"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.net_force_dist">[docs]</a><span class="nd">@export_to_all</span>
+<div class="viewcode-block" id="net_force_dist">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.net_force_dist">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">net_force_dist</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute attractive force on a part from all the other parts connected to it.</span>
 
@@ -599,11 +604,14 @@
     <span class="k">return</span> <span class="n">total_force</span></div>
 
 
+
 <span class="c1"># Select the net force method used for the attraction of parts during placement.</span>
 <span class="n">attractive_force</span> <span class="o">=</span> <span class="n">net_force_dist</span>
 
 
-<div class="viewcode-block" id="overlap_force"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.overlap_force">[docs]</a><span class="nd">@export_to_all</span>
+<div class="viewcode-block" id="overlap_force">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.overlap_force">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">overlap_force</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the repulsive force on a part from overlapping other parts.</span>
 
@@ -647,7 +655,10 @@
     <span class="k">return</span> <span class="n">total_force</span></div>
 
 
-<div class="viewcode-block" id="overlap_force_rand"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.overlap_force_rand">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="overlap_force_rand">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.overlap_force_rand">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">overlap_force_rand</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the repulsive force on a part from overlapping other parts.</span>
 
@@ -695,6 +706,7 @@
                     <span class="k">break</span>
                 
     <span class="k">return</span> <span class="n">total_force</span></div>
+
 
 
 <span class="c1"># Select the overlap force method used for the repulsion of parts during placement.</span>
@@ -1151,11 +1163,15 @@
     <span class="n">restore_anchor_pull_pins</span><span class="p">(</span><span class="n">net_terminals</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Placer"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer">[docs]</a><span class="nd">@export_to_all</span>
+<div class="viewcode-block" id="Placer">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">class</span> <span class="nc">Placer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Mixin to add place function to Node class.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Placer.group_parts"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.group_parts">[docs]</a>    <span class="k">def</span> <span class="nf">group_parts</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<div class="viewcode-block" id="Placer.group_parts">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.group_parts">[docs]</a>
+    <span class="k">def</span> <span class="nf">group_parts</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Group parts in the Node that are connected by internal nets</span>
 
 <span class="sd">        Args:</span>
@@ -1203,7 +1219,10 @@
 
         <span class="k">return</span> <span class="n">connected_parts</span><span class="p">,</span> <span class="n">internal_nets</span><span class="p">,</span> <span class="n">floating_parts</span></div>
 
-<div class="viewcode-block" id="Placer.place_connected_parts"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.place_connected_parts">[docs]</a>    <span class="k">def</span> <span class="nf">place_connected_parts</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">nets</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Placer.place_connected_parts">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.place_connected_parts">[docs]</a>
+    <span class="k">def</span> <span class="nf">place_connected_parts</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">nets</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Place individual parts.</span>
 
 <span class="sd">        Args:</span>
@@ -1261,7 +1280,10 @@
             <span class="c1"># Pause to look at placement for debugging purposes.</span>
             <span class="n">draw_pause</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Placer.place_floating_parts"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.place_floating_parts">[docs]</a>    <span class="k">def</span> <span class="nf">place_floating_parts</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Placer.place_floating_parts">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.place_floating_parts">[docs]</a>
+    <span class="k">def</span> <span class="nf">place_floating_parts</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Place individual parts.</span>
 
 <span class="sd">        Args:</span>
@@ -1322,7 +1344,10 @@
             <span class="c1"># Pause to look at placement for debugging purposes.</span>
             <span class="n">draw_pause</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Placer.place_blocks"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.place_blocks">[docs]</a>    <span class="k">def</span> <span class="nf">place_blocks</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">connected_parts</span><span class="p">,</span> <span class="n">floating_parts</span><span class="p">,</span> <span class="n">children</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Placer.place_blocks">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.place_blocks">[docs]</a>
+    <span class="k">def</span> <span class="nf">place_blocks</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">connected_parts</span><span class="p">,</span> <span class="n">floating_parts</span><span class="p">,</span> <span class="n">children</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Place blocks of parts and hierarchical sheets.</span>
 
 <span class="sd">        Args:</span>
@@ -1479,7 +1504,10 @@
                 <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">blk</span><span class="o">.</span><span class="n">src</span><span class="p">:</span>
                     <span class="n">part</span><span class="o">.</span><span class="n">tx</span> <span class="o">*=</span> <span class="n">blk</span><span class="o">.</span><span class="n">tx</span></div>
 
-<div class="viewcode-block" id="Placer.get_attrs"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.get_attrs">[docs]</a>    <span class="k">def</span> <span class="nf">get_attrs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Placer.get_attrs">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.get_attrs">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_attrs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return dict of attribute sets for the parts, pins, and nets in a node.&quot;&quot;&quot;</span>
         <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;parts&quot;</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span> <span class="s2">&quot;pins&quot;</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span> <span class="s2">&quot;nets&quot;</span><span class="p">:</span> <span class="nb">set</span><span class="p">()}</span>
         <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
@@ -1490,7 +1518,10 @@
             <span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;nets&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">net</span><span class="p">)))</span>
         <span class="k">return</span> <span class="n">attrs</span></div>
 
-<div class="viewcode-block" id="Placer.show_added_attrs"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.show_added_attrs">[docs]</a>    <span class="k">def</span> <span class="nf">show_added_attrs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Placer.show_added_attrs">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.show_added_attrs">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_added_attrs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Show attributes that were added to parts, pins, and nets in a node.&quot;&quot;&quot;</span>
         <span class="n">current_attrs</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_attrs</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">current_attrs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -1498,7 +1529,10 @@
                 <span class="s2">&quot;added </span><span class="si">{}</span><span class="s2"> attrs: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">current_attrs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">-</span> <span class="n">node</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Placer.rmv_placement_stuff"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.rmv_placement_stuff">[docs]</a>    <span class="k">def</span> <span class="nf">rmv_placement_stuff</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Placer.rmv_placement_stuff">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.rmv_placement_stuff">[docs]</a>
+    <span class="k">def</span> <span class="nf">rmv_placement_stuff</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove attributes added to parts, pins, and nets of a node during the placement phase.&quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
@@ -1509,7 +1543,10 @@
         <span class="p">)</span>
         <span class="n">rmv_attr</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">get_internal_nets</span><span class="p">(),</span> <span class="p">(</span><span class="s2">&quot;parts&quot;</span><span class="p">,))</span></div>
 
-<div class="viewcode-block" id="Placer.place"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.place">[docs]</a>    <span class="k">def</span> <span class="nf">place</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Placer.place">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.place">[docs]</a>
+    <span class="k">def</span> <span class="nf">place</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Place the parts and children in this node.</span>
 
 <span class="sd">        Args:</span>
@@ -1565,7 +1602,10 @@
             <span class="n">node</span><span class="o">.</span><span class="n">rmv_placement_stuff</span><span class="p">()</span>
             <span class="k">raise</span> <span class="n">PlacementFailure</span></div>
 
-<div class="viewcode-block" id="Placer.get_snap_pt"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.get_snap_pt">[docs]</a>    <span class="k">def</span> <span class="nf">get_snap_pt</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Placer.get_snap_pt">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.place.html#skidl.schematics.place.Placer.get_snap_pt">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_snap_pt</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a Point to use for snapping the node to the grid.</span>
 
 <span class="sd">        Args:</span>
@@ -1591,7 +1631,9 @@
                         <span class="k">return</span> <span class="n">snap_pt</span> <span class="o">*</span> <span class="n">child</span><span class="o">.</span><span class="n">tx</span>
 
         <span class="c1"># No snapping point if node is not flattened or no parts in it or its children.</span>
-        <span class="k">return</span> <span class="kc">None</span></div></div>
+        <span class="k">return</span> <span class="kc">None</span></div>
+</div>
+
 </pre></div>
 
             <div class="clearer"></div>
@@ -1623,14 +1665,14 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.place</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2023, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>
 </html>

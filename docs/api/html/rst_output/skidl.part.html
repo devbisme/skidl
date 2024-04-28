@@ -2,20 +2,18 @@
 
 <!doctype html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.part module &#8212; SKiDL 1.2.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
+    <title>skidl.part module &#8212; SKiDL 1.2.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <script src="../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -35,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part module</a></li> 
       </ul>
     </div>  
@@ -46,11 +44,11 @@
           <div class="body" role="main">
             
   <section id="module-skidl.part">
-<span id="skidl-part-module"></span><h1>skidl.part module<a class="headerlink" href="#module-skidl.part" title="Permalink to this heading">¶</a></h1>
+<span id="skidl-part-module"></span><h1>skidl.part module<a class="headerlink" href="#module-skidl.part" title="Link to this heading">¶</a></h1>
 <p>Handles parts.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.part.Part">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.part.</span></span><span class="sig-name descname"><span class="pre">Part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NETLIST</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connections</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_defn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_splitters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.part.</span></span><span class="sig-name descname"><span class="pre">Part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NETLIST</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connections</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_defn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_splitters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject" title="skidl.skidlbaseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">SkidlBaseObject</span></code></a></p>
 <p>A class for storing a definition of a schematic part.</p>
 <dl class="field-list simple">
@@ -71,7 +69,6 @@ schematic library file).</p></li>
 <li><p><strong>ref</strong> – A specific part reference to be assigned.</p></li>
 <li><p><strong>tag</strong> – A specific tag to tie the part to its footprint in the PCB.</p></li>
 <li><p><strong>pin_splitters</strong> – String of characters that split long pin names into shorter aliases.</p></li>
-<li><p><strong>tool_version</strong> – Select between KiCad V5 and V6.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
@@ -88,31 +85,31 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.add_pins">
-<span class="sig-name descname"><span class="pre">add_pins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.add_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.add_pins" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add one or more pins to a part.</p>
+<span class="sig-name descname"><span class="pre">add_pins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.add_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.add_pins" title="Link to this definition">¶</a></dt>
+<dd><p>Add one or more pins to a part and return the part.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.associate_pins">
-<span class="sig-name descname"><span class="pre">associate_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.associate_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.associate_pins" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">associate_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.associate_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.associate_pins" title="Link to this definition">¶</a></dt>
 <dd><p>Make sure all the pins in a part have valid references to the part.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.attached_to">
-<span class="sig-name descname"><span class="pre">attached_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.attached_to"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.attached_to" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">attached_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.attached_to"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.attached_to" title="Link to this definition">¶</a></dt>
 <dd><p>Return True if any part pin is connected to a net in the list.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.convert_for_spice">
-<span class="sig-name descname"><span class="pre">convert_for_spice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spice_part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.convert_for_spice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.convert_for_spice" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convert_for_spice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spice_part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.convert_for_spice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.convert_for_spice" title="Link to this definition">¶</a></dt>
 <dd><p>Convert a Part object for use with SPICE.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>spice_part</strong> (<a class="reference internal" href="#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – The type of SPICE Part to be converted to.</p></li>
-<li><p><strong>pin_map</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dict with pin numbers/names of self as keys and num/names of spice_part pins as replacement values.</p></li>
+<li><p><strong>pin_map</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Dict with pin numbers/names of self as keys and num/names of spice_part pins as replacement values.</p></li>
 </ul>
 </dd>
 </dl>
@@ -120,7 +117,7 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_copies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NETLIST</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">io</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.copy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_copies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NETLIST</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">io</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.copy" title="Link to this definition">¶</a></dt>
 <dd><p>Make zero or more copies of this part while maintaining all pin/net
 connections.</p>
 <dl class="field-list simple">
@@ -139,7 +136,7 @@ connections.</p>
 <dd class="field-odd"><p>A list of Part copies or a single Part if num_copies==1.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>Exception if the requested number of copies is a non-integer</strong><strong> or </strong><strong>negative.</strong> – </p>
+<dd class="field-even"><p><strong>Exception if the requested number</strong><strong> of </strong><strong>copies is a non-integer</strong><strong> or </strong><strong>negative.</strong> – </p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -157,76 +154,54 @@ connections.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.copy_units">
-<span class="sig-name descname"><span class="pre">copy_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.copy_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.copy_units" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">copy_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.copy_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.copy_units" title="Link to this definition">¶</a></dt>
 <dd><p>Make copies of the units from the source part.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.create_network">
-<span class="sig-name descname"><span class="pre">create_network</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.create_network"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.create_network" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_network</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.create_network"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.create_network" title="Link to this definition">¶</a></dt>
 <dd><p>Create a network from the pins of a part.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.disconnect">
-<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.disconnect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.disconnect" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.disconnect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.disconnect" title="Link to this definition">¶</a></dt>
 <dd><p>Disconnect all the part’s pins from nets.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.erc_desc">
-<span class="sig-name descname"><span class="pre">erc_desc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.erc_desc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.erc_desc" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">erc_desc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.erc_desc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.erc_desc" title="Link to this definition">¶</a></dt>
 <dd><p>Create description of part for ERC and other error reporting.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.part.Part.erc_list">
-<span class="sig-name descname"><span class="pre">erc_list</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">dflt_part_erc&gt;]</span></em><a class="headerlink" href="#skidl.part.Part.erc_list" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">erc_list</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">dflt_part_erc&gt;]</span></em><a class="headerlink" href="#skidl.part.Part.erc_list" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.export">
-<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.export" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.export" title="Link to this definition">¶</a></dt>
 <dd><p>Return a string to recreate a Part object.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.part.Part.foot">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">foot</span></span><a class="headerlink" href="#skidl.part.Part.foot" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">foot</span></span><a class="headerlink" href="#skidl.part.Part.foot" title="Link to this definition">¶</a></dt>
 <dd><p>Get, set and delete the part footprint.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="skidl.part.Part.generate_netlist_component">
-<span class="sig-name descname"><span class="pre">generate_netlist_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.generate_netlist_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.generate_netlist_component" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate the part information for inclusion in a netlist.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tool</strong> – The format for the netlist file (e.g., KICAD).</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.generate_svg_component">
-<span class="sig-name descname"><span class="pre">generate_svg_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symtx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_stubs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.generate_svg_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.generate_svg_component" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">generate_svg_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symtx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_stubs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.generate_svg_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.generate_svg_component" title="Link to this definition">¶</a></dt>
 <dd><p>Generate the SVG for displaying a part in an SVG schematic.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="skidl.part.Part.generate_xml_component">
-<span class="sig-name descname"><span class="pre">generate_xml_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.generate_xml_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.generate_xml_component" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate the part information for inclusion in an XML file.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tool</strong> – The format for the XML file (e.g., KICAD).</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.get">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.get" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.get" title="Link to this definition">¶</a></dt>
 <dd><p>Get the part with the given text from a circuit, or return None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -246,7 +221,7 @@ either their reference, name, alias, or their description.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.get_pins">
-<span class="sig-name descname"><span class="pre">get_pins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pin_ids</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">criteria</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.get_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.get_pins" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_pins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pin_ids</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">criteria</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.get_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.get_pins" title="Link to this definition">¶</a></dt>
 <dd><p>Return list of part pins selected by pin numbers or names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -276,18 +251,18 @@ Or None if no match was found.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.grab_pins">
-<span class="sig-name descname"><span class="pre">grab_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.grab_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.grab_pins" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">grab_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.grab_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.grab_pins" title="Link to this definition">¶</a></dt>
 <dd><p>Grab pins back from PartUnits.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.part.Part.hierarchical_name">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hierarchical_name</span></span><a class="headerlink" href="#skidl.part.Part.hierarchical_name" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hierarchical_name</span></span><a class="headerlink" href="#skidl.part.Part.hierarchical_name" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.is_connected">
-<span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.is_connected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.is_connected" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.is_connected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.is_connected" title="Link to this definition">¶</a></dt>
 <dd><p>Return T/F depending upon whether a part is connected in a netlist.</p>
 <p>If a part has pins but none of them are connected to nets, then
 this method will return False. Otherwise, it will return True even if
@@ -297,7 +272,7 @@ silkscreen logos, or other non-electrical schematic elements).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.is_movable">
-<span class="sig-name descname"><span class="pre">is_movable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.is_movable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.is_movable" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">is_movable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.is_movable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.is_movable" title="Link to this definition">¶</a></dt>
 <dd><p>Return T/F if the part can be moved from one circuit into another.</p>
 <dl class="simple">
 <dt>This method returns true if:</dt><dd><ol class="arabic simple">
@@ -312,7 +287,7 @@ silkscreen logos, or other non-electrical schematic elements).</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.make_unit">
-<span class="sig-name descname"><span class="pre">make_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pin_ids</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">criteria</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.make_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.make_unit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">make_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pin_ids</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">criteria</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.make_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.make_unit" title="Link to this definition">¶</a></dt>
 <dd><p>Create a PartUnit from a set of pins in a Part object.</p>
 <p>Parts can be organized into smaller pieces called PartUnits. A PartUnit
 acts like a Part but contains only a subset of the pins of the Part.</p>
@@ -336,18 +311,18 @@ pin must have in order to be selected.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.part.Part.match_pin_regex">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">match_pin_regex</span></span><a class="headerlink" href="#skidl.part.Part.match_pin_regex" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">match_pin_regex</span></span><a class="headerlink" href="#skidl.part.Part.match_pin_regex" title="Link to this definition">¶</a></dt>
 <dd><p>Get, set and delete the enable/disable of pin regular-expression matching.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.part.Part.ordered_pins">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ordered_pins</span></span><a class="headerlink" href="#skidl.part.Part.ordered_pins" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ordered_pins</span></span><a class="headerlink" href="#skidl.part.Part.ordered_pins" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.parse">
-<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partial_parse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.parse" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partial_parse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.parse" title="Link to this definition">¶</a></dt>
 <dd><p>Create a part from its stored part definition.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -359,7 +334,7 @@ part. Leave the rest unparsed.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.part.Part.ref">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ref</span></span><a class="headerlink" href="#skidl.part.Part.ref" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ref</span></span><a class="headerlink" href="#skidl.part.Part.ref" title="Link to this definition">¶</a></dt>
 <dd><p>Get, set and delete the part reference.</p>
 <p>When setting the part reference, if another part with the same
 reference is found, the reference for this part is adjusted to make
@@ -368,37 +343,37 @@ it unique.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.release_pins">
-<span class="sig-name descname"><span class="pre">release_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.release_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.release_pins" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">release_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.release_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.release_pins" title="Link to this definition">¶</a></dt>
 <dd><p>A Part can’t release pins back to its PartUnits, so do nothing.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.rename_pin">
-<span class="sig-name descname"><span class="pre">rename_pin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_pin_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.rename_pin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.rename_pin" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rename_pin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_pin_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.rename_pin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.rename_pin" title="Link to this definition">¶</a></dt>
 <dd><p>Assign a new name to a pin of a part.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.renumber_pin">
-<span class="sig-name descname"><span class="pre">renumber_pin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_pin_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.renumber_pin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.renumber_pin" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">renumber_pin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_pin_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.renumber_pin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.renumber_pin" title="Link to this definition">¶</a></dt>
 <dd><p>Assign a new number to a pin of a part.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.rmv_pins">
-<span class="sig-name descname"><span class="pre">rmv_pins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pin_ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.rmv_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.rmv_pins" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rmv_pins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pin_ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.rmv_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.rmv_pins" title="Link to this definition">¶</a></dt>
 <dd><p>Remove one or more pins from a part.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.similarity">
-<span class="sig-name descname"><span class="pre">similarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.similarity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.similarity" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">similarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.similarity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.similarity" title="Link to this definition">¶</a></dt>
 <dd><p>Return a measure of how similar two parts are.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>part</strong> (<a class="reference internal" href="#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – The part to compare to for similarity.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dictionary of options and settings affecting similarity computation.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Dictionary of options and settings affecting similarity computation.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -409,61 +384,45 @@ it unique.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.split_pin_names">
-<span class="sig-name descname"><span class="pre">split_pin_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delimiters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.split_pin_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.split_pin_names" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">split_pin_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delimiters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.split_pin_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.split_pin_names" title="Link to this definition">¶</a></dt>
 <dd><p>Use chars in delimiters to split pin names and add as aliases to each pin.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.swap_pins">
-<span class="sig-name descname"><span class="pre">swap_pins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_id1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_id2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.swap_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.swap_pins" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">swap_pins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_id1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_id2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.swap_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.swap_pins" title="Link to this definition">¶</a></dt>
 <dd><p>Swap pin name/number between two pins of a part.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.part.Part.tag">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tag</span></span><a class="headerlink" href="#skidl.part.Part.tag" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tag</span></span><a class="headerlink" href="#skidl.part.Part.tag" title="Link to this definition">¶</a></dt>
 <dd><p>Return the part’s tag.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="skidl.part.Part.to_eeschema">
-<span class="sig-name descname"><span class="pre">to_eeschema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part.Part.to_eeschema" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create EESCHEMA code for a part.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>part</strong> (<a class="reference internal" href="#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – SKiDL part.</p></li>
-<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>EESCHEMA code for the part.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>string</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p><a class="reference external" href="https://en.wikibooks.org/wiki/Kicad/file_formats#Schematic_Files_Format">https://en.wikibooks.org/wiki/Kicad/file_formats#Schematic_Files_Format</a></p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.validate">
-<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.validate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.validate" title="Link to this definition">¶</a></dt>
 <dd><p>Check that pins and units reference the correct part that owns them.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.part.Part.value">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#skidl.part.Part.value" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#skidl.part.Part.value" title="Link to this definition">¶</a></dt>
 <dd><p>Get, set and delete the part value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.part.Part.value_to_str">
+<span class="sig-name descname"><span class="pre">value_to_str</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.value_to_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.value_to_str" title="Link to this definition">¶</a></dt>
+<dd><p>Return value of part as a string.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.part.PartUnit">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.part.</span></span><span class="sig-name descname"><span class="pre">PartUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pin_ids</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">criteria</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#PartUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.PartUnit" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.part.</span></span><span class="sig-name descname"><span class="pre">PartUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pin_ids</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">criteria</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#PartUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.PartUnit" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#skidl.part.Part" title="skidl.part.Part"><code class="xref py py-class docutils literal notranslate"><span class="pre">Part</span></code></a></p>
 <p>Create a PartUnit from a set of pins in a Part object.</p>
 <p>Parts can be organized into smaller pieces called PartUnits. A PartUnit
@@ -494,19 +453,19 @@ pin must have in order to be selected.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.PartUnit.add_pins_from_parent">
-<span class="sig-name descname"><span class="pre">add_pins_from_parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pin_ids</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">criteria</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#PartUnit.add_pins_from_parent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.PartUnit.add_pins_from_parent" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_pins_from_parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pin_ids</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">criteria</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#PartUnit.add_pins_from_parent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.PartUnit.add_pins_from_parent" title="Link to this definition">¶</a></dt>
 <dd><p>Add selected pins from the parent to the part unit.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.PartUnit.grab_pins">
-<span class="sig-name descname"><span class="pre">grab_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#PartUnit.grab_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.PartUnit.grab_pins" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">grab_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#PartUnit.grab_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.PartUnit.grab_pins" title="Link to this definition">¶</a></dt>
 <dd><p>Grab pin from Part and assign to PartUnit.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.part.PartUnit.ref">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ref</span></span><a class="headerlink" href="#skidl.part.PartUnit.ref" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ref</span></span><a class="headerlink" href="#skidl.part.PartUnit.ref" title="Link to this definition">¶</a></dt>
 <dd><p>Get, set and delete the part reference.</p>
 <p>When setting the part reference, if another part with the same
 reference is found, the reference for this part is adjusted to make
@@ -515,37 +474,21 @@ it unique.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.PartUnit.release_pins">
-<span class="sig-name descname"><span class="pre">release_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#PartUnit.release_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.PartUnit.release_pins" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">release_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#PartUnit.release_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.PartUnit.release_pins" title="Link to this definition">¶</a></dt>
 <dd><p>Return PartUnit pins to parent Part.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.PartUnit.validate">
-<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#PartUnit.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.PartUnit.validate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#PartUnit.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.PartUnit.validate" title="Link to this definition">¶</a></dt>
 <dd><p>Check that unit pins point to the parent part.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="skidl.part.SkidlPart">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.part.</span></span><span class="sig-name descname"><span class="pre">SkidlPart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">TEMPLATE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connections</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#SkidlPart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.SkidlPart" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#skidl.part.Part" title="skidl.part.Part"><code class="xref py py-class docutils literal notranslate"><span class="pre">Part</span></code></a></p>
-<p>A class for storing a SKiDL definition of a schematic part. It’s identical
-to its Part superclass except:</p>
-<ul class="simple">
-<li><p>The tool defaults to SKIDL.</p></li>
-<li><dl class="simple">
-<dt>The destination defaults to TEMPLATE so that it’s easier to start</dt><dd><p>a part and then add pins to it without it being added to the netlist.</p>
-</dd>
-</dl>
-</li>
-</ul>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part.default_empty_footprint_handler">
-<span class="sig-prename descclassname"><span class="pre">skidl.part.</span></span><span class="sig-name descname"><span class="pre">default_empty_footprint_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#default_empty_footprint_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.default_empty_footprint_handler" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.part.</span></span><span class="sig-name descname"><span class="pre">default_empty_footprint_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#default_empty_footprint_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.default_empty_footprint_handler" title="Link to this definition">¶</a></dt>
 <dd><p>Handle the situation of a Part with no footprint when generating netlist/PCB.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -569,6 +512,62 @@ for particular types of parts (such as using an 0805 footprint for a resistor).<
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">skidl.part module</a><ul>
+<li><a class="reference internal" href="#skidl.part.Part"><code class="docutils literal notranslate"><span class="pre">Part</span></code></a><ul>
+<li><a class="reference internal" href="#skidl.part.Part.add_pins"><code class="docutils literal notranslate"><span class="pre">Part.add_pins()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.associate_pins"><code class="docutils literal notranslate"><span class="pre">Part.associate_pins()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.attached_to"><code class="docutils literal notranslate"><span class="pre">Part.attached_to()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.convert_for_spice"><code class="docutils literal notranslate"><span class="pre">Part.convert_for_spice()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.copy"><code class="docutils literal notranslate"><span class="pre">Part.copy()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.copy_units"><code class="docutils literal notranslate"><span class="pre">Part.copy_units()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.create_network"><code class="docutils literal notranslate"><span class="pre">Part.create_network()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.disconnect"><code class="docutils literal notranslate"><span class="pre">Part.disconnect()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.erc_desc"><code class="docutils literal notranslate"><span class="pre">Part.erc_desc()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.erc_list"><code class="docutils literal notranslate"><span class="pre">Part.erc_list</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.export"><code class="docutils literal notranslate"><span class="pre">Part.export()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.foot"><code class="docutils literal notranslate"><span class="pre">Part.foot</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.generate_svg_component"><code class="docutils literal notranslate"><span class="pre">Part.generate_svg_component()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.get"><code class="docutils literal notranslate"><span class="pre">Part.get()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.get_pins"><code class="docutils literal notranslate"><span class="pre">Part.get_pins()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.grab_pins"><code class="docutils literal notranslate"><span class="pre">Part.grab_pins()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.hierarchical_name"><code class="docutils literal notranslate"><span class="pre">Part.hierarchical_name</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.is_connected"><code class="docutils literal notranslate"><span class="pre">Part.is_connected()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.is_movable"><code class="docutils literal notranslate"><span class="pre">Part.is_movable()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.make_unit"><code class="docutils literal notranslate"><span class="pre">Part.make_unit()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.match_pin_regex"><code class="docutils literal notranslate"><span class="pre">Part.match_pin_regex</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.ordered_pins"><code class="docutils literal notranslate"><span class="pre">Part.ordered_pins</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.parse"><code class="docutils literal notranslate"><span class="pre">Part.parse()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.ref"><code class="docutils literal notranslate"><span class="pre">Part.ref</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.release_pins"><code class="docutils literal notranslate"><span class="pre">Part.release_pins()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.rename_pin"><code class="docutils literal notranslate"><span class="pre">Part.rename_pin()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.renumber_pin"><code class="docutils literal notranslate"><span class="pre">Part.renumber_pin()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.rmv_pins"><code class="docutils literal notranslate"><span class="pre">Part.rmv_pins()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.similarity"><code class="docutils literal notranslate"><span class="pre">Part.similarity()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.split_pin_names"><code class="docutils literal notranslate"><span class="pre">Part.split_pin_names()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.swap_pins"><code class="docutils literal notranslate"><span class="pre">Part.swap_pins()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.tag"><code class="docutils literal notranslate"><span class="pre">Part.tag</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.validate"><code class="docutils literal notranslate"><span class="pre">Part.validate()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.value"><code class="docutils literal notranslate"><span class="pre">Part.value</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.Part.value_to_str"><code class="docutils literal notranslate"><span class="pre">Part.value_to_str()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#skidl.part.PartUnit"><code class="docutils literal notranslate"><span class="pre">PartUnit</span></code></a><ul>
+<li><a class="reference internal" href="#skidl.part.PartUnit.add_pins_from_parent"><code class="docutils literal notranslate"><span class="pre">PartUnit.add_pins_from_parent()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.PartUnit.grab_pins"><code class="docutils literal notranslate"><span class="pre">PartUnit.grab_pins()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.PartUnit.ref"><code class="docutils literal notranslate"><span class="pre">PartUnit.ref</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.PartUnit.release_pins"><code class="docutils literal notranslate"><span class="pre">PartUnit.release_pins()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.PartUnit.validate"><code class="docutils literal notranslate"><span class="pre">PartUnit.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#skidl.part.default_empty_footprint_handler"><code class="docutils literal notranslate"><span class="pre">default_empty_footprint_handler()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -599,13 +598,13 @@ for particular types of parts (such as using an 0805 footprint for a resistor).<
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2023, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>
 </html>

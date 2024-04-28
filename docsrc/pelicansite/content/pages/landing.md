@@ -2469,5 +2469,5 @@ Or do anything else that a SKiDL-based design supports.
 # SPICE Simulations
 
 You can describe a circuit using SKiDL and run a SPICE simulation on it.
-Go [here](https://github.com/devbisme/skidl/blob/master/examples/spice-sim-intro/spice-sim-intro.ipynb)
+Go [here](https://github.com/devbisme/skidl/blob/master/tests/examples/spice-sim-intro/spice-sim-intro.ipynb)
 to get the complete details.

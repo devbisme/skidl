@@ -1,7 +1,10 @@
-skidl.scripts namespace
-=======================
+skidl.scripts package
+=====================
 
-.. py:module:: skidl.scripts
+.. automodule:: skidl.scripts
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Submodules
 ----------

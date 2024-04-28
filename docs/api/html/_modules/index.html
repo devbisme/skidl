@@ -2,19 +2,17 @@
 
 <!doctype html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Overview: module code &#8212; SKiDL 1.2.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
+    <title>Overview: module code &#8212; SKiDL 1.2.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <script src="../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -34,7 +32,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Overview: module code</a></li> 
       </ul>
     </div>  
@@ -52,7 +50,6 @@
 <li><a href="skidl/erc.html">skidl.erc</a></li>
 <li><a href="skidl/group.html">skidl.group</a></li>
 <li><a href="skidl/interface.html">skidl.interface</a></li>
-<li><a href="skidl/libs/convert_libs.html">skidl.libs.convert_libs</a></li>
 <li><a href="skidl/logger.html">skidl.logger</a></li>
 <li><a href="skidl/net.html">skidl.net</a></li>
 <li><a href="skidl/netclass.html">skidl.netclass</a></li>
@@ -66,8 +63,9 @@
 <li><a href="skidl/pin.html">skidl.pin</a></li>
 <li><a href="skidl/protonet.html">skidl.protonet</a></li>
 <li><a href="skidl/schematics/debug_draw.html">skidl.schematics.debug_draw</a></li>
-<li><a href="skidl/schematics/gen_schematic.html">skidl.schematics.gen_schematic</a></li>
 <li><a href="skidl/schematics/geometry.html">skidl.schematics.geometry</a></li>
+<li><a href="skidl/schematics/net_terminal.html">skidl.schematics.net_terminal</a></li>
+<li><a href="skidl/schematics/node.html">skidl.schematics.node</a></li>
 <li><a href="skidl/schematics/place.html">skidl.schematics.place</a></li>
 <li><a href="skidl/schematics/route.html">skidl.schematics.route</a></li>
 <li><a href="skidl/schlib.html">skidl.schlib</a></li>
@@ -75,10 +73,35 @@
 <li><a href="skidl/scripts/netlist_to_skidl_main.html">skidl.scripts.netlist_to_skidl_main</a></li>
 <li><a href="skidl/skidl.html">skidl.skidl</a></li>
 <li><a href="skidl/skidlbaseobj.html">skidl.skidlbaseobj</a></li>
-<li><a href="skidl/tools/kicad/eeschema_v5.html">skidl.tools.kicad.eeschema_v5</a></li>
-<li><a href="skidl/tools/kicad/kicad.html">skidl.tools.kicad.kicad</a></li>
-<li><a href="skidl/tools/kicad/v5.html">skidl.tools.kicad.v5</a></li>
-<li><a href="skidl/tools/kicad/v6.html">skidl.tools.kicad.v6</a></li>
+<li><a href="skidl/tools/kicad/bboxes.html">skidl.tools.kicad.bboxes</a></li>
+<li><a href="skidl/tools/kicad/gen_netlist.html">skidl.tools.kicad.gen_netlist</a></li>
+<li><a href="skidl/tools/kicad/gen_pcb.html">skidl.tools.kicad.gen_pcb</a></li>
+<li><a href="skidl/tools/kicad/gen_schematic.html">skidl.tools.kicad.gen_schematic</a></li>
+<li><a href="skidl/tools/kicad/gen_svg.html">skidl.tools.kicad.gen_svg</a></li>
+<li><a href="skidl/tools/kicad/gen_xml.html">skidl.tools.kicad.gen_xml</a></li>
+<li><a href="skidl/tools/kicad/lib.html">skidl.tools.kicad.lib</a></li>
+<li><a href="skidl/tools/kicad6/bboxes.html">skidl.tools.kicad6.bboxes</a></li>
+<li><a href="skidl/tools/kicad6/gen_netlist.html">skidl.tools.kicad6.gen_netlist</a></li>
+<li><a href="skidl/tools/kicad6/gen_pcb.html">skidl.tools.kicad6.gen_pcb</a></li>
+<li><a href="skidl/tools/kicad6/gen_schematic.html">skidl.tools.kicad6.gen_schematic</a></li>
+<li><a href="skidl/tools/kicad6/gen_svg.html">skidl.tools.kicad6.gen_svg</a></li>
+<li><a href="skidl/tools/kicad6/gen_xml.html">skidl.tools.kicad6.gen_xml</a></li>
+<li><a href="skidl/tools/kicad6/lib.html">skidl.tools.kicad6.lib</a></li>
+<li><a href="skidl/tools/kicad7/bboxes.html">skidl.tools.kicad7.bboxes</a></li>
+<li><a href="skidl/tools/kicad7/gen_netlist.html">skidl.tools.kicad7.gen_netlist</a></li>
+<li><a href="skidl/tools/kicad7/gen_pcb.html">skidl.tools.kicad7.gen_pcb</a></li>
+<li><a href="skidl/tools/kicad7/gen_schematic.html">skidl.tools.kicad7.gen_schematic</a></li>
+<li><a href="skidl/tools/kicad7/gen_svg.html">skidl.tools.kicad7.gen_svg</a></li>
+<li><a href="skidl/tools/kicad7/gen_xml.html">skidl.tools.kicad7.gen_xml</a></li>
+<li><a href="skidl/tools/kicad7/lib.html">skidl.tools.kicad7.lib</a></li>
+<li><a href="skidl/tools/kicad8/bboxes.html">skidl.tools.kicad8.bboxes</a></li>
+<li><a href="skidl/tools/kicad8/gen_netlist.html">skidl.tools.kicad8.gen_netlist</a></li>
+<li><a href="skidl/tools/kicad8/gen_pcb.html">skidl.tools.kicad8.gen_pcb</a></li>
+<li><a href="skidl/tools/kicad8/gen_schematic.html">skidl.tools.kicad8.gen_schematic</a></li>
+<li><a href="skidl/tools/kicad8/gen_svg.html">skidl.tools.kicad8.gen_svg</a></li>
+<li><a href="skidl/tools/kicad8/gen_xml.html">skidl.tools.kicad8.gen_xml</a></li>
+<li><a href="skidl/tools/kicad8/lib.html">skidl.tools.kicad8.lib</a></li>
+<li><a href="skidl/tools/skidl/libs/convert_libs.html">skidl.tools.skidl.libs.convert_libs</a></li>
 <li><a href="skidl/tools/skidl/skidl.html">skidl.tools.skidl.skidl</a></li>
 <li><a href="skidl/tools/spice/spice.html">skidl.tools.spice.spice</a></li>
 <li><a href="skidl/utilities.html">skidl.utilities</a></li>
@@ -113,13 +136,13 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Overview: module code</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2023, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>
 </html>

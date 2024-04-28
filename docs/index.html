@@ -330,17 +330,17 @@ Amplifier_Operational.lib: OPA134 (Single SoundPlus High Performance Audio Opera
 
 <p>Once you have the part name and library, you can see the part's pin numbers, names
 and their functions using the <code>show</code> function:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="k">show</span><span class="ss">(</span><span class="s1">&#39;Amplifier_Audio&#39;</span>,<span class="w"> </span><span class="s1">&#39;lm386&#39;</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; show(&#39;Amplifier_Audio&#39;, &#39;lm386&#39;)
 
-<span class="w"> </span><span class="nv">LM386</span><span class="w"> </span><span class="ss">()</span>:<span class="w"> </span><span class="nv">Low</span><span class="w"> </span><span class="nv">Voltage</span><span class="w"> </span><span class="nv">Audio</span><span class="w"> </span><span class="nv">Power</span><span class="w"> </span><span class="nv">Amplifier</span>,<span class="w"> </span><span class="nv">DIP</span><span class="o">-</span><span class="mi">8</span><span class="o">/</span><span class="nv">SOIC</span><span class="o">-</span><span class="mi">8</span><span class="o">/</span><span class="nv">SSOP</span><span class="o">-</span><span class="mi">8</span>
-<span class="w">    </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">None</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="nv">GAIN</span><span class="o">/</span><span class="nv">INPUT</span>
-<span class="w">    </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">None</span><span class="o">/</span><span class="mi">2</span><span class="o">/-/</span><span class="nv">INPUT</span>
-<span class="w">    </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">None</span><span class="o">/</span><span class="mi">3</span><span class="o">/+/</span><span class="nv">INPUT</span>
-<span class="w">    </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">None</span><span class="o">/</span><span class="mi">4</span><span class="o">/</span><span class="nv">GND</span><span class="o">/</span><span class="nv">POWER</span><span class="o">-</span><span class="nv">IN</span>
-<span class="w">    </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">None</span><span class="o">/</span><span class="mi">5</span><span class="o">/~/</span><span class="nv">OUTPUT</span>
-<span class="w">    </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">None</span><span class="o">/</span><span class="mi">6</span><span class="o">/</span><span class="nv">V</span><span class="o">+/</span><span class="nv">POWER</span><span class="o">-</span><span class="nv">IN</span>
-<span class="w">    </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">None</span><span class="o">/</span><span class="mi">7</span><span class="o">/</span><span class="nv">BYPASS</span><span class="o">/</span><span class="nv">INPUT</span>
-<span class="w">    </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">None</span><span class="o">/</span><span class="mi">8</span><span class="o">/</span><span class="nv">GAIN</span><span class="o">/</span><span class="nv">INPUT</span>
+ LM386 (): Low Voltage Audio Power Amplifier, DIP-8/SOIC-8/SSOP-8
+    Pin None/1/GAIN/INPUT
+    Pin None/2/-/INPUT
+    Pin None/3/+/INPUT
+    Pin None/4/GND/POWER-IN
+    Pin None/5/~/OUTPUT
+    Pin None/6/V+/POWER-IN
+    Pin None/7/BYPASS/INPUT
+    Pin None/8/GAIN/INPUT
 </code></pre></div>
 
 <p><code>show</code> looks for <em>exact matches</em> of the part name in a library, so the following
@@ -416,7 +416,7 @@ a final netlist for your circuit.
 Since a part is stored in a Python object, you may add any
 other attributes you want using <code>setattr()</code>.
 But if you want those attributes to be passed on within the netlist, then you
-should probably add them as <a href="#Part-Fields">part fields</a>.</p>
+should probably add them as <a href="#part-fields">part fields</a>.</p>
 <h2 id="connecting-pins">Connecting Pins</h2>
 <p>Parts are great, but not very useful if they aren't connected to anything.
 The connections between parts are called <em>nets</em> (think of them as wires)
@@ -560,7 +560,7 @@ then the netlist will be stored in <code>my_circuit.net</code>.</p>
 input to BOM-generation tools.</p>
 <p>If you're designing with KiCad and want to skip some steps, you may go 
 directly to a PCB like this:</p>
-<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; generate_pcb()`
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; generate_pcb()
 </code></pre></div>
 
 <p>This outputs a <code>.kicad_pcb</code> file that you can open in PCBNEW without
@@ -582,7 +582,7 @@ that make designing complicated circuits easier.</p>
 bag of <code>Pin</code> objects with a few other attributes attached 
 (like the part number, name, reference, value, footprint, etc.).</p>
 <p>The <code>Pin</code> object represents a terminal that brings an electronic signal into
-and out of the part. Each <code>Pin</code> object store information on which part it belongs to
+and out of the part. Each <code>Pin</code> object stores information on which part it belongs to
 and which nets it is attached to.</p>
 <p>A <code>Net</code> object is kind of like a <code>Part</code>: it's a simple bag of pins.
 But unlike a part, pins can be added to a net when a pin on some part is attached
@@ -680,15 +680,15 @@ build the bus (such as its width) in case it doesn't exist.</p>
 <p>Instead of creating a SKiDL object from scratch, sometimes it's easier to just
 copy an existing object. Here are some examples of creating a resistor and then making
 some copies of it:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">r1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Part</span><span class="ss">(</span><span class="s1">&#39;Device&#39;</span>,<span class="w"> </span><span class="s1">&#39;R&#39;</span>,<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="mi">500</span><span class="ss">)</span><span class="w">    </span>#<span class="w"> </span><span class="nv">Add</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">resistor</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">circuit</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">r2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">r1</span>.<span class="nv">copy</span><span class="ss">()</span><span class="w">                         </span>#<span class="w"> </span><span class="nv">Make</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">single</span><span class="w"> </span><span class="nv">copy</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">resistor</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">r2_lst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">r1</span>.<span class="nv">copy</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span><span class="w">                    </span>#<span class="w"> </span><span class="nv">Make</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">single</span><span class="w"> </span><span class="nv">copy</span>,<span class="w"> </span><span class="nv">but</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nv">it</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">list</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">r3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">r1</span>.<span class="nv">copy</span><span class="ss">(</span><span class="nv">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="ss">)</span><span class="w">               </span>#<span class="w"> </span><span class="nv">Make</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">single</span><span class="w"> </span><span class="nv">copy</span>,<span class="w"> </span><span class="nv">but</span><span class="w"> </span><span class="nv">give</span><span class="w"> </span><span class="nv">it</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">different</span><span class="w"> </span><span class="nv">value</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">r4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">r1</span><span class="ss">(</span><span class="nv">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="ss">)</span><span class="w">                    </span>#<span class="w"> </span><span class="nv">You</span><span class="w"> </span><span class="nv">can</span><span class="w"> </span><span class="nv">also</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="nl">the</span><span class="w"> </span><span class="nv">object</span><span class="w"> </span><span class="nv">directly</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">make</span><span class="w"> </span><span class="nv">copies</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">r5</span>,<span class="w"> </span><span class="nv">r6</span>,<span class="w"> </span><span class="nv">r7</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">r1</span><span class="ss">(</span><span class="mi">3</span>,<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="ss">)</span><span class="w">         </span>#<span class="w"> </span><span class="nv">Make</span><span class="w"> </span><span class="nv">three</span><span class="w"> </span><span class="nv">copies</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="mi">1</span><span class="o">-</span><span class="nv">KOhm</span><span class="w"> </span><span class="nv">resistor</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">r8</span>,<span class="w"> </span><span class="nv">r9</span>,<span class="w"> </span><span class="nv">r10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">r1</span><span class="ss">(</span><span class="nv">value</span><span class="o">=</span>[<span class="mi">110</span>,<span class="mi">220</span>,<span class="mi">330</span>]<span class="ss">)</span><span class="w">  </span>#<span class="w"> </span><span class="nv">Make</span><span class="w"> </span><span class="nv">three</span><span class="w"> </span><span class="nv">copies</span>,<span class="w"> </span><span class="nv">each</span><span class="w"> </span><span class="nv">with</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">different</span><span class="w"> </span><span class="nv">value</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">r11</span>,<span class="w"> </span><span class="nv">r12</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">r1</span><span class="w">                      </span>#<span class="w"> </span><span class="nv">Make</span><span class="w"> </span><span class="nv">copies</span><span class="w"> </span><span class="nv">using</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="s1">&#39;*&#39;</span><span class="w"> </span><span class="nv">operator</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">r13</span>,<span class="w"> </span><span class="nv">r14</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">r1</span><span class="ss">(</span><span class="nv">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="ss">)</span><span class="w">          </span>#<span class="w"> </span><span class="nv">This</span><span class="w"> </span><span class="nv">actually</span><span class="w"> </span><span class="nv">makes</span><span class="w"> </span><span class="nv">three</span><span class="w"> </span><span class="mi">1</span><span class="o">-</span><span class="nv">KOhm</span><span class="w"> </span><span class="nv">resistors</span><span class="o">!!!</span>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; r1 = Part(&#39;Device&#39;, &#39;R&#39;, value=500)    # Add a resistor to the circuit.
+&gt;&gt;&gt; r2 = r1.copy()                         # Make a single copy of the resistor.
+&gt;&gt;&gt; r2_lst = r1.copy(1)                    # Make a single copy, but return it in a list.
+&gt;&gt;&gt; r3 = r1.copy(value=&#39;1K&#39;)               # Make a single copy, but give it a different value.
+&gt;&gt;&gt; r4 = r1(value=&#39;1K&#39;)                    # You can also call the object directly to make copies.
+&gt;&gt;&gt; r5, r6, r7 = r1(3, value=&#39;1K&#39;)         # Make three copies of a 1-KOhm resistor.
+&gt;&gt;&gt; r8, r9, r10 = r1(value=[110,220,330])  # Make three copies, each with a different value.
+&gt;&gt;&gt; r11, r12 = 2 <span class="gs">* r1                      # Make copies using the &#39;*</span>&#39; operator.
+&gt;&gt;&gt; r13, r14 = 2 * r1(value=&#39;1K&#39;)          # This actually makes three 1-KOhm resistors!!!
 </code></pre></div>
 
 <p>The last example demonstrates an unexpected result when using the <code>*</code> operator:</p>
@@ -808,13 +808,13 @@ SKiDL offers two ways to deal with this: 1) split the pin names into a set of sh
 2) match pin names using regular expressions.</p>
 <p>If a part has pin names where the subnames are separated by delimiters such as <code>/</code>,
 then the subnames for each pin can be assigned as aliases:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span>[<span class="mi">3</span>].<span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;GP1/AN1/ICSPCLK&#39;</span><span class="w">  </span>#<span class="w"> </span><span class="nv">Give</span><span class="w"> </span><span class="nv">pin</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">long</span><span class="w"> </span><span class="nv">name</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span>[<span class="mi">3</span>].<span class="nv">split_name</span><span class="ss">(</span><span class="s1">&#39;/&#39;</span><span class="ss">)</span><span class="w">           </span>#<span class="w"> </span><span class="nv">Split</span><span class="w"> </span><span class="nv">pin</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="nv">into</span><span class="w"> </span><span class="nv">aliases</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span>.<span class="nv">split_pin_names</span><span class="ss">(</span><span class="s1">&#39;/&#39;</span><span class="ss">)</span><span class="w">         </span>#<span class="w"> </span><span class="nv">Split</span><span class="w"> </span><span class="nv">all</span><span class="w"> </span><span class="nv">pin</span><span class="w"> </span><span class="nv">names</span><span class="w"> </span><span class="nv">into</span><span class="w"> </span><span class="nv">aliases</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span>[<span class="mi">3</span>].<span class="nv">aliases</span><span class="w">                   </span>#<span class="w"> </span><span class="k">Show</span><span class="w"> </span><span class="nv">aliases</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">pin</span><span class="w"> </span><span class="mi">3</span>.
-{<span class="s1">&#39;AN1&#39;</span>,<span class="w"> </span><span class="s1">&#39;GP1&#39;</span>,<span class="w"> </span><span class="s1">&#39;ICSPCLK&#39;</span>}
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span>[<span class="s1">&#39;AN1&#39;</span>]<span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">Net</span><span class="ss">(</span><span class="s1">&#39;analog1&#39;</span><span class="ss">)</span><span class="w">     </span>#<span class="w"> </span><span class="k">Connect</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">net</span><span class="w"> </span><span class="nv">using</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">pin</span><span class="w"> </span><span class="nv">alias</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span>.<span class="nv">AN1</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">Net</span><span class="ss">(</span><span class="s1">&#39;analog2&#39;</span><span class="ss">)</span><span class="w">        </span>#<span class="w"> </span><span class="nv">Or</span><span class="w"> </span><span class="nv">access</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">alias</span><span class="w"> </span><span class="nv">thru</span><span class="w"> </span><span class="nv">an</span><span class="w"> </span><span class="nv">attribute</span>.
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; pic10[3].name = &#39;GP1/AN1/ICSPCLK&#39;  # Give pin 3 a long name.
+&gt;&gt;&gt; pic10[3].split_name(&#39;/&#39;)           # Split pin 3 name into aliases.
+&gt;&gt;&gt; pic10.split_pin_names(&#39;/&#39;)         # Split all pin names into aliases.
+&gt;&gt;&gt; pic10[3].aliases                   # Show aliases for pin 3.
+{&#39;AN1&#39;, &#39;GP1&#39;, &#39;ICSPCLK&#39;}
+&gt;&gt;&gt; pic10[&#39;AN1&#39;] += Net(&#39;analog1&#39;)     # Connect a net using the pin alias.
+&gt;&gt;&gt; pic10.AN1 += Net(&#39;analog2&#39;)        # Or access the alias thru an attribute.
 </code></pre></div>
 
 <p>You can also split the pin names when you create the part by supplying a string
@@ -886,42 +886,42 @@ pin numbers of all the part's pins in ascending order:</p>
 
 <h3 id="accessing-bus-lines">Accessing Bus Lines</h3>
 <p>Accessing the individual lines of a bus works similarly to accessing part pins:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Net</span><span class="ss">(</span><span class="s1">&#39;NET_A&#39;</span><span class="ss">)</span><span class="w">  </span>#<span class="w"> </span><span class="nv">Create</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">named</span><span class="w"> </span><span class="nv">net</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Bus</span><span class="ss">(</span><span class="s1">&#39;BUS_B&#39;</span>,<span class="w"> </span><span class="mi">4</span>,<span class="w"> </span><span class="nv">a</span><span class="ss">)</span><span class="w">  </span>#<span class="w"> </span><span class="nv">Create</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">five</span><span class="o">-</span><span class="nv">bit</span><span class="w"> </span><span class="nv">bus</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">b</span>
-<span class="nv">BUS_B</span>:
-<span class="w">        </span><span class="nv">BUS_B0</span>:<span class="w">  </span>#<span class="w"> </span><span class="nv">Note</span><span class="w"> </span><span class="nv">how</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">individual</span><span class="w"> </span><span class="nv">lines</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">bus</span><span class="w"> </span><span class="nv">are</span><span class="w"> </span><span class="nv">named</span>.
-<span class="w">        </span><span class="nv">BUS_B1</span>:
-<span class="w">        </span><span class="nv">BUS_B2</span>:
-<span class="w">        </span><span class="nv">BUS_B3</span>:
-<span class="w">        </span><span class="nv">NET_A</span>:<span class="w">   </span>#<span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">last</span><span class="w"> </span><span class="nv">net</span><span class="w"> </span><span class="nv">retains</span><span class="w"> </span><span class="nv">its</span><span class="w"> </span><span class="nv">original</span><span class="w"> </span><span class="nv">name</span>.
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; a = Net(&#39;NET_A&#39;)  # Create a named net.
+&gt;&gt;&gt; b = Bus(&#39;BUS_B&#39;, 4, a)  # Create a five-bit bus.
+&gt;&gt;&gt; b
+BUS_B:
+        BUS_B0:  # Note how the individual lines of the bus are named.
+        BUS_B1:
+        BUS_B2:
+        BUS_B3:
+        NET_A:   # The last net retains its original name.
 
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">b</span>[<span class="mi">0</span>]<span class="w">  </span>#<span class="w"> </span><span class="nv">Get</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">first</span><span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">bus</span>.
-<span class="nv">BUS_B0</span>:
+&gt;&gt;&gt; b[0]  # Get the first line of the bus.
+BUS_B0:
 
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">b</span>[<span class="mi">2</span>,<span class="mi">4</span>]<span class="w">  </span>#<span class="w"> </span><span class="nv">Get</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">second</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="nv">fourth</span><span class="w"> </span><span class="nv">bus</span><span class="w"> </span><span class="nv">lines</span>.
-[<span class="nv">BUS_B2</span>:<span class="w"> </span>,<span class="w"> </span><span class="nv">NET_A</span>:<span class="w"> </span>]
+&gt;&gt;&gt; b[2,4]  # Get the second and fourth bus lines.
+[BUS_B2: , NET_A: ]
 
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">b</span>[<span class="mi">3</span>:<span class="mi">0</span>]<span class="w">  </span>#<span class="w"> </span><span class="nv">Get</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">first</span><span class="w"> </span><span class="nv">four</span><span class="w"> </span><span class="nv">bus</span><span class="w"> </span><span class="nv">lines</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">reverse</span><span class="w"> </span><span class="nv">order</span>.
-[<span class="nv">BUS_B3</span>:<span class="w"> </span>,<span class="w"> </span><span class="nv">BUS_B2</span>:<span class="w"> </span>,<span class="w"> </span><span class="nv">BUS_B1</span>:<span class="w"> </span>,<span class="w"> </span><span class="nv">BUS_B0</span>:<span class="w"> </span>]
+&gt;&gt;&gt; b[3:0]  # Get the first four bus lines in reverse order.
+[BUS_B3: , BUS_B2: , BUS_B1: , BUS_B0: ]
 
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">b</span>[<span class="o">-</span><span class="mi">1</span>]<span class="w">  </span>#<span class="w"> </span><span class="nv">Get</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">last</span><span class="w"> </span><span class="nv">bus</span><span class="w"> </span><span class="nv">line</span>.
-<span class="nv">NET_A</span>:<span class="w"> </span>
+&gt;&gt;&gt; b[-1]  # Get the last bus line.
+NET_A: 
 
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">b</span>[<span class="s1">&#39;BUS_B.*&#39;</span>]<span class="w">  </span>#<span class="w"> </span><span class="nv">Get</span><span class="w"> </span><span class="nv">all</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">bus</span><span class="w"> </span><span class="nv">lines</span><span class="w"> </span><span class="nv">except</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">last</span><span class="w"> </span><span class="nv">one</span>.
-[<span class="nv">BUS_B0</span>:<span class="w"> </span>,<span class="w"> </span><span class="nv">BUS_B1</span>:<span class="w"> </span>,<span class="w"> </span><span class="nv">BUS_B2</span>:<span class="w"> </span>,<span class="w"> </span><span class="nv">BUS_B3</span>:<span class="w"> </span>]
+&gt;&gt;&gt; b[&#39;BUS_B.*&#39;]  # Get all the bus lines except the last one.
+[BUS_B0: , BUS_B1: , BUS_B2: , BUS_B3: ]
 
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">b</span>[<span class="s1">&#39;NET_A&#39;</span>]<span class="w">  </span>#<span class="w"> </span><span class="nv">Get</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">last</span><span class="w"> </span><span class="nv">bus</span><span class="w"> </span><span class="nv">line</span>.
-<span class="nv">NET_A</span>:
+&gt;&gt;&gt; b[&#39;NET_A&#39;]  # Get the last bus line.
+NET_A:
 
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">b</span>:<span class="w">  </span>#<span class="w"> </span><span class="nv">Access</span><span class="w"> </span><span class="nv">lines</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">bus</span><span class="w"> </span><span class="nv">using</span><span class="w"> </span><span class="nv">bus</span><span class="w"> </span><span class="nv">as</span><span class="w"> </span><span class="nv">an</span><span class="w"> </span><span class="nv">iterator</span>.
-...:<span class="w">    </span><span class="nv">print</span><span class="ss">(</span><span class="nv">line</span><span class="ss">)</span>
+&gt;&gt;&gt; for line in b:  # Access lines in bus using bus as an iterator.
+...:    print(line)
 ...:
-<span class="nv">BUS_B0</span>:
-<span class="nv">BUS_B1</span>:
-<span class="nv">BUS_B2</span>:
-<span class="nv">BUS_B3</span>:
-<span class="nv">NET_A</span>:
+BUS_B0:
+BUS_B1:
+BUS_B2:
+BUS_B3:
+NET_A:
 </code></pre></div>
 
 <h2 id="making-connections">Making Connections</h2>
@@ -965,20 +965,20 @@ the number of things being connected:</p>
     same number of things to connect in each set, e.g. you can't connect
     three pins to four nets.</p>
 <p>As a first example, let's connect a net to a pin on a part:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Part</span><span class="ss">(</span><span class="s1">&#39;MCU_Microchip_PIC10&#39;</span>,<span class="w"> </span><span class="s1">&#39;pic10f220-iot&#39;</span><span class="ss">)</span><span class="w">  </span>#<span class="w"> </span><span class="nv">Get</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">part</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Net</span><span class="ss">(</span><span class="s1">&#39;IO_NET&#39;</span><span class="ss">)</span><span class="w">  </span>#<span class="w"> </span><span class="nv">Create</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">net</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span>.<span class="nv">GP0</span>]<span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">io</span><span class="w">    </span>#<span class="w"> </span><span class="k">Connect</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">net</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">part</span><span class="w"> </span><span class="nv">pin</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">io</span><span class="w">                  </span>#<span class="w"> </span><span class="k">Show</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">pins</span><span class="w"> </span><span class="nv">connected</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">net</span>.
-<span class="nv">IO_NET</span>:<span class="w"> </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">U5</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="nv">GP0</span><span class="o">/</span><span class="nv">BIDIRECTIONAL</span>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; pic10 = Part(&#39;MCU_Microchip_PIC10&#39;, &#39;pic10f220-iot&#39;)  # Get a part.
+&gt;&gt;&gt; io = Net(&#39;IO_NET&#39;)  # Create a net.
+&gt;&gt;&gt; pic10.GP0 += io    # Connect the net to a part pin.
+&gt;&gt;&gt; io                  # Show the pins connected to the net.
+IO_NET: Pin U5/1/GP0/BIDIRECTIONAL
 </code></pre></div>
 
 <p>You may do the same operation in reverse by connecting the part pin to the net
 with the same result:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Part</span><span class="ss">(</span><span class="s1">&#39;MCU_Microchip_PIC10&#39;</span>,<span class="w"> </span><span class="s1">&#39;pic10f220-iot&#39;</span><span class="ss">)</span>
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Net</span><span class="ss">(</span><span class="s1">&#39;IO_NET&#39;</span><span class="ss">)</span>
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">io</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">pic10</span><span class="o">*</span><span class="nv">GP0</span><span class="w">     </span>#<span class="w"> </span><span class="k">Connect</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">part</span><span class="w"> </span><span class="nv">pin</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">net</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">io</span>
-<span class="nv">IO_NET_1</span>:<span class="w"> </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">U6</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="nv">GP0</span><span class="o">/</span><span class="nv">BIDIRECTIONAL</span>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; pic10 = Part(&#39;MCU_Microchip_PIC10&#39;, &#39;pic10f220-iot&#39;)
+&gt;&gt;&gt; io = Net(&#39;IO_NET&#39;)
+&gt;&gt;&gt; io += pic10.GP0     # Connect a part pin to the net.
+&gt;&gt;&gt; io
+IO_NET_1: Pin U6/1/GP0/BIDIRECTIONAL
 </code></pre></div>
 
 <p>You may also connect a pin directly to another pin.
@@ -1008,23 +1008,23 @@ N$1: Pin U8/1/GP0/BIDIRECTIONAL, Pin U8/2/VSS/POWER-IN, Pin U8/3/GP1/BIDIRECTION
 </code></pre></div>
 
 <p>If you connect pins on separate nets together, then all the pins are merged onto the same net:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Part</span><span class="ss">(</span><span class="s1">&#39;MCU_Microchip_PIC10&#39;</span>,<span class="w"> </span><span class="s1">&#39;pic10f220-iot&#39;</span><span class="ss">)</span><span class="w"> </span>
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span>[<span class="mi">1</span>]<span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">pic10</span>[<span class="mi">2</span>]<span class="w">  </span>#<span class="w"> </span><span class="nv">Put</span><span class="w"> </span><span class="nv">pins</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">one</span><span class="w"> </span><span class="nv">net</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span>[<span class="mi">3</span>]<span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">pic10</span>[<span class="mi">4</span>]<span class="w">  </span>#<span class="w"> </span><span class="nv">Put</span><span class="w"> </span><span class="nv">pins</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">another</span><span class="w"> </span><span class="nv">net</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span>[<span class="mi">1</span>]<span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">pic10</span>[<span class="mi">4</span>]<span class="w">  </span>#<span class="w"> </span><span class="k">Connect</span><span class="w"> </span><span class="nv">two</span><span class="w"> </span><span class="nv">pins</span><span class="w"> </span><span class="nv">from</span><span class="w"> </span><span class="nv">different</span><span class="w"> </span><span class="nv">nets</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span>[<span class="mi">3</span>].<span class="nv">net</span><span class="w">          </span>#<span class="w"> </span><span class="nv">Now</span><span class="w"> </span><span class="nv">all</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">pins</span><span class="w"> </span><span class="nv">are</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">same</span><span class="w"> </span><span class="nv">net</span><span class="o">!</span>
-<span class="nv">N</span><span class="mh">$9</span>:<span class="w"> </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">U9</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="nv">GP0</span><span class="o">/</span><span class="nv">BIDIRECTIONAL</span>,<span class="w"> </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">U9</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="nv">VSS</span><span class="o">/</span><span class="nv">POWER</span><span class="o">-</span><span class="nv">IN</span>,<span class="w"> </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">U9</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="nv">GP1</span><span class="o">/</span><span class="nv">BIDIRECTIONAL</span>,<span class="w"> </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">U9</span><span class="o">/</span><span class="mi">4</span><span class="o">/</span><span class="nv">GP2</span><span class="o">/</span><span class="nv">BIDIRECTIONAL</span>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; pic10 = Part(&#39;MCU_Microchip_PIC10&#39;, &#39;pic10f220-iot&#39;) 
+&gt;&gt;&gt; pic10[1] += pic10[2]  # Put pins 1 &amp; 2 on one net.
+&gt;&gt;&gt; pic10[3] += pic10[4]  # Put pins 3 &amp; 4 on another net.
+&gt;&gt;&gt; pic10[1] += pic10[4]  # Connect two pins from different nets.
+&gt;&gt;&gt; pic10[3].net          # Now all the pins are on the same net!
+N$9: Pin U9/1/GP0/BIDIRECTIONAL, Pin U9/2/VSS/POWER-IN, Pin U9/3/GP1/BIDIRECTIONAL, Pin U9/4/GP2/BIDIRECTIONAL
 </code></pre></div>
 
 <p>Here's an example of connecting a three-bit bus to three pins on a part:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Part</span><span class="ss">(</span><span class="s1">&#39;MCU_Microchip_PIC10&#39;</span>,<span class="w"> </span><span class="s1">&#39;pic10f220-iot&#39;</span><span class="ss">)</span><span class="w"> </span>
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Bus</span><span class="ss">(</span><span class="s1">&#39;GP&#39;</span>,<span class="w"> </span><span class="mi">3</span><span class="ss">)</span><span class="w">                </span>#<span class="w"> </span><span class="nv">Create</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="mi">3</span><span class="o">-</span><span class="nv">bit</span><span class="w"> </span><span class="nv">bus</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span>[<span class="s1">&#39;GP2 GP1 GP0&#39;</span>]<span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">b</span>[<span class="mi">2</span>:<span class="mi">0</span>]<span class="w">  </span>#<span class="w"> </span><span class="k">Connect</span><span class="w"> </span><span class="nv">bus</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">part</span><span class="w"> </span><span class="nv">pins</span>,<span class="w"> </span><span class="nv">one</span><span class="o">-</span><span class="nv">to</span><span class="o">-</span><span class="nv">one</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">b</span>
-<span class="nv">GP</span>:
-<span class="w">        </span><span class="nv">GP0</span>:<span class="w"> </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">U10</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="nv">GP0</span><span class="o">/</span><span class="nv">BIDIRECTIONAL</span>
-<span class="w">        </span><span class="nv">GP1</span>:<span class="w"> </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">U10</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="nv">GP1</span><span class="o">/</span><span class="nv">BIDIRECTIONAL</span>
-<span class="w">        </span><span class="nv">GP2</span>:<span class="w"> </span><span class="nv">Pin</span><span class="w"> </span><span class="nv">U10</span><span class="o">/</span><span class="mi">4</span><span class="o">/</span><span class="nv">GP2</span><span class="o">/</span><span class="nv">BIDIRECTIONAL</span>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; pic10 = Part(&#39;MCU_Microchip_PIC10&#39;, &#39;pic10f220-iot&#39;) 
+&gt;&gt;&gt; b = Bus(&#39;GP&#39;, 3)                # Create a 3-bit bus.
+&gt;&gt;&gt; pic10[&#39;GP2 GP1 GP0&#39;] += b[2:0]  # Connect bus to part pins, one-to-one.
+&gt;&gt;&gt; b
+GP:
+        GP0: Pin U10/1/GP0/BIDIRECTIONAL
+        GP1: Pin U10/3/GP1/BIDIRECTIONAL
+        GP2: Pin U10/4/GP2/BIDIRECTIONAL
 </code></pre></div>
 
 <p>But SKiDL will warn you if there aren't the same number of things to
@@ -1671,12 +1671,12 @@ is no longer a supply net and an ERC warning is issued.</p>
 using its <code>drive</code> attribute. As a simple example, consider connecting
 a net to the power supply input of a processor and then running
 the ERC:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Part</span><span class="ss">(</span><span class="s1">&#39;MCU_Microchip_PIC10&#39;</span>,<span class="w"> </span><span class="s1">&#39;pic10f220-iot&#39;</span><span class="ss">)</span><span class="w"> </span>
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Net</span><span class="ss">()</span>
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span>[<span class="s1">&#39;VDD&#39;</span>]<span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">a</span>
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">ERC</span><span class="ss">()</span>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; pic10 = Part(&#39;MCU_Microchip_PIC10&#39;, &#39;pic10f220-iot&#39;) 
+&gt;&gt;&gt; a = Net()
+&gt;&gt;&gt; pic10[&#39;VDD&#39;] += a
+&gt;&gt;&gt; ERC()
 ...
-<span class="nv">ERC</span><span class="w"> </span><span class="nv">WARNING</span>:<span class="w"> </span><span class="nv">Insufficient</span><span class="w"> </span><span class="nv">drive</span><span class="w"> </span><span class="nv">current</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">net</span><span class="w"> </span><span class="nv">N</span><span class="mh">$1</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">pin</span><span class="w"> </span><span class="nv">POWER</span><span class="o">-</span><span class="nv">IN</span><span class="w"> </span><span class="nv">pin</span><span class="w"> </span><span class="mi">5</span><span class="o">/</span><span class="nv">VDD</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">PIC10F220</span><span class="o">-</span><span class="nv">IOT</span><span class="o">/</span><span class="nv">U1</span>
+ERC WARNING: Insufficient drive current on net N$1 for pin POWER-IN pin 5/VDD of PIC10F220-IOT/U1
 ...
 </code></pre></div>
 
@@ -1699,16 +1699,16 @@ This is equivalent to attaching power flags to nets in some ECAD packages like K
 <p>You may also set the <code>drive</code> attribute of part pins to override their default drive level.
 This can be useful when you are using an output pin of a part to power
 another part.</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Part</span><span class="ss">(</span><span class="s1">&#39;MCU_Microchip_PIC10&#39;</span>,<span class="w"> </span><span class="s1">&#39;pic10f220-iot&#39;</span><span class="ss">)</span>
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Part</span><span class="ss">(</span><span class="s1">&#39;MCU_Microchip_PIC10&#39;</span>,<span class="w"> </span><span class="s1">&#39;pic10f220-iot&#39;</span><span class="ss">)</span>
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10_b</span>[<span class="s1">&#39;VDD&#39;</span>]<span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">pic10_a</span>[<span class="mi">1</span>]<span class="w">  </span>#<span class="w"> </span><span class="nv">Power</span><span class="w"> </span><span class="nv">pic10_b</span><span class="w"> </span><span class="nv">from</span><span class="w"> </span><span class="nv">output</span><span class="w"> </span><span class="nv">pin</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">pic10_a</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">ERC</span><span class="ss">()</span>
-<span class="nv">ERC</span><span class="w"> </span><span class="nv">WARNING</span>:<span class="w"> </span><span class="nv">Insufficient</span><span class="w"> </span><span class="nv">drive</span><span class="w"> </span><span class="nv">current</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">net</span><span class="w"> </span><span class="nv">N</span><span class="mh">$1</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">pin</span><span class="w"> </span><span class="nv">POWER</span><span class="o">-</span><span class="nv">IN</span><span class="w"> </span><span class="nv">pin</span><span class="w"> </span><span class="mi">5</span><span class="o">/</span><span class="nv">VDD</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">PIC10F220</span><span class="o">-</span><span class="nv">IOT</span><span class="o">/</span><span class="nv">U2</span>
-...<span class="w"> </span><span class="ss">(</span><span class="nv">additional</span><span class="w"> </span><span class="nv">unconnected</span><span class="w"> </span><span class="nv">pin</span><span class="w"> </span><span class="nv">warnings</span><span class="ss">)</span><span class="w"> </span>...
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; pic10_a = Part(&#39;MCU_Microchip_PIC10&#39;, &#39;pic10f220-iot&#39;)
+&gt;&gt;&gt; pic10_b = Part(&#39;MCU_Microchip_PIC10&#39;, &#39;pic10f220-iot&#39;)
+&gt;&gt;&gt; pic10_b[&#39;VDD&#39;] += pic10_a[1]  # Power pic10_b from output pin of pic10_a.
+&gt;&gt;&gt; ERC()
+ERC WARNING: Insufficient drive current on net N$1 for pin POWER-IN pin 5/VDD of PIC10F220-IOT/U2
+<span class="k">...</span> (additional unconnected pin warnings) ...
 
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10_a</span>[<span class="mi">1</span>].<span class="nv">drive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">POWER</span><span class="w">  </span>#<span class="w"> </span><span class="nv">Change</span><span class="w"> </span><span class="nv">drive</span><span class="w"> </span><span class="nv">level</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">pic10_a</span><span class="w"> </span><span class="nv">output</span><span class="w"> </span><span class="nv">pin</span>.
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">ERC</span><span class="ss">()</span>
-...<span class="w"> </span><span class="ss">(</span><span class="nv">Insufficient</span><span class="w"> </span><span class="nv">drive</span><span class="w"> </span><span class="nv">warning</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">gone</span>.<span class="ss">)</span><span class="w"> </span>...
+&gt;&gt;&gt; pic10_a[1].drive = POWER  # Change drive level of pic10_a output pin.
+&gt;&gt;&gt; ERC()
+<span class="k">...</span> (Insufficient drive warning is gone.) ...
 </code></pre></div>
 
 <h3 id="pin-net-bus-equivalencies">Pin, Net, Bus Equivalencies</h3>
@@ -2176,7 +2176,7 @@ netlist. Or you may use the script as a subcircuit in a larger design.
 Or do anything else that a SKiDL-based design supports.</p>
 <h1 id="spice-simulations">SPICE Simulations</h1>
 <p>You can describe a circuit using SKiDL and run a SPICE simulation on it.
-Go <a href="https://github.com/devbisme/skidl/blob/master/examples/spice-sim-intro/spice-sim-intro.ipynb">here</a>
+Go <a href="https://github.com/devbisme/skidl/blob/master/tests/examples/spice-sim-intro/spice-sim-intro.ipynb">here</a>
 to get the complete details.</p>
 		</div> <!-- /#entry-content -->
 	</div> <!-- /#main -->

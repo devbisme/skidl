@@ -13,7 +13,8 @@ Submodules
    :maxdepth: 4
 
    skidl.schematics.debug_draw
-   skidl.schematics.gen_schematic
    skidl.schematics.geometry
+   skidl.schematics.net_terminal
+   skidl.schematics.node
    skidl.schematics.place
    skidl.schematics.route

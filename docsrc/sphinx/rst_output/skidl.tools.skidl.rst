@@ -6,6 +6,14 @@ skidl.tools.skidl package
    :undoc-members:
    :show-inheritance:
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   skidl.tools.skidl.libs
+
 Submodules
 ----------
 

@@ -12,8 +12,12 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   skidl.tools.kicad.bboxes
    skidl.tools.kicad.constants
-   skidl.tools.kicad.eeschema_v5
-   skidl.tools.kicad.kicad
-   skidl.tools.kicad.v5
-   skidl.tools.kicad.v6
+   skidl.tools.kicad.draw_objs
+   skidl.tools.kicad.gen_netlist
+   skidl.tools.kicad.gen_pcb
+   skidl.tools.kicad.gen_schematic
+   skidl.tools.kicad.gen_svg
+   skidl.tools.kicad.gen_xml
+   skidl.tools.kicad.lib

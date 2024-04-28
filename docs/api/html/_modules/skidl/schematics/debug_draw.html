@@ -2,19 +2,17 @@
 
 <!doctype html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.schematics.debug_draw &#8212; SKiDL 1.2.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
+    <title>skidl.schematics.debug_draw &#8212; SKiDL 1.2.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -34,7 +32,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.debug_draw</a></li> 
       </ul>
@@ -48,7 +46,7 @@
   <h1>Source code for skidl.schematics.debug_draw</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># The MIT License (MIT) - Copyright (c) 2022 Dave Vandenbout.</span>
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Drawing routines used for debugging place &amp; route.</span>
@@ -67,21 +65,26 @@
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span><span class="p">,</span> <span class="n">zip_longest</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span><span class="p">,</span> <span class="n">randint</span>
 
-<span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+    <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
 
-<span class="kn">from</span> <span class="nn">..part</span> <span class="kn">import</span> <span class="n">Part</span>
-<span class="kn">from</span> <span class="nn">..tools.kicad.constants</span> <span class="kn">import</span> <span class="n">GRID</span>
-<span class="kn">from</span> <span class="nn">..utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
+<span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">Part</span>
+<span class="kn">from</span> <span class="nn">skidl.tools.kicad.constants</span> <span class="kn">import</span> <span class="n">GRID</span>
+<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
 <span class="kn">from</span> <span class="nn">.geometry</span> <span class="kn">import</span> <span class="n">BBox</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Segment</span><span class="p">,</span> <span class="n">Tx</span><span class="p">,</span> <span class="n">Vector</span>
 
-<span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
 
 <span class="c1"># Dictionary for storing colors to visually distinguish routed nets.</span>
 <span class="n">net_colors</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">)))</span>
 
 
-<div class="viewcode-block" id="draw_box"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_box">[docs]</a><span class="nd">@export_to_all</span>
+<div class="viewcode-block" id="draw_box">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_box">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">draw_box</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">192</span><span class="p">),</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw a box in the drawing area.</span>
 
@@ -105,7 +108,10 @@
     <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span><span class="n">scr</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">corners</span><span class="p">,</span> <span class="n">thickness</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="draw_endpoint"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_endpoint">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="draw_endpoint">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_endpoint">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">draw_endpoint</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">dot_radius</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw a line segment endpoint in the drawing area.</span>
 
@@ -134,7 +140,10 @@
     <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">scr</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">radius</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="draw_seg"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_seg">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="draw_seg">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_seg">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">draw_seg</span><span class="p">(</span><span class="n">seg</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">dot_radius</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw a line segment in the drawing area.</span>
 
@@ -166,7 +175,10 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="draw_text"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_text">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="draw_text">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_text">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">draw_text</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="n">pt</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Render text in drawing area.</span>
 
@@ -188,7 +200,10 @@
     <span class="n">font</span><span class="o">.</span><span class="n">render_to</span><span class="p">(</span><span class="n">scr</span><span class="p">,</span> <span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">txt</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="draw_part"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_part">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="draw_part">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_part">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">draw_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw part bounding box.</span>
 
@@ -214,7 +229,10 @@
         <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="draw_net"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_net">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="draw_net">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_net">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">draw_net</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dot_radius</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw net and connected terminals.</span>
 
@@ -245,7 +263,10 @@
         <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="draw_force"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_force">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="draw_force">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_force">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">draw_force</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">force</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw force vector affecting a part.</span>
 
@@ -264,7 +285,10 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="draw_placement"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_placement">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="draw_placement">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_placement">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">draw_placement</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">nets</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw placement of parts and interconnecting nets.</span>
 
@@ -284,7 +308,10 @@
     <span class="n">draw_redraw</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="draw_routing"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_routing">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="draw_routing">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_routing">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">draw_routing</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="o">*</span><span class="n">other_stuff</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw routing for debugging purposes.</span>
 
@@ -317,7 +344,10 @@
     <span class="n">draw_end</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="draw_clear"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_clear">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="draw_clear">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_clear">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">draw_clear</span><span class="p">(</span><span class="n">scr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Clear drawing area.</span>
 
@@ -328,7 +358,10 @@
     <span class="n">scr</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">color</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="draw_start"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_start">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="draw_start">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_start">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">draw_start</span><span class="p">(</span><span class="n">bbox</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize PyGame drawing area.</span>
@@ -387,13 +420,19 @@
     <span class="k">return</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span></div>
 
 
-<div class="viewcode-block" id="draw_redraw"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_redraw">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="draw_redraw">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_redraw">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">draw_redraw</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Redraw the PyGame display.&quot;&quot;&quot;</span>
     <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="draw_pause"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_pause">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="draw_pause">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_pause">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">draw_pause</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Pause drawing and then resume after button press.&quot;&quot;&quot;</span>
 
@@ -408,12 +447,16 @@
                 <span class="n">running</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 
-<div class="viewcode-block" id="draw_end"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_end">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="draw_end">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_end">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">draw_end</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Display drawing and wait for user to close PyGame window.&quot;&quot;&quot;</span>
 
     <span class="n">draw_pause</span><span class="p">()</span>
     <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span></div>
+
 </pre></div>
 
             <div class="clearer"></div>
@@ -445,14 +488,14 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.debug_draw</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2023, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>
 </html>

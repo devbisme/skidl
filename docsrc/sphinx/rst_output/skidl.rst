@@ -12,7 +12,6 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   skidl.libs
    skidl.schematics
    skidl.scripts
    skidl.tools

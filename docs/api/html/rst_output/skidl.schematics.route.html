@@ -2,20 +2,18 @@
 
 <!doctype html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.schematics.route module &#8212; SKiDL 1.2.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
+    <title>skidl.schematics.route module &#8212; SKiDL 1.2.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <script src="../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -35,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.route module</a></li> 
       </ul>
     </div>  
@@ -46,83 +44,83 @@
           <div class="body" role="main">
             
   <section id="module-skidl.schematics.route">
-<span id="skidl-schematics-route-module"></span><h1>skidl.schematics.route module<a class="headerlink" href="#module-skidl.schematics.route" title="Permalink to this heading">¶</a></h1>
+<span id="skidl-schematics-route-module"></span><h1>skidl.schematics.route module<a class="headerlink" href="#module-skidl.schematics.route" title="Link to this heading">¶</a></h1>
 <p>Autorouter for generating wiring between symbols in a schematic.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="skidl.schematics.route.GlobalRoutingFailure">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.route.</span></span><span class="sig-name descname"><span class="pre">GlobalRoutingFailure</span></span><a class="reference internal" href="../_modules/skidl/schematics/route.html#GlobalRoutingFailure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.GlobalRoutingFailure" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.route.</span></span><span class="sig-name descname"><span class="pre">GlobalRoutingFailure</span></span><a class="reference internal" href="../_modules/skidl/schematics/route.html#GlobalRoutingFailure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.GlobalRoutingFailure" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#skidl.schematics.route.RoutingFailure" title="skidl.schematics.route.RoutingFailure"><code class="xref py py-class docutils literal notranslate"><span class="pre">RoutingFailure</span></code></a></p>
 <p>Failure during global routing phase.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.schematics.route.Router">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.route.</span></span><span class="sig-name descname"><span class="pre">Router</span></span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.route.</span></span><span class="sig-name descname"><span class="pre">Router</span></span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Mixin to add routing function to Node class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.route.Router.add_junctions">
-<span class="sig-name descname"><span class="pre">add_junctions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.add_junctions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.add_junctions" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_junctions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.add_junctions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.add_junctions" title="Link to this definition">¶</a></dt>
 <dd><p>Add X &amp; T-junctions where wire segments in the same net meet.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.route.Router.add_routing_points">
-<span class="sig-name descname"><span class="pre">add_routing_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.add_routing_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.add_routing_points" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_routing_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.add_routing_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.add_routing_points" title="Link to this definition">¶</a></dt>
 <dd><p>Add routing points by extending wires from pins out to the edge of the part bounding box.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>nets</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of nets to be routed.</p>
+<dd class="field-odd"><p><strong>nets</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of nets to be routed.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.route.Router.cleanup_wires">
-<span class="sig-name descname"><span class="pre">cleanup_wires</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.cleanup_wires"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.cleanup_wires" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cleanup_wires</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.cleanup_wires"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.cleanup_wires" title="Link to this definition">¶</a></dt>
 <dd><p>Try to make wire segments look prettier.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.route.Router.create_routing_tracks">
-<span class="sig-name descname"><span class="pre">create_routing_tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">routing_bbox</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.create_routing_tracks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.create_routing_tracks" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_routing_tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">routing_bbox</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.create_routing_tracks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.create_routing_tracks" title="Link to this definition">¶</a></dt>
 <dd><p>Create horizontal &amp; vertical global routing tracks.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.route.Router.create_switchboxes">
-<span class="sig-name descname"><span class="pre">create_switchboxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_tracks</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.create_switchboxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.create_switchboxes" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_switchboxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_tracks</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.create_switchboxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.create_switchboxes" title="Link to this definition">¶</a></dt>
 <dd><p>Create routing switchboxes from the faces in the horz/vert tracks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>h_tracks</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of horizontal Tracks.</p></li>
-<li><p><strong>v_tracks</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of vertical Tracks.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – Dictionary of options and values.</p></li>
+<li><p><strong>h_tracks</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of horizontal Tracks.</p></li>
+<li><p><strong>v_tracks</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of vertical Tracks.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Dictionary of options and values.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>List of Switchboxes.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)">list</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.route.Router.create_terminals">
-<span class="sig-name descname"><span class="pre">create_terminals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">internal_nets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h_tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_tracks</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.create_terminals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.create_terminals" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_terminals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">internal_nets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h_tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_tracks</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.create_terminals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.create_terminals" title="Link to this definition">¶</a></dt>
 <dd><p>Create terminals on the faces in the routing tracks.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.route.Router.global_router">
-<span class="sig-name descname"><span class="pre">global_router</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.global_router"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.global_router" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">global_router</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.global_router"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.global_router" title="Link to this definition">¶</a></dt>
 <dd><p>Globally route a list of nets from face to face.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>nets</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of Nets to be routed.</p>
+<dd class="field-odd"><p><strong>nets</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of Nets to be routed.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>List of GlobalRoutes.</p>
@@ -135,13 +133,13 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.route.Router.rmv_routing_stuff">
-<span class="sig-name descname"><span class="pre">rmv_routing_stuff</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.rmv_routing_stuff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.rmv_routing_stuff" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rmv_routing_stuff</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.rmv_routing_stuff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.rmv_routing_stuff" title="Link to this definition">¶</a></dt>
 <dd><p>Remove attributes added to parts/pins during routing.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.route.Router.route">
-<span class="sig-name descname"><span class="pre">route</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.route"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.route" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">route</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.route"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.route" title="Link to this definition">¶</a></dt>
 <dd><p>Route the wires between part pins in this node and its children.</p>
 <dl class="simple">
 <dt>Steps:</dt><dd><ol class="arabic simple">
@@ -154,9 +152,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node" title="skidl.schematics.gen_schematic.Node"><em>Node</em></a>) – Hierarchical node containing the parts to be connected.</p></li>
-<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Backend tool for schematics.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – Dictionary of options and values:
+<li><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.node.html#skidl.schematics.node.Node" title="skidl.schematics.node.Node"><em>Node</em></a>) – Hierarchical node containing the parts to be connected.</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Backend tool for schematics.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Dictionary of options and values:
 “allow_routing_failure”, “draw”, “draw_all_terminals”, “show_capacities”,
 “draw_switchbox”, “draw_routing”, “draw_channels”</p></li>
 </ul>
@@ -166,13 +164,13 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.route.Router.switchbox_router">
-<span class="sig-name descname"><span class="pre">switchbox_router</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">switchboxes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.switchbox_router"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.switchbox_router" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">switchbox_router</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">switchboxes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/route.html#Router.switchbox_router"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.Router.switchbox_router" title="Link to this definition">¶</a></dt>
 <dd><p>Create detailed wiring between the terminals along the sides of each switchbox.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>switchboxes</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of SwitchBox objects to be individually routed.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – Dictionary of options and values.</p></li>
+<li><p><strong>switchboxes</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of SwitchBox objects to be individually routed.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Dictionary of options and values.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -185,14 +183,14 @@
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="skidl.schematics.route.RoutingFailure">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.route.</span></span><span class="sig-name descname"><span class="pre">RoutingFailure</span></span><a class="reference internal" href="../_modules/skidl/schematics/route.html#RoutingFailure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.RoutingFailure" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/exceptions.html#Exception" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.route.</span></span><span class="sig-name descname"><span class="pre">RoutingFailure</span></span><a class="reference internal" href="../_modules/skidl/schematics/route.html#RoutingFailure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.RoutingFailure" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/exceptions.html#Exception" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
 <p>Exception raised when a net connecting pins cannot be routed.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="skidl.schematics.route.SwitchboxRoutingFailure">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.route.</span></span><span class="sig-name descname"><span class="pre">SwitchboxRoutingFailure</span></span><a class="reference internal" href="../_modules/skidl/schematics/route.html#SwitchboxRoutingFailure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.SwitchboxRoutingFailure" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.route.</span></span><span class="sig-name descname"><span class="pre">SwitchboxRoutingFailure</span></span><a class="reference internal" href="../_modules/skidl/schematics/route.html#SwitchboxRoutingFailure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.route.SwitchboxRoutingFailure" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#skidl.schematics.route.RoutingFailure" title="skidl.schematics.route.RoutingFailure"><code class="xref py py-class docutils literal notranslate"><span class="pre">RoutingFailure</span></code></a></p>
 <p>Failure during switchbox routing phase.</p>
 </dd></dl>
@@ -206,6 +204,31 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">skidl.schematics.route module</a><ul>
+<li><a class="reference internal" href="#skidl.schematics.route.GlobalRoutingFailure"><code class="docutils literal notranslate"><span class="pre">GlobalRoutingFailure</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.route.Router"><code class="docutils literal notranslate"><span class="pre">Router</span></code></a><ul>
+<li><a class="reference internal" href="#skidl.schematics.route.Router.add_junctions"><code class="docutils literal notranslate"><span class="pre">Router.add_junctions()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.route.Router.add_routing_points"><code class="docutils literal notranslate"><span class="pre">Router.add_routing_points()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.route.Router.cleanup_wires"><code class="docutils literal notranslate"><span class="pre">Router.cleanup_wires()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.route.Router.create_routing_tracks"><code class="docutils literal notranslate"><span class="pre">Router.create_routing_tracks()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.route.Router.create_switchboxes"><code class="docutils literal notranslate"><span class="pre">Router.create_switchboxes()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.route.Router.create_terminals"><code class="docutils literal notranslate"><span class="pre">Router.create_terminals()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.route.Router.global_router"><code class="docutils literal notranslate"><span class="pre">Router.global_router()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.route.Router.rmv_routing_stuff"><code class="docutils literal notranslate"><span class="pre">Router.rmv_routing_stuff()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.route.Router.route"><code class="docutils literal notranslate"><span class="pre">Router.route()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.route.Router.switchbox_router"><code class="docutils literal notranslate"><span class="pre">Router.switchbox_router()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#skidl.schematics.route.RoutingFailure"><code class="docutils literal notranslate"><span class="pre">RoutingFailure</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.route.SwitchboxRoutingFailure"><code class="docutils literal notranslate"><span class="pre">SwitchboxRoutingFailure</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -236,13 +259,13 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.route module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2023, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>
 </html>

@@ -2,20 +2,18 @@
 
 <!doctype html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.part_query module &#8212; SKiDL 1.2.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
+    <title>skidl.part_query module &#8212; SKiDL 1.2.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <script src="../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -35,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part_query module</a></li> 
       </ul>
     </div>  
@@ -46,41 +44,41 @@
           <div class="body" role="main">
             
   <section id="module-skidl.part_query">
-<span id="skidl-part-query-module"></span><h1>skidl.part_query module<a class="headerlink" href="#module-skidl.part_query" title="Permalink to this heading">¶</a></h1>
+<span id="skidl-part-query-module"></span><h1>skidl.part_query module<a class="headerlink" href="#module-skidl.part_query" title="Link to this heading">¶</a></h1>
 <p>Functions for finding/displaying parts and footprints.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.search">
-<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.search" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.search" title="Link to this definition">¶</a></dt>
 <dd><p>Print a list of parts with the regex terms within their name, alias, description or keywords.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.search_footprints">
-<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_footprints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_footprints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_footprints" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_footprints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_footprints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_footprints" title="Link to this definition">¶</a></dt>
 <dd><p>Print a list of footprints with the regex term within their description/tags.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.search_footprints_iter">
-<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_footprints_iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_footprints_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_footprints_iter" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_footprints_iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_footprints_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_footprints_iter" title="Link to this definition">¶</a></dt>
 <dd><p>Return a list of (lib, footprint) sequences that match a regex term.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.search_parts">
-<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_parts" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_parts" title="Link to this definition">¶</a></dt>
 <dd><p>Print a list of parts with the regex terms within their name, alias, description or keywords.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.search_parts_iter">
-<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_parts_iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_parts_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_parts_iter" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_parts_iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_parts_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_parts_iter" title="Link to this definition">¶</a></dt>
 <dd><p>Return a list of (lib, part) sequences that match a regex term.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.show">
-<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.show" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.show" title="Link to this definition">¶</a></dt>
 <dd><p>Print the I/O pins for a given part in a library.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -98,7 +96,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.show_footprint">
-<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">show_footprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#show_footprint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.show_footprint" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">show_footprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#show_footprint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.show_footprint" title="Link to this definition">¶</a></dt>
 <dd><p>Print the pads for a given module in a library.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -116,7 +114,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.show_part">
-<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">show_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#show_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.show_part" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">show_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#show_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.show_part" title="Link to this definition">¶</a></dt>
 <dd><p>Print the I/O pins for a given part in a library.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -141,6 +139,23 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">skidl.part_query module</a><ul>
+<li><a class="reference internal" href="#skidl.part_query.search"><code class="docutils literal notranslate"><span class="pre">search()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part_query.search_footprints"><code class="docutils literal notranslate"><span class="pre">search_footprints()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part_query.search_footprints_iter"><code class="docutils literal notranslate"><span class="pre">search_footprints_iter()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part_query.search_parts"><code class="docutils literal notranslate"><span class="pre">search_parts()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part_query.search_parts_iter"><code class="docutils literal notranslate"><span class="pre">search_parts_iter()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part_query.show"><code class="docutils literal notranslate"><span class="pre">show()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part_query.show_footprint"><code class="docutils literal notranslate"><span class="pre">show_footprint()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part_query.show_part"><code class="docutils literal notranslate"><span class="pre">show_part()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -171,13 +186,13 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part_query module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2023, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>
 </html>

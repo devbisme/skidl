@@ -2,20 +2,18 @@
 
 <!doctype html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.schematics.place module &#8212; SKiDL 1.2.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
+    <title>skidl.schematics.place module &#8212; SKiDL 1.2.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <script src="../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -35,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.place module</a></li> 
       </ul>
     </div>  
@@ -46,33 +44,33 @@
           <div class="body" role="main">
             
   <section id="module-skidl.schematics.place">
-<span id="skidl-schematics-place-module"></span><h1>skidl.schematics.place module<a class="headerlink" href="#module-skidl.schematics.place" title="Permalink to this heading">¶</a></h1>
+<span id="skidl-schematics-place-module"></span><h1>skidl.schematics.place module<a class="headerlink" href="#module-skidl.schematics.place" title="Link to this heading">¶</a></h1>
 <p>Autoplacer for arranging symbols in a schematic.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="skidl.schematics.place.PlacementFailure">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.place.</span></span><span class="sig-name descname"><span class="pre">PlacementFailure</span></span><a class="reference internal" href="../_modules/skidl/schematics/place.html#PlacementFailure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.PlacementFailure" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/exceptions.html#Exception" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.place.</span></span><span class="sig-name descname"><span class="pre">PlacementFailure</span></span><a class="reference internal" href="../_modules/skidl/schematics/place.html#PlacementFailure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.PlacementFailure" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/exceptions.html#Exception" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
 <p>Exception raised when parts or blocks could not be placed.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.schematics.place.Placer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.place.</span></span><span class="sig-name descname"><span class="pre">Placer</span></span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.place.</span></span><span class="sig-name descname"><span class="pre">Placer</span></span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Mixin to add place function to Node class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.place.Placer.get_attrs">
-<span class="sig-name descname"><span class="pre">get_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.get_attrs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.get_attrs" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.get_attrs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.get_attrs" title="Link to this definition">¶</a></dt>
 <dd><p>Return dict of attribute sets for the parts, pins, and nets in a node.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.place.Placer.get_snap_pt">
-<span class="sig-name descname"><span class="pre">get_snap_pt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.get_snap_pt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.get_snap_pt" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_snap_pt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.get_snap_pt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.get_snap_pt" title="Link to this definition">¶</a></dt>
 <dd><p>Get a Point to use for snapping the node to the grid.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node" title="skidl.schematics.gen_schematic.Node"><em>Node</em></a>) – The Node to which the snapping point applies.</p>
+<dd class="field-odd"><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.node.html#skidl.schematics.node.Node" title="skidl.schematics.node.Node"><em>Node</em></a>) – The Node to which the snapping point applies.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The snapping point or None.</p>
@@ -85,13 +83,13 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.place.Placer.group_parts">
-<span class="sig-name descname"><span class="pre">group_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.group_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.group_parts" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">group_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.group_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.group_parts" title="Link to this definition">¶</a></dt>
 <dd><p>Group parts in the Node that are connected by internal nets</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node" title="skidl.schematics.gen_schematic.Node"><em>Node</em></a>) – Node with parts.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – Dictionary of options and values. Defaults to {}.</p></li>
+<li><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.node.html#skidl.schematics.node.Node" title="skidl.schematics.node.Node"><em>Node</em></a>) – Node with parts.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Dictionary of options and values. Defaults to {}.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -100,21 +98,21 @@ list: List of internal nets connecting parts.
 list: List of Parts that are not connected to anything (floating).</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)">list</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.place.Placer.place">
-<span class="sig-name descname"><span class="pre">place</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.place"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.place" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">place</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.place"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.place" title="Link to this definition">¶</a></dt>
 <dd><p>Place the parts and children in this node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node" title="skidl.schematics.gen_schematic.Node"><em>Node</em></a>) – Hierarchical node containing the parts and children to be placed.</p></li>
-<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Backend tool for schematics.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dictionary of options and values to control placement.</p></li>
+<li><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.node.html#skidl.schematics.node.Node" title="skidl.schematics.node.Node"><em>Node</em></a>) – Hierarchical node containing the parts and children to be placed.</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Backend tool for schematics.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Dictionary of options and values to control placement.</p></li>
 </ul>
 </dd>
 </dl>
@@ -122,18 +120,18 @@ list: List of Parts that are not connected to anything (floating).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.place.Placer.place_blocks">
-<span class="sig-name descname"><span class="pre">place_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connected_parts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">floating_parts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.place_blocks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.place_blocks" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">place_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connected_parts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">floating_parts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.place_blocks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.place_blocks" title="Link to this definition">¶</a></dt>
 <dd><p>Place blocks of parts and hierarchical sheets.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node" title="skidl.schematics.gen_schematic.Node"><em>Node</em></a>) – Node with parts.</p></li>
-<li><p><strong>connected_parts</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of Part sets connected by nets.</p></li>
-<li><p><strong>floating_parts</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#set" title="(in Python v3.10)"><em>set</em></a>) – Set of Parts not connected by any of the internal nets.</p></li>
-<li><p><strong>children</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Child nodes in the hierarchy.</p></li>
-<li><p><strong>non_sheets</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Hierarchical set of Parts that are visible.</p></li>
-<li><p><strong>sheets</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of hierarchical blocks.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
+<li><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.node.html#skidl.schematics.node.Node" title="skidl.schematics.node.Node"><em>Node</em></a>) – Node with parts.</p></li>
+<li><p><strong>connected_parts</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of Part sets connected by nets.</p></li>
+<li><p><strong>floating_parts</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#set" title="(in Python v3.11)"><em>set</em></a>) – Set of Parts not connected by any of the internal nets.</p></li>
+<li><p><strong>children</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Child nodes in the hierarchy.</p></li>
+<li><p><strong>non_sheets</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Hierarchical set of Parts that are visible.</p></li>
+<li><p><strong>sheets</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of hierarchical blocks.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
 </ul>
 </dd>
 </dl>
@@ -141,15 +139,15 @@ list: List of Parts that are not connected to anything (floating).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.place.Placer.place_connected_parts">
-<span class="sig-name descname"><span class="pre">place_connected_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nets</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.place_connected_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.place_connected_parts" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">place_connected_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nets</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.place_connected_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.place_connected_parts" title="Link to this definition">¶</a></dt>
 <dd><p>Place individual parts.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node" title="skidl.schematics.gen_schematic.Node"><em>Node</em></a>) – Node with parts.</p></li>
-<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of Part sets connected by nets.</p></li>
-<li><p><strong>nets</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of internal Nets connecting the parts.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
+<li><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.node.html#skidl.schematics.node.Node" title="skidl.schematics.node.Node"><em>Node</em></a>) – Node with parts.</p></li>
+<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of Part sets connected by nets.</p></li>
+<li><p><strong>nets</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of internal Nets connecting the parts.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
 </ul>
 </dd>
 </dl>
@@ -157,14 +155,14 @@ list: List of Parts that are not connected to anything (floating).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.place.Placer.place_floating_parts">
-<span class="sig-name descname"><span class="pre">place_floating_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parts</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.place_floating_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.place_floating_parts" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">place_floating_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parts</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.place_floating_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.place_floating_parts" title="Link to this definition">¶</a></dt>
 <dd><p>Place individual parts.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node" title="skidl.schematics.gen_schematic.Node"><em>Node</em></a>) – Node with parts.</p></li>
-<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of Parts not connected by explicit nets.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
+<li><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.node.html#skidl.schematics.node.Node" title="skidl.schematics.node.Node"><em>Node</em></a>) – Node with parts.</p></li>
+<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of Parts not connected by explicit nets.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
 </ul>
 </dd>
 </dl>
@@ -172,13 +170,13 @@ list: List of Parts that are not connected to anything (floating).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.place.Placer.rmv_placement_stuff">
-<span class="sig-name descname"><span class="pre">rmv_placement_stuff</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.rmv_placement_stuff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.rmv_placement_stuff" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rmv_placement_stuff</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.rmv_placement_stuff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.rmv_placement_stuff" title="Link to this definition">¶</a></dt>
 <dd><p>Remove attributes added to parts, pins, and nets of a node during the placement phase.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.place.Placer.show_added_attrs">
-<span class="sig-name descname"><span class="pre">show_added_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.show_added_attrs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.show_added_attrs" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">show_added_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer.show_added_attrs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer.show_added_attrs" title="Link to this definition">¶</a></dt>
 <dd><p>Show attributes that were added to parts, pins, and nets in a node.</p>
 </dd></dl>
 
@@ -186,13 +184,13 @@ list: List of Parts that are not connected to anything (floating).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.schematics.place.net_force_dist">
-<span class="sig-prename descclassname"><span class="pre">skidl.schematics.place.</span></span><span class="sig-name descname"><span class="pre">net_force_dist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#net_force_dist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.net_force_dist" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.place.</span></span><span class="sig-name descname"><span class="pre">net_force_dist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#net_force_dist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.net_force_dist" title="Link to this definition">¶</a></dt>
 <dd><p>Compute attractive force on a part from all the other parts connected to it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>part</strong> (<a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – Part affected by forces from other connected parts.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -206,14 +204,14 @@ list: List of Parts that are not connected to anything (floating).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.schematics.place.overlap_force">
-<span class="sig-prename descclassname"><span class="pre">skidl.schematics.place.</span></span><span class="sig-name descname"><span class="pre">overlap_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parts</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#overlap_force"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.overlap_force" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.place.</span></span><span class="sig-name descname"><span class="pre">overlap_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parts</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#overlap_force"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.overlap_force" title="Link to this definition">¶</a></dt>
 <dd><p>Compute the repulsive force on a part from overlapping other parts.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>part</strong> (<a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – Part affected by forces from other overlapping parts.</p></li>
-<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of parts to check for overlaps.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
+<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of parts to check for overlaps.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -227,14 +225,14 @@ list: List of Parts that are not connected to anything (floating).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.schematics.place.overlap_force_rand">
-<span class="sig-prename descclassname"><span class="pre">skidl.schematics.place.</span></span><span class="sig-name descname"><span class="pre">overlap_force_rand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parts</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#overlap_force_rand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.overlap_force_rand" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.place.</span></span><span class="sig-name descname"><span class="pre">overlap_force_rand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parts</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/place.html#overlap_force_rand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.overlap_force_rand" title="Link to this definition">¶</a></dt>
 <dd><p>Compute the repulsive force on a part from overlapping other parts.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>part</strong> (<a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – Part affected by forces from other overlapping parts.</p></li>
-<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of parts to check for overlaps.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
+<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of parts to check for overlaps.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -255,6 +253,31 @@ list: List of Parts that are not connected to anything (floating).</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">skidl.schematics.place module</a><ul>
+<li><a class="reference internal" href="#skidl.schematics.place.PlacementFailure"><code class="docutils literal notranslate"><span class="pre">PlacementFailure</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.place.Placer"><code class="docutils literal notranslate"><span class="pre">Placer</span></code></a><ul>
+<li><a class="reference internal" href="#skidl.schematics.place.Placer.get_attrs"><code class="docutils literal notranslate"><span class="pre">Placer.get_attrs()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.place.Placer.get_snap_pt"><code class="docutils literal notranslate"><span class="pre">Placer.get_snap_pt()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.place.Placer.group_parts"><code class="docutils literal notranslate"><span class="pre">Placer.group_parts()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.place.Placer.place"><code class="docutils literal notranslate"><span class="pre">Placer.place()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.place.Placer.place_blocks"><code class="docutils literal notranslate"><span class="pre">Placer.place_blocks()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.place.Placer.place_connected_parts"><code class="docutils literal notranslate"><span class="pre">Placer.place_connected_parts()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.place.Placer.place_floating_parts"><code class="docutils literal notranslate"><span class="pre">Placer.place_floating_parts()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.place.Placer.rmv_placement_stuff"><code class="docutils literal notranslate"><span class="pre">Placer.rmv_placement_stuff()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.place.Placer.show_added_attrs"><code class="docutils literal notranslate"><span class="pre">Placer.show_added_attrs()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#skidl.schematics.place.net_force_dist"><code class="docutils literal notranslate"><span class="pre">net_force_dist()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.place.overlap_force"><code class="docutils literal notranslate"><span class="pre">overlap_force()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.place.overlap_force_rand"><code class="docutils literal notranslate"><span class="pre">overlap_force_rand()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -285,13 +308,13 @@ list: List of Parts that are not connected to anything (floating).</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.place module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2023, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>
 </html>

@@ -2,19 +2,17 @@
 
 <!doctype html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.utilities &#8212; SKiDL 1.2.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
+    <title>skidl.utilities &#8212; SKiDL 1.2.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -34,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities</a></li> 
       </ul>
@@ -48,7 +46,7 @@
   <h1>Source code for skidl.utilities</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Utility functions used by the rest of SKiDL.</span>
@@ -61,9 +59,12 @@
     <span class="n">unicode_literals</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+    <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
 
-<span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
 <span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -74,16 +75,17 @@
 <span class="kn">import</span> <span class="nn">urllib.parse</span>
 <span class="kn">import</span> <span class="nn">urllib.request</span>
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">chr</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">open</span><span class="p">,</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">super</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;INDEX_SEPARATOR&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;INDEX_SEPARATOR&quot;</span><span class="p">,</span> <span class="s2">&quot;export_to_all&quot;</span><span class="p">]</span>
 
 
 <span class="sd">&quot;&quot;&quot;Separator for strings containing multiple indices.&quot;&quot;&quot;</span>
 <span class="n">INDEX_SEPARATOR</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[, </span><span class="se">\t</span><span class="s2">]+&quot;</span><span class="p">)</span>
 
 
+<div class="viewcode-block" id="export_to_all">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.export_to_all">[docs]</a>
 <span class="k">def</span> <span class="nf">export_to_all</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a function to the __all__ list of this module.</span>
 
@@ -98,23 +100,33 @@
         <span class="n">mod</span><span class="o">.</span><span class="n">__all__</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">mod</span><span class="o">.</span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">fn</span>
+    <span class="k">return</span> <span class="n">fn</span></div>
 
 
+
+<div class="viewcode-block" id="Rgx">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.Rgx">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">class</span> <span class="nc">Rgx</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Same as a string but the class makes it recognizable as as a regular expression.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
-        <span class="nb">str</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="nb">str</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="sgn"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.sgn">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="sgn">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.sgn">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">sgn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return -1,0,1 if x&lt;0, x==0, x&gt;0.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="debug_trace"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.debug_trace">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="debug_trace">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.debug_trace">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">debug_trace</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Decorator to print tracing info when debugging execution.&quot;&quot;&quot;</span>
 
@@ -126,7 +138,10 @@
     <span class="k">return</span> <span class="n">traced_fn</span></div>
 
 
-<div class="viewcode-block" id="num_to_chars"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.num_to_chars">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="num_to_chars">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.num_to_chars">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">num_to_chars</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a string like &#39;AB&#39; when given a number like 28.&quot;&quot;&quot;</span>
     <span class="n">num</span> <span class="o">-=</span> <span class="mi">1</span>
@@ -137,7 +152,10 @@
     <span class="k">return</span> <span class="n">s</span></div>
 
 
-<div class="viewcode-block" id="rmv_quotes"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.rmv_quotes">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="rmv_quotes">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.rmv_quotes">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">rmv_quotes</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove starting and ending quotes from a string.&quot;&quot;&quot;</span>
 
@@ -154,7 +172,10 @@
     <span class="k">return</span> <span class="n">s</span></div>
 
 
-<div class="viewcode-block" id="add_quotes"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.add_quotes">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="add_quotes">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.add_quotes">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">add_quotes</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return string with added quotes if it contains whitespace or parens.&quot;&quot;&quot;</span>
 
@@ -173,13 +194,19 @@
     <span class="k">return</span> <span class="n">s</span></div>
 
 
-<div class="viewcode-block" id="cnvt_to_var_name"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.cnvt_to_var_name">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="cnvt_to_var_name">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.cnvt_to_var_name">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">cnvt_to_var_name</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a string to a legal Python variable name and return it.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\W|^(?=\d)&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="to_list"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.to_list">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="to_list">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.to_list">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">to_list</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return x if it is already a list, or return a list containing x if x is a scalar.</span>
@@ -189,7 +216,10 @@
     <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>  <span class="c1"># Wasn&#39;t a list, so make it into one.</span></div>
 
 
-<div class="viewcode-block" id="list_or_scalar"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.list_or_scalar">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="list_or_scalar">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.list_or_scalar">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">list_or_scalar</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a list if passed a multi-element list, otherwise return a single scalar.</span>
@@ -212,7 +242,10 @@
     <span class="k">return</span> <span class="n">lst</span>  <span class="c1"># Must have been a scalar, so return that.</span></div>
 
 
-<div class="viewcode-block" id="flatten"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.flatten">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="flatten">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.flatten">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="n">nested_list</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a flattened list of items from a nested list.</span>
@@ -226,12 +259,20 @@
     <span class="k">return</span> <span class="n">lst</span></div>
 
 
+
+<div class="viewcode-block" id="set_attr">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.set_attr">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">set_attr</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Set an attribute in a list of objects.&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">to_list</span><span class="p">(</span><span class="n">objs</span><span class="p">):</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="rmv_attr">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.rmv_attr">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">rmv_attr</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove a list of attributes from a list of objects.&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">to_list</span><span class="p">(</span><span class="n">objs</span><span class="p">):</span>
@@ -239,10 +280,13 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="nb">delattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-                <span class="k">pass</span>
+                <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="add_unique_attr"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.add_unique_attr">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="add_unique_attr">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.add_unique_attr">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">add_unique_attr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">check_dup</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an attribute if the attribute name isn&#39;t already used.&quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
@@ -265,7 +309,10 @@
         <span class="nb">setattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="from_iadd"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.from_iadd">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="from_iadd">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.from_iadd">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">from_iadd</span><span class="p">(</span><span class="n">objs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True if one or more objects have attribute iadd_flag set to True.&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
@@ -277,19 +324,28 @@
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="s2">&quot;iadd_flag&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="set_iadd"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.set_iadd">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="set_iadd">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.set_iadd">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">set_iadd</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Set iadd_flag with T/F value for a list of objects.&quot;&quot;&quot;</span>
     <span class="n">set_attr</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="s2">&quot;iadd_flag&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="rmv_iadd"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.rmv_iadd">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="rmv_iadd">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.rmv_iadd">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">rmv_iadd</span><span class="p">(</span><span class="n">objs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Delete iadd_flag attribute from a list of objects.&quot;&quot;&quot;</span>
     <span class="n">rmv_attr</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="s2">&quot;iadd_flag&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="merge_dicts"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.merge_dicts">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="merge_dicts">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.merge_dicts">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">merge_dicts</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="n">merge_dct</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dict merge that recurses through both dicts and updates keys.</span>
@@ -313,12 +369,15 @@
             <span class="n">dct</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">merge_dct</span><span class="p">[</span><span class="n">k</span><span class="p">]</span></div>
 
 
+
 <span class="c1"># Store names that have been previously assigned.</span>
 <span class="n">name_heap</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="kc">None</span><span class="p">])</span>
 <span class="n">prefix_counts</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="reset_get_unique_name"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.reset_get_unique_name">[docs]</a><span class="nd">@export_to_all</span>
+<div class="viewcode-block" id="reset_get_unique_name">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.reset_get_unique_name">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">reset_get_unique_name</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Reset the heaps that store previously-assigned names.&quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">name_heap</span><span class="p">,</span> <span class="n">prefix_counts</span>
@@ -326,7 +385,10 @@
     <span class="n">prefix_counts</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_unique_name"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.get_unique_name">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="get_unique_name">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.get_unique_name">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">get_unique_name</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">attrib</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a name that doesn&#39;t collide with another in a list.</span>
@@ -419,13 +481,19 @@
     <span class="k">return</span> <span class="n">get_unique_name</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">attrib</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="fullmatch"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.fullmatch">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="fullmatch">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.fullmatch">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">fullmatch</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Emulate python-3.4 re.fullmatch().&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;(?:&quot;</span> <span class="o">+</span> <span class="n">regex</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;)\Z&quot;</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="filter_list"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.filter_list">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="filter_list">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.filter_list">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">filter_list</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a list of objects whose attributes match a set of criteria.</span>
@@ -540,7 +608,10 @@
     <span class="k">return</span> <span class="n">extract</span></div>
 
 
-<div class="viewcode-block" id="expand_indices"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.expand_indices">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="expand_indices">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.expand_indices">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">expand_indices</span><span class="p">(</span><span class="n">slice_min</span><span class="p">,</span> <span class="n">slice_max</span><span class="p">,</span> <span class="n">match_regex</span><span class="p">,</span> <span class="o">*</span><span class="n">indices</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Expand a list of indices into a list of integers and strings.</span>
@@ -684,7 +755,10 @@
     <span class="k">return</span> <span class="n">ids</span></div>
 
 
-<div class="viewcode-block" id="expand_buses"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.expand_buses">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="expand_buses">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.expand_buses">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">expand_buses</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Take list of pins, nets, and buses and return a list of only pins and nets.</span>
@@ -698,7 +772,10 @@
     <span class="k">return</span> <span class="n">pins_nets</span></div>
 
 
-<div class="viewcode-block" id="find_num_copies"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.find_num_copies">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="find_num_copies">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.find_num_copies">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">find_num_copies</span><span class="p">(</span><span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the number of copies to make based on the number of attribute values.</span>
@@ -745,7 +822,10 @@
         <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># If the list if empty.</span></div>
 
 
-<div class="viewcode-block" id="norecurse"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.norecurse">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="norecurse">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.norecurse">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">norecurse</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Decorator that keeps a function from recursively calling itself.</span>
 
@@ -767,7 +847,10 @@
     <span class="k">return</span> <span class="n">func</span></div>
 
 
-<div class="viewcode-block" id="TriggerDict"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.TriggerDict">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="TriggerDict">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.TriggerDict">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">class</span> <span class="nc">TriggerDict</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This dict triggers a function when one of its entries changes.&quot;&quot;&quot;</span>
 
@@ -786,6 +869,10 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="is_binary_file">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.is_binary_file">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">is_binary_file</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return true if a file contains binary (non-text) characters.&quot;&quot;&quot;</span>
     <span class="n">text_chars</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">({</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">27</span><span class="p">}</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x100</span><span class="p">))</span> <span class="o">-</span> <span class="p">{</span><span class="mh">0x7F</span><span class="p">})</span>
@@ -793,14 +880,17 @@
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">text_chars</span><span class="p">))</span>
     <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
-        <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
 
 
 <span class="k">def</span> <span class="nf">is_url</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">scheme</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;https&quot;</span><span class="p">}</span>
 
 
-<div class="viewcode-block" id="find_and_open_file"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.find_and_open_file">[docs]</a><span class="nd">@export_to_all</span>
+<div class="viewcode-block" id="find_and_open_file">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.find_and_open_file">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">find_and_open_file</span><span class="p">(</span>
     <span class="n">filename</span><span class="p">,</span> <span class="n">paths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_failure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">exclude_binary</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">descend</span><span class="o">=</span><span class="mi">0</span>
 <span class="p">):</span>
@@ -823,23 +913,27 @@
 
     <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 
+    <span class="c1"># Get the directory path from the file name. This even works with URLs.</span>
+    <span class="n">rel_path</span><span class="p">,</span> <span class="n">fnm</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">base</span><span class="p">,</span> <span class="n">suffix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">fnm</span><span class="p">)</span>
+
+    <span class="c1"># Update the paths to search through based on the given file name.</span>
     <span class="k">if</span> <span class="n">is_url</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
         <span class="c1"># This is a URL. Use the URL path as the search path except for</span>
-        <span class="c1"># the ending file name. Maybe not the best thing to use, but</span>
-        <span class="c1"># os.path.dirname() will do this.</span>
-        <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">)]</span>
+        <span class="c1"># the ending file name.</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">rel_path</span><span class="p">]</span>
     <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
         <span class="c1"># Replace search paths if the file already has an absolute path.</span>
-        <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">))]</span>
-    <span class="k">elif</span> <span class="ow">not</span> <span class="n">paths</span><span class="p">:</span>
-        <span class="c1"># If no search paths are given, use the current working directory.</span>
-        <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">]</span>
-
-    <span class="c1"># Remove any directory path from the file name. This even works with URLs.</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">rel_path</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># filename was not a URL or absolute path, so assume it&#39;s a relative path.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">paths</span><span class="p">:</span>
+            <span class="c1"># If no search paths are given, use the current working directory.</span>
+            <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">]</span>
+        <span class="c1"># append any relative path from the file name to each of the paths.</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">]</span>
 
     <span class="c1"># Get the list of file extensions to check against.</span>
-    <span class="n">base</span><span class="p">,</span> <span class="n">suffix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">suffix</span><span class="p">:</span>
         <span class="c1"># If an explicit file extension was given, just use that.</span>
         <span class="n">exts</span> <span class="o">=</span> <span class="p">[</span><span class="n">suffix</span><span class="p">]</span>
@@ -888,7 +982,10 @@
         <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="find_and_read_file"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.find_and_read_file">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="find_and_read_file">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.find_and_read_file">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">find_and_read_file</span><span class="p">(</span>
     <span class="n">filename</span><span class="p">,</span> <span class="n">paths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_failure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">exclude_binary</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">descend</span><span class="o">=</span><span class="mi">0</span>
 <span class="p">):</span>
@@ -922,7 +1019,10 @@
     <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="opened"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.opened">[docs]</a><span class="nd">@export_to_all</span>
+
+<div class="viewcode-block" id="opened">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.opened">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="nd">@contextmanager</span>
 <span class="k">def</span> <span class="nf">opened</span><span class="p">(</span><span class="n">f_or_fn</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -951,6 +1051,7 @@
                 <span class="nb">type</span><span class="p">(</span><span class="n">f_or_fn</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span></div>
+
 </pre></div>
 
             <div class="clearer"></div>
@@ -982,14 +1083,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2023, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>
 </html>

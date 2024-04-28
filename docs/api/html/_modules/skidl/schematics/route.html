@@ -2,19 +2,17 @@
 
 <!doctype html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.schematics.route &#8212; SKiDL 1.2.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
+    <title>skidl.schematics.route &#8212; SKiDL 1.2.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -34,7 +32,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.route</a></li> 
       </ul>
@@ -48,7 +46,7 @@
   <h1>Source code for skidl.schematics.route</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Autorouter for generating wiring between symbols in a schematic.</span>
@@ -69,15 +67,17 @@
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span><span class="p">,</span> <span class="n">product</span><span class="p">,</span> <span class="n">zip_longest</span>
 
-<span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+    <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
 
-<span class="kn">from</span> <span class="nn">..circuit</span> <span class="kn">import</span> <span class="n">Circuit</span>
-<span class="kn">from</span> <span class="nn">..part</span> <span class="kn">import</span> <span class="n">Part</span>
-<span class="kn">from</span> <span class="nn">..utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">rmv_attr</span>
+<span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">Part</span>
+<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">rmv_attr</span>
 <span class="kn">from</span> <span class="nn">.debug_draw</span> <span class="kn">import</span> <span class="n">draw_end</span><span class="p">,</span> <span class="n">draw_endpoint</span><span class="p">,</span> <span class="n">draw_routing</span><span class="p">,</span> <span class="n">draw_seg</span><span class="p">,</span> <span class="n">draw_start</span>
 <span class="kn">from</span> <span class="nn">.geometry</span> <span class="kn">import</span> <span class="n">BBox</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Segment</span><span class="p">,</span> <span class="n">Tx</span><span class="p">,</span> <span class="n">Vector</span><span class="p">,</span> <span class="n">tx_rot_90</span>
 
-<span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;RoutingFailure&quot;</span><span class="p">,</span> <span class="s2">&quot;GlobalRoutingFailure&quot;</span><span class="p">,</span> <span class="s2">&quot;SwitchboxRoutingFailure&quot;</span><span class="p">]</span>
 
@@ -163,22 +163,31 @@
     <span class="k">pass</span>
 
 
-<div class="viewcode-block" id="RoutingFailure"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.RoutingFailure">[docs]</a><span class="k">class</span> <span class="nc">RoutingFailure</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="RoutingFailure">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.RoutingFailure">[docs]</a>
+<span class="k">class</span> <span class="nc">RoutingFailure</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception raised when a net connecting pins cannot be routed.&quot;&quot;&quot;</span>
 
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="GlobalRoutingFailure"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.GlobalRoutingFailure">[docs]</a><span class="k">class</span> <span class="nc">GlobalRoutingFailure</span><span class="p">(</span><span class="n">RoutingFailure</span><span class="p">):</span>
+
+<div class="viewcode-block" id="GlobalRoutingFailure">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.GlobalRoutingFailure">[docs]</a>
+<span class="k">class</span> <span class="nc">GlobalRoutingFailure</span><span class="p">(</span><span class="n">RoutingFailure</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Failure during global routing phase.&quot;&quot;&quot;</span>
 
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="SwitchboxRoutingFailure"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.SwitchboxRoutingFailure">[docs]</a><span class="k">class</span> <span class="nc">SwitchboxRoutingFailure</span><span class="p">(</span><span class="n">RoutingFailure</span><span class="p">):</span>
+
+<div class="viewcode-block" id="SwitchboxRoutingFailure">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.SwitchboxRoutingFailure">[docs]</a>
+<span class="k">class</span> <span class="nc">SwitchboxRoutingFailure</span><span class="p">(</span><span class="n">RoutingFailure</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Failure during switchbox routing phase.&quot;&quot;&quot;</span>
 
     <span class="k">pass</span></div>
+
 
 
 <span class="k">class</span> <span class="nc">Boundary</span><span class="p">:</span>
@@ -2068,11 +2077,15 @@
             <span class="n">draw_end</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="Router"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router">[docs]</a><span class="nd">@export_to_all</span>
+<div class="viewcode-block" id="Router">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">class</span> <span class="nc">Router</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Mixin to add routing function to Node class.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Router.add_routing_points"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.add_routing_points">[docs]</a>    <span class="k">def</span> <span class="nf">add_routing_points</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nets</span><span class="p">):</span>
+<div class="viewcode-block" id="Router.add_routing_points">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.add_routing_points">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_routing_points</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nets</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add routing points by extending wires from pins out to the edge of the part bounding box.</span>
 
 <span class="sd">        Args:</span>
@@ -2116,7 +2129,10 @@
                     <span class="n">seg</span> <span class="o">=</span> <span class="n">Segment</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">pt</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">route_pt</span><span class="p">)</span> <span class="o">*</span> <span class="n">pin</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">tx</span>
                     <span class="n">node</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">seg</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Router.create_routing_tracks"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.create_routing_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">create_routing_tracks</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">routing_bbox</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Router.create_routing_tracks">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.create_routing_tracks">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_routing_tracks</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">routing_bbox</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create horizontal &amp; vertical global routing tracks.&quot;&quot;&quot;</span>
 
         <span class="c1"># Find the coords of the horiz/vert tracks that will hold the H/V faces of the routing switchboxes.</span>
@@ -2195,7 +2211,10 @@
 
         <span class="k">return</span> <span class="n">h_tracks</span><span class="p">,</span> <span class="n">v_tracks</span></div>
 
-<div class="viewcode-block" id="Router.create_terminals"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.create_terminals">[docs]</a>    <span class="k">def</span> <span class="nf">create_terminals</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">internal_nets</span><span class="p">,</span> <span class="n">h_tracks</span><span class="p">,</span> <span class="n">v_tracks</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Router.create_terminals">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.create_terminals">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_terminals</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">internal_nets</span><span class="p">,</span> <span class="n">h_tracks</span><span class="p">,</span> <span class="n">v_tracks</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create terminals on the faces in the routing tracks.&quot;&quot;&quot;</span>
 
         <span class="c1"># Add terminals to all non-part/non-boundary faces.</span>
@@ -2247,7 +2266,10 @@
             <span class="k">for</span> <span class="n">face</span> <span class="ow">in</span> <span class="n">track</span><span class="p">:</span>
                 <span class="n">face</span><span class="o">.</span><span class="n">set_capacity</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Router.global_router"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.global_router">[docs]</a>    <span class="k">def</span> <span class="nf">global_router</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nets</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Router.global_router">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.global_router">[docs]</a>
+    <span class="k">def</span> <span class="nf">global_router</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nets</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Globally route a list of nets from face to face.</span>
 
 <span class="sd">        Args:</span>
@@ -2421,7 +2443,10 @@
 
         <span class="k">return</span> <span class="n">global_routes</span></div>
 
-<div class="viewcode-block" id="Router.create_switchboxes"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.create_switchboxes">[docs]</a>    <span class="k">def</span> <span class="nf">create_switchboxes</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">h_tracks</span><span class="p">,</span> <span class="n">v_tracks</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Router.create_switchboxes">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.create_switchboxes">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_switchboxes</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">h_tracks</span><span class="p">,</span> <span class="n">v_tracks</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create routing switchboxes from the faces in the horz/vert tracks.</span>
 
 <span class="sd">        Args:</span>
@@ -2471,7 +2496,10 @@
 
         <span class="k">return</span> <span class="n">switchboxes</span></div>
 
-<div class="viewcode-block" id="Router.switchbox_router"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.switchbox_router">[docs]</a>    <span class="k">def</span> <span class="nf">switchbox_router</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">switchboxes</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Router.switchbox_router">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.switchbox_router">[docs]</a>
+    <span class="k">def</span> <span class="nf">switchbox_router</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">switchboxes</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create detailed wiring between the terminals along the sides of each switchbox.</span>
 
 <span class="sd">        Args:</span>
@@ -2500,7 +2528,10 @@
             <span class="k">for</span> <span class="n">net</span><span class="p">,</span> <span class="n">segments</span> <span class="ow">in</span> <span class="n">swbx</span><span class="o">.</span><span class="n">segments</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="n">node</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="n">net</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">segments</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Router.cleanup_wires"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.cleanup_wires">[docs]</a>    <span class="k">def</span> <span class="nf">cleanup_wires</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Router.cleanup_wires">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.cleanup_wires">[docs]</a>
+    <span class="k">def</span> <span class="nf">cleanup_wires</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Try to make wire segments look prettier.&quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">order_seg_points</span><span class="p">(</span><span class="n">segments</span><span class="p">):</span>
@@ -3113,7 +3144,10 @@
                 <span class="c1"># Update the node net&#39;s wire with the cleaned version.</span>
                 <span class="n">node</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="n">net</span><span class="p">]</span> <span class="o">=</span> <span class="n">segments</span></div>
 
-<div class="viewcode-block" id="Router.add_junctions"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.add_junctions">[docs]</a>    <span class="k">def</span> <span class="nf">add_junctions</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Router.add_junctions">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.add_junctions">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_junctions</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add X &amp; T-junctions where wire segments in the same net meet.&quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">find_junctions</span><span class="p">(</span><span class="n">route</span><span class="p">):</span>
@@ -3161,14 +3195,20 @@
             <span class="n">junctions</span> <span class="o">=</span> <span class="n">find_junctions</span><span class="p">(</span><span class="n">segments</span><span class="p">)</span>
             <span class="n">node</span><span class="o">.</span><span class="n">junctions</span><span class="p">[</span><span class="n">net</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">junctions</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Router.rmv_routing_stuff"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.rmv_routing_stuff">[docs]</a>    <span class="k">def</span> <span class="nf">rmv_routing_stuff</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Router.rmv_routing_stuff">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.rmv_routing_stuff">[docs]</a>
+    <span class="k">def</span> <span class="nf">rmv_routing_stuff</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove attributes added to parts/pins during routing.&quot;&quot;&quot;</span>
 
         <span class="n">rmv_attr</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;left_track&quot;</span><span class="p">,</span> <span class="s2">&quot;right_track&quot;</span><span class="p">,</span> <span class="s2">&quot;top_track&quot;</span><span class="p">,</span> <span class="s2">&quot;bottom_track&quot;</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
             <span class="n">rmv_attr</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;route_pt&quot;</span><span class="p">,</span> <span class="s2">&quot;face&quot;</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Router.route"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.route">[docs]</a>    <span class="k">def</span> <span class="nf">route</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Router.route">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.route.html#skidl.schematics.route.Router.route">[docs]</a>
+    <span class="k">def</span> <span class="nf">route</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Route the wires between part pins in this node and its children.</span>
 
 <span class="sd">        Steps:</span>
@@ -3295,7 +3335,9 @@
         <span class="k">except</span> <span class="n">RoutingFailure</span><span class="p">:</span>
             <span class="c1"># Remove any stuff leftover from this place &amp; route run.</span>
             <span class="n">node</span><span class="o">.</span><span class="n">rmv_routing_stuff</span><span class="p">()</span>
-            <span class="k">raise</span> <span class="n">RoutingFailure</span></div></div>
+            <span class="k">raise</span> <span class="n">RoutingFailure</span></div>
+</div>
+
 </pre></div>
 
             <div class="clearer"></div>
@@ -3327,14 +3369,14 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.route</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2023, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>
 </html>
