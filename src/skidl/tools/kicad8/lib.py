@@ -48,10 +48,10 @@ def default_lib_paths():
 
     # Add the location of the default KiCad part libraries.
     try:
-        paths.append(os.environ["KICAD7_SYMBOL_DIR"])
+        paths.append(os.environ["KICAD8_SYMBOL_DIR"])
     except KeyError:
         active_logger.warning(
-            "KICAD7_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
+            "KICAD8_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
         )
 
     return paths
