@@ -9,7 +9,7 @@ from __future__ import (  # isort:skip
 )
 
 
-from math import sqrt, sin, cos, pi
+from math import sqrt, sin, cos, radians
 from copy import copy
 
 try:
@@ -135,10 +135,10 @@ class Tx:
         """Return Tx with 90-deg clock-wise rotation around (0, 0)."""
         return self * Tx(a=0, b=1, c=-1, d=0)
     
-    def rot(self, angle):
+    def rot(self, degs):
         """Return Tx rotated by the given angle (in degrees)."""
-        angle *= pi / 180  # Convert degrees to radians.
-        return self * Tx(a=cos(angle), b=sin(angle), c=-sin(angle), d=cos(angle))
+        rads = radians(degs)
+        return self * Tx(a=cos(rads), b=sin(rads), c=-sin(rads), d=cos(rads))
 
     def flip_x(self):
         """Return Tx with X coords flipped around (0, 0)."""
