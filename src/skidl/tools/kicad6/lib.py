@@ -119,7 +119,13 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         pass
 
     # Convert S-expression library into a list of symbols.
-    lib_list = sexpdata.loads(lib_txt)
+    try:
+        lib_list = sexpdata.loads(lib_txt)
+    except:
+        active_logger.raise_(
+            RuntimeError,
+            "The file {} is not a KiCad Schematic Library File.\n".format(filename),
+        )
 
     # Skip over the 'kicad_symbol_lib' label and extract symbols into a dictionary with
     # symbol names as keys. Use an ordered dictionary to keep parts in the same order as
