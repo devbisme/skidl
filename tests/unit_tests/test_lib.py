@@ -12,6 +12,7 @@ from skidl import (
     KICAD,
     KICAD6,
     KICAD7,
+    KICAD8,
     SKIDL,
     TEMPLATE,
     Part,
@@ -31,7 +32,7 @@ from .setup_teardown import setup_function, teardown_function
 def test_missing_lib():
     # Sometimes, loading a part from a non-existent library doesn't throw an
     # exception until the second time it's tried. This detects that error.
-    
+
     # Don't allow searching backup lib that might exist from previous tests.
     SchLib.reset()
     skidl.config.query_backup_lib=False

@@ -88,11 +88,11 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         lib_section: Only used for SPICE simulations.
     """
 
-    from skidl import Part, KICAD7
+    from skidl import Part, KICAD8
     from skidl.tools import lib_suffixes
 
     # Try to open the file using allowable suffixes for the versions of KiCAD.
-    suffixes = lib_suffixes[KICAD7]
+    suffixes = lib_suffixes[KICAD8]
     base, suffix = os.path.splitext(filename)
     if suffix:
         # If an explicit file extension was given, use it instead of tool lib default extensions.
@@ -179,7 +179,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         lib.add_parts(
             Part(
                 part_defn=part_defn, # A list of lists that define the part.
-                tool=KICAD7,
+                tool=KICAD8,
                 dest=LIBRARY,
                 filename=filename,
                 name=part_name,
@@ -332,7 +332,7 @@ def parse_lib_part(part, partial_parse):
 
         # Return true if the symbol had pins.
         return bool(symbol_pins)
-    
+
     def parse_draw_cmds(symbol):
         '''Return a list of graphic drawing commands contained in the symbol.'''
         return [
@@ -341,7 +341,7 @@ def parse_lib_part(part, partial_parse):
             if item[0].value().lower()
             in ("arc", "bezier", "circle", "pin", "polyline", "rectangle", "text")
         ]
-    
+
     # Parse top-level pins. (Pins in any units are parsed later.)
     parse_pins(part.part_defn, unit_id="main")
 

@@ -4,7 +4,7 @@
 
 import pytest
 
-from skidl import search, set_default_tool, KICAD, KICAD6, KICAD7
+from skidl import search, set_default_tool, KICAD, KICAD6, KICAD7, KICAD8
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -23,6 +23,12 @@ def test_search_2(capfd):
 
 def test_search_3(capfd):
     set_default_tool(KICAD7)
+    search("ESP32")  # Should find 6 matches in RF_Module.kicad_sym.
+    out, err = capfd.readouterr()
+    assert out.count("RF_Module.kicad_sym:") == 6
+
+def test_search_4(capfd):
+    set_default_tool(KICAD8)
     search("ESP32")  # Should find 6 matches in RF_Module.kicad_sym.
     out, err = capfd.readouterr()
     assert out.count("RF_Module.kicad_sym:") == 6
