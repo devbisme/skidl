@@ -86,7 +86,7 @@ class SchLib(object):
 
         # Otherwise, load from a schematic library file.
         else:
-            try:
+            if tool in tool_modules.keys():
                 # Use the tool name to find the function for loading the library.
                 tool_modules[tool].load_sch_lib(
                     self,
@@ -94,16 +94,15 @@ class SchLib(object):
                     skidl.lib_search_paths[tool],
                     lib_section=lib_section,
                 )
-            except AttributeError:
+                self.filename = filename
+                # Cache a reference to the library.
+                self._cache[filename] = self
+            else:
                 # OK, that didn't work so well...
                 active_logger.raise_(
                     ValueError,
                     "Unsupported ECAD tool library: {}.".format(tool),
                 )
-            else:
-                self.filename = filename
-                # Cache a reference to the library.
-                self._cache[filename] = self
 
     def __str__(self):
         """Return a list of the part names in this library as a string."""

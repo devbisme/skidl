@@ -138,7 +138,7 @@ def test_non_existing_lib_cannot_be_loaded():
 def test_part_from_non_existing_lib_cannot_be_instantiated():
     SchLib.reset()
     for tool in ALL_TOOLS:
-        with pytest.raises(FileNotFoundError):
+        with pytest.raises((FileNotFoundError, ValueError)):
             part = Part("non-existing", "P", tool=tool)
 
 
