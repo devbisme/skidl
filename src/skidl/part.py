@@ -1275,6 +1275,8 @@ class PartUnit(Part):
 
     Parts can be organized into smaller pieces called PartUnits. A PartUnit
     acts like a Part but contains only a subset of the pins of the Part.
+    Except for the pins, the PartUnit is a shallow copy of the Part and
+    cannot store any other unique data.
 
     Args:
         part: This is the parent Part whose pins the PartUnit is built from.
