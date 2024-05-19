@@ -366,13 +366,15 @@ class Net(SkidlBaseObject):
         # Create a list of copies of this net.
         copies = []
         for i in range(num_copies):
-            # Create a deep copy of the net.
-            cpy = deepcopy(self)
 
-            # Place the copy into either the passed-in circuit, the circuit of
-            # the source net, or the default circuit.
-            cpy.circuit = None
-            circuit += cpy
+            # Create a new net to store the copy.
+            cpy = Net(circuit=circuit)
+
+            # Deep copy attributes from the source net to the copy.
+            # Skip some attributes that would cause an infinite recursion exception.
+            for k,v in self.__dict__.items():
+                if k not in ['circuit', 'traversal']:
+                    setattr(cpy, k, deepcopy(v))
 
             # Add other attributes to the net copy.
             for k, v in list(attribs.items()):
