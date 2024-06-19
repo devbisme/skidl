@@ -57,6 +57,7 @@ cover/
 
 # Directories
 docsrc/sphinx/rst_output/
+tests/test_data/skywater/
 tests/test_data/schematic_output/
 tests/examples/arduino_uno_r3_from_scratch/
 tests/examples/*/*.sch
