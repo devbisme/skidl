@@ -28,9 +28,7 @@ from .logger import active_logger
 from .part_query import footprint_cache
 from .scriptinfo import get_script_name
 from .tools import ALL_TOOLS, lib_suffixes, tool_modules
-from .tools.kicad import get_kicad_lib_tbl_dir
 from .utilities import TriggerDict, export_to_all, merge_dicts
-
 
 
 @export_to_all
@@ -116,8 +114,7 @@ class SkidlConfig(Config):
 
         # If no configuration files were found, set some default footprint search paths.
         if "footprint_search_paths" not in self:
-            dir_ = get_kicad_lib_tbl_dir()
-            self["footprint_search_paths"] = {tool: [dir_] for tool in ALL_TOOLS}
+            self["footprint_search_paths"] = {tool: tool_modules[tool].get_fp_lib_tbl_dir() for tool in ALL_TOOLS}
 
         # Cause the footprint cache to be invalidated if the footprint search path changes.
         def invalidate_footprint_cache(self, k, v):
