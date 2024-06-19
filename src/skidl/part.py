@@ -863,6 +863,9 @@ class Part(SkidlBaseObject):
         from .alias import Alias
         from .netpinlist import NetPinList
 
+        # Extract option for suppressing error messages.
+        silent = criteria.pop("silent", False)
+
         # Extract restrictions on searching for only pin names or numbers.
         only_search_numbers = criteria.pop("only_search_numbers", False)
         only_search_names = criteria.pop("only_search_names", False)
@@ -935,7 +938,7 @@ class Part(SkidlBaseObject):
                     continue
 
         # Log an error if no pins were selected using the pin ids.
-        if not pins:
+        if not pins and not silent:
             active_logger.error(
                 "No pins found using {self.ref}[{pin_ids}]".format(**locals())
             )
@@ -1046,6 +1049,7 @@ class Part(SkidlBaseObject):
     def grab_pins(self):
         """Grab pins back from PartUnits."""
 
+        # Make each unit release its pins back to the part that contains it.
         for unit in self.unit.values():
             unit.release_pins()
 
@@ -1090,8 +1094,12 @@ class Part(SkidlBaseObject):
                 "aliases",
                 "pin",
                 "footprint",
+                "draw_cmds", # Add it to make sure removal doesn't cause an error.
             )
         )
+        keys = set(keys) # Remove duplicates.
+        keys.remove("draw_cmds") # Don't export drawing commands.
+
         attribs = []
         attribs.append("'{}':{}".format("name", repr(self.name)))
         attribs.append("'dest':TEMPLATE")
@@ -1326,6 +1334,9 @@ class PartUnit(Part):
         # pins selected from the parent.
         self.pins = []
         self.add_pins_from_parent(*pin_ids, **criteria)
+        # Add pins from global unit.
+        # TODO: KiCad uses unit 0 for global unit. What about other tools?
+        self.add_pins_from_parent(unit=0, silent=True)
 
     def __getattr__(self, key):
         """Return attribute from parent Part if it wasn't found in the PartUnit."""
