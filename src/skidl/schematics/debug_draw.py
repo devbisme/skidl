@@ -26,7 +26,6 @@ except ImportError:
     pass
 
 from skidl import Part
-from skidl.tools.kicad.constants import GRID
 from skidl.utilities import export_to_all
 from .geometry import BBox, Point, Segment, Tx, Vector
 
