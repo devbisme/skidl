@@ -18,4 +18,5 @@ from .spice import (
     not_implemented,
     parse_lib_part,
     default_lib_paths,
+    get_fp_lib_tbl_dir,
 )

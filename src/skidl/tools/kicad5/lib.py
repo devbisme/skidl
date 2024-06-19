@@ -57,7 +57,7 @@ def default_lib_paths():
 
 
 @export_to_all
-def get_kicad_lib_tbl_dir():
+def get_fp_lib_tbl_dir():
     """Get the path to where the global fp-lib-table file is found."""
 
     paths = (

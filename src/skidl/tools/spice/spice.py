@@ -61,6 +61,13 @@ def default_lib_paths():
     return paths
 
 
+@export_to_all
+def get_fp_lib_tbl_dir():
+    """Get the path to where the global fp-lib-table file is found."""
+
+    return "" # No global fp-lib-table file for SPICE.
+
+
 def _gather_statement(file):
     """Return list of words in a complete statement read from a SPICE file."""
 
@@ -125,8 +132,8 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
 
     # Go through the files and create a SKiDL Part for each subcircuit.
     for lib_file in lib_files:
-        with open(lib_file) as f:
 
+        with open(lib_file) as f:
             # Read the definition of each part line-by-line and then create
             # a Part object that gets stored in the part list.
             for statement in _gather_statement(f):

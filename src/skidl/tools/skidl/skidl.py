@@ -48,6 +48,13 @@ def default_lib_paths():
 
 
 @export_to_all
+def get_fp_lib_tbl_dir():
+    """Get the path to where the global fp-lib-table file is found."""
+
+    return "" # No global fp-lib-table file for SKiDL.
+
+
+@export_to_all
 def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     """
     Load the parts from a SKiDL schematic library file.

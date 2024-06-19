@@ -103,8 +103,6 @@ def gen_xml(circuit):
     """
     from skidl import KICAD
 
-    raise NotImplementedError
-
     scr_dict = scriptinfo()
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
     date = time.strftime("%m/%d/%Y %I:%M %p")

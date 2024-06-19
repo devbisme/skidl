@@ -200,7 +200,7 @@ def gen_svg_comp(part, symtx, net_stubs=None):
 
         if isinstance(obj, DrawDef):
             def_ = obj
-            show_name = def_.name[0] != "~"
+            show_name = type(def_.name) is int or def_.name[0] != "~"
             show_nums = def_.show_nums == "Y"
             show_names = def_.show_names == "Y"
             # Make pin direction table with symbol-specific name offset.
