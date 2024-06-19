@@ -206,11 +206,16 @@ def test_lib_kicad_2():
         check_lib_part(part)
 
 
-def test_lib_kicad_ecad_v7_2():
+def test_lib_kicad_top_level_pins():
     SchLib.reset()
-    tool = KICAD7
     lib_name = "ecad_example"
-    lib = SchLib(lib_name, tool=tool)
+    try:
+        lib = SchLib(lib_name)
+    except FileNotFoundError:
+        # No test library exists for this tool.
+        return
+    # lib = SchLib(lib_name, tool=tool)
+    tool = get_default_tool()
     part_names = [part.name for part in lib.parts]
     sexp, _ = find_and_read_file(
         lib_name, ext=lib_suffixes[tool], paths=lib_search_paths[tool]

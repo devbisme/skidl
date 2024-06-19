@@ -356,14 +356,6 @@ def parse_lib_part(part, partial_parse):
     # Parse top-level pins. (Any units with pins are parsed later.)
     top_has_pins = parse_pins(part.part_defn, unit=1)
 
-    # If there are pins in the top-level part, then the part shouldn't have any units.
-    # Therefore, make the part a unit of itself.
-    if top_has_pins:
-        part.make_unit("uA", unit=1)
-
-    # Parse any graphics commands in the top-level part definition.
-    part.draw_cmds[1].extend(parse_draw_cmds(part.part_defn))
-
     # Find all the units within a symbol. Skip the first item which is the
     # 'symbol' marking the start of the entire part definition.
     units = {
@@ -373,8 +365,18 @@ def parse_lib_part(part, partial_parse):
     }
 
     # I'm assuming a part will not have both pins at the top level and units with pins.
+    # The bool(units) will test for units within this part, while bool(part.unit)
+    # will test for units in the part this part is extending.
     # This assertion will check that assumption.
     assert top_has_pins ^ (bool(units) or bool(part.unit)), "Top-level pins must be present if and only if there are no units."
+
+    # If there are pins in the top-level part, then the part shouldn't have any units.
+    # Therefore, make the part a unit of itself.
+    if top_has_pins:
+        part.make_unit("uA", unit=1)
+
+    # Parse any graphics commands in the top-level part definition.
+    part.draw_cmds[1].extend(parse_draw_cmds(part.part_defn))
 
     # Get pins and assign them to each unit as well as the entire part.
     # Also assign any graphic objects to each unit.

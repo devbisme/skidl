@@ -29,7 +29,7 @@ except ImportError:
 
 from skidl.logger import active_logger
 from skidl.part import LIBRARY
-from skidl.schematics.geometry import mils_per_mm
+from skidl.schematics.geometry import mils_per_mm, BBox
 from skidl.utilities import export_to_all, find_and_open_file, num_to_chars, to_list
 
 
@@ -119,7 +119,13 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         pass
 
     # Convert S-expression library into a list of symbols.
-    lib_list = sexpdata.loads(lib_txt)
+    try:
+        lib_list = sexpdata.loads(lib_txt)
+    except:
+        active_logger.raise_(
+            RuntimeError,
+            "The file {} is not a KiCad Schematic Library File.\n".format(filename),
+        )
 
     # Skip over the 'kicad_symbol_lib' label and extract symbols into a dictionary with
     # symbol names as keys. Use an ordered dictionary to keep parts in the same order as
@@ -220,8 +226,7 @@ def parse_lib_part(part, partial_parse):
 
     part.aliases = []  # Part aliases.
     part.fplist = []  # Footprint list.
-    part.draw = {}  # Drawing commands for the part units.
-    draw_cmds = defaultdict(list)  # Drawing commands for symbol units, including pins.
+    part.draw_cmds = defaultdict(list)  # Drawing commands for the part and any units, including pins.
 
     # Search for a parent that this part inherits from.
     for item in part.part_defn:
@@ -273,7 +278,7 @@ def parse_lib_part(part, partial_parse):
 
             break
 
-    def parse_pins(symbol, unit_id):
+    def parse_pins(symbol, unit):
         '''Parse the pins within a symbol and add them to the Part object.'''
 
         # Association between KiCad : SKiDL pin types.
@@ -312,9 +317,13 @@ def parse_lib_part(part, partial_parse):
                     pin_number = item[1]
                 elif token_name == "at":
                     pin_x, pin_y, pin_angle = item[1:4]
-                    pin_x = round(pin_x * mils_per_mm)
-                    pin_y = round(pin_y * mils_per_mm)
-                    pin_angle = {0: "R", 90: "D", 180: "L", 270: "U"}[pin_angle]
+                    # TODO: Convert these units from mm to mils?
+                    # pin_x = round(pin_x * mils_per_mm)
+                    # pin_y = round(pin_y * mils_per_mm)
+                    pin_side = {0: "R", 90: "D", 180: "L", 270: "U"}[pin_angle]
+                elif token_name == "length":
+                    pin_length = item[1]
+                    # pin_length = round(mils_per_mm * pin_length)
 
             # Add the pins that were found to the total part. Include the unit identifier
             # in the pin so we can find it later when the part unit is created.
@@ -323,16 +332,18 @@ def parse_lib_part(part, partial_parse):
                     name=pin_name,
                     num=pin_number,
                     func=pin_func,
-                    unit=unit_id,
+                    unit=unit,
                     x=pin_x,
                     y=pin_y,
+                    length=pin_length,
+                    rotation=pin_angle,
                     orientation=pin_angle,
                 )
             )
 
         # Return true if the symbol had pins.
         return bool(symbol_pins)
-
+    
     def parse_draw_cmds(symbol):
         '''Return a list of graphic drawing commands contained in the symbol.'''
         return [
@@ -341,12 +352,9 @@ def parse_lib_part(part, partial_parse):
             if item[0].value().lower()
             in ("arc", "bezier", "circle", "pin", "polyline", "rectangle", "text")
         ]
-
-    # Parse top-level pins. (Pins in any units are parsed later.)
-    parse_pins(part.part_defn, unit_id="main")
-
-    # Parse any graphics commands in the top-level part definition.
-    draw_cmds["main"].extend(parse_draw_cmds(part.part_defn))
+    
+    # Parse top-level pins. (Any units with pins are parsed later.)
+    top_has_pins = parse_pins(part.part_defn, unit=1)
 
     # Find all the units within a symbol. Skip the first item which is the
     # 'symbol' marking the start of the entire part definition.
@@ -355,6 +363,20 @@ def parse_lib_part(part, partial_parse):
         for item in part.part_defn[1:]
         if item[0].value().lower() == "symbol"
     }
+
+    # I'm assuming a part will not have both pins at the top level and units with pins.
+    # The bool(units) will test for units within this part, while bool(part.unit)
+    # will test for units in the part this part is extending.
+    # This assertion will check that assumption.
+    assert top_has_pins ^ (bool(units) or bool(part.unit)), "Top-level pins must be present if and only if there are no units."
+
+    # If there are pins in the top-level part, then the part shouldn't have any units.
+    # Therefore, make the part a unit of itself.
+    if top_has_pins:
+        part.make_unit("uA", unit=1)
+
+    # Parse any graphics commands in the top-level part definition.
+    part.draw_cmds[1].extend(parse_draw_cmds(part.part_defn))
 
     # Get pins and assign them to each unit as well as the entire part.
     # Also assign any graphic objects to each unit.
@@ -371,19 +393,20 @@ def parse_lib_part(part, partial_parse):
             continue
 
         # Get any graphic drawing commands for this unit.
-        draw_cmds[major].extend(parse_draw_cmds(unit_data))
+        part.draw_cmds[major].extend(parse_draw_cmds(unit_data))
 
         # Save unit number if the unit has pins. Use this to create units
         # after the entire part is created.
-        unit_has_pins = parse_pins(unit_data, unit_id=major)
+        unit_has_pins = parse_pins(unit_data, unit=major)
         if major != 0 and unit_has_pins:
             unit_nums.append(major)
 
-    # Copy drawing objects from the global unit to all the other units.
-    for unit_major, unit_cmds in draw_cmds.items():
-        if unit_major != 0:
-            # Update non-global units with the global unit drawing commands.
-            unit_cmds.extend(draw_cmds.get(0, []))
+    # Copy drawing objects from the global unit with major id 0 to all the other units.
+    if unit_nums:
+        for unit_major, unit_draw_cmds in part.draw_cmds.items():
+            if unit_major != 0:
+                # Update non-global units with the global unit drawing commands.
+                unit_draw_cmds.extend(part.draw_cmds.get(0, []))
 
     # Clear the part reference field directly. Don't use the setter function
     # since it will try to generate and assign a unique part reference if
@@ -393,36 +416,30 @@ def parse_lib_part(part, partial_parse):
     # Make sure all the pins have a valid reference to this part.
     part.associate_pins()
 
-    # Populate part fields from symbol properties. Properties will also be included below in drawing commands.
-    properties = [
-        item[1:] for item in part.part_defn if item[0].value().lower() == "property"
-    ]
-    fields = {prop[0].lower(): prop[1] for prop in properties}
-    part.ref_prefix = fields["reference"]
-    part.value = fields["value"]
-    part.fplist.append(fields["footprint"])
-    part.datasheet = fields["datasheet"]
-
-    # Construct the rest of the part attribute space, avoid keys that are already defined
-    keys_to_avoid = vars(part).keys()
-    filtered_dict = {
-        k.replace(" ", "_").replace("/", "_"): v
-        for k, v in fields.items()
-        if k not in keys_to_avoid
-    }
-    for k, v in filtered_dict.items():
-        setattr(part, k, v)
-
-    # Create the units now that all the part pins have been added.
-    # When a part is not divided into subunits, then the entire part is considered a unit of itself.
+    # Create any units now that all the part pins have been added.
     for unit_num in unit_nums:
         unit_label = "u" + num_to_chars(unit_num)
-        part.make_unit(unit_label, unit=unit_num)
-        # Store drawing commands and and property fields in part unit for use in calculating its bounding box.
-        part.draw[unit_label] = draw_cmds[unit_num]
-        part.draw[unit_label].extend(properties)
-    part.draw["main"] = draw_cmds["main"]
+        # Create a unit using pins with the same unit number.
+        u = part.make_unit(unit_label, unit=unit_num)
 
-    # Part definition has been parsed, so clear it out. This prevents a
-    # part from being parsed more than once.
+    # Populate part fields from symbol properties. Properties will also be included below in drawing commands.
+    props = {
+        prop[1].lower(): prop for prop in part.part_defn if prop[0].value().lower() == "property"
+    }
+    part.ref_prefix = props["reference"][2]
+    part.value = props["value"][2]
+    part.fplist.append(props["footprint"][2])
+    part.datasheet = props["datasheet"][2]
+    part.draw_cmds[1].extend([props["reference"], props["value"]])
+
+    # Construct the rest of the part attribute space, avoid part attributes that are already defined.
+    part_dict = {
+        k.replace(" ", "_").replace("/", "_"): v[2]
+        for k, v in props.items()
+        if k not in vars(part).keys()
+    }
+    for k, v in part_dict.items():
+        setattr(part, k, v)
+
+    # Part definition has been parsed, so clear it out to prevent parsing it again.
     part.part_defn = None

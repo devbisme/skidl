@@ -13,6 +13,7 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
+import math
 from collections import namedtuple
 try:
     from future import standard_library
@@ -20,9 +21,15 @@ try:
 except ImportError:
     pass
 
+from skidl.schematics.geometry import Point, BBox
 from skidl.utilities import export_to_all
 
+__all__ = ["PinInfo"]
 
+# Named tuple for storing component pin information.
+PinInfo = namedtuple("PinInfo", "x y side pid")
+
+@export_to_all
 def symbol_to_dict(symbol):
     """
     Convert a list of symbols from a KICAD part definition into a 
@@ -65,6 +72,7 @@ def symbol_to_dict(symbol):
     return name, d
 
 
+@export_to_all
 def get_pin_info(x, y, rotation, length):
     quadrant = (rotation+45)//90
     side = {
@@ -83,7 +91,8 @@ def get_pin_info(x, y, rotation, length):
     # and sometimes from the part towards the tip. Assuming the 
     # part center is close to the origin, we can flip this by 
     # considering the point farthest from the origin to be the tip
-    if math.dist([endx,endy], [0,0]) > math.dist([x,y], [0,0]):
+    # if math.dist([endx,endy], [0,0]) > math.dist([x,y], [0,0]):
+    if endx**2 + endy**2 > x**2 + y**2:
         return [x,y], [endx, endy], side
     else:
         side = {
@@ -93,7 +102,9 @@ def get_pin_info(x, y, rotation, length):
                 "bottom":"top",
                 }[side]
         return [endx, endy], [x,y], side
-    
+
+
+@export_to_all    
 def symbol_to_svg(symbol):
     shape_type, shape = symbol_to_dict(symbol)
 
@@ -194,9 +205,12 @@ def symbol_to_svg(symbol):
         shape_bbox.add(Point(*b))
         shape_bbox.add(Point(*c))
 
-        A = math.dist(b,c)
-        B = math.dist(a,c)
-        C = math.dist(a,b)
+        # A = math.dist(b,c)
+        A = math.sqrt((b[0]-c[0])**2 + (b[1]-c[1])**2)
+        # B = math.dist(a,c)
+        B = math.sqrt((a[0]-c[0])**2 + (a[1]-c[1])**2)
+        # C = math.dist(a,b)
+        C = math.sqrt((a[0]-b[0])**2 + (a[1]-b[1])**2)
 
         angle = math.acos( (A*A + B*B - C*C)/(2*A*B) )
         K = .5*A*B*math.sin(angle)
@@ -224,7 +238,7 @@ def symbol_to_svg(symbol):
             class_ = "part_name_text"
             extra = 's:attribute="value"'
         elif "hide" not in shape["effects"]["misc"]:
-            raise RuntimeError("Unknown property {} is not hidden.".format(symbol[1]))
+            raise RuntimeError("Unknown property {symbol[1]} is not hidden.".format(**locals()))
         x = shape["at"][0]
         y = -shape["at"][1]
         rotation = shape["at"][2]
@@ -416,20 +430,24 @@ def gen_svg_comp(part, symtx, net_stubs=None):
 
     # Assemble and name the SVGs for all the part units.
     svg = []
-    for unit in range(1, part.num_units):
-        bbox = part.unit_bboxes[unit]
-        bbox.add(part.unit_bboxes[0])
+    for unit in part.unit.values():
+        bbox = BBox()
+        unit_svg = []
+        for cmd in part.draw_cmds[unit.num]:
+            s, bb = symbol_to_svg(cmd)
+            bbox.add(bb)
+            unit_svg.append(s)
 
         # Assign part unit name.
         if max_stub_len:
             # If net stubs are attached to symbol, then it's only to be used
             # for a specific part. Therefore, tag the symbol name with the unique
             # part reference so it will only be used by this part.
-            symbol_name = "{part.name}_{part.ref}_{unit}_{symtx}".format(**locals())
+            symbol_name = "{part.name}_{part.ref}_{unit.num}_{symtx}".format(**locals())
         else:
             # No net stubs means this symbol can be used for any part that
             # also has no net stubs, so don't tag it with a specific part reference.
-            symbol_name = "{part.name}_{unit}_{symtx}".format(**locals())
+            symbol_name = "{part.name}_{unit.num}_{symtx}".format(**locals())
 
 
         class TxBBox:
@@ -544,19 +562,13 @@ def gen_svg_comp(part, symtx, net_stubs=None):
                 ]
             ).format(**locals())
         )
-        # Everything from unit 0 gets added to all units
-        for item in part.unit_svgs[0]:
-            if "text" not in item:
-                svg.append(item)
-        for item in part.unit_svgs[unit]:
+
+        for item in unit_svg:
             if "text" not in item:
                 svg.append(item)
         svg.append("</g>")
 
-        for item in part.unit_svgs[0]:
-            if "text" in item:
-                svg.append(item)
-        for item in part.unit_svgs[unit]:
+        for item in unit_svg:
             if "text" in item:
                 svg.append(item)
         svg.append("</g>")
@@ -580,12 +592,12 @@ def gen_svg_comp(part, symtx, net_stubs=None):
 
         # Keep the pins out of the grouped text & graphics but adjust their coords
         # to account for moving the bbox.
-        for pin_info in part.unit_pin_info[unit]:
-            pin_pt = Point(pin_info.x, pin_info.y)
+        for pin in unit.pins:
+            _, pin_pt, side = get_pin_info(pin.x, pin.y, pin.rotation, pin.length)
+            pin_pt = Point(pin_pt[0], pin_pt[1])
 
             #print("pin_pt", pin_pt)
             #print("symtx", symtx)
-            side = pin_info.side
             if "H" in symtx:
                 pin_pt.x = -pin_pt.x
                 side = {
@@ -626,7 +638,7 @@ def gen_svg_comp(part, symtx, net_stubs=None):
 
             pin_pt *= scale
 
-            pid = pin_info.pid
+            pid = pin.name
             font_size = 12
             justify="left"
             pin_svg = " ".join([
