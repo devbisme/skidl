@@ -12,10 +12,10 @@ from .setup_teardown import setup_function, teardown_function
 
 
 def test_name_1():
-    vreg1 = Part("xess.lib", "1117")
-    assert vreg1.ref == "U1"
-    vreg1.ref = "U1"
-    assert vreg1.ref == "U1"
+    r1 = Part("Device", "R")
+    assert r1.ref == "R1"
+    r1.ref = "R1"
+    assert r1.ref == "R1"
     bus1 = Bus(None)
     assert bus1.name == BUS_PREFIX + "1"
     bus1 = Bus("T1")

@@ -10,43 +10,43 @@ from .setup_teardown import setup_function, teardown_function
 
 
 def test_pin_names_1():
-    codec = Part("xess.lib", "ak4520a")
-    assert codec["ain"] == codec.n["ain"]
-    assert codec[1:4] == codec.p[1:4]
+    mem = Part("Memory_RAM", "AS4C4M16SA")
+    assert mem["DQ15"] == mem.n["DQ15"]
+    assert mem[1:4] == mem.p[1:4]
 
 
 def test_pin_names_2():
-    codec = Part("xess.lib", "ak4520a")
-    codec[4].name = "A1"
-    codec[8].name = "A2"
-    codec[8].num = "A1"
-    assert codec[4] is codec.n["A1"]
-    assert codec.p[4] is codec.n["A1"]
-    assert codec[4] is codec.p[4]
-    assert codec.p["A1"] is codec.n["A2"]
-    assert codec["A1"] is codec.n["A2"]
-    assert codec["A1"] is codec.p["A1"]
+    mem = Part("Memory_RAM", "AS4C4M16SA")
+    mem[4].name = "X1"
+    mem[8].name = "X2"
+    mem[8].num = "X1"
+    assert mem[4] is mem.n["X1"]
+    assert mem.p[4] is mem.n["X1"]
+    assert mem[4] is mem.p[4]
+    assert mem.p["X1"] is mem.n["X2"]
+    assert mem["X1"] is mem.n["X2"]
+    assert mem["X1"] is mem.p["X1"]
 
 
 def test_numerical_pin_order():
-    codec = Part("xess.lib", "ak4520a")
-    p = codec.pins.pop(13)
-    codec.pins.append(p)
-    assert [int(x.num) for x in codec.pins] != list(range(1, len(codec.pins) + 1))
-    assert [int(x.num) for x in codec.ordered_pins] == list(
-        range(1, len(codec.pins) + 1)
+    mem = Part("Memory_RAM", "AS4C4M16SA")
+    p = mem.pins.pop(13)
+    mem.pins.append(p)
+    assert [int(x.num) for x in mem.pins] != list(range(1, len(mem.pins) + 1))
+    assert [int(x.num) for x in mem.ordered_pins] == list(
+        range(1, len(mem.pins) + 1)
     )
 
 
 def test_alphanumeric_pin_order():
-    codec = Part("xess.lib", "ak4520a")
-    codec[3].num = "A1"
-    codec[5].num = "B1"
-    assert [p.num for p in codec.ordered_pins[-6:]] == [
-        "25",
-        "26",
-        "27",
-        "28",
+    mem = Part("Memory_RAM", "AS4C4M16SA")
+    mem[3].num = "A1"
+    mem[5].num = "B1"
+    assert [p.num for p in mem.ordered_pins[-6:]] == [
+        "51",
+        "52",
+        "53",
+        "54",
         "A1",
         "B1",
     ]
@@ -81,9 +81,12 @@ def test_alphanum_sorts():
 
 
 def test_pin_search_1():
-    codec = Part("xess.lib", "ak4520a")
-    bidir = codec.get_pins(func=Pin.BIDIR)
-    pwrin = codec.get_pins(func=Pin.PWRIN)
-    assert len(bidir) == 24
+    mem = Part("Memory_RAM", "AS4C4M16SA")
+    bidir = mem.get_pins(func=Pin.BIDIR)
+    input = mem.get_pins(func=Pin.INPUT)
+    passive = mem.get_pins(func=Pin.PASSIVE)
+    nc = mem.get_pins(func=Pin.NOCONNECT)
+    pwrin = mem.get_pins(func=Pin.PWRIN)
+    assert len(bidir) == 16
     assert len(pwrin) == 4
-    assert len(bidir) + len(pwrin) == len(codec)
+    assert len(bidir) + len(pwrin) + len(input) + len(passive) + len(nc) == len(mem)

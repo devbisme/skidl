@@ -34,7 +34,7 @@ from .setup_teardown import setup_function, teardown_function
 @subcircuit
 def flat_circuit():
     q = Part(
-        lib="Device.lib",
+        lib="Device",
         name="Q_PNP_CBE",
         footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
         dest=TEMPLATE,
@@ -42,7 +42,7 @@ def flat_circuit():
         value="Q_NPN_CBE",
     )
     r = Part(
-        "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
+        "Device", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
     )
     gndt = Part("power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm")
     vcct = Part("power", "VCC", footprint="TestPoint:TestPoint_Pad_D4.0mm")
@@ -88,14 +88,14 @@ def test_gen_flat_graph():
 @subcircuit
 def hier_circuit():
     q = Part(
-        lib="Device.lib",
+        lib="Device",
         name="Q_PNP_CBE",
         footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
         dest=TEMPLATE,
         # symtx="V",
     )
     r = Part(
-        "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
+        "Device", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
     )
     vcc = Net("VCC")
     gnd = Net("GND")

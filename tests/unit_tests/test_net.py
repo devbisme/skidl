@@ -48,16 +48,16 @@ def test_net_fixed_name_1():
 
 
 def test_netclass_1():
-    vreg = Part("xess.lib", "1117")
+    led = Part("Device", "LED_ARBG")
     n1 = Net()
-    n1 += vreg[1, 2, 3]
+    n1 += led[1, 2, 3, 4]
     n1.netclass = NetClass("my_net", a=1, b=2, c=3)
 
 
 def test_netclass_2():
-    vreg = Part("xess.lib", "1117")
+    led = Part("Device", "LED_ARBG")
     n1 = Net()
-    n1 += vreg[1, 2, 3]
+    n1 += led[1, 2, 3, 4]
     n1.netclass = NetClass("my_net", a=1, b=2, c=3)
     with pytest.raises(ValueError):
         n1.netclass = NetClass("my_net", a=5, b=6, c=7)

@@ -83,18 +83,18 @@ def test_interface_1():
 
 
 def test_interface_2():
-    mem = Part("xess", "SDRAM_16Mx16_TSOPII-54")
-    intf = Interface(a=mem["A[0:12]"], d=mem["DQ[0:15]"])
-    assert len(intf.a) == 13
-    assert len(intf["a"]) == 13
-    assert len(intf.a[0:12]) == 13
-    assert len(intf["a[0:12]"]) == 13
+    mem = Part("Memory_RAM", "AS4C4M16SA")
+    intf = Interface(a=mem["A[0:9]"], d=mem["DQ[0:15]"])
+    assert len(intf.a) == 10
+    assert len(intf["a"]) == 10
+    assert len(intf.a[0:9]) == 10
+    assert len(intf["a[0:9]"]) == 10
     assert len(intf["a d"]) == len(intf.a) + len(intf.d)
     intf["a d"] += Net()
     intf.a += Net()
     c = Net()
     c += intf["a d"]
-    intf["a d"] += Bus(5), Net(), Bus(10), Net(), Net(), Bus(11)
+    intf["a d"] += Bus(5), Net(), Bus(10), Net(), Net(), Bus(8)
     intf["a[3:7] d[4:1]"] += Bus(5), Net(), Net(), Bus(1), Net()
     d = Bus(6)
     d += intf["d[4:5] a[7:4]"]
@@ -308,10 +308,7 @@ def test_interface_8():
         return Interface(vin=vin, vout=vout, gnd=gnd)
 
     vin, vout, gnd = Net("VIN"), Net("VOUT"), Net("GND")
-    reg = Part("xess.lib", "1117", dest=TEMPLATE)
-    reg.GND.aliases += "ADJ"
-    reg.IN.aliases += "VI"
-    reg.OUT.aliases += "VO"
+    reg = Part("Regulator_Linear", "AP1117-ADJ", dest=TEMPLATE)
     bom = {
         "r": Part("Device", "R", dest=TEMPLATE),
         "c": Part("Device", "C", dest=TEMPLATE),
@@ -584,6 +581,51 @@ def test_interface_15():
     avg1 = analog_average(circuit=cct, cct=cct)
     avg2 = analog_average(circuit=cct, cct=cct)
 
+    in1, in2, in3, in4, out1, out2 = Net(circuit=cct) * 6
+
+    avg1["in1"] += in1
+    avg1.in2 += in2
+    avg1["avg"] += out1
+
+    avg2["in1"] += in3
+    avg2["in2"] += in4
+    avg2.avg += out2
+
+    # Can't generate netlist because nets get merged and in1, in2, ... no longer point to valid nets.
+    # cct.generate_netlist()
+
+    assert len(cct.parts) == 4
+    assert len(default_circuit.parts) == 0
+
+    assert len(in1) == 1
+    assert len(in2) == 1
+    assert len(in3) == 1
+    assert len(in4) == 1
+    assert len(out1) == 2
+    assert len(out2) == 2
+    assert len(out2) == 2
+
+
+def test_interface_16():
+    @subcircuit
+    def analog_average(cct=None):
+        # in1, in2, avg = Net(), Net(), Net()
+        # in1, in2, avg = 3 * Net()
+        in1, in2, avg = 3 * Net(circuit=cct)
+        g1, g2 = 2 * Part("4xxx", "4001", value="4001", dest=TEMPLATE, circuit=cct)
+        g1[1, 2] += in1, avg
+        g2[1, 2] += in2, avg
+        return Interface(in1=in1, in2=in2, avg=avg)
+
+    cct = Circuit(name="My circuit")
+
+    # avg1 = analog_average()
+    # avg2 = analog_average()
+    avg1 = analog_average(circuit=cct, cct=cct)
+    avg2 = analog_average(circuit=cct, cct=cct)
+
+    # in1, in2, in3, in4, out1, out2 = Net(), Net(), Net(), Net(), Net(), Net()
+    # in1, in2, in3, in4, out1, out2 = Net() * 6
     in1, in2, in3, in4, out1, out2 = Net(circuit=cct) * 6
 
     avg1["in1"] += in1

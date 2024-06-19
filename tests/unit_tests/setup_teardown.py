@@ -21,20 +21,27 @@ def setup_function(f):
     default_circuit.mini_reset()
 
     # Setup part library search paths.
-    lib_search_paths.clear()
-    lib_dir = os.path.join(this_file_dir, "..", "test_data")
-    lib_search_paths.update({tool: [os.getcwd(), lib_dir] for tool in ALL_TOOLS})
+    for tool in ALL_TOOLS:
+        # Each tool has a specific directory that stores the libraries used for testing.
+        lib_dir = os.path.join(this_file_dir, "..", "test_data", tool)
+        lib_search_paths[tool] = [os.getcwd(), lib_dir]
 
+    # Extra library directory for SKiDL tool.
     skidl_lib_dir = os.path.join(this_file_dir, "../..", "src/skidl/libs")
     lib_search_paths[SKIDL].append(skidl_lib_dir)
 
-    skywater_lib_dir = (
-        "/home/devb/tmp/skywater-pdk/libraries/sky130_fd_pr/latest/models"
-    )
+    # SPICE models from the SkyWater 130nm process.
+    skywater_lib_dir = os.path.join(this_file_dir, "..", "test_data", "skywater", "models")
     lib_search_paths[SPICE].append(skywater_lib_dir)
 
-    skidl.config.tool = KICAD
+    spice_lib_dir = os.path.join(this_file_dir, "..", "test_data", "SpiceLib")
+    lib_search_paths[SPICE].append(spice_lib_dir)
+
     skidl.config.query_backup_lib = True
+
+    # Set the default tool for the test suite.
+    tool = KICAD8
+    set_default_tool(tool)
 
 
 def teardown_function(f):

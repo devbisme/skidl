@@ -10,102 +10,102 @@ from .setup_teardown import setup_function, teardown_function
 
 
 def test_connect_1():
-    vreg = Part("xess.lib", "1117", footprint="null")
-    vreg.value = "NCV1117"
+    LED = Part("Device", "LED_ARBG", footprint="null")
+    LED.value = "RBG_LED"
     gnd = Net("GND")
     vin = Net("Vin")
     vout = Net("Vout")
-    gnd += vreg[1]
-    vin += vreg[2]
-    vout += vreg[3]
-    assert vreg.is_connected() == True
+    gnd += LED[1]
+    vin += LED[2]
+    vout += LED[3]
+    assert LED.is_connected() == True
     assert len(gnd) == 1
     assert len(vin) == 1
     assert len(vout) == 1
 
 
 def test_connect_2():
-    vreg1 = Part("xess.lib", "1117", footprint="null")
-    vreg1.value = "NCV1117"
-    vreg2 = vreg1.copy(1)[0]
+    LED1 = Part("Device", "LED_ARBG", footprint="null")
+    LED1.value = "RBG_LED"
+    LED2 = LED1.copy(1)[0]
     gnd = Net("GND")
     vin = Net("Vin")
     vout = Net("Vout")
-    gnd += vreg1[1]
-    vin += vreg1.p2
-    vout += vreg1.IN, vreg1.HS
-    vreg2[1, 2, 3, "HS"] += gnd, vin, vout, vout
-    assert vreg1.is_connected() == True
-    assert vreg2.is_connected() == True
+    gnd += LED1[1]
+    vin += LED1.p2
+    vout += LED1.BK, LED1.GK
+    LED2[1, 2, 3, "GK"] += gnd, vin, vout, vout
+    assert LED1.is_connected() == True
+    assert LED2.is_connected() == True
     assert len(gnd) == 2
     assert len(vin) == 2
     assert len(vout) == 4
 
 
 def test_connect_3():
-    vreg1 = Part("xess.lib", "1117", footprint="null")
-    vreg1.value = "NCV1117"
-    vreg2 = vreg1.copy()
+    LED1 = Part("Device", "LED_ARBG", footprint="null")
+    LED1.value = "RBG_LED"
+    LED2 = LED1.copy(1)[0]
     gnd = Net("GND")
     vin = Net("Vin")
     vout = Net("Vout")
-    gnd += vreg1[1], vreg2[1]
-    vin += vreg1[2], vreg2[2]
-    vout += vreg1[3], vreg2[3]
-    assert vreg1.is_connected() == True
-    assert vreg2.is_connected() == True
+    gnd += LED1[1], LED2[1]
+    vin += LED1[2], LED2[2]
+    vout += LED1[3], LED2[3]
+    assert LED1.is_connected() == True
+    assert LED2.is_connected() == True
     assert len(gnd) == 2
     assert len(vin) == 2
     assert len(vout) == 2
 
 
 def test_connect_4():
-    vreg1 = Part("xess.lib", "1117", footprint="null")
-    vreg1.value = "NCV1117"
-    vreg2 = vreg1()
+    LED1 = Part("Device", "LED_ARBG", footprint="null")
+    LED1.value = "RBG_LED"
+    LED2 = LED1()
     gnd = Net("GND")
     vin = Net("Vin")
     vout = Net("Vout")
-    Bus("TMP", gnd, vin, vout)[:] += vreg1[1:3]
-    Bus("TMP", gnd, vin, vout)[1:2] += vreg2[(2, 3)]
-    assert vreg1.is_connected() == True
-    assert vreg2.is_connected() == True
+    Bus("TMP", gnd, vin, vout)[:] += LED1[1:3]
+    Bus("TMP", gnd, vin, vout)[1:2] += LED2[(2, 3)]
+    assert LED1.is_connected() == True
+    assert LED2.is_connected() == True
     assert len(gnd) == 1
     assert len(vin) == 2
     assert len(vout) == 2
 
 
 def test_connect_5():
-    vreg1 = Part("xess.lib", "1117", footprint="null")
+    LED = Part("Device", "LED_ARBG", footprint="null")
     gnd = Net("GND")
     vin = Net("Vin")
-    vreg1["GND", "IN"] += gnd, vin
-    vreg1["HS"] += vreg1["OUT"]
-    vreg1["OUT"] += vreg1["HS"]
-    assert vreg1.is_connected() == True
+    LED["A", "RK"] += gnd, vin
+    LED["BK"] += LED["GK"]
+    LED["GK"] += LED["BK"]
+    assert LED.is_connected() == True
     assert len(gnd) == 1
     assert len(vin) == 1
-    assert len(vreg1["IN"].net) == 1
-    assert len(vreg1["HS"].net) == 2
+    assert len(LED["A"].net) == 1
+    assert len(LED["RK"].net) == 1
+    assert len(LED["BK"].net) == 2
+    assert len(LED["GK"].net) == 2
 
 
 def test_connect_6():
     gnd = Net("GND")
     vin = Net("Vin")
-    vreg1 = Part(
-        "xess.lib", "1117", footprint="null", connections={"GND": gnd, "IN": vin}
-    )
-    vreg2 = Part(
-        "xess.lib", "1117", footprint="null", connections={"GND": gnd, "IN": vin}
-    )
-    vreg1["HS"] += vreg1["OUT"]
-    vregs = 2 * vreg1
-    vregs = vreg1.copy(2)
-    assert vreg1.is_connected() == True
+    LED1 = Part("Device", "LED_ARBG", footprint="null", connections={"A": gnd, "RK": vin})
+    LED2 = Part("Device", "LED_ARBG", footprint="null", connections={"A": gnd, "RK": vin})
+    LED1["GK"] += LED1["BK"]
+    LEDS = 2 * LED1
+    LEDS = LED1.copy(2)
+    assert LED1.is_connected() == True
     assert len(gnd) == 6
     assert len(vin) == 6
-    assert len(vreg1["IN"].net) == 6
-    assert len(vreg1["HS"].net) == 10
+    assert len(LED1["A"].net) == 6
+    assert len(LED1["RK"].net) == 6
+    assert len(LED1["BK"].net) == 10
+    assert len(LED1["GK"].net) == 10
 
 
 def test_connect_7():

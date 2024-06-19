@@ -210,10 +210,7 @@ def test_package_6():
         vreg(vin=vin, vout=vout, gnd=gnd, bom=bom2)
 
     vin, vout, gnd = Net("VIN"), Net("VOUT"), Net("GND")
-    reg = Part("xess.lib", "1117", dest=TEMPLATE)
-    reg.GND.aliases += "ADJ"
-    reg.IN.aliases += "VI"
-    reg.OUT.aliases += "VO"
+    reg = Part("Regulator_Linear", "AP1117-ADJ", dest=TEMPLATE)
     bom = {
         "r": Part("Device", "R", dest=TEMPLATE),
         "c": Part("Device", "C", dest=TEMPLATE),
@@ -270,10 +267,7 @@ def test_package_7():
         vreg(vin=vin, vout=vout, gnd=gnd, bom=bom2)
 
     vin, vout1, vout2, gnd = Net("VIN"), Net("VOUT1"), Net("VOUT2"), Net("GND")
-    reg = Part("xess.lib", "1117", dest=TEMPLATE)
-    reg.GND.aliases += "ADJ"
-    reg.IN.aliases += "VI"
-    reg.OUT.aliases += "VO"
+    reg = Part("Regulator_Linear", "AP1117-ADJ", dest=TEMPLATE)
     bom = {
         "r": Part("Device", "R", dest=TEMPLATE),
         "c": Part("Device", "C", dest=TEMPLATE),

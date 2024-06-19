@@ -128,8 +128,6 @@ def test_xspice_1():
 @pytest.mark.spice
 def test_part_convert_for_spice():
 
-    set_default_tool(KICAD)
-
     vcc = Part("Device", "Battery", value=5 @ u_V)
     r1 = Part("Device", "R", value=1 @ u_kOhm)
     r2 = Part("Device", "R", value=2 @ u_kOhm)

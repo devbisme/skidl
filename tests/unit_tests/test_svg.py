@@ -4,8 +4,7 @@
 
 import pytest
 
-from skidl import Part, Net, generate_svg, TEMPLATE, KICAD, lib_search_paths, SubCircuit, Bus, POWER, ERC
-
+from skidl import Part, Net, generate_svg, TEMPLATE, KICAD, KICAD6, lib_search_paths, SubCircuit, Bus, POWER, ERC, set_default_tool
 from .setup_teardown import setup_function, teardown_function
 
 
@@ -25,22 +24,23 @@ def test_svg_1():
     led = Part("Device", "LED_ARGB", symtx="RH")
     r, g, b = Net("R"), Net("G"), Net("B")
     led["A,RK,GK,BK"] += vcc, r, g, b
-    Part(lib="MCU_Microchip_PIC10.lib", name="PIC10F200-IMC")
+    Part(lib="MCU_STC", name="STC15W204S-35x-SOP16")
     generate_svg(file_="test1")
 
 def test_svg_2():
-    opamp = Part(lib="Amplifier_Operational.lib", name="AD8676xR", symtx="H")
+    # TODO: Figure out why loading a part fully parses every part in the library.
+    opamp = Part(lib="Amplifier_Operational", name="AD8676xR", symtx="H")
     opamp.uA.p2 += Net("IN1")
     opamp.uA.p3 += Net("IN2")
     opamp.uA.p1 += Net("OUT")
-    # opamp.uB.symtx = 'L'
+    opamp.uB.symtx = 'L'
     generate_svg(file_="test2")
 
 def test_svg_3():
     gnd = Part("power", "GND")
     vcc = Part("power", "VCC")
 
-    opamp = Part(lib="Amplifier_Operational.lib", name="AD8676xR", symtx="V")
+    opamp = Part(lib="Amplifier_Operational", name="AD8676xR", symtx="V")
 
     for part in default_circuit.parts:
         part.validate()
@@ -67,7 +67,7 @@ def test_svg_3():
     generate_svg()
 
 def test_svg_4():
-    q = Part(lib="Device.lib", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
+    q = Part(lib="Device", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
     r = Part("Device", "R", dest=TEMPLATE)
     gndt = Part("power", "GND")
     vcct = Part("power", "VCC")
@@ -109,10 +109,11 @@ def test_svg_4():
     generate_svg()
 
 def test_svg_5():
-    lib_search_paths[KICAD].append("/home/devb/tech_stuff/KiCad/libraries")
-    uc = Part(lib="wch.lib", name="CH551G", dest=TEMPLATE)
+    uc = Part(lib="MCU_STC", name="STC15W204S-35x-SOP16")
     uc.split_pin_names("/")
-    usb = Part(lib="Connector.lib", name="USB_B_Micro", symtx="H")
+    uc.TxD_2.aliases += "UDM"
+    uc.RxD_2.aliases += "UDP"
+    usb = Part(lib="Connector", name="USB_B_Micro", symtx="H")
 
     uc1 = uc()
     uc1["UDM, UDP"] += usb["D-, D+"]
@@ -155,11 +156,10 @@ def test_svg_6():
     generate_svg()
 
 def test_svg_7():
-    fpga = Part(lib="FPGA_Lattice.lib", name="ICE40HX8K-BG121")
-    fpga.uA.symtx = "R"
+    u1 = Part("4xxx", "4001")
     gnd = Net("GND")
-    fpga.uA.GND += gnd
-    fpga.uA.GNDPLL0 += gnd
+    u1.uA.VSS += gnd
+    u1.uA.VDD += gnd
     gnd.stub = True
     generate_svg(file_="test7")
 
@@ -169,7 +169,7 @@ def test_svg_8():
     e.stub, b.stub, c.stub = True, True, True
 
     # Create part templates.
-    qt = Part(lib="Device.lib", name="Q_PNP_CBE", dest=TEMPLATE)
+    qt = Part(lib="Device", name="Q_PNP_CBE", dest=TEMPLATE)
 
     # Instantiate parts.
     for q, tx in zip(qt(8), ["", "H", "V", "R", "L", "VL", "HR", "LV"]):
@@ -181,7 +181,7 @@ def test_svg_8():
 
 def test_svg_9():
     # Create part templates.
-    q = Part(lib="Device.lib", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
+    q = Part(lib="Device", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
     r = Part("Device", "R", dest=TEMPLATE)
 
     # Create nets.
@@ -220,11 +220,10 @@ def test_svg_9():
     generate_svg()
 
 def test_svg_10():
-    mosfet = Part("pspice", "MPMOS")
+    mosfet = Part("Device", "Q_PMOS_GSD")
     mosfet.symtx = "HR"
     mosfet.symtx = "HL"
-    pmos = Part("pspice", "MPMOS")
-    # pmos = Part("DeviceSteffen","PMOS_GSD")
+    pmos = Part("Device", "Q_PMOS_GSD")
     n01 = Net("n01")
     mosfet[1] += mosfet[2]
     n01 += mosfet[3]
@@ -232,25 +231,25 @@ def test_svg_10():
 
     generate_svg()
 
-# def test_svg_11():
-#     # This test is not working properly.
+def test_svg_11():
+    return # This test is not working properly.
 
-#     vcc = Part("Device", "Battery", value=5 @ u_V)
-#     r1 = Part("Device", "R", value=1 @ u_kOhm)
-#     r2 = Part("Device", "R", value=2 @ u_kOhm)
+    # vcc = Part("Device", "Battery", value=5 @ u_V)
+    # r1 = Part("Device", "R", value=1 @ u_kOhm)
+    # r2 = Part("Device", "R", value=2 @ u_kOhm)
 
-#     vcc.convert_for_spice(V, {1: "p", 2: "n"})
-#     r1.convert_for_spice(R, {1: "p", 2: "n"})
-#     r2.convert_for_spice(R, {1: "p", 2: "n"})
+    vcc.convert_for_spice(V, {1: "p", 2: "n"})
+    r1.convert_for_spice(R, {1: "p", 2: "n"})
+    r2.convert_for_spice(R, {1: "p", 2: "n"})
 
-#     vin, vout, gnd = Net("Vin"), Net("Vout"), Net("GND")
-#     vin.netio = "i"
-#     vout.netio = "o"
-#     gnd.netio = "o"
+    vin, vout, gnd = Net("Vin"), Net("Vout"), Net("GND")
+    vin.netio = "i"
+    vout.netio = "o"
+    gnd.netio = "o"
 
-#     gnd & vcc["n p"] & vin & r1 & vout & r2 & gnd
+    gnd & vcc["n p"] & vin & r1 & vout & r2 & gnd
 
-#     generate_svg()
+    generate_svg()
 
 def test_svg_12():
     return # This test is not working properly.

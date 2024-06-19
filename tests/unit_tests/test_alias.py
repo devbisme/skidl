@@ -10,38 +10,38 @@ from .setup_teardown import setup_function, teardown_function
 
 
 def test_alias_1():
-    vreg = Part("xess.lib", "1117")
-    vreg.match_pin_regex = True
-    vreg.p1.aliases += "my_alias"
-    vreg.p2.aliases += "my_alias"
-    assert len(vreg["my_alias"]) == 2
-    assert len(vreg.my_alias) == 2
-    assert len(vreg[".*"]) == 4
+    LED = Part("Device", "LED_ABGR")
+    LED.match_pin_regex = True
+    LED.p1.aliases += "my_alias"
+    LED.p2.aliases += "my_alias"
+    assert len(LED["my_alias"]) == 2
+    assert len(LED.my_alias) == 2
+    assert len(LED[".*"]) == 4
 
 
 def test_alias_2():
-    vreg = Part("xess.lib", "1117")
-    vreg.match_pin_regex = True
-    vreg[1].aliases = "my_alias_+"
-    vreg[2].aliases = "my_alias_+"
-    vreg[2].aliases += "my_other_alias"
-    assert len(vreg["my_alias_+"]) == 2
-    assert len((vreg["my_other_alias"],)) == 1
-    assert len(vreg[".*"]) == 4
+    LED = Part("Device", "LED_ABGR")
+    LED.match_pin_regex = True
+    LED[1].aliases = "my_alias_+"
+    LED[2].aliases = "my_alias_+"
+    LED[2].aliases += "my_other_alias"
+    assert len(LED["my_alias_+"]) == 2
+    assert len((LED["my_other_alias"],)) == 1
+    assert len(LED[".*"]) == 4
     with pytest.raises(NotImplementedError):
-        vreg["my_alias_+"].aliases = "new_alias"
+        LED["my_alias_+"].aliases = "new_alias"
 
 
 def test_alias_3():
-    vreg = Part("xess.lib", "1117")
-    vreg[1].name = "AB/BC|DC|ED"
-    vreg.split_pin_names("/|")
-    assert vreg[1] is vreg.AB
-    assert vreg["AB"] is vreg.BC
-    assert vreg[1] is vreg.DC
-    assert vreg["DC"] is vreg.ED
-    vreg2 = vreg()
-    assert vreg2[1] is vreg2.AB
-    assert vreg2["AB"] is vreg2.BC
-    assert vreg2[1] is vreg2.DC
-    assert vreg2["DC"] is vreg2.ED
+    LED = Part("Device", "LED_ABGR")
+    LED[1].name = "AB/BC|DC|ED"
+    LED.split_pin_names("/|")
+    assert LED[1] is LED.AB
+    assert LED["AB"] is LED.BC
+    assert LED[1] is LED.DC
+    assert LED["DC"] is LED.ED
+    LED2 = LED()
+    assert LED2[1] is LED2.AB
+    assert LED2["AB"] is LED2.BC
+    assert LED2[1] is LED2.DC
+    assert LED2["DC"] is LED2.ED
