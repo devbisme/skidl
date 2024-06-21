@@ -1,6 +1,5 @@
 from skidl.pyspice import *
-
-set_default_tool(KICAD)
+import svg_setup
 
 vcc = Part("Device", "Battery", value=5 @ u_V)
 r1 = Part("Device", "R", value=1 @ u_kOhm)

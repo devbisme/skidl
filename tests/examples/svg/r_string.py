@@ -1,6 +1,6 @@
-import sys
-
+import svg_setup
 from skidl import *
+import sys
 
 # q = Part(lib='Device.lib', name='Q_PNP_CBE', dest=TEMPLATE, symtx='V')
 r = Part("Device", "R", dest=TEMPLATE)

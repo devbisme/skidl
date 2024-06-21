@@ -1,3 +1,4 @@
+import svg_setup
 from skidl import *
 
 l1 = Part("Device", "L")
@@ -15,5 +16,5 @@ rly[1, 2, 3, 5] += gnd
 led = Part("Device", "LED_ARGB", symtx="RH")
 r, g, b = Net("R"), Net("G"), Net("B")
 led["A,RK,GK,BK"] += vcc, r, g, b
-Part(lib="MCU_Microchip_PIC10.lib", name="PIC10F200-IMC")
-generate_svg(file_="test1")
+Part(lib="MCU_Microchip_PIC10", name="PIC10F200-IMC")
+generate_svg()

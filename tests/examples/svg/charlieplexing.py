@@ -1,3 +1,4 @@
+import svg_setup
 from skidl import *
 
 
@@ -85,4 +86,4 @@ chplx_switches(uc["RA[3:0]"])  # 12 charlieplexed switches.
 
 ERC()
 
-generate_netlist()
+generate_svg()

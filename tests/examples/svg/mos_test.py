@@ -1,10 +1,10 @@
+import svg_setup
 from skidl import *
 
-mosfet = Part("pspice", "MPMOS")
+mosfet = Part("Device", "Q_NMOS_DGS")
 mosfet.symtx = "HR"
 mosfet.symtx = "HL"
-pmos = Part("pspice", "MPMOS")
-# pmos = Part("DeviceSteffen","PMOS_GSD")
+pmos = Part("Device", "Q_PMOS_DGS")
 n01 = Net("n01")
 mosfet[1] += mosfet[2]
 n01 += mosfet[3]
