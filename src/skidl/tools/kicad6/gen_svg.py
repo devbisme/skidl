@@ -543,6 +543,12 @@ def gen_svg_comp(part, symtx, net_stubs=None):
         else:
             rotation = 0
 
+        # netlistsvg seems to look for pins in groups on the top level and it gets
+        # confused by the transform groups without a pid attribute.
+        # So surround these transform groups with a group having a pid attribute.
+        # netlistsvg will see that and won't bother the enclosed groups.
+        svg.append('<g s:pid="">')
+
         svg.append(
             " ".join(
                 [
@@ -572,6 +578,8 @@ def gen_svg_comp(part, symtx, net_stubs=None):
             if "text" in item:
                 svg.append(item)
         svg.append("</g>")
+
+        svg.append("</g>") # Close the group with the pid attribute.
 
         # Place a visible bounding-box around symbol for trouble-shooting.
         show_bbox = False
@@ -638,7 +646,8 @@ def gen_svg_comp(part, symtx, net_stubs=None):
 
             pin_pt *= scale
 
-            pid = pin.name
+            # pid = pin.name
+            pid = pin.num
             font_size = 12
             justify="left"
             pin_svg = " ".join([
