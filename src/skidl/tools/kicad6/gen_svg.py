@@ -24,8 +24,6 @@ except ImportError:
 from skidl.schematics.geometry import Point, BBox
 from skidl.utilities import export_to_all
 
-__all__ = ["PinInfo"]
-
 # Named tuple for storing component pin information.
 PinInfo = namedtuple("PinInfo", "x y side pid")
 
@@ -86,6 +84,8 @@ def get_pin_info(x, y, rotation, length):
     dy = -math.sin( math.radians(rotation))
     endx = x+dx*length
     endy = y+dy*length
+    return [endx,endy], [x,y], side
+# TODO: Figure out if the stuff below is needed.
 
     # Sometimes the pins are drawn from the tip towards the part 
     # and sometimes from the part towards the tip. Assuming the 
@@ -448,7 +448,6 @@ def gen_svg_comp(part, symtx, net_stubs=None):
             # No net stubs means this symbol can be used for any part that
             # also has no net stubs, so don't tag it with a specific part reference.
             symbol_name = "{part.name}_{unit.num}_{symtx}".format(**locals())
-
 
         class TxBBox:
             x=0

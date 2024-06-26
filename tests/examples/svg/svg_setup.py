@@ -1,4 +1,4 @@
-from skidl import set_default_tool, lib_search_paths, KICAD6
+from skidl import set_default_tool, lib_search_paths, KICAD5, KICAD6
 import os
 
 tool = KICAD6
