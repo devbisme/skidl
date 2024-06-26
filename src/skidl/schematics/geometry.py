@@ -105,8 +105,13 @@ class Tx:
             self=self
         )
 
-    def __mul__(self, tx):
+    def __mul__(self, m):
         """Return the product of two transformation matrices."""
+        if isinstance(m, Tx):
+            tx = m
+        else:
+            # Assume m is a scalar, so convert it to a scaling Tx matrix.
+            tx = Tx(a=m, d=m)
         return Tx(
             a=self.a * tx.a + self.b * tx.c,
             b=self.a * tx.b + self.b * tx.d,

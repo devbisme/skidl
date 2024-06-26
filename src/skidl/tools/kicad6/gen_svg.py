@@ -407,6 +407,7 @@ def gen_svg_comp(part, symtx, net_stubs=None):
     """
 
     scale = 10  # Scale of KiCad units to SVG units.
+    tx = Tx.from_symtx(symtx) * scale
 
     # Get maximum length of net stub name if any are needed for this part symbol.
     net_stubs = net_stubs or []  # Empty list of stub nets if argument is None.
@@ -428,6 +429,7 @@ def gen_svg_comp(part, symtx, net_stubs=None):
             s, bb = draw_cmd_to_svg(cmd)
             bbox.add(bb)
             unit_svg.append(s)
+        tx_bbox = bbox * tx
 
         # Assign part unit name.
         if max_stub_len:
@@ -439,63 +441,6 @@ def gen_svg_comp(part, symtx, net_stubs=None):
             # No net stubs means this symbol can be used for any part that
             # also has no net stubs, so don't tag it with a specific part reference.
             symbol_name = "{part.name}_{unit.num}_{symtx}".format(**locals())
-
-        tx_bbox = bbox * Tx.from_symtx(symtx) * scale
-
-        # class TxBBox:
-        #     x=0
-        #     y=0
-        #     w=0
-        #     h=0
-
-        # tx_bbox = TxBBox()
-        # tx_bbox.x = bbox.min.x
-        # tx_bbox.y = bbox.min.y
-        # tx_bbox.w = bbox.w
-        # tx_bbox.h = bbox.h
-        # if "H" in symtx:
-        #     tx_bbox.x = -(bbox.min.x+bbox.w)
-        #     tx_bbox.y = bbox.min.y
-        #     tx_bbox.w = bbox.w
-        #     tx_bbox.h = bbox.h
-        # elif "V" in symtx:
-        #     tx_bbox.x = bbox.min.x
-        #     tx_bbox.y = -(bbox.min.y+bbox.h)
-        #     tx_bbox.w = bbox.w
-        #     tx_bbox.h = bbox.h
-
-        # if "R" in symtx:
-        #     newx = -(tx_bbox.y + tx_bbox.h)
-        #     newy = tx_bbox.x
-        #     neww = tx_bbox.h
-        #     newh = tx_bbox.w
-        #     tx_bbox.x = newx
-        #     tx_bbox.y = newy
-        #     tx_bbox.w = neww
-        #     tx_bbox.h = newh
-        # elif "L" in symtx:
-        #     newx = tx_bbox.y
-        #     newy = -(tx_bbox.x + tx_bbox.w)
-        #     neww = tx_bbox.h
-        #     newh = tx_bbox.w
-        #     tx_bbox.x = newx
-        #     tx_bbox.y = newy
-        #     tx_bbox.w = neww
-        #     tx_bbox.h = newh
-
-        # tx_bbox.x *= scale
-        # tx_bbox.y *= scale
-        # tx_bbox.w *= scale
-        # tx_bbox.h *= scale
-
-        # bbox_scale = 1.0
-        # w_diff = tx_bbox.w*(1-bbox_scale)
-        # h_diff = tx_bbox.h*(1-bbox_scale)
-        # tx_bbox.x += w_diff/2.0
-        # tx_bbox.y += h_diff/2.0
-        # tx_bbox.w *= bbox_scale
-        # tx_bbox.h *= bbox_scale
-
 
         # Begin SVG for part unit. Translate it so the bbox.min is at (0,0).
         # translate = bbox.min * -1
