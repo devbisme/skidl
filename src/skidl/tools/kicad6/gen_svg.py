@@ -21,11 +21,10 @@ try:
 except ImportError:
     pass
 
-from skidl.schematics.geometry import Point, BBox
+from skidl.schematics.geometry import Tx, Point, BBox
 from skidl.utilities import export_to_all
 
-@export_to_all
-def symbol_to_dict(symbol):
+def draw_cmd_to_dict(symbol):
     """
     Convert a list of symbols from a KICAD part definition into a 
     dictionary for easier access to properties.
@@ -39,7 +38,7 @@ def symbol_to_dict(symbol):
     for item in items:
         # If the object is a list, recursively convert to dict
         if isinstance(item, list):
-            item_name, item_dict = symbol_to_dict(item)
+            item_name, item_dict = draw_cmd_to_dict(item)
             is_named_present = True
         # If the object is unnamed, put it in the "misc" list
         # ["key", item1, item2, ["xy", 0, 0]] -> "key": {"misc":[item1, item2], "xy":[0,0]
@@ -67,7 +66,6 @@ def symbol_to_dict(symbol):
     return name, d
 
 
-@export_to_all
 def get_pin_info(x, y, rotation, length):
     quadrant = (rotation+45)//90
     side = {
@@ -101,9 +99,8 @@ def get_pin_info(x, y, rotation, length):
         return [endx, endy], [x,y], side
 
 
-@export_to_all    
-def symbol_to_svg(symbol):
-    shape_type, shape = symbol_to_dict(symbol)
+def draw_cmd_to_svg(draw_cmd):
+    shape_type, shape = draw_cmd_to_dict(draw_cmd)
 
     shape_bbox = BBox()
 
@@ -428,7 +425,7 @@ def gen_svg_comp(part, symtx, net_stubs=None):
         bbox = BBox()
         unit_svg = []
         for cmd in part.draw_cmds[unit.num]:
-            s, bb = symbol_to_svg(cmd)
+            s, bb = draw_cmd_to_svg(cmd)
             bbox.add(bb)
             unit_svg.append(s)
 
@@ -443,64 +440,67 @@ def gen_svg_comp(part, symtx, net_stubs=None):
             # also has no net stubs, so don't tag it with a specific part reference.
             symbol_name = "{part.name}_{unit.num}_{symtx}".format(**locals())
 
-        class TxBBox:
-            x=0
-            y=0
-            w=0
-            h=0
+        tx_bbox = bbox * Tx.from_symtx(symtx) * scale
 
-        tx_bbox = TxBBox()
-        tx_bbox.x = bbox.min.x
-        tx_bbox.y = bbox.min.y
-        tx_bbox.w = bbox.w
-        tx_bbox.h = bbox.h
-        if "H" in symtx:
-            tx_bbox.x = -(bbox.min.x+bbox.w)
-            tx_bbox.y = bbox.min.y
-            tx_bbox.w = bbox.w
-            tx_bbox.h = bbox.h
-        elif "V" in symtx:
-            tx_bbox.x = bbox.min.x
-            tx_bbox.y = -(bbox.min.y+bbox.h)
-            tx_bbox.w = bbox.w
-            tx_bbox.h = bbox.h
+        # class TxBBox:
+        #     x=0
+        #     y=0
+        #     w=0
+        #     h=0
 
-        if "R" in symtx:
-            newx = -(tx_bbox.y + tx_bbox.h)
-            newy = tx_bbox.x
-            neww = tx_bbox.h
-            newh = tx_bbox.w
-            tx_bbox.x = newx
-            tx_bbox.y = newy
-            tx_bbox.w = neww
-            tx_bbox.h = newh
-        elif "L" in symtx:
-            newx = tx_bbox.y
-            newy = -(tx_bbox.x + tx_bbox.w)
-            neww = tx_bbox.h
-            newh = tx_bbox.w
-            tx_bbox.x = newx
-            tx_bbox.y = newy
-            tx_bbox.w = neww
-            tx_bbox.h = newh
+        # tx_bbox = TxBBox()
+        # tx_bbox.x = bbox.min.x
+        # tx_bbox.y = bbox.min.y
+        # tx_bbox.w = bbox.w
+        # tx_bbox.h = bbox.h
+        # if "H" in symtx:
+        #     tx_bbox.x = -(bbox.min.x+bbox.w)
+        #     tx_bbox.y = bbox.min.y
+        #     tx_bbox.w = bbox.w
+        #     tx_bbox.h = bbox.h
+        # elif "V" in symtx:
+        #     tx_bbox.x = bbox.min.x
+        #     tx_bbox.y = -(bbox.min.y+bbox.h)
+        #     tx_bbox.w = bbox.w
+        #     tx_bbox.h = bbox.h
 
-        tx_bbox.x *= scale
-        tx_bbox.y *= scale
-        tx_bbox.w *= scale
-        tx_bbox.h *= scale
+        # if "R" in symtx:
+        #     newx = -(tx_bbox.y + tx_bbox.h)
+        #     newy = tx_bbox.x
+        #     neww = tx_bbox.h
+        #     newh = tx_bbox.w
+        #     tx_bbox.x = newx
+        #     tx_bbox.y = newy
+        #     tx_bbox.w = neww
+        #     tx_bbox.h = newh
+        # elif "L" in symtx:
+        #     newx = tx_bbox.y
+        #     newy = -(tx_bbox.x + tx_bbox.w)
+        #     neww = tx_bbox.h
+        #     newh = tx_bbox.w
+        #     tx_bbox.x = newx
+        #     tx_bbox.y = newy
+        #     tx_bbox.w = neww
+        #     tx_bbox.h = newh
 
-        bbox_scale = 1.0
-        w_diff = tx_bbox.w*(1-bbox_scale)
-        h_diff = tx_bbox.h*(1-bbox_scale)
-        tx_bbox.x += w_diff/2.0
-        tx_bbox.y += h_diff/2.0
-        tx_bbox.w *= bbox_scale
-        tx_bbox.h *= bbox_scale
+        # tx_bbox.x *= scale
+        # tx_bbox.y *= scale
+        # tx_bbox.w *= scale
+        # tx_bbox.h *= scale
+
+        # bbox_scale = 1.0
+        # w_diff = tx_bbox.w*(1-bbox_scale)
+        # h_diff = tx_bbox.h*(1-bbox_scale)
+        # tx_bbox.x += w_diff/2.0
+        # tx_bbox.y += h_diff/2.0
+        # tx_bbox.w *= bbox_scale
+        # tx_bbox.h *= bbox_scale
 
 
         # Begin SVG for part unit. Translate it so the bbox.min is at (0,0).
-        translate = bbox.min * -1
-        translate = Point(tx_bbox.x, tx_bbox.y) * -1
+        # translate = bbox.min * -1
+        # translate = Point(tx_bbox.x, tx_bbox.y) * -1
+        translate = -tx_bbox.min
         svg.append(
             " ".join(
                 [
@@ -575,14 +575,16 @@ def gen_svg_comp(part, symtx, net_stubs=None):
         svg.append("</g>") # Close the group with the pid attribute.
 
         # Place a visible bounding-box around symbol for trouble-shooting.
-        show_bbox = False
+        show_bbox = True
         bbox_stroke_width = scale * 0.1
         if show_bbox:
             svg.append(
                 " ".join(
                     [
                         "<rect",
-                        'x="{tx_bbox.x}" y="{tx_bbox.y}"',
+                        'x="{tx_bbox.min.x}" y="{tx_bbox.min.y}"',
+                        # 'x="{tx_bbox.ctr.x}" y="{tx_bbox.ctr.y}"',
+                        # 'x="{tx_bbox.x}" y="{tx_bbox.y}"',
                         'width="{tx_bbox.w}" height="{tx_bbox.h}"',
                         'style="stroke-width:{bbox_stroke_width}; stroke:#f00"',
                         'class="$cell_id symbol"',
