@@ -24,9 +24,6 @@ except ImportError:
 from skidl.schematics.geometry import Point, BBox
 from skidl.utilities import export_to_all
 
-# Named tuple for storing component pin information.
-PinInfo = namedtuple("PinInfo", "x y side pid")
-
 @export_to_all
 def symbol_to_dict(symbol):
     """
@@ -413,9 +410,6 @@ def gen_svg_comp(part, symtx, net_stubs=None):
     """
 
     scale = 10  # Scale of KiCad units to SVG units.
-
-    # Named tuple for storing component pin information.
-    PinInfo = namedtuple("PinInfo", "x y side pid")
 
     # Get maximum length of net stub name if any are needed for this part symbol.
     net_stubs = net_stubs or []  # Empty list of stub nets if argument is None.
