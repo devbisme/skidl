@@ -99,7 +99,17 @@ def get_pin_info(x, y, rotation, length):
         return [endx, endy], [x,y], side
 
 
-def draw_cmd_to_svg(draw_cmd):
+def draw_cmd_to_svg(draw_cmd, tx):
+    """Convert symbol drawing command into SVG string and an associated bounding box.
+
+    Args:
+        draw_cmd (str): Contains textual information about the shape to be drawn.
+        tx (Tx): Transformation matrix to be applied to the shape.
+
+    Returns:
+        shape_svg (str): SVG command for the shape.
+        shape_bbox (BBox): Bounding box for the shape.
+    """
     shape_type, shape = draw_cmd_to_dict(draw_cmd)
 
     shape_bbox = BBox()
@@ -128,18 +138,12 @@ def draw_cmd_to_svg(draw_cmd):
 
 
     if shape_type == "polyline":
-        points = []
-        for pt in shape["pts"]["xy"]:
-            x = pt[0]
-            y = -pt[1]
-            shape_bbox.add(Point(x,y))
-            points.append(x)
-            points.append(y)
-        points_str=" ".join( [str(pt) for pt in points] )
+        points = [Point(*pt[0:2])*tx for pt in shape["pts"]["xy"]]
+        shape_bbox.add(*points)
+        points_str=" ".join( [pt.svg for pt in points] )
         stroke= shape["stroke"]["type"],
         stroke_width= shape["stroke"]["width"]
         fill= shape["fill"]["type"]
-
         shape_svg = " ".join(
                 [
                     "<polyline",
@@ -149,81 +153,71 @@ def draw_cmd_to_svg(draw_cmd):
                     "/>",
                 ]
             ).format(**locals())
+
     elif shape_type == "circle":
-        cx = shape["center"][0]
-        cy = -shape["center"][1]
-        r = shape["radius"]
-        shape_bbox.add(Point(cx,cy) + Point(r,r))
-        shape_bbox.add(Point(cx,cy) - Point(r,r))
+        ctr = Point(*shape["center"]) * tx
+        radius = Point(shape["radius"], shape["radius"]) * tx.scale
+        shape_bbox.add(ctr+radius, ctr-radius)
         stroke= shape["stroke"]["type"]
         stroke_width= shape["stroke"]["width"]
         fill= shape["fill"]["type"]
         shape_svg = " ".join(
                 [
                     "<circle",
-                    'cx="{cx}" cy="{cy}" r="{r}"',
+                    'cx="{ctr.x}" cy="{ctr.y}" r="{radius.x}"',
                     'style="stroke-width:{stroke_width}"',
                     'class="$cell_id symbol {fill}"',
                     "/>",
                 ]
             ).format(**locals())
+
     elif shape_type == "rectangle":
-        x = shape["start"][0]
-        y = -shape["start"][1]
-        endx = shape["end"][0]
-        endy = -shape["end"][1]
-        newx = min(x, endx)
-        newy = min(y, endy)
-        width = abs(endx-x)
-        height = abs(endy-y)
-        shape_bbox.add(Point(x,y))
-        shape_bbox.add(Point(endx, endy))
+        start = Point(*shape["start"]) * tx
+        end = Point(*shape["end"]) * tx
+        shape_bbox.add(start, end)
         stroke= shape["stroke"]["type"]
         stroke_width= shape["stroke"]["width"]
         fill= shape["fill"]["type"]
         shape_svg =  " ".join(
             [
                 "<rect",
-                'x="{newx}" y="{newy}"',
-                'width="{width}" height="{height}"',
+                'x="{shape_bbox.min.x}" y="{shape_bbox.min.y}"',
+                'width="{shape_bbox.w}" height="{shape_bbox.h}"',
                 'style="stroke-width:{stroke_width}"',
                 'class="$cell_id symbol {fill}"',
                 "/>",
             ]
         ).format(**locals())
-    elif shape_type == "arc":
-        a = [shape["start"][0], -shape["start"][1]]
-        b = [shape["end"][0], -shape["end"][1]]
-        c = [shape["mid"][0], -shape["mid"][1]]
-        shape_bbox.add(Point(*a))
-        shape_bbox.add(Point(*b))
-        shape_bbox.add(Point(*c))
 
-        # A = math.dist(b,c)
-        A = math.sqrt((b[0]-c[0])**2 + (b[1]-c[1])**2)
-        # B = math.dist(a,c)
-        B = math.sqrt((a[0]-c[0])**2 + (a[1]-c[1])**2)
-        # C = math.dist(a,b)
-        C = math.sqrt((a[0]-b[0])**2 + (a[1]-b[1])**2)
+    elif shape_type == "arc":
+        a = Point(*shape["start"]) * tx
+        b = Point(*shape["end"]) * tx
+        c = Point(*shape["mid"]) * tx
+        shape_bbox.add(a, b, c)
+
+        A = (b - c).magnitude
+        B = (a - c).magnitude
+        C = (a - b).magnitude
 
         angle = math.acos( (A*A + B*B - C*C)/(2*A*B) )
         K = .5*A*B*math.sin(angle)
         r = A*B*C/4/K
 
         large_arc = int(math.pi/2 > angle)
-        sweep = int((b[0] - a[0])*(c[1] - a[1]) - (b[1] - a[1])*(c[0] - a[0]) < 0)
+        sweep = int((b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x) < 0)
         stroke= shape["stroke"]["type"]
         stroke_width= shape["stroke"]["width"]
         fill= shape["fill"]["type"]
         shape_svg = " ".join(
             [
                 "<path",
-                'd="M {a[0]} {a[1]} A {r} {r} 0 {large_arc} {sweep} {b[0]} {b[1]}"',
+                'd="M {a.x} {a.y} A {r} {r} 0 {large_arc} {sweep} {b.x} {b.y}"',
                 'style="stroke-width:{stroke_width}"',
                 'class="$cell_id symbol {fill}"',
                 "/>",
             ]
         ).format(**locals())
+
     elif shape_type == "property":
         if shape["misc"][0].lower() == "reference":
             class_ = "part_ref_text"
@@ -336,6 +330,7 @@ def draw_cmd_to_svg(draw_cmd):
                     "/>",
                 ]
             ).format(**locals())
+
     elif shape_type == "text":
         x = shape["at"][0]
         y = -shape["at"][1]
@@ -426,7 +421,7 @@ def gen_svg_comp(part, symtx, net_stubs=None):
         bbox = BBox()
         unit_svg = []
         for cmd in part.draw_cmds[unit.num]:
-            s, bb = draw_cmd_to_svg(cmd)
+            s, bb = draw_cmd_to_svg(cmd, Tx())
             bbox.add(bb)
             unit_svg.append(s)
         tx_bbox = bbox * tx

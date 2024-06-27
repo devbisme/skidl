@@ -132,6 +132,11 @@ class Tx:
     #     """Set the (dx, dy) translation from an (x,y) Point."""
     #     self.dx, self.dy = pt.x, pt.y
 
+    @property
+    def scale(self):
+        """Return the scaling factor."""
+        return self.a
+
     def move(self, vec):
         """Return Tx with movement vector applied."""
         return self * Tx(dx=vec.x, dy=vec.y)
@@ -234,6 +239,11 @@ class Point:
 
     def __str__(self):
         return "{} {}".format(self.x, self.y)
+    
+    @property
+    def svg(self):
+        """Return the SVG representation of the point."""
+        return ",".join((str(self.x), str(self.y)))
 
     def snap(self, grid_spacing):
         """Snap point x,y coords to the given grid spacing."""
