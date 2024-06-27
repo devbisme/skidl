@@ -110,9 +110,27 @@ def draw_cmd_to_svg(draw_cmd, tx):
         shape_svg (str): SVG command for the shape.
         shape_bbox (BBox): Bounding box for the shape.
     """
-    shape_type, shape = draw_cmd_to_dict(draw_cmd)
 
-    shape_bbox = BBox()
+    def text_to_svg(text, x, y, rotation, font_size, justify, class_, attr):
+        char_width = font_size*0.6
+        start = Point(x, y)
+        end = start + Point(len(text)*char_width, font_size) * Tx().rot(rotation)
+        bbox = BBox(start, end)
+        svg = " ".join(
+            [
+                "<text",
+                "class='{class_}'",
+                "text-anchor='{justify}'",
+                "x='{x}' y='{y}'",
+                "transform='rotate({rotation} {x} {y})'",
+                "style='font-size:{font_size}px'",
+                "{attr}",
+                ">{text}</text>",
+            ]
+        ).format(**locals())
+        return svg, bbox
+
+    shape_type, shape = draw_cmd_to_dict(draw_cmd)
 
     default_stroke_width = "1"
     default_stroke = "#000"
@@ -139,12 +157,12 @@ def draw_cmd_to_svg(draw_cmd, tx):
 
     if shape_type == "polyline":
         points = [Point(*pt[0:2])*tx for pt in shape["pts"]["xy"]]
-        shape_bbox.add(*points)
+        bbox = BBox(*points)
         points_str=" ".join( [pt.svg for pt in points] )
         stroke= shape["stroke"]["type"],
-        stroke_width= shape["stroke"]["width"]
+        stroke_width= shape["stroke"]["width"] * tx.scale
         fill= shape["fill"]["type"]
-        shape_svg = " ".join(
+        svg = " ".join(
                 [
                     "<polyline",
                     'points="{points_str}"',
@@ -157,11 +175,11 @@ def draw_cmd_to_svg(draw_cmd, tx):
     elif shape_type == "circle":
         ctr = Point(*shape["center"]) * tx
         radius = Point(shape["radius"], shape["radius"]) * tx.scale
-        shape_bbox.add(ctr+radius, ctr-radius)
+        bbox = BBox(ctr+radius, ctr-radius)
         stroke= shape["stroke"]["type"]
-        stroke_width= shape["stroke"]["width"]
+        stroke_width= shape["stroke"]["width"] * tx.scale
         fill= shape["fill"]["type"]
-        shape_svg = " ".join(
+        svg = " ".join(
                 [
                     "<circle",
                     'cx="{ctr.x}" cy="{ctr.y}" r="{radius.x}"',
@@ -174,15 +192,15 @@ def draw_cmd_to_svg(draw_cmd, tx):
     elif shape_type == "rectangle":
         start = Point(*shape["start"]) * tx
         end = Point(*shape["end"]) * tx
-        shape_bbox.add(start, end)
+        bbox = BBox(start, end)
         stroke= shape["stroke"]["type"]
-        stroke_width= shape["stroke"]["width"]
+        stroke_width= shape["stroke"]["width"] * tx.scale
         fill= shape["fill"]["type"]
-        shape_svg =  " ".join(
+        svg =  " ".join(
             [
                 "<rect",
-                'x="{shape_bbox.min.x}" y="{shape_bbox.min.y}"',
-                'width="{shape_bbox.w}" height="{shape_bbox.h}"',
+                'x="{bbox.min.x}" y="{bbox.min.y}"',
+                'width="{bbox.w}" height="{bbox.h}"',
                 'style="stroke-width:{stroke_width}"',
                 'class="$cell_id symbol {fill}"',
                 "/>",
@@ -193,7 +211,7 @@ def draw_cmd_to_svg(draw_cmd, tx):
         a = Point(*shape["start"]) * tx
         b = Point(*shape["end"]) * tx
         c = Point(*shape["mid"]) * tx
-        shape_bbox.add(a, b, c)
+        bbox = BBox(a, b, c)
 
         A = (b - c).magnitude
         B = (a - c).magnitude
@@ -206,9 +224,9 @@ def draw_cmd_to_svg(draw_cmd, tx):
         large_arc = int(math.pi/2 > angle)
         sweep = int((b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x) < 0)
         stroke= shape["stroke"]["type"]
-        stroke_width= shape["stroke"]["width"]
+        stroke_width= shape["stroke"]["width"] * tx.scale
         fill= shape["fill"]["type"]
-        shape_svg = " ".join(
+        svg = " ".join(
             [
                 "<path",
                 'd="M {a.x} {a.y} A {r} {r} 0 {large_arc} {sweep} {b.x} {b.y}"',
@@ -227,98 +245,27 @@ def draw_cmd_to_svg(draw_cmd, tx):
             extra = 's:attribute="value"'
         elif "hide" not in shape["effects"]["misc"]:
             raise RuntimeError("Unknown property {symbol[1]} is not hidden.".format(**locals()))
-        x = shape["at"][0]
-        y = -shape["at"][1]
-        rotation = shape["at"][2]
-        font_size = shape["effects"]["font"]["size"][0]
-        justify = shape["justify"]
-        stroke= shape["stroke"]["type"]
-        stroke_width= shape["stroke"]["width"]
-        fill= shape["fill"]["type"]
-        class_ = class_
-        extra = extra
-        shape_text=shape["misc"][1]
-
-        char_width = font_size*0.6
-        rect_start_x=x
-        rect_start_y=y
-
-        text_width=len(shape_text)*char_width
-        text_height=font_size
-
-        dx = math.cos( math.radians(rotation))
-        dy = math.sin( math.radians(rotation))
-
-        rect_end_x=x+dx*text_width+dy*text_height
-        rect_end_y=y-dx*text_height+dy*text_width
-
-        rect_width=abs(rect_end_x-rect_start_x)
-        rect_height=abs(rect_end_y-rect_start_y)
-        rect_start_x = min(rect_start_x, rect_end_x)
-        rect_start_y = min(rect_start_y, rect_end_y)
-
-        pivotx = x
-        pivoty = y
-        #x -= rect_width/2
-        #y += rect_height/2
-
-        shape_svg = " ".join(
-            [
-                "<text",
-                "class='{class_}'",
-                "text-anchor='{justify}'",
-                "x='{x}' y='{y}'",
-                "transform='rotate({rotation} {pivotx} {pivoty}) translate(0 0)'",
-                "style='font-size:{font_size}px'",
-                "{extra}",
-                ">",
-                "{shape_text}",
-                "</text>",
-            ]
-        ).format(**locals())
-
-        # Should the text be considered when computing the bounding box
-        extend_bbox_by_text = True
-        if extend_bbox_by_text:
-            shape_bbox.add(Point(rect_start_x, rect_start_y))
-            shape_bbox.add(Point(rect_start_x+rect_width, rect_start_y+rect_height))
-
-            # Add the following to visualize the rectangle enclosing the text.
-            # Note that the text is modified later to include the reference number 
-            # of the element and the value (e.g. R -> R1, V -> 10K) so the box may 
-            # not correctly enclose the modified labels.
-            #shape_svg += " ".join(
-            #    [
-            #        "\n<rect",
-            #        'x="{rect_start_x}" y="{rect_start_y}"',
-            #        'width="{rect_width}" height="{rect_height}"',
-            #        'style="stroke-width:{stroke_width}"',
-            #        'class="$cell_id symbol none"',
-            #        "/>",
-            #    ]
-            #).format(**locals())
-            pass
+        svg, bbox = text_to_svg(shape["misc"][1], *shape["at"][0:3], shape["effects"]["font"]["size"][0], shape["justify"], class_, extra)
 
     elif shape_type == "pin":
-        x=shape["at"][0]
-        y=-shape["at"][1]
-        rotation=shape["at"][2]
-        length=shape["length"]
-        start, end, side = get_pin_info(x,y,rotation,length)
-        points_str = "{start[0]}, {start[1]}, {end[0]}, {end[1]}".format(**locals())
+        start = Point(*shape["at"][0:2]) * tx
+        rotation = shape["at"][2]
+        length = shape["length"] * tx.scale
+        end = start + Point(length,0) * Tx().rot(rotation)
+        points_str = start.svg + " " + end.svg
+        bbox = BBox(start, end)
         name = shape["name"]["misc"]
         number = shape["number"]["misc"]
         stroke= shape["stroke"]["type"]
-        stroke_width= shape["stroke"]["width"]
+        stroke_width= shape["stroke"]["width"] * tx.scale
         fill= shape["fill"]["type"]
         circle_stroke_width = 2*stroke_width
-        shape_bbox.add(Point(*start))
-        shape_bbox.add(Point(*end))
-        shape_svg = " ".join(
+        svg = " ".join(
                 [
                     # Draw a dot at the tip of the pin
                     "<circle",
-                    'cx="{end[0]}" cy="{end[1]}" r="{circle_stroke_width}"',
+                    'cx="{end.x}" cy="{end.y}" r="{circle_stroke_width}"',
+                    # 'cx="{end[0]}" cy="{end[1]}" r="{circle_stroke_width}"',
                     'style="stroke-width:{circle_stroke_width}"',
                     'class="$cell_id symbol {fill}"',
                     "/>",
@@ -332,60 +279,14 @@ def draw_cmd_to_svg(draw_cmd, tx):
             ).format(**locals())
 
     elif shape_type == "text":
-        x = shape["at"][0]
-        y = -shape["at"][1]
-        rotation = shape["at"][2]
-        font_size = shape["effects"]["font"]["size"][0]
-        justify = shape["justify"]
-        stroke= shape["stroke"]["type"]
-        stroke_width= shape["stroke"]["width"]
-        fill= shape["fill"]["type"]
-        shape_text=shape["misc"][0]
-
-        char_width = font_size*0.6
-        rect_start_x=x
-        rect_start_y=y
-
-        text_width=len(shape_text)*char_width
-        text_height=font_size
-
-        dx = math.cos( math.radians(rotation))
-        dy = math.sin( math.radians(rotation))
-
-        rect_end_x=x+dx*text_width+dy*text_height
-        rect_end_y=y-dx*text_height+dy*text_width
-
-        rect_width=abs(rect_end_x-rect_start_x)
-        rect_height=abs(rect_end_y-rect_start_y)
-        rect_start_x = min(rect_start_x, rect_end_x)
-        rect_start_y = min(rect_start_y, rect_end_y)
-
-        pivotx = x
-        pivoty = y
-
-        shape_svg = " ".join(
-            [
-                "<text",
-                "text-anchor='{justify}'",
-                "x='{x}' y='{y}'",
-                "transform='rotate({rotation} {pivotx} {pivoty}) translate(0 0)'",
-                "style='font-size:{font_size}px'",
-                ">",
-                "{shape_text}",
-                "</text>",
-            ]
-        ).format(**locals())
-
-        # Should the text be considered when computing the bounding box
-        extend_bbox_by_text = True
-        if extend_bbox_by_text:
-            shape_bbox.add(Point(rect_start_x, rect_start_y))
-            shape_bbox.add(Point(rect_start_x+rect_width, rect_start_y+rect_height))
+        class_ = "text"
+        extra = ""
+        svg, bbox = text_to_svg(shape["misc"], *shape["at"][0:3], shape["effects"]["font"]["size"][0], shape["justify"], class_, extra)
 
     else:
         raise RuntimeError("Unrecognized shape type: {shape_type}".format(**locals()))
-    #print(shape_svg)
-    return shape_svg, shape_bbox
+
+    return svg, bbox
 
 @export_to_all
 def gen_svg_comp(part, symtx, net_stubs=None):
