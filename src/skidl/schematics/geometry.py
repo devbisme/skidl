@@ -27,6 +27,8 @@ __all__ = [
     "tx_rot_90",
     "tx_rot_180",
     "tx_rot_270",
+    "tx_flip_x",
+    "tx_flip_y",
 ]
 
 
@@ -154,12 +156,20 @@ class Tx:
         """Return Tx with X coords flipped around (0, 0)."""
         return self * Tx(a=-1)
 
+    def flip_y(self):
+        """Return Tx with Y coords flipped around (0, 0)."""
+        return self * Tx(d=-1)
+
 
 # Some common rotations.
 tx_rot_0 = Tx(a=1, b=0, c=0, d=1)
 tx_rot_90 = Tx(a=0, b=1, c=-1, d=0)
 tx_rot_180 = Tx(a=-1, b=0, c=0, d=-1)
 tx_rot_270 = Tx(a=0, b=-1, c=1, d=0)
+
+# Some common flips.
+tx_flip_x = Tx(a=-1, b=0, c=0, d=1)
+tx_flip_y = Tx(a=1, b=0, c=0, d=-1)
 
 
 @export_to_all

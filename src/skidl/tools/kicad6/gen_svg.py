@@ -21,7 +21,7 @@ try:
 except ImportError:
     pass
 
-from skidl.schematics.geometry import Tx, Point, BBox
+from skidl.schematics.geometry import Tx, Point, BBox, tx_flip_y
 from skidl.utilities import export_to_all
 
 def draw_cmd_to_dict(symbol):
@@ -112,6 +112,7 @@ def draw_cmd_to_svg(draw_cmd, tx):
     """
 
     def text_to_svg(text, tx, x, y, rotation, font_size, justify, class_, attr):
+        #FIXME: Get the font size and text orientation right.
         font_dim = abs(font_size * tx.scale) * 0.35
         char_width = font_dim*0.6
         start = Point(x, y) * tx
@@ -302,13 +303,6 @@ def draw_cmd_to_svg(draw_cmd, tx):
                     "/>",
                     # Draw the pin number.
                     pid_svg,
-                    # "<text",
-                    # "text-anchor='{justify}'",
-                    # "x='{start.x}' y='{start.y}'",
-                    # "style='font-size:{font_size}px'",
-                    # ">",
-                    # "{pid}",
-                    # "</text>",
                     # Give netlistsvg the info it needs to connect nets to pins.
                     '<g s:x="{start.x}" s:y="{start.y}" s:pid="{pid}" s:position="{side}"/>',
                 ]
@@ -338,8 +332,9 @@ def gen_svg_comp(part, symtx, net_stubs=None):
     Returns: SVG for the part symbol.
     """
 
+    # Create transformation matrix for the symbol from symtx, flip Y axis, and scale.
     scale = 10  # Scale of KiCad units to SVG units.
-    tx = Tx.from_symtx(symtx) * scale
+    tx = Tx.from_symtx(symtx) * tx_flip_y * scale
 
     # Get maximum length of net stub name if any are needed for this part symbol.
     net_stubs = net_stubs or []  # Empty list of stub nets if argument is None.
@@ -359,7 +354,6 @@ def gen_svg_comp(part, symtx, net_stubs=None):
         unit_svg = []
         for cmd in part.draw_cmds[unit.num]:
             s, bb = draw_cmd_to_svg(cmd, tx)
-            # s, bb = draw_cmd_to_svg(cmd, Tx())
             bbox.add(bb)
             unit_svg.append(s)
         tx_bbox = bbox
@@ -376,8 +370,6 @@ def gen_svg_comp(part, symtx, net_stubs=None):
             symbol_name = "{part.name}_{unit.num}_{symtx}".format(**locals())
 
         # Begin SVG for part unit. Translate it so the bbox.min is at (0,0).
-        # translate = bbox.min * -1
-        # translate = Point(tx_bbox.x, tx_bbox.y) * -1
         translate = -tx_bbox.min
         svg.append(
             " ".join(
@@ -395,64 +387,13 @@ def gen_svg_comp(part, symtx, net_stubs=None):
         # Add part alias.
         svg.append('<s:alias val="{symbol_name}"/>'.format(**locals()))
 
-        # Add part unit text and graphics.
-
-        # if "H" in symtx:
-        #     scale_x = -1
-        #     scale_y = 1
-        # elif "V" in symtx:
-        #     scale_x = 1
-        #     scale_y = -1
-        # else:
-        #     scale_x = 1
-        #     scale_y = 1
-
-        # if "R" in symtx:
-        #     rotation = 90
-        # elif "L" in symtx:
-        #     rotation = 270
-        # else:
-        #     rotation = 0
-
-        # netlistsvg seems to look for pins in groups on the top level and it gets
-        # confused by the transform groups without a pid attribute.
-        # So surround these transform groups with a group having a pid attribute.
-        # netlistsvg will see that and won't bother the enclosed groups.
-        # svg.append('<g s:pid="">')
-
-        # svg.append(
-        #     " ".join(
-        #         [
-        #             "<g>",
-        #             # "<g",
-        #             # 'transform="scale({scale} {scale}) rotate({rotation} 0 0)"',
-        #             # ">",
-        #         ]
-        #     ).format(**locals())
-        # )
-
-        # svg.append(
-        #     " ".join(
-        #         [
-        #             "<g>",
-        #             # "<g",
-        #             # 'transform="scale({scale_x}, {scale_y})"',
-        #             # ">",
-        #         ]
-        #     ).format(**locals())
-        # )
-
         for item in unit_svg:
             if "text" not in item:
                 svg.append(item)
-        # svg.append("</g>")
 
         for item in unit_svg:
             if "text" in item:
                 svg.append(item)
-        # svg.append("</g>")
-
-        # svg.append("</g>") # Close the group with the pid attribute.
 
         # Place a visible bounding-box around symbol for trouble-shooting.
         show_bbox = True
@@ -463,8 +404,6 @@ def gen_svg_comp(part, symtx, net_stubs=None):
                     [
                         "<rect",
                         'x="{tx_bbox.min.x}" y="{tx_bbox.min.y}"',
-                        # 'x="{tx_bbox.ctr.x}" y="{tx_bbox.ctr.y}"',
-                        # 'x="{tx_bbox.x}" y="{tx_bbox.y}"',
                         'width="{tx_bbox.w}" height="{tx_bbox.h}"',
                         'style="stroke-width:{bbox_stroke_width}; stroke:#f00"',
                         'class="$cell_id symbol"',
@@ -472,73 +411,6 @@ def gen_svg_comp(part, symtx, net_stubs=None):
                     ]
                 ).format(**locals())
             )
-
-        # Keep the pins out of the grouped text & graphics but adjust their coords
-        # to account for moving the bbox.
-        # for pin in unit.pins:
-        #     _, pin_pt, side = get_pin_info(pin.x, pin.y, pin.rotation, pin.length)
-        #     pin_pt = Point(pin_pt[0], pin_pt[1])
-
-        #     #print("pin_pt", pin_pt)
-        #     #print("symtx", symtx)
-        #     if "H" in symtx:
-        #         pin_pt.x = -pin_pt.x
-        #         side = {
-        #                 "right":"left",
-        #                 "top":"top",
-        #                 "left":"right",
-        #                 "bottom":"bottom",
-        #                 }[side]
-        #     elif "V" in symtx:
-        #         side = {
-        #                 "right":"right",
-        #                 "top":"bottom",
-        #                 "left":"left",
-        #                 "bottom":"top",
-        #                 }[side]
-        #         pin_pt.y = -pin_pt.y
-
-        #     if "L" in symtx:
-        #         side = {
-        #                 "right":"top",
-        #                 "top":"left",
-        #                 "left":"bottom",
-        #                 "bottom":"right",
-        #                 }[side]
-        #         newx = pin_pt.y
-        #         pin_pt.y = -pin_pt.x
-        #         pin_pt.x = newx
-        #     elif "R" in symtx:
-        #         side = {
-        #                 "right":"bottom",
-        #                 "top":"right",
-        #                 "left":"top",
-        #                 "bottom":"left",
-        #                 }[side]
-        #         newx = -pin_pt.y
-        #         pin_pt.y = pin_pt.x
-        #         pin_pt.x = newx
-
-        #     pin_pt *= scale
-
-        #     # pid = pin.name
-        #     pid = pin.num
-        #     font_size = 12
-        #     justify="left"
-        #     pin_svg = " ".join([
-        #         "<text",
-        #         "text-anchor='{justify}'",
-        #         "x='{pin_pt.x}' y='{pin_pt.y}'",
-        #         "style='font-size:{font_size}px'",
-        #         ">",
-        #         "{pid}",
-        #         #"{side}", # Uncomment this to visualize/verify which side the pin is on
-        #         "</text>",
-        #         '<g s:x="{pin_pt.x}" s:y="{pin_pt.y}" s:pid="{pid}" s:position="{side}">',
-        #         '</g>']).format(
-        #         **locals()
-        #     )
-        #     svg.append(pin_svg)
 
         # Finish SVG for part unit.
         svg.append("</g>\n")
