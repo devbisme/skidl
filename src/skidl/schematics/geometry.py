@@ -92,8 +92,7 @@ class Tx:
         }
 
         tx = Tx()
-        symtx = symtx.upper()
-        for op in symtx:
+        for op in symtx.upper():
             tx *= op_dict[op]
         return tx
 

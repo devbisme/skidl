@@ -99,24 +99,67 @@ def get_pin_info(x, y, rotation, length):
         return [endx, endy], [x,y], side
 
 
-def draw_cmd_to_svg(draw_cmd, tx):
+def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
     """Convert symbol drawing command into SVG string and an associated bounding box.
 
     Args:
         draw_cmd (str): Contains textual information about the shape to be drawn.
         tx (Tx): Transformation matrix to be applied to the shape.
+        part (Part): Part object that the drawing command belongs to (used to get pin information.)
+        net_stubs (list): List of Net objects whose names will be connected to part symbol pins as connection stubs.
+        max_stub_len (int): Maximum length of a net stub name.
 
     Returns:
         shape_svg (str): SVG command for the shape.
         shape_bbox (BBox): Bounding box for the shape.
     """
 
+    def pin_side(vec):
+        """Determine the side of the symbol based on the pin's direction vector."""
+        if vec.x > vec.y and vec.x > -vec.y:
+            return "left"
+        elif vec.x < vec.y and vec.x > -vec.y:
+            return "top"
+        elif vec.x < vec.y and vec.x < -vec.y:
+            return "right"
+        elif vec.x > vec.y and vec.x < -vec.y:
+            return "bottom"
+        else:
+            raise RuntimeError("Impossible pin orientation.")
+
+    def pin_text_to_svg(text, attr, side, pt, char_wid):
+        spc = "&#8201;"
+        svg_template = {
+            "left": {
+                "pin_name": '<text x="{x}" y="{y}" transform="rotate(0 {x} {y})" style="{style}" dominant-baseline="central" text-anchor="start">{spc}{text}</text>',
+                "pin_num" : '<text x="{x}" y="{y}" transform="rotate(0 {x} {y})" style="{style}" dominant-baseline=""        text-anchor="end">{text}{spc}</text>',
+                "net_name": '<text x="{x}" y="{y}" transform="rotate(0 {x} {y})" style="{style}" dominant-baseline="central" text-anchor="end">{text}{spc}</text>',
+            },
+            "right": {
+                "pin_name": '<text x="{x}" y="{y}" transform="rotate(0 {x} {y})" style="{style}" dominant-baseline="central" text-anchor="end">{text}{spc}</text>',
+                "pin_num" : '<text x="{x}" y="{y}" transform="rotate(0 {x} {y})" style="{style}" dominant-baseline=""        text-anchor="start">{spc}{text}</text>',
+                "net_name": '<text x="{x}" y="{y}" transform="rotate(0 {x} {y})" style="{style}" dominant-baseline="central" text-anchor="start">{spc}{text}</text>',
+            },
+            "top": {
+                "pin_name": '<text x="{x}" y="{y}" transform="rotate(-90 {x} {y})" style="{style}" dominant-baseline="central" text-anchor="end">{text}{spc}</text>',
+                "pin_num" : '<text x="{x}" y="{y}" transform="rotate(-90 {x} {y})" style="{style}" dominant-baseline=""        text-anchor="start">{spc}{text}</text>',
+                "net_name": '<text x="{x}" y="{y}" transform="rotate(-90 {x} {y})" style="{style}" dominant-baseline="central" text-anchor="start">{spc}{text}</text>',
+            },
+            "bottom": {
+                "pin_name": '<text x="{x}" y="{y}" transform="rotate(-90 {x} {y})" style="{style}" dominant-baseline="central" text-anchor="start">{spc}{text}</text>',
+                "pin_num" : '<text x="{x}" y="{y}" transform="rotate(-90 {x} {y})" style="{style}" dominant-baseline=""        text-anchor="end">{text}{spc}</text>',
+                "net_name": '<text x="{x}" y="{y}" transform="rotate(-90 {x} {y})" style="{style}" dominant-baseline="central" text-anchor="end">{text}{spc}</text>',
+            },
+        }
+        svg = svg_template[side][attr].format(x=pt.x, y=pt.y, style="", text=text, spc=spc)
+        return svg, BBox()
+
     def text_to_svg(text, tx, x, y, rotation, font_size, justify, class_, attr):
         #FIXME: Get the font size and text orientation right.
-        font_dim = abs(font_size * tx.scale) * 0.35
-        char_width = font_dim*0.6
+        char_hgt = abs(font_size * tx.scale) * 0.35
+        char_width = char_hgt*0.6
         start = Point(x, y) * tx
-        end = start + Point(len(text)*char_width, font_dim) * Tx().rot(rotation)
+        end = start + Point(len(text)*char_width, char_hgt) * Tx().rot(rotation)
         bbox = BBox(start, end)
         svg = " ".join(
             [
@@ -125,10 +168,10 @@ def draw_cmd_to_svg(draw_cmd, tx):
                 "text-anchor='{justify}'",
                 "x='{start.x}' y='{start.y}'",
                 "transform='rotate({rotation} {start.x} {start.y})'",
-                "style='font-size:{font_dim}mm'",
+                "style='font-size:{char_hgt}mm'",
                 "{attr}",
                 ">{text}</text>",
-
+                # Show the bounding box around the text for debugging.
                  "<rect",
                 'x="{bbox.min.x}" y="{bbox.min.y}"',
                 'width="{bbox.w}" height="{bbox.h}"',
@@ -258,34 +301,50 @@ def draw_cmd_to_svg(draw_cmd, tx):
         svg, bbox = text_to_svg(shape["misc"][1], tx, *shape["at"][0:3], shape["effects"]["font"]["size"][0], shape["justify"], class_, extra)
 
     elif shape_type == "pin":
-        start = Point(*shape["at"][0:2]) * tx
+        # Get the pin object associated with this drawing command.
+        char_wid, char_hgt = shape["number"]["effects"]["font"]["size"][:]
+
+        pin_name = shape["name"]["misc"]
+        pin_num = shape["number"]["misc"]
+        pin = part[pin_num]
+        if pin.net in [None, NC]:
+            # Unconnected pins remain at the length of the default symbol pin.
+            extension = 0
+        elif pin.net in net_stubs:
+            # Don't extend the pin since the net name for the stub will be
+            # connected directly to the pin.
+            extension = 0
+        else:
+            # The pin is connected to a non-stub (routed) net.
+            # Extend the pin to the edge of the symbol bounding box so it
+            # can be routed to.
+            extension = char_wid * max_stub_len
+
+        start = Point(*shape["at"][0:2])
         rotation = shape["at"][2]
         length = shape["length"]
-        vec = Point(shape["length"], 0) * Tx().rot(rotation) * tx
-        end = start + vec
-        if vec.x > vec.y:
-            side = "right"
-        elif vec.y > vec.x:
-            side = "top"
-        elif -vec.x > vec.y:
-            side = "left"
-        elif -vec.y > vec.x:
-            side = "bottom"
-        else:
-            raise RuntimeError("Impossible pin orientation.")
+        dir = Point(1, 0) * Tx().rot(rotation)
+        end = start + dir * length
+        start -= dir * extension
+        end *= tx
+        start *= tx
         points_str = start.svg + " " + end.svg
         bbox = BBox(start, end)
-        name = shape["name"]["misc"]
-        number = shape["number"]["misc"]
-        pid = number
         stroke= shape["stroke"]["type"]
         stroke_width= abs(shape["stroke"]["width"] * tx.scale)
         fill= shape["fill"]["type"]
         circle_stroke_width = 2*stroke_width
-        font_size = shape["number"]["effects"]["font"]["size"][0]
-        justify="left"
-        pid_svg, pid_bbox = text_to_svg(pid, tx, *shape["at"][0:3], font_size, justify, "pin_name_text", "")
-        bbox += pid_bbox
+        side = pin_side(end-start)
+        pin_num_svg, pin_num_bbox = pin_text_to_svg(pin_num, "pin_num", side, end, char_wid * tx.scale)
+        bbox += pin_num_bbox
+        pin_name_svg, pin_name_bbox = pin_text_to_svg(pin_name, "pin_name", side, end, char_wid * tx.scale)
+        bbox += pin_name_bbox
+        if pin.net in net_stubs:
+            net_name_svg, net_name_bbox = pin_text_to_svg(pin.net.name, "net_name", side, start, char_wid * tx.scale)
+            bbox += net_name_bbox
+        else:
+            net_name_svg = ""
+            bbox += BBox()
         svg = " ".join(
                 [
                     # Draw a dot at the tip of the pin.
@@ -302,9 +361,11 @@ def draw_cmd_to_svg(draw_cmd, tx):
                     'class="$cell_id symbol {fill}"',
                     "/>",
                     # Draw the pin number.
-                    pid_svg,
+                    pin_num_svg,
+                    pin_name_svg,
+                    net_name_svg,
                     # Give netlistsvg the info it needs to connect nets to pins.
-                    '<g s:x="{start.x}" s:y="{start.y}" s:pid="{pid}" s:position="{side}"/>',
+                    '<g s:x="{start.x}" s:y="{start.y}" s:pid="{pin_num}" s:position="{side}"/>',
                 ]
             ).format(**locals())
 
@@ -335,6 +396,7 @@ def gen_svg_comp(part, symtx, net_stubs=None):
     # Create transformation matrix for the symbol from symtx, flip Y axis, and scale.
     scale = 10  # Scale of KiCad units to SVG units.
     tx = Tx.from_symtx(symtx) * tx_flip_y * scale
+    # print(f"{symtx=} {tx=}")
 
     # Get maximum length of net stub name if any are needed for this part symbol.
     net_stubs = net_stubs or []  # Empty list of stub nets if argument is None.
@@ -353,10 +415,9 @@ def gen_svg_comp(part, symtx, net_stubs=None):
         bbox = BBox()
         unit_svg = []
         for cmd in part.draw_cmds[unit.num]:
-            s, bb = draw_cmd_to_svg(cmd, tx)
+            s, bb = draw_cmd_to_svg(cmd, tx, part, net_stubs, max_stub_len)
             bbox.add(bb)
             unit_svg.append(s)
-        tx_bbox = bbox
 
         # Assign part unit name.
         if max_stub_len:
@@ -370,14 +431,14 @@ def gen_svg_comp(part, symtx, net_stubs=None):
             symbol_name = "{part.name}_{unit.num}_{symtx}".format(**locals())
 
         # Begin SVG for part unit. Translate it so the bbox.min is at (0,0).
-        translate = -tx_bbox.min
+        translate = -bbox.min
         svg.append(
             " ".join(
                 [
                     "<g",
                     's:type="{symbol_name}"',
-                    's:width="{tx_bbox.w}"',
-                    's:height="{tx_bbox.h}"',
+                    's:width="{bbox.w}"',
+                    's:height="{bbox.h}"',
                     'transform="translate({translate.x} {translate.y})"',
                     ">",
                 ]
@@ -396,15 +457,15 @@ def gen_svg_comp(part, symtx, net_stubs=None):
                 svg.append(item)
 
         # Place a visible bounding-box around symbol for trouble-shooting.
-        show_bbox = True
+        show_bbox = False
         bbox_stroke_width = scale * 0.1
         if show_bbox:
             svg.append(
                 " ".join(
                     [
                         "<rect",
-                        'x="{tx_bbox.min.x}" y="{tx_bbox.min.y}"',
-                        'width="{tx_bbox.w}" height="{tx_bbox.h}"',
+                        'x="{bbox.min.x}" y="{bbox.min.y}"',
+                        'width="{bbox.w}" height="{bbox.h}"',
                         'style="stroke-width:{bbox_stroke_width}; stroke:#f00"',
                         'class="$cell_id symbol"',
                         "/>",
