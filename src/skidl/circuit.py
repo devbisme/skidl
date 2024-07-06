@@ -674,11 +674,21 @@ class Circuit(SkidlBaseObject):
                 symbol_name = part.name
 
             # Get the global transformation for the part symbol.
-            global_symtx = getattr(part, "symtx", "")
-            # Get the transformation for each part unit.
+            if len(part.unit) == 1:
+                # If there is only a single unit, then that unit is the same as the part.
+                # Therefore, ignore the global transformation for the part since we'll
+                # pick it up from the unit transformation instead.
+                global_symtx = ""
+            else:
+                # If there are zero units or more than one unit, then use the
+                # global transformation for the part or apply it to the units.
+                global_symtx = getattr(part, "symtx", "")
+
+            # Get the transformation for each part unit (if any).
             unit_symtx = set([""])
             for unit in part.unit.values():
                 unit_symtx.add(getattr(unit, "symtx", ""))
+
             # Each combination of global + unit transformation is one of
             # the total transformations needed for the part.
             total_symtx = [global_symtx + u_symtx for u_symtx in unit_symtx]
@@ -898,16 +908,25 @@ class Circuit(SkidlBaseObject):
         for part in self.parts:
 
             if part.attached_to(net_stubs):
+                # If the part is attached to any net stubs, it will require
+                # an individualized symbol in the netlistsvg skin file.
+                # Give it a unique symbol name so it can be found later.
                 part_name = part.name + "_" + part.ref
             else:
+                # Otherwise, no net stubs so use the name of the 
+                # generic symbol for this part.
                 part_name = part.name
 
             part_symtx = getattr(part, "symtx", "")
-            units = part.unit.values()
-            if not units:
-                units = [
-                    part,
-                ]
+
+            # Get a list of the units in the part.
+            if len(part.unit) <= 1:
+                # If there are no units, then use the part itself as a unit.
+                # If there is only one unit, then that unit is just the part itself, so use it.
+                units = [part]
+            else:
+                units = part.unit.values()
+
             for unit in units:
 
                 if not unit.is_connected():
