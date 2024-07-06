@@ -128,7 +128,7 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
             raise RuntimeError("Impossible pin orientation.")
 
     def pin_text_to_svg(text, attr, side, pt, char_wid):
-        spc = "&#8201;"
+        spc = "&#8201;&#8201;"
         svg_template = {
             "left": {
                 "pin_name": '<text x="{x}" y="{y}" transform="rotate(0 {x} {y})" style="{style}" dominant-baseline="central" text-anchor="start">{spc}{text}</text>',
@@ -396,7 +396,6 @@ def gen_svg_comp(part, symtx, net_stubs=None):
     # Create transformation matrix for the symbol from symtx, flip Y axis, and scale.
     scale = 10  # Scale of KiCad units to SVG units.
     tx = Tx.from_symtx(symtx) * tx_flip_y * scale
-    # print(f"{symtx=} {tx=}")
 
     # Get maximum length of net stub name if any are needed for this part symbol.
     net_stubs = net_stubs or []  # Empty list of stub nets if argument is None.
