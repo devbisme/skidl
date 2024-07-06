@@ -128,7 +128,7 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
             raise RuntimeError("Impossible pin orientation.")
 
     def pin_text_to_svg(text, attr, side, pt, char_wid):
-        spc = "&#8201;&#8201;"
+        spc = "&#8201;&#8201;"  # Whitespaces for padding around pin text.
         svg_template = {
             "left": {
                 "pin_name": '<text x="{x}" y="{y}" transform="rotate(0 {x} {y})" style="{style}" dominant-baseline="central" text-anchor="start">{spc}{text}</text>',
@@ -152,35 +152,48 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
             },
         }
         svg = svg_template[side][attr].format(x=pt.x, y=pt.y, style="", text=text, spc=spc)
+        #FIXME: Calculate the bounding box for the text.
+        return svg, BBox()
+    
+    def text_to_svg(text, side, pt, char_wid, class_, attr):
+        svg_template = {
+            "right": '<text class="{class_}" x="{x}" y="{y}" transform="rotate(0 {x} {y})" style="{style}" dominant-baseline="central" text-anchor="end" {attr}>{text}</text>',
+            "left": '<text x="{x}" y="{y}" transform="rotate(0 {x} {y})" style="{style}" dominant-baseline="central" text-anchor="start" {attr}>{text}</text>',
+            "bottom": '<text x="{x}" y="{y}" transform="rotate(-90 {x} {y})" style="{style}" dominant-baseline="central" text-anchor="start" {attr}>{text}</text>',
+            "top": '<text x="{x}" y="{y}" transform="rotate(-90 {x} {y})" style="{style}" dominant-baseline="central" text-anchor="end" {attr}>{text}</text>',
+        }
+        #FIXME: Add the font size to the text format.
+        svg = svg_template[side].format(x=pt.x, y=pt.y, style="", text=text, class_=class_, attr=attr)
+        #FIXME: Calculate the bounding box for the text.
         return svg, BBox()
 
-    def text_to_svg(text, tx, x, y, rotation, font_size, justify, class_, attr):
-        #FIXME: Get the font size and text orientation right.
-        char_hgt = abs(font_size * tx.scale) * 0.35
-        char_width = char_hgt*0.6
-        start = Point(x, y) * tx
-        end = start + Point(len(text)*char_width, char_hgt) * Tx().rot(rotation)
-        bbox = BBox(start, end)
-        svg = " ".join(
-            [
-                "<text",
-                "class='{class_}'",
-                "text-anchor='{justify}'",
-                "x='{start.x}' y='{start.y}'",
-                "transform='rotate({rotation} {start.x} {start.y})'",
-                "style='font-size:{char_hgt}mm'",
-                "{attr}",
-                ">{text}</text>",
-                # Show the bounding box around the text for debugging.
-                 "<rect",
-                'x="{bbox.min.x}" y="{bbox.min.y}"',
-                'width="{bbox.w}" height="{bbox.h}"',
-                # 'style="stroke-width:2px"',
-                # 'class="$cell_id symbol {fill}"',
-                "/>",
-           ]
-        ).format(**locals())
-        return svg, bbox
+    # def text_to_svg(text, tx, x, y, rotation, font_size, justify, class_, attr):
+    #     #FIXME: Get the font size and text orientation right.
+    #     char_hgt = abs(font_size * tx.scale) * 0.35
+    #     char_width = char_hgt*0.6
+    #     start = Point(x, y) * tx
+    #     end = start + Point(len(text)*char_width, char_hgt) * Tx().rot(rotation)
+    #     bbox = BBox(start, end)
+    #     svg = " ".join(
+    #         [
+    #             "<text",
+    #             "class='{class_}'",
+    #             "text-anchor='{justify}'",
+    #             "x='{start.x}' y='{start.y}'",
+    #             "transform='rotate({rotation} {start.x} {start.y})'",
+    #             "style='font-size:{char_hgt}mm'",
+    #             "{attr}",
+    #             ">{text}</text>",
+    #             # Show the bounding box around the text for debugging.
+    #              "<rect",
+    #             'x="{bbox.min.x}" y="{bbox.min.y}"',
+    #             'width="{bbox.w}" height="{bbox.h}"',
+    #             # 'style="stroke-width:2px"',
+    #             # 'class="$cell_id symbol {fill}"',
+    #             "/>",
+    #        ]
+    #     ).format(**locals())
+    #     return svg, bbox
 
     shape_type, shape = draw_cmd_to_dict(draw_cmd)
 
@@ -298,7 +311,14 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
             extra = 's:attribute="value"'
         elif "hide" not in shape["effects"]["misc"]:
             raise RuntimeError("Unknown property {symbol[1]} is not hidden.".format(**locals()))
-        svg, bbox = text_to_svg(shape["misc"][1], tx, *shape["at"][0:3], shape["effects"]["font"]["size"][0], shape["justify"], class_, extra)
+        start = Point(*shape["at"][0:2])
+        rotation = shape["at"][2]
+        dir = {"right": Point(1, 0), "left": Point(-1, 0)}[shape["justify"].lower()] * Tx().rot(rotation)
+        end = start + dir
+        start *= tx
+        end *= tx
+        side = pin_side(end-start)
+        svg, bbox = text_to_svg(shape["misc"][1], side, start, 1, class_, extra)
 
     elif shape_type == "pin":
         # Get the pin object associated with this drawing command.
@@ -372,7 +392,15 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
     elif shape_type == "text":
         class_ = "text"
         extra = ""
-        svg, bbox = text_to_svg(shape["misc"], tx, *shape["at"][0:3], shape["effects"]["font"]["size"][0], shape["justify"], class_, extra)
+        start = Point(*shape["at"][0:2])
+        rotation = shape["at"][2]
+        dir = {"right": Point(1, 0), "left": Point(-1, 0)}[shape["justify"].lower()] * Tx().rot(rotation)
+        end = start + dir
+        start *= tx
+        end *= tx
+        side = pin_side(end-start)
+        svg, bbox = text_to_svg(shape["misc"], side, start, 1, class_, extra)
+        # svg, bbox = text_to_svg(shape["misc"], tx, *shape["at"][0:3], shape["effects"]["font"]["size"][0], shape["justify"], class_, extra)
 
     else:
         raise RuntimeError("Unrecognized shape type: {shape_type}".format(**locals()))
