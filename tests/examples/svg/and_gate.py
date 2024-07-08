@@ -27,15 +27,15 @@ a.netio = "i"  # Input terminal.
 b.netio = "i"  # Input terminal.
 a_and_b.netio = "o"  # Output terminal.
 
-q1.E.symio = "i"  # Signal enters Q1 on E and B terminals.
-q1.B.symio = "i"
-q1.C.symio = "o"  # Signal exits Q1 on C terminal.
-q2.E.symio = "i"  # Signal enters Q2 on E and B terminals.
-q2.B.symio = "i"
-q2.C.symio = "o"  # Signal exits Q2 on C terminal.
+# q1.E.symio = "i"  # Signal enters Q1 on E and B terminals.
+# q1.B.symio = "i"
+# q1.C.symio = "o"  # Signal exits Q1 on C terminal.
+# q2.E.symio = "i"  # Signal enters Q2 on E and B terminals.
+# q2.B.symio = "i"
+# q2.C.symio = "o"  # Signal exits Q2 on C terminal.
 
-q1.symtx = "L"
-q2.symtx = "L"
+# q1.symtx = "L"
+# q2.symtx = "L"
 vcc.stub = True
 
 generate_svg()

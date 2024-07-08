@@ -474,4 +474,4 @@ def gen_svg_comp(part, symtx, net_stubs=None):
         # Finish SVG for part unit.
         svg.append("</g>\n")
 
-    return "\n".join(svg)
+    return "".join(svg)
