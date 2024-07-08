@@ -302,7 +302,6 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
             text = shape["misc"][1]
             svg = text_to_svg(text, side, start, char_wid, class_, attr)
             bbox = text_bbox(text, start, (end-start).norm, char_wid, char_hgt)
-            # svg += bbox_to_svg(bbox, 0.1)
 
     elif shape_type == "pin":
         num_char_wid, num_char_hgt = shape["number"]["effects"]["font"]["size"][:]
@@ -338,7 +337,7 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
         start -= dir * extension
         end *= tx
         start *= tx
-        side = pin_side(end-start)
+        side = pin_side(dir * tx)
 
         # Bounding box for the pin.
         bbox = BBox(start, end)
