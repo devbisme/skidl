@@ -305,11 +305,7 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
 
     elif shape_type == "pin":
         num_char_wid, num_char_hgt = shape["number"]["effects"]["font"]["size"][:]
-        num_char_wid *= tx.scale
-        num_char_hgt *= tx.scale
         name_char_wid, name_char_hgt = shape["name"]["effects"]["font"]["size"][:]
-        name_char_wid *= tx.scale
-        name_char_hgt *= tx.scale
         net_name_char_wid, net_name_char_hgt = name_char_wid, name_char_hgt
 
         # Get the pin object associated with this drawing command.
@@ -327,7 +323,7 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
             # The pin is connected to a non-stub (routed) net.
             # Extend the pin to the edge of the symbol bounding box so it
             # can be routed to.
-            extension = net_name_char_wid * max_stub_len
+            extension = net_name_char_wid * max_stub_len * 0.6
 
         start = Point(*shape["at"][0:2])
         rotation = shape["at"][2]
@@ -341,6 +337,13 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
 
         # Bounding box for the pin.
         bbox = BBox(start, end)
+
+        num_char_wid *= tx.scale
+        num_char_hgt *= tx.scale
+        name_char_wid *= tx.scale
+        name_char_hgt *= tx.scale
+        net_name_char_hgt *= tx.scale
+        net_name_char_wid *= tx.scale
 
         # Now add bounding boxes for the pin number, name, and net name.
         bbox += text_bbox(pin_num, start, (end-start).norm, num_char_wid, num_char_hgt)
