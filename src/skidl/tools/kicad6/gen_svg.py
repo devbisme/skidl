@@ -408,6 +408,7 @@ def gen_svg_comp(part, symtx, net_stubs=None):
     px = 96  # Pixels per inch. SVG uses pixels.
     mm = 25.4  # Millimeters per inch. KiCad uses millimeters.
     scale = px / mm # Scale for converting KiCad units (mm) to SVG units (pixels).
+    scale *= 2.54 # Adjustment for matching symbol sizes with netlistsvg's I/O ports.
     tx = Tx.from_symtx(symtx) * tx_flip_y * scale
 
     # Get maximum length of net stub name if any are needed for this part symbol.
