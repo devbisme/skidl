@@ -768,18 +768,27 @@ class Part(SkidlBaseObject):
         for pin in self.pins:
             assert pin.part == self
         for unit in self.unit.values():
-            unit.validate()
+            # A Part can be a unit of itself, so don't validate it to avoid infinite recursion.
+            if unit is not self:
+                unit.validate()
 
     def copy_units(self, src):
         """Make copies of the units from the source part."""
         self.unit = {}  # Remove references to any existing units.
         for label, unit in src.unit.items():
-            # Get the pin numbers from the unit in the source part.
-            pin_nums = [p.num for p in unit.pins]
-
-            # Make a unit in the part copy with the same pin numbers.
-            self.make_unit(label, *pin_nums)
-            self.unit[label].num = unit.num
+            if isinstance(unit, PartUnit):
+                # Get the pin numbers from the unit in the source part
+                # and make a unit in the part copy with the same pin numbers.
+                pin_nums = [p.num for p in unit.pins]
+                self.make_unit(label, *pin_nums, unit=unit.num)
+            elif isinstance(unit, Part):
+                # A Part can be a unit of itself, so it requires special handling.
+                assert id(unit) == id(src)
+                self.unit[label] = self
+                self.unit[label].num = unit.num
+                add_unique_attr(self, label, self)
+            else:
+                raise Exception("Illegal unit type ({}).".format(type(unit)))
 
     def add_pins(self, *pins):
         """Add one or more pins to a part and return the part."""
@@ -1045,6 +1054,11 @@ class Part(SkidlBaseObject):
         add_unique_attr(self, label, self.unit[label])
 
         return self.unit[label]
+    
+    def rmv_unit(self, label):
+        """Remove a PartUnit from a Part."""
+        delattr(self, label)
+        del self.unit[label]
 
     def grab_pins(self):
         """Grab pins back from PartUnits."""
@@ -1099,6 +1113,14 @@ class Part(SkidlBaseObject):
         )
         keys = set(keys) # Remove duplicates.
         keys.remove("draw_cmds") # Don't export drawing commands.
+        try:
+            # TODO: Implement export of units. Or don't allow a Part to be a unit of itself.
+            # Remove units because having a Part as a unit causes an error.
+            for unit_label in self.unit:
+                keys.remove(unit_label)
+            keys.remove("unit")
+        except KeyError:
+            pass
 
         attribs = []
         attribs.append("'{}':{}".format("name", repr(self.name)))
