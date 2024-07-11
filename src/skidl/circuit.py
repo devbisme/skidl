@@ -655,8 +655,19 @@ class Circuit(SkidlBaseObject):
 
         return netlist
 
-    def generate_netlistsvg_skin(self, net_stubs):
+
+    def generate_netlistsvg_skin(self, net_stubs, layout_options=None):
         """Generate the skin file of symbols for use by netlistsvg."""
+        
+        # Control options for netlistsvg/ELK layout algorithm.
+        default_layout_options = """
+                org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers="5"
+                org.eclipse.elk.layered.compaction.postCompaction.strategy="4"
+                org.eclipse.elk.spacing.nodeNode= "50"
+                org.eclipse.elk.direction="DOWN"
+            """
+
+        layout_options = layout_options or default_layout_options
 
         # Generate the SVG for each part in the required transformations.
         part_svg = {}
@@ -823,14 +834,6 @@ class Circuit(SkidlBaseObject):
         tail_svg = [
             "</svg>",
         ]
-
-        # Control options for netlistsvg/ELK layout algorithm.
-        layout_options = """
-            org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers="5"
-            org.eclipse.elk.layered.compaction.postCompaction.strategy="4"
-            org.eclipse.elk.spacing.nodeNode= "50"
-            org.eclipse.elk.direction="DOWN"
-        """
 
         return "\n".join(head_svg + part_svg + tail_svg).format(**locals())
 
