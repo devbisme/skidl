@@ -136,7 +136,7 @@ class Tx:
     @property
     def scale(self):
         """Return the scaling factor."""
-        return (Point(1, 0) * self).magnitude
+        return (Point(1, 0) * self - Point(0, 0) * self).magnitude
 
     def move(self, vec):
         """Return Tx with movement vector applied."""
