@@ -89,6 +89,7 @@ def test_backup_1():
     generate_netlist(do_backup=True)  # This creates the backup parts library.
     default_circuit.reset()
     skidl.config.query_backup_lib = True  # FIXME: this is already True by default!
+    # Non-existent library so these parts should come from the backup library.
     a = Part("crap", "R", footprint="null")
     b = Part("crap", "C", footprint="null")
     generate_netlist()
@@ -105,6 +106,24 @@ def test_backup_2():
     num_pins_per_net_2 = {net.name: len(net) for net in default_circuit.nets}
     for nm in num_pins_per_net_1:
         assert num_pins_per_net_1[nm] == num_pins_per_net_2[nm]
+
+@pytest.mark.skip(reason="Part export doesn't support units.")
+def test_backup_3():
+    SchLib.reset()
+    a = Part("Device", "R", footprint="null")
+    b = Part("Device", "C", footprint="null")
+    c = Part("Device", "L", footprint="null")
+    a & b & c  # Connect device to keep them from being culled.
+    generate_netlist(do_backup=True)  # This creates the backup parts library.
+    default_circuit.reset()
+    skidl.config.query_backup_lib = True  # FIXME: this is already True by default!
+    # Non-existent library so these parts should come from the backup library.
+    a = Part("crap", "R", footprint="null")
+    b = Part("crap", "C", footprint="null")
+    # Connect parts using them as units.
+    a.uA & b.uA
+    generate_netlist()
+
 
 
 def test_lib_1():
