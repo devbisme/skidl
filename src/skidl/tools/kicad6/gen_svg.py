@@ -453,13 +453,13 @@ def gen_svg_comp(part, symtx, net_stubs=None):
                     's:width="{bbox.w}"',
                     's:height="{bbox.h}"',
                     'transform="translate({translate.x} {translate.y})"',
-                    ">",
+                    ">\n",
                 ]
             ).format(**locals())
         )
 
         # Add part alias.
-        svg.append('<s:alias val="{symbol_name}"/>'.format(**locals()))
+        svg.append('<s:alias val="{symbol_name}"/>\n'.format(**locals()))
 
         for item in unit_svg:
             if "text" not in item:
