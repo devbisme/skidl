@@ -850,10 +850,20 @@ class Circuit(SkidlBaseObject):
 
         return stubs
 
-    def generate_svg(self, file_=None, tool=None):
+        """
+        """
+    def generate_svg(self, file_=None, tool=None, layout_options=None):
         """
         Create an SVG file displaying the circuit schematic and
         return the dictionary that can be displayed by netlistsvg.
+
+        Args:
+            file_ (_type_, optional): Filename to store SVG. Defaults to None.
+            tool (_type_, optional): Backend tool. Defaults to None.
+            layout_options (_type_, optional): Options to control netlistsvg/ELK layout algorithm. Defaults to None.
+
+        Returns:
+            dict: JSON dictionary for input to netlistsvg.
         """
 
         from . import skidl
@@ -1003,7 +1013,7 @@ class Circuit(SkidlBaseObject):
 
             skin_file = file_basename + "_skin.svg"
             with opened(skin_file, "w") as f:
-                f.write(self.generate_netlistsvg_skin(net_stubs=net_stubs))
+                f.write(self.generate_netlistsvg_skin(net_stubs=net_stubs, layout_options=layout_options))
 
             subprocess.Popen(
                 ["netlistsvg", json_file, "--skin", skin_file, "-o", svg_file],
