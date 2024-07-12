@@ -663,7 +663,7 @@ class Circuit(SkidlBaseObject):
         default_layout_options = """
                 org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers="5"
                 org.eclipse.elk.layered.compaction.postCompaction.strategy="4"
-                org.eclipse.elk.spacing.nodeNode= "50"
+                org.eclipse.elk.spacing.nodeNode="50"
                 org.eclipse.elk.direction="DOWN"
             """
 
