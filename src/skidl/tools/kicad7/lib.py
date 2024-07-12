@@ -30,7 +30,7 @@ except ImportError:
 from skidl.logger import active_logger
 from skidl.part import LIBRARY
 from skidl.schematics.geometry import mils_per_mm, BBox
-from skidl.utilities import export_to_all, find_and_open_file, num_to_chars, to_list
+from skidl.utilities import export_to_all, find_and_open_file, num_to_chars, to_list, add_unique_attr
 
 
 __all__ = ["lib_suffix"]
@@ -421,6 +421,15 @@ def parse_lib_part(part, partial_parse):
         unit_label = "u" + num_to_chars(unit_num)
         # Create a unit using pins with the same unit number.
         u = part.make_unit(unit_label, unit=unit_num)
+
+    if len(part.unit) == 1:
+        # If there's only one unit, that unit is the part itself.
+        # Replace the PartUnit object with the parent Part object.
+        unit_label = list(part.unit.keys())[0]
+        part.rmv_unit(unit_label)
+        part.unit[unit_label] = part
+        part.num = 1
+        add_unique_attr(part, unit_label, part)
 
     # Populate part fields from symbol properties. Properties will also be included below in drawing commands.
     props = {

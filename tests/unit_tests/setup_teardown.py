@@ -40,7 +40,7 @@ def setup_function(f):
     skidl.config.query_backup_lib = True
 
     # Set the default tool for the test suite.
-    tool = KICAD6
+    tool = KICAD8
     set_default_tool(tool)
 
 
