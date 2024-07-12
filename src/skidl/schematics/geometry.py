@@ -44,10 +44,12 @@ Stuff for handling geometry:
 mils_per_mm = 39.37008
 mms_per_mil = 0.0254
 
+
 @export_to_all
 def to_mils(mm):
     """Convert millimeters to thousandths-of-inch and return."""
     return mm * mils_per_mm
+
 
 @export_to_all
 def to_mms(mils):
@@ -145,7 +147,7 @@ class Tx:
     def rot_90cw(self):
         """Return Tx with 90-deg clock-wise rotation around (0, 0)."""
         return self * Tx(a=0, b=1, c=-1, d=0)
-    
+
     def rot(self, degs):
         """Return Tx rotated by the given angle (in degrees)."""
         rads = radians(degs)
@@ -158,6 +160,10 @@ class Tx:
     def flip_y(self):
         """Return Tx with Y coords flipped around (0, 0)."""
         return self * Tx(d=-1)
+    
+    def no_translate(self):
+        """Return Tx with translation set to (0,0)."""
+        return Tx(a=self.a, b=self.b, c=self.c, d=self.d)
 
 
 # Some common rotations.
@@ -248,7 +254,7 @@ class Point:
 
     def __str__(self):
         return "{} {}".format(self.x, self.y)
-    
+
     def snap(self, grid_spacing):
         """Snap point x,y coords to the given grid spacing."""
         snap_func = lambda x: int(grid_spacing * round(x / grid_spacing))
