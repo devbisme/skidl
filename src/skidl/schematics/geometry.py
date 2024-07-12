@@ -249,11 +249,6 @@ class Point:
     def __str__(self):
         return "{} {}".format(self.x, self.y)
     
-    @property
-    def svg(self):
-        """Return the SVG representation of the point."""
-        return ",".join((str(self.x), str(self.y)))
-
     def snap(self, grid_spacing):
         """Snap point x,y coords to the given grid spacing."""
         snap_func = lambda x: int(grid_spacing * round(x / grid_spacing))
