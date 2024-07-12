@@ -25,6 +25,7 @@ import graphviz
 
 try:
     from future import standard_library
+
     standard_library.install_aliases()
 except ImportError:
     pass
@@ -49,7 +50,6 @@ from .utilities import (
     opened,
     reset_get_unique_name,
 )
-
 
 
 HIER_SEP = "."  # Separator for hierarchy labels.
@@ -89,7 +89,7 @@ class Circuit(SkidlBaseObject):
     def __iadd__(self, *stuff):
         """Add Parts, Nets, Buses, and Interfaces to the circuit."""
         return self.add_stuff(*stuff)
-    
+
     def __isub__(self, *stuff):
         """Remove Parts, Nets, Buses, and Interfaces from the circuit."""
         return self.rmv_stuff(*stuff)
@@ -102,7 +102,7 @@ class Circuit(SkidlBaseObject):
 
     def __exit__(self, type, value, traceback):
         builtins.default_circuit = self.circuit_stack.pop()
-    
+
     def mini_reset(self, init=False):
         """Clear any circuitry but don't erase any loaded part libraries."""
 
@@ -143,6 +143,7 @@ class Circuit(SkidlBaseObject):
 
         try:
             from . import skidl
+
             config = skidl.config
         except ImportError:
             # For Python 2. Always gotta be different...
@@ -153,7 +154,7 @@ class Circuit(SkidlBaseObject):
 
         # Also clear any cached libraries.
         SchLib.reset()
-        
+
         # Clear out any old backup lib so the new one will get reloaded when it's needed.
         config.backup_lib = None
 
@@ -655,10 +656,9 @@ class Circuit(SkidlBaseObject):
 
         return netlist
 
-
     def generate_netlistsvg_skin(self, net_stubs, layout_options=None):
         """Generate the skin file of symbols for use by netlistsvg."""
-        
+
         # Control options for netlistsvg/ELK layout algorithm.
         default_layout_options = """
                 org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers="5"
@@ -831,11 +831,11 @@ class Circuit(SkidlBaseObject):
             "<!-- builtin -->",
         ]
 
-        tail_svg = [
-            "</svg>",
-        ]
+        head_svg = "\n".join(head_svg).format(**locals())
+        part_svg = "\n".join(part_svg)
+        tail_svg = "</svg>"
 
-        return "\n".join(head_svg + part_svg + tail_svg).format(**locals())
+        return "\n".join((head_svg, part_svg, tail_svg))
 
     def get_net_nc_stubs(self):
         """Get all nets/buses that are stubs or no-connects."""
@@ -850,8 +850,6 @@ class Circuit(SkidlBaseObject):
 
         return stubs
 
-        """
-        """
     def generate_svg(self, file_=None, tool=None, layout_options=None):
         """
         Create an SVG file displaying the circuit schematic and
@@ -930,7 +928,7 @@ class Circuit(SkidlBaseObject):
                 # Give it a unique symbol name so it can be found later.
                 part_name = part.name + "_" + part.ref
             else:
-                # Otherwise, no net stubs so use the name of the 
+                # Otherwise, no net stubs so use the name of the
                 # generic symbol for this part.
                 part_name = part.name
 
@@ -1013,7 +1011,11 @@ class Circuit(SkidlBaseObject):
 
             skin_file = file_basename + "_skin.svg"
             with opened(skin_file, "w") as f:
-                f.write(self.generate_netlistsvg_skin(net_stubs=net_stubs, layout_options=layout_options))
+                f.write(
+                    self.generate_netlistsvg_skin(
+                        net_stubs=net_stubs, layout_options=layout_options
+                    )
+                )
 
             subprocess.Popen(
                 ["netlistsvg", json_file, "--skin", skin_file, "-o", svg_file],
