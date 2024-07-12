@@ -15,6 +15,7 @@ gndt = Part("power", "GND")  # Ground terminal.
 vcct = Part("power", "VCC")  # Power terminal.
 q1, q2 = q(2)
 r1, r2, r3, r4, r5 = r(5, value="10K")
+r4.symtx = "L"
 
 # Make connections between parts.
 a & r1 & q1["B", "C"] & r4 & q2["B", "C"] & a_and_b & r5 & gnd
@@ -34,7 +35,7 @@ q2.E.symio = "i"  # Signal enters Q2 on E and B terminals.
 q2.B.symio = "i"
 q2.C.symio = "o"  # Signal exits Q2 on C terminal.
 
-q1.symtx = "L"
+# q1.symtx = "L"
 # q2.uA.symtx = "L"
 # q2.symtx = "L"
 vcc.stub = True
