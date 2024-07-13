@@ -40,7 +40,6 @@ from skidl.schematics.geometry import (
 from skidl.utilities import export_to_all
 from .constants import HIER_TERM_SIZE, PIN_LABEL_FONT_SIZE
 from skidl.schematics.geometry import BBox, Point, Tx, Vector
-from .draw_objs import *
 
 
 
