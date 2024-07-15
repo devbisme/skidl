@@ -48,6 +48,7 @@ class SchLib(object):
     Args:
         filename: The name of the library file.
         tool: The format of the library file (e.g., KICAD).
+        lib_section: The section of the library to access (for SPICE, only).
 
     Keyword Args:
         attribs: Key/value pairs of attributes to add to the library.
