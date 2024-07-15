@@ -27,6 +27,7 @@ try:
 except ImportError:
     pass
 
+from skidl import Alias
 from skidl.logger import active_logger
 from skidl.part import LIBRARY
 from skidl.schematics.geometry import mils_per_mm, BBox
@@ -162,6 +163,8 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
                     properties["ki_description"] = parent_part.description
                     properties["datasheet"] = parent_part.datasheet
 
+                break # At most one extends clause in part def.
+
         # Get symbol properties, primarily to get the reference id.
         # Properties are stored as lists: ["property", name, value].
         properties.update(
@@ -224,7 +227,7 @@ def parse_lib_part(part, partial_parse):
     if partial_parse:
         return
 
-    part.aliases = []  # Part aliases.
+    part.aliases = Alias()  # Part aliases.
     part.fplist = []  # Footprint list.
     part.draw_cmds = defaultdict(list)  # Drawing commands for the part and any units, including pins.
 
@@ -239,8 +242,8 @@ def parse_lib_part(part, partial_parse):
             parent_part_dict = parent_part.__dict__
             for property_key in (
                 "part_defn",
-                "name",
-                "aliases",
+                "_name",
+                "_aliases",
                 "description",
                 "datasheet",
                 "keywords",
