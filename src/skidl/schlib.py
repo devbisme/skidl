@@ -56,6 +56,7 @@ class SchLib(object):
 
     # Keep a dict of filenames and their associated SchLib object
     # for fast loading of libraries.
+    # TODO: Find a way to retain the cache between invocations of SKiDL and only update new changed libraries.
     _cache = {}
 
     def __init__(self, filename=None, tool=None, lib_section=None, **attribs):

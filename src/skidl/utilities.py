@@ -283,6 +283,7 @@ def reset_get_unique_name():
     prefix_counts = collections.Counter()
 
 
+# TODO: Rework get_unique_name().
 @export_to_all
 def get_unique_name(lst, attrib, prefix, initial=None):
     """
