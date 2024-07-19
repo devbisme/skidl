@@ -657,9 +657,17 @@ class Circuit(SkidlBaseObject):
         return netlist
 
     def generate_netlistsvg_skin(self, net_stubs, layout_options=None):
-        """Generate the skin file of symbols for use by netlistsvg."""
+        """ Generate SVG for schematic symbols for netlistsvg skin file.
 
-        # Control options for netlistsvg/ELK layout algorithm.
+        Args:
+            net_stubs (list): List of nets that are stubbed rather than routed.
+            layout_options (str, optional): String of ELK layout options. Defaults to None.
+                                            https://eclipse.dev/elk/reference/options.html
+
+        Returns:
+            str: SVG for skin file.
+        """
+
         default_layout_options = """
                 org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers="5"
                 org.eclipse.elk.layered.compaction.postCompaction.strategy="4"
