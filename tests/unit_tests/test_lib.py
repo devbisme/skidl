@@ -138,10 +138,13 @@ def test_lib_1():
     skidl.config.query_backup_lib = False
     a = Part("Device", "R")
     assert a.tool == SKIDL
+    assert len(a.pins) == 2
     b = Part("Device", "L")
     assert b.tool == SKIDL
+    assert len(b.pins) == 2
     c = Part("Device", "C")
     assert c.tool == SKIDL
+    assert len(c.pins) == 2
 
 
 def test_non_existing_lib_cannot_be_loaded():
