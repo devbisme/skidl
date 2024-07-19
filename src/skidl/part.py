@@ -1098,6 +1098,12 @@ class Part(SkidlBaseObject):
 
     def export(self):
         """Return a string to recreate a Part object."""
+
+        # Make sure the part is fully instantiated. Otherwise, attributes like
+        # pins may be missing because they haven't been parsed from the part definition.
+        self.parse()
+
+        # Get the names of fields to export.
         keys = self._get_fields()
         keys.extend(
             (
@@ -1113,19 +1119,23 @@ class Part(SkidlBaseObject):
         )
         keys = set(keys) # Remove duplicates.
         keys.remove("draw_cmds") # Don't export drawing commands.
+
+        # TODO: Implement export of units. Or don't allow a Part to be a unit of itself.
+        # Remove units because having a Part as a unit causes an error.
         try:
-            # TODO: Implement export of units. Or don't allow a Part to be a unit of itself.
-            # Remove units because having a Part as a unit causes an error.
             for unit_label in self.unit:
                 keys.remove(unit_label)
             keys.remove("unit")
         except KeyError:
             pass
 
+        # Export the part as a SKiDL template.
         attribs = []
         attribs.append("'{}':{}".format("name", repr(self.name)))
         attribs.append("'dest':TEMPLATE")
         attribs.append("'tool':SKIDL")
+
+        # Collect all the part attributes and the list of pins as Python code.
         for k in keys:
             v = getattr(self, k, None)
             attribs.append("'{}':{}".format(k, repr(v)))
@@ -1134,6 +1144,7 @@ class Part(SkidlBaseObject):
             attribs.append("'pins':[{}]".format(",".join(pin_strs)))
 
         # Return the string after removing all the non-ascii stuff (like ohm symbols).
+        # This string is a Part instantiation with parameters that will create the part when executed.
         return "Part(**{{ {} }})".format(", ".join(attribs))
 
     def convert_for_spice(self, spice_part, pin_map):
