@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
     <script src="../_static/documentation_options.js?v=fd7cadf9"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -244,6 +244,12 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Tx.flip_y">
+<span class="sig-name descname"><span class="pre">flip_y</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Tx.flip_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Tx.flip_y" title="Link to this definition">¶</a></dt>
+<dd><p>Return Tx with Y coords flipped around (0, 0).</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.geometry.Tx.from_symtx">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_symtx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symtx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Tx.from_symtx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Tx.from_symtx" title="Link to this definition">¶</a></dt>
 <dd><p>Return a Tx() object that implements the “HVLR” geometric operation sequence.</p>
@@ -266,6 +272,12 @@
 <dd><p>Return Tx with movement vector applied.</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Tx.no_translate">
+<span class="sig-name descname"><span class="pre">no_translate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Tx.no_translate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Tx.no_translate" title="Link to this definition">¶</a></dt>
+<dd><p>Return Tx with translation set to (0,0).</p>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.schematics.geometry.Tx.origin">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">origin</span></span><a class="headerlink" href="#skidl.schematics.geometry.Tx.origin" title="Link to this definition">¶</a></dt>
@@ -282,6 +294,12 @@
 <dt class="sig sig-object py" id="skidl.schematics.geometry.Tx.rot_90cw">
 <span class="sig-name descname"><span class="pre">rot_90cw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Tx.rot_90cw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Tx.rot_90cw" title="Link to this definition">¶</a></dt>
 <dd><p>Return Tx with 90-deg clock-wise rotation around (0, 0).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Tx.scale">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scale</span></span><a class="headerlink" href="#skidl.schematics.geometry.Tx.scale" title="Link to this definition">¶</a></dt>
+<dd><p>Return the scaling factor.</p>
 </dd></dl>
 
 </dd></dl>
@@ -356,11 +374,14 @@
 </li>
 <li><a class="reference internal" href="#skidl.schematics.geometry.Tx"><code class="docutils literal notranslate"><span class="pre">Tx</span></code></a><ul>
 <li><a class="reference internal" href="#skidl.schematics.geometry.Tx.flip_x"><code class="docutils literal notranslate"><span class="pre">Tx.flip_x()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.geometry.Tx.flip_y"><code class="docutils literal notranslate"><span class="pre">Tx.flip_y()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.schematics.geometry.Tx.from_symtx"><code class="docutils literal notranslate"><span class="pre">Tx.from_symtx()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.schematics.geometry.Tx.move"><code class="docutils literal notranslate"><span class="pre">Tx.move()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.geometry.Tx.no_translate"><code class="docutils literal notranslate"><span class="pre">Tx.no_translate()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.schematics.geometry.Tx.origin"><code class="docutils literal notranslate"><span class="pre">Tx.origin</span></code></a></li>
 <li><a class="reference internal" href="#skidl.schematics.geometry.Tx.rot"><code class="docutils literal notranslate"><span class="pre">Tx.rot()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.schematics.geometry.Tx.rot_90cw"><code class="docutils literal notranslate"><span class="pre">Tx.rot_90cw()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.geometry.Tx.scale"><code class="docutils literal notranslate"><span class="pre">Tx.scale</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#skidl.schematics.geometry.Vector"><code class="docutils literal notranslate"><span class="pre">Vector</span></code></a></li>
@@ -378,7 +399,7 @@
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
@@ -386,7 +407,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
@@ -407,7 +428,7 @@
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
     </div>
   </body>
 </html>

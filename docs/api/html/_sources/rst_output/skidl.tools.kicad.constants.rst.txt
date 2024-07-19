@@ -1,7 +1,0 @@
-skidl.tools.kicad.constants module
-==================================
-
-.. automodule:: skidl.tools.kicad.constants
-   :members:
-   :undoc-members:
-   :show-inheritance:

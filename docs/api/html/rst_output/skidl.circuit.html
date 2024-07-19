@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
     <script src="../_static/documentation_options.js?v=fd7cadf9"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -237,8 +237,23 @@ containing a file name, or None.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.circuit.Circuit.generate_netlistsvg_skin">
-<span class="sig-name descname"><span class="pre">generate_netlistsvg_skin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net_stubs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.generate_netlistsvg_skin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.generate_netlistsvg_skin" title="Link to this definition">¶</a></dt>
-<dd><p>Generate the skin file of symbols for use by netlistsvg.</p>
+<span class="sig-name descname"><span class="pre">generate_netlistsvg_skin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net_stubs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.generate_netlistsvg_skin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.generate_netlistsvg_skin" title="Link to this definition">¶</a></dt>
+<dd><p>Generate SVG for schematic symbols for netlistsvg skin file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>net_stubs</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of nets that are stubbed rather than routed.</p></li>
+<li><p><strong>layout_options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – String of ELK layout options. Defaults to None.
+<a class="reference external" href="https://eclipse.dev/elk/reference/options.html">https://eclipse.dev/elk/reference/options.html</a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>SVG for skin file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -269,9 +284,24 @@ containing a file name, or None.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.circuit.Circuit.generate_svg">
-<span class="sig-name descname"><span class="pre">generate_svg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.generate_svg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.generate_svg" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">generate_svg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.generate_svg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.generate_svg" title="Link to this definition">¶</a></dt>
 <dd><p>Create an SVG file displaying the circuit schematic and
 return the dictionary that can be displayed by netlistsvg.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>_type_</em><em>, </em><em>optional</em>) – Filename to store SVG. Defaults to None.</p></li>
+<li><p><strong>tool</strong> (<em>_type_</em><em>, </em><em>optional</em>) – Backend tool. Defaults to None.</p></li>
+<li><p><strong>layout_options</strong> (<em>_type_</em><em>, </em><em>optional</em>) – Options to control netlistsvg/ELK layout algorithm. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>JSON dictionary for input to netlistsvg.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -444,7 +474,7 @@ containing a file name, or None.</p></li>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
@@ -452,7 +482,7 @@ containing a file name, or None.</p></li>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
@@ -473,7 +503,7 @@ containing a file name, or None.</p></li>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
     </div>
   </body>
 </html>

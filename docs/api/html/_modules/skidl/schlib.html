@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
     <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -96,6 +96,7 @@
 <span class="sd">    Args:</span>
 <span class="sd">        filename: The name of the library file.</span>
 <span class="sd">        tool: The format of the library file (e.g., KICAD).</span>
+<span class="sd">        lib_section: The section of the library to access (for SPICE, only).</span>
 
 <span class="sd">    Keyword Args:</span>
 <span class="sd">        attribs: Key/value pairs of attributes to add to the library.</span>
@@ -103,6 +104,7 @@
 
     <span class="c1"># Keep a dict of filenames and their associated SchLib object</span>
     <span class="c1"># for fast loading of libraries.</span>
+    <span class="c1"># TODO: Find a way to retain the cache between invocations of SKiDL and only update new changed libraries.</span>
     <span class="n">_cache</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_section</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
@@ -134,7 +136,7 @@
 
         <span class="c1"># Otherwise, load from a schematic library file.</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">tool_modules</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="c1"># Use the tool name to find the function for loading the library.</span>
                 <span class="n">tool_modules</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span><span class="o">.</span><span class="n">load_sch_lib</span><span class="p">(</span>
                     <span class="bp">self</span><span class="p">,</span>
@@ -142,16 +144,15 @@
                     <span class="n">skidl</span><span class="o">.</span><span class="n">lib_search_paths</span><span class="p">[</span><span class="n">tool</span><span class="p">],</span>
                     <span class="n">lib_section</span><span class="o">=</span><span class="n">lib_section</span><span class="p">,</span>
                 <span class="p">)</span>
-            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+                <span class="c1"># Cache a reference to the library.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
+            <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># OK, that didn&#39;t work so well...</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
                     <span class="s2">&quot;Unsupported ECAD tool library: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">),</span>
                 <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
-                <span class="c1"># Cache a reference to the library.</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of the part names in this library as a string.&quot;&quot;&quot;</span>
@@ -318,7 +319,8 @@
 
         <span class="n">file_</span> <span class="o">=</span> <span class="n">file_</span> <span class="ow">or</span> <span class="p">(</span><span class="n">libname</span> <span class="o">+</span> <span class="n">lib_suffixes</span><span class="p">[</span><span class="n">tool</span><span class="p">])</span>
 
-        <span class="n">export_str</span> <span class="o">=</span> <span class="s2">&quot;from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+        <span class="n">export_str</span> <span class="o">=</span> <span class="s2">&quot;from collections import defaultdict</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">export_str</span> <span class="o">+=</span> <span class="s2">&quot;from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE</span><span class="se">\n\n</span><span class="s2">&quot;</span>
         <span class="n">export_str</span> <span class="o">+=</span> <span class="s2">&quot;SKIDL_lib_version = &#39;0.0.1&#39;</span><span class="se">\n\n</span><span class="s2">&quot;</span>
         <span class="n">part_export_str</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">export</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">])</span>
         <span class="n">export_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> = SchLib(tool=SKIDL).add_parts(*[</span><span class="si">{}</span><span class="s2">])&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -358,7 +360,7 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
@@ -366,7 +368,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
@@ -388,7 +390,7 @@
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
     </div>
   </body>
 </html>

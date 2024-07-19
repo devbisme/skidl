@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
     <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -71,6 +71,7 @@
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+
     <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="k">pass</span>
@@ -95,7 +96,6 @@
     <span class="n">opened</span><span class="p">,</span>
     <span class="n">reset_get_unique_name</span><span class="p">,</span>
 <span class="p">)</span>
-
 
 
 <span class="n">HIER_SEP</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>  <span class="c1"># Separator for hierarchy labels.</span>
@@ -137,7 +137,7 @@
     <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">stuff</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add Parts, Nets, Buses, and Interfaces to the circuit.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_stuff</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">)</span>
-    
+
     <span class="k">def</span> <span class="fm">__isub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">stuff</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove Parts, Nets, Buses, and Interfaces from the circuit.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rmv_stuff</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">)</span>
@@ -150,7 +150,7 @@
 
     <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
         <span class="n">builtins</span><span class="o">.</span><span class="n">default_circuit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit_stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-    
+
 <div class="viewcode-block" id="Circuit.mini_reset">
 <a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.mini_reset">[docs]</a>
     <span class="k">def</span> <span class="nf">mini_reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -196,6 +196,7 @@
 
         <span class="k">try</span><span class="p">:</span>
             <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">skidl</span>
+
             <span class="n">config</span> <span class="o">=</span> <span class="n">skidl</span><span class="o">.</span><span class="n">config</span>
         <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
             <span class="c1"># For Python 2. Always gotta be different...</span>
@@ -206,7 +207,7 @@
 
         <span class="c1"># Also clear any cached libraries.</span>
         <span class="n">SchLib</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        
+
         <span class="c1"># Clear out any old backup lib so the new one will get reloaded when it&#39;s needed.</span>
         <span class="n">config</span><span class="o">.</span><span class="n">backup_lib</span> <span class="o">=</span> <span class="kc">None</span></div>
 
@@ -777,8 +778,26 @@
 
 <div class="viewcode-block" id="Circuit.generate_netlistsvg_skin">
 <a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.generate_netlistsvg_skin">[docs]</a>
-    <span class="k">def</span> <span class="nf">generate_netlistsvg_skin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net_stubs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate the skin file of symbols for use by netlistsvg.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">generate_netlistsvg_skin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net_stubs</span><span class="p">,</span> <span class="n">layout_options</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Generate SVG for schematic symbols for netlistsvg skin file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            net_stubs (list): List of nets that are stubbed rather than routed.</span>
+<span class="sd">            layout_options (str, optional): String of ELK layout options. Defaults to None.</span>
+<span class="sd">                                            https://eclipse.dev/elk/reference/options.html</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: SVG for skin file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">default_layout_options</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers=&quot;5&quot;</span>
+<span class="s2">                org.eclipse.elk.layered.compaction.postCompaction.strategy=&quot;4&quot;</span>
+<span class="s2">                org.eclipse.elk.spacing.nodeNode=&quot;50&quot;</span>
+<span class="s2">                org.eclipse.elk.direction=&quot;DOWN&quot;</span>
+<span class="s2">            &quot;&quot;&quot;</span>
+
+        <span class="n">layout_options</span> <span class="o">=</span> <span class="n">layout_options</span> <span class="ow">or</span> <span class="n">default_layout_options</span>
 
         <span class="c1"># Generate the SVG for each part in the required transformations.</span>
         <span class="n">part_svg</span> <span class="o">=</span> <span class="p">{}</span>
@@ -796,11 +815,21 @@
                 <span class="n">symbol_name</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">name</span>
 
             <span class="c1"># Get the global transformation for the part symbol.</span>
-            <span class="n">global_symtx</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;symtx&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="c1"># Get the transformation for each part unit.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># If there is only a single unit, then that unit is the same as the part.</span>
+                <span class="c1"># Therefore, ignore the global transformation for the part since we&#39;ll</span>
+                <span class="c1"># pick it up from the unit transformation instead.</span>
+                <span class="n">global_symtx</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If there are zero units or more than one unit, then use the</span>
+                <span class="c1"># global transformation for the part or apply it to the units.</span>
+                <span class="n">global_symtx</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;symtx&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Get the transformation for each part unit (if any).</span>
             <span class="n">unit_symtx</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s2">&quot;&quot;</span><span class="p">])</span>
             <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
                 <span class="n">unit_symtx</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="s2">&quot;symtx&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+
             <span class="c1"># Each combination of global + unit transformation is one of</span>
             <span class="c1"># the total transformations needed for the part.</span>
             <span class="n">total_symtx</span> <span class="o">=</span> <span class="p">[</span><span class="n">global_symtx</span> <span class="o">+</span> <span class="n">u_symtx</span> <span class="k">for</span> <span class="n">u_symtx</span> <span class="ow">in</span> <span class="n">unit_symtx</span><span class="p">]</span>
@@ -824,76 +853,72 @@
             <span class="s1">&#39;    constants=&quot;false&quot;&#39;</span><span class="p">,</span>
             <span class="s1">&#39;    splitsAndJoins=&quot;false&quot;&#39;</span><span class="p">,</span>
             <span class="s1">&#39;    genericsLaterals=&quot;true&quot;&gt;&#39;</span><span class="p">,</span>
-            <span class="s2">&quot;    &lt;s:layoutEngine&quot;</span><span class="p">,</span>
-            <span class="s1">&#39;        org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers=&quot;5&quot;&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;        org.eclipse.elk.layered.compaction.postCompaction.strategy=&quot;4&quot;&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;        org.eclipse.elk.spacing.nodeNode= &quot;50&quot;&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;        org.eclipse.elk.direction=&quot;DOWN&quot;/&gt;&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;    &lt;s:layoutEngine </span><span class="si">{layout_options}</span><span class="s2"> /&gt;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  &lt;/s:properties&gt;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;&lt;style&gt;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;svg {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;svg {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  stroke: #000;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  fill: none;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  stroke-linejoin: round;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  stroke-linecap: round;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;text {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;text {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  fill: #000;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  stroke: none;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  font-size: 10px;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  font-weight: bold;&quot;</span><span class="p">,</span>
             <span class="s1">&#39;  font-family: &quot;Courier New&quot;, monospace;&#39;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;.skidl_text {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.skidl_text {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  fill: #999;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  stroke: none;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  font-weight: bold;&quot;</span><span class="p">,</span>
             <span class="s1">&#39;  font-family: consolas, &quot;Courier New&quot;, monospace;&#39;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;.pin_num_text {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.pin_num_text {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;    fill: #840000;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;.pin_name_text {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.pin_name_text {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;    fill: #008484;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;.net_name_text {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.net_name_text {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;    font-style: italic;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;    fill: #840084;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;.part_text {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.part_text {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;    fill: #840000;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;.part_ref_text {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.part_ref_text {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;    fill: #008484;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;.part_name_text {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.part_name_text {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;    fill: #008484;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;.pen_fill {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.pen_fill {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;    fill: #840000;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;.background_fill {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.background_fill {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;    fill: #FFFFC2&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;.nodelabel {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.nodelabel {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  text-anchor: middle;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;.inputPortLabel {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.inputPortLabel {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  text-anchor: end;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;.splitjoinBody {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.splitjoinBody {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  fill: #000;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;.symbol {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.symbol {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  stroke-linejoin: round;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  stroke-linecap: round;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  stroke: #840000;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;.detail {&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.detail {{&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  stroke-linejoin: round;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  stroke-linecap: round;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;  fill: #000;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;}}&quot;</span><span class="p">,</span>
             <span class="s2">&quot;&lt;/style&gt;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;&lt;!-- signal --&gt;&quot;</span><span class="p">,</span>
@@ -936,11 +961,11 @@
             <span class="s2">&quot;&lt;!-- builtin --&gt;&quot;</span><span class="p">,</span>
         <span class="p">]</span>
 
-        <span class="n">tail_svg</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">&quot;&lt;/svg&gt;&quot;</span><span class="p">,</span>
-        <span class="p">]</span>
+        <span class="n">head_svg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">head_svg</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+        <span class="n">part_svg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">part_svg</span><span class="p">)</span>
+        <span class="n">tail_svg</span> <span class="o">=</span> <span class="s2">&quot;&lt;/svg&gt;&quot;</span>
 
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">head_svg</span> <span class="o">+</span> <span class="n">part_svg</span> <span class="o">+</span> <span class="n">tail_svg</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">head_svg</span><span class="p">,</span> <span class="n">part_svg</span><span class="p">,</span> <span class="n">tail_svg</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="Circuit.get_net_nc_stubs">
@@ -961,10 +986,18 @@
 
 <div class="viewcode-block" id="Circuit.generate_svg">
 <a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.generate_svg">[docs]</a>
-    <span class="k">def</span> <span class="nf">generate_svg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">generate_svg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">layout_options</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create an SVG file displaying the circuit schematic and</span>
 <span class="sd">        return the dictionary that can be displayed by netlistsvg.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            file_ (_type_, optional): Filename to store SVG. Defaults to None.</span>
+<span class="sd">            tool (_type_, optional): Backend tool. Defaults to None.</span>
+<span class="sd">            layout_options (_type_, optional): Options to control netlistsvg/ELK layout algorithm. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: JSON dictionary for input to netlistsvg.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">skidl</span>
@@ -1026,16 +1059,25 @@
         <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
 
             <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">attached_to</span><span class="p">(</span><span class="n">net_stubs</span><span class="p">):</span>
+                <span class="c1"># If the part is attached to any net stubs, it will require</span>
+                <span class="c1"># an individualized symbol in the netlistsvg skin file.</span>
+                <span class="c1"># Give it a unique symbol name so it can be found later.</span>
                 <span class="n">part_name</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span>
             <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Otherwise, no net stubs so use the name of the</span>
+                <span class="c1"># generic symbol for this part.</span>
                 <span class="n">part_name</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">name</span>
 
             <span class="n">part_symtx</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;symtx&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="n">units</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">units</span><span class="p">:</span>
-                <span class="n">units</span> <span class="o">=</span> <span class="p">[</span>
-                    <span class="n">part</span><span class="p">,</span>
-                <span class="p">]</span>
+
+            <span class="c1"># Get a list of the units in the part.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># If there are no units, then use the part itself as a unit.</span>
+                <span class="c1"># If there is only one unit, then that unit is just the part itself, so use it.</span>
+                <span class="n">units</span> <span class="o">=</span> <span class="p">[</span><span class="n">part</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">units</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+
             <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">units</span><span class="p">:</span>
 
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">unit</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
@@ -1105,7 +1147,11 @@
 
             <span class="n">skin_file</span> <span class="o">=</span> <span class="n">file_basename</span> <span class="o">+</span> <span class="s2">&quot;_skin.svg&quot;</span>
             <span class="k">with</span> <span class="n">opened</span><span class="p">(</span><span class="n">skin_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generate_netlistsvg_skin</span><span class="p">(</span><span class="n">net_stubs</span><span class="o">=</span><span class="n">net_stubs</span><span class="p">))</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">generate_netlistsvg_skin</span><span class="p">(</span>
+                        <span class="n">net_stubs</span><span class="o">=</span><span class="n">net_stubs</span><span class="p">,</span> <span class="n">layout_options</span><span class="o">=</span><span class="n">layout_options</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
 
             <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
                 <span class="p">[</span><span class="s2">&quot;netlistsvg&quot;</span><span class="p">,</span> <span class="n">json_file</span><span class="p">,</span> <span class="s2">&quot;--skin&quot;</span><span class="p">,</span> <span class="n">skin_file</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">svg_file</span><span class="p">],</span>
@@ -1340,7 +1386,7 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
@@ -1348,7 +1394,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
@@ -1370,7 +1416,7 @@
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
     </div>
   </body>
 </html>

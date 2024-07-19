@@ -155,7 +155,7 @@ Here are some of the features SKiDL brings to electronic design:</p>
 <li>Makes possible the creation of <em>smart circuit modules</em> whose behavior / structure are changed parametrically
   (think about filters whose component values are automatically adjusted based on your
   desired cutoff frequency).</li>
-<li>Can work with any ECAD tool (only two methods are needed: one for reading the part libraries and another
+<li>Can work with any ECAD tool (for basic use, only two methods are needed: one for reading the part libraries and another
   for outputing the correct netlist format).</li>
 <li>Takes advantage of all the benefits of the Python ecosystem (because it <em>is</em> Python).</li>
 <li>Free software: MIT license.</li>
@@ -182,7 +182,7 @@ takes an input voltage, divides it by three, and outputs it:</p>
 <span class="c1"># vin &amp;&amp; r1 &amp;&amp; vout &amp;&amp; r2 &amp;&amp; gnd</span>
 
 <span class="c1"># Output the netlist to a file.</span>
-<span class="n">generate_netlist</span><span class="p">()</span>
+<span class="n">generate_netlist</span><span class="p">(</span><span class="n">tool</span><span class="o">=</span><span class="n">KICAD8</span><span class="p">)</span>
 </code></pre></div>
 
 <p>And this is the netlist output that is passed to <code>PCBNEW</code> to
@@ -233,7 +233,7 @@ For Windows, do this:</p>
 </code></pre></div>
 
 <p>And for linux-type OSes, define the environment variable in your <code>.bashrc</code> like so:</p>
-<div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="n">KICAD_SYMBOL_DIR</span><span class="o">=</span><span class="s2">&quot;/usr/share/kicad/library&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KICAD_SYMBOL_DIR</span><span class="o">=</span><span class="s2">&quot;/usr/share/kicad/library&quot;</span>
 </code></pre></div>
 
 <p><strong>These paths are OS-dependent</strong>, so launch KiCAD and click <code>Preferences-&gt;Configure Paths</code>
@@ -1452,7 +1452,11 @@ By default, SKiDL finds the libraries provided by KiCad (using the <code>KICAD_S
 environment variable), so if that's all you need then you're all set.</p>
 <p>Currently, SKiDL supports the library formats for the following ECAD tools:</p>
 <ul>
-<li><code>KICAD</code>: KiCad schematic part libraries.</li>
+<li><code>KICAD5</code>: Schematic part libraries for KiCad version 5.</li>
+<li><code>KICAD6</code>: Schematic part libraries for KiCad version 6.</li>
+<li><code>KICAD7</code>: Schematic part libraries for KiCad version 7.</li>
+<li><code>KICAD8</code>: Schematic part libraries for KiCad version 8.</li>
+<li><code>KICAD</code>: Generic KiCad schematic part libraries that currently mirrors <code>KICAD5</code>.</li>
 <li><code>SKIDL</code>: Schematic parts stored as SKiDL/Python modules.</li>
 </ul>
 <p>You may set the default library format you want to use in your SKiDL script like so:</p>
@@ -1467,9 +1471,7 @@ environment variable), so if that's all you need then you're all set.</p>
 </code></pre></div>
 
 <p>You may also access libraries stored in online repositories just by placing their
-URL in the list of libraries.
-(KiCad V6 symbols are found at <code>https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master</code>
-and V5 symbols are at <code>https://raw.githubusercontent.com/KiCad/kicad-symbols/master/</code>.)</p>
+URL in the list of libraries:</p>
 <div class="highlight"><pre><span></span><code><span class="n">lib_search_paths</span><span class="p">[</span><span class="n">KICAD</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master&#39;</span><span class="p">)</span>
 </code></pre></div>
 

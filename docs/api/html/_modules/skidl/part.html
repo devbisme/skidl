@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
     <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -836,7 +836,9 @@
         <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
             <span class="k">assert</span> <span class="n">pin</span><span class="o">.</span><span class="n">part</span> <span class="o">==</span> <span class="bp">self</span>
         <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="n">unit</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span></div>
+            <span class="c1"># A Part can be a unit of itself, so don&#39;t validate it to avoid infinite recursion.</span>
+            <span class="k">if</span> <span class="n">unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="n">unit</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Part.copy_units">
@@ -845,12 +847,19 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Make copies of the units from the source part.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Remove references to any existing units.</span>
         <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">src</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="c1"># Get the pin numbers from the unit in the source part.</span>
-            <span class="n">pin_nums</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">num</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">unit</span><span class="o">.</span><span class="n">pins</span><span class="p">]</span>
-
-            <span class="c1"># Make a unit in the part copy with the same pin numbers.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">make_unit</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_nums</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">num</span></div>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">PartUnit</span><span class="p">):</span>
+                <span class="c1"># Get the pin numbers from the unit in the source part</span>
+                <span class="c1"># and make a unit in the part copy with the same pin numbers.</span>
+                <span class="n">pin_nums</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">num</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">unit</span><span class="o">.</span><span class="n">pins</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">make_unit</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_nums</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="o">.</span><span class="n">num</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">Part</span><span class="p">):</span>
+                <span class="c1"># A Part can be a unit of itself, so it requires special handling.</span>
+                <span class="k">assert</span> <span class="nb">id</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span> <span class="o">==</span> <span class="nb">id</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">num</span>
+                <span class="n">add_unique_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Illegal unit type (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">unit</span><span class="p">)))</span></div>
 
 
 <div class="viewcode-block" id="Part.add_pins">
@@ -952,6 +961,9 @@
         <span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
         <span class="kn">from</span> <span class="nn">.netpinlist</span> <span class="kn">import</span> <span class="n">NetPinList</span>
 
+        <span class="c1"># Extract option for suppressing error messages.</span>
+        <span class="n">silent</span> <span class="o">=</span> <span class="n">criteria</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;silent&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
         <span class="c1"># Extract restrictions on searching for only pin names or numbers.</span>
         <span class="n">only_search_numbers</span> <span class="o">=</span> <span class="n">criteria</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;only_search_numbers&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="n">only_search_names</span> <span class="o">=</span> <span class="n">criteria</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;only_search_names&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
@@ -1024,7 +1036,7 @@
                     <span class="k">continue</span>
 
         <span class="c1"># Log an error if no pins were selected using the pin ids.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">pins</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pins</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">silent</span><span class="p">:</span>
             <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
                 <span class="s2">&quot;No pins found using </span><span class="si">{self.ref}</span><span class="s2">[</span><span class="si">{pin_ids}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
             <span class="p">)</span>
@@ -1150,12 +1162,21 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">[</span><span class="n">label</span><span class="p">]</span></div>
 
+    
+<div class="viewcode-block" id="Part.rmv_unit">
+<a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.rmv_unit">[docs]</a>
+    <span class="k">def</span> <span class="nf">rmv_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove a PartUnit from a Part.&quot;&quot;&quot;</span>
+        <span class="nb">delattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">[</span><span class="n">label</span><span class="p">]</span></div>
+
 
 <div class="viewcode-block" id="Part.grab_pins">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.grab_pins">[docs]</a>
     <span class="k">def</span> <span class="nf">grab_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Grab pins back from PartUnits.&quot;&quot;&quot;</span>
 
+        <span class="c1"># Make each unit release its pins back to the part that contains it.</span>
         <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">unit</span><span class="o">.</span><span class="n">release_pins</span><span class="p">()</span></div>
 
@@ -1205,6 +1226,12 @@
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.export">[docs]</a>
     <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a string to recreate a Part object.&quot;&quot;&quot;</span>
+
+        <span class="c1"># Make sure the part is fully instantiated. Otherwise, attributes like</span>
+        <span class="c1"># pins may be missing because they haven&#39;t been parsed from the part definition.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
+
+        <span class="c1"># Get the names of fields to export.</span>
         <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fields</span><span class="p">()</span>
         <span class="n">keys</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
             <span class="p">(</span>
@@ -1215,12 +1242,28 @@
                 <span class="s2">&quot;aliases&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;pin&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;footprint&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;draw_cmds&quot;</span><span class="p">,</span> <span class="c1"># Add it to make sure removal doesn&#39;t cause an error.</span>
             <span class="p">)</span>
         <span class="p">)</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="c1"># Remove duplicates.</span>
+        <span class="n">keys</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;draw_cmds&quot;</span><span class="p">)</span> <span class="c1"># Don&#39;t export drawing commands.</span>
+
+        <span class="c1"># TODO: Implement export of units. Or don&#39;t allow a Part to be a unit of itself.</span>
+        <span class="c1"># Remove units because having a Part as a unit causes an error.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">unit_label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">:</span>
+                <span class="n">keys</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">unit_label</span><span class="p">)</span>
+            <span class="n">keys</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;unit&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># Export the part as a SKiDL template.</span>
         <span class="n">attribs</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39;:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)))</span>
         <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;dest&#39;:TEMPLATE&quot;</span><span class="p">)</span>
         <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;tool&#39;:SKIDL&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Collect all the part attributes and the list of pins as Python code.</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
             <span class="n">v</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39;:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">v</span><span class="p">)))</span>
@@ -1229,6 +1272,7 @@
             <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;pins&#39;:[</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pin_strs</span><span class="p">)))</span>
 
         <span class="c1"># Return the string after removing all the non-ascii stuff (like ohm symbols).</span>
+        <span class="c1"># This string is a Part instantiation with parameters that will create the part when executed.</span>
         <span class="k">return</span> <span class="s2">&quot;Part(**{{ </span><span class="si">{}</span><span class="s2"> }})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">attribs</span><span class="p">))</span></div>
 
 
@@ -1407,6 +1451,8 @@
 
 <span class="sd">    Parts can be organized into smaller pieces called PartUnits. A PartUnit</span>
 <span class="sd">    acts like a Part but contains only a subset of the pins of the Part.</span>
+<span class="sd">    Except for the pins, the PartUnit is a shallow copy of the Part and</span>
+<span class="sd">    cannot store any other unique data.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        part: This is the parent Part whose pins the PartUnit is built from.</span>
@@ -1456,6 +1502,9 @@
         <span class="c1"># pins selected from the parent.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pins</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_pins_from_parent</span><span class="p">(</span><span class="o">*</span><span class="n">pin_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">)</span>
+        <span class="c1"># Add pins from global unit.</span>
+        <span class="c1"># TODO: KiCad uses unit 0 for global unit. What about other tools?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_pins_from_parent</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return attribute from parent Part if it wasn&#39;t found in the PartUnit.&quot;&quot;&quot;</span>
@@ -1570,7 +1619,7 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
@@ -1578,7 +1627,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
@@ -1600,7 +1649,7 @@
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
     </div>
   </body>
 </html>
