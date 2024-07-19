@@ -4,6 +4,13 @@ History
 -------
 
 
+1.2.2 (2024-07-13)
+______________________
+- Added SVG schematic generation feature for KiCad 6, 7, and 8.
+- Added backend tool identifiers of `KICAD5`, `KICAD6`, `KICAD7`, and `KICAD8`.
+- For compatibility, `KICAD` tool identifier points to `KICAD5`.
+
+
 1.2.1 (2023-07-26)
 ______________________
 - `is_url` function fixed to solve problems with `search` and loading libraries.

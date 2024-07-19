@@ -107,7 +107,7 @@ Here are some of the features SKiDL brings to electronic design:
 * Makes possible the creation of *smart circuit modules* whose behavior / structure are changed parametrically
   (think about filters whose component values are automatically adjusted based on your
   desired cutoff frequency).
-* Can work with any ECAD tool (only two methods are needed: one for reading the part libraries and another
+* Can work with any ECAD tool (for basic use, only two methods are needed: one for reading the part libraries and another
   for outputing the correct netlist format).
 * Takes advantage of all the benefits of the Python ecosystem (because it *is* Python).
 * Free software: MIT license.
@@ -136,7 +136,7 @@ vout += r1[2], r2[1] # Output comes from the connection of the two resistors.
 # vin && r1 && vout && r2 && gnd
 
 # Output the netlist to a file.
-generate_netlist()
+generate_netlist(tool=KICAD8)
 ```
 
 And this is the netlist output that is passed to `PCBNEW` to
@@ -196,7 +196,7 @@ set KICAD_SYMBOL_DIR=C:\Program Files\KiCad\share\kicad\kicad-symbols
 
 And for linux-type OSes, define the environment variable in your `.bashrc` like so:
 
-```
+```bash
 export KICAD_SYMBOL_DIR="/usr/share/kicad/library"
 ```
 
@@ -1706,7 +1706,11 @@ environment variable), so if that's all you need then you're all set.
 
 Currently, SKiDL supports the library formats for the following ECAD tools:
 
-* `KICAD`: KiCad schematic part libraries.
+* `KICAD5`: Schematic part libraries for KiCad version 5.
+* `KICAD6`: Schematic part libraries for KiCad version 6.
+* `KICAD7`: Schematic part libraries for KiCad version 7.
+* `KICAD8`: Schematic part libraries for KiCad version 8.
+* `KICAD`: Generic KiCad schematic part libraries that currently mirrors `KICAD5`.
 * `SKIDL`: Schematic parts stored as SKiDL/Python modules.
 
 You may set the default library format you want to use in your SKiDL script like so:
@@ -1725,9 +1729,7 @@ lib_search_paths[KICAD].append('C:\\my\\kicad\\libs')
 ```
 
 You may also access libraries stored in online repositories just by placing their
-URL in the list of libraries.
-(KiCad V6 symbols are found at `https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master`
-and V5 symbols are at `https://raw.githubusercontent.com/KiCad/kicad-symbols/master/`.)
+URL in the list of libraries:
 
 ```py
 lib_search_paths[KICAD].append('https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master')
