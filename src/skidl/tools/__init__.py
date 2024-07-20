@@ -6,22 +6,9 @@
 This package contains the handler functions for various EDA tools.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import os
 import os.path
 import sys
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 
 # List of all supported ECAD tools.
@@ -71,4 +58,4 @@ for module_name in os.listdir(directory):
     lib_suffixes[tool_name] = lib_suffix
 
 # TODO: This is a temporary fix to make the tests pass.
-setattr(sys.modules["skidl"], "KICAD", 'kicad5')
+setattr(sys.modules["skidl"], "KICAD", "kicad5")

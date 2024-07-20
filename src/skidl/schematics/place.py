@@ -6,27 +6,13 @@
 Autoplacer for arranging symbols in a schematic.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import functools
 import itertools
 import math
 import random
 import sys
-from builtins import range, zip
-from collections import Counter, defaultdict
+from collections import defaultdict
 from copy import copy
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from skidl import Pin
 from skidl.utilities import export_to_all, rmv_attr, sgn

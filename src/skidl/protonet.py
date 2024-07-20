@@ -6,28 +6,12 @@
 Prototype of a net which can become a Net or a Bus depending upon what is connected to it.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-from builtins import range, super
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
 from .logger import active_logger
 from .net import Net
 from .network import Network
 from .pin import Pin
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import expand_buses, export_to_all, flatten
-
 
 
 @export_to_all

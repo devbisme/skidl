@@ -6,22 +6,9 @@
 Generate KiCad 5 XML.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import os.path
 import time
 import os
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from skidl.pckg_info import __version__
 from skidl.scriptinfo import get_script_name, scriptinfo
@@ -29,7 +16,6 @@ from skidl.utilities import add_quotes, export_to_all, find_and_open_file, rmv_a
 from skidl.logger import active_logger
 from skidl.part import LIBRARY
 from skidl.utilities import export_to_all, find_and_read_file, num_to_chars, rmv_quotes
-
 
 
 def gen_xml_comp(part):

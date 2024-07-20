@@ -6,24 +6,9 @@
 Handles nets.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import collections
 import re
-from builtins import range, super
 from copy import copy, deepcopy
-
-try:
-    from future import standard_library
-
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from .erc import dflt_net_erc
 from .logger import active_logger
@@ -372,8 +357,8 @@ class Net(SkidlBaseObject):
 
             # Deep copy attributes from the source net to the copy.
             # Skip some attributes that would cause an infinite recursion exception.
-            for k,v in self.__dict__.items():
-                if k not in ['circuit', 'traversal']:
+            for k, v in self.__dict__.items():
+                if k not in ["circuit", "traversal"]:
                     setattr(cpy, k, deepcopy(v))
 
             # Add other attributes to the net copy.

@@ -6,26 +6,12 @@
 Generate KiCad 5 netlist.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import os.path
 import time
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from skidl.pckg_info import __version__
 from skidl.scriptinfo import scriptinfo
 from skidl.utilities import add_quotes, export_to_all
-
 
 
 def gen_netlist_comp(part):

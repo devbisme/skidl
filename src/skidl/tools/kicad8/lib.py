@@ -6,32 +6,21 @@
 Parsing of Kicad libraries.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import os
-
-# import os.path
-from builtins import int
 from collections import defaultdict, OrderedDict
-
 import sexpdata
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from skidl import Alias
 from skidl.logger import active_logger
 from skidl.part import LIBRARY
 from skidl.schematics.geometry import mils_per_mm, BBox
-from skidl.utilities import export_to_all, find_and_open_file, num_to_chars, to_list, add_unique_attr
+from skidl.utilities import (
+    export_to_all,
+    find_and_open_file,
+    num_to_chars,
+    to_list,
+    add_unique_attr,
+)
 
 
 __all__ = ["lib_suffix"]
@@ -163,7 +152,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
                     properties["ki_description"] = parent_part.description
                     properties["datasheet"] = parent_part.datasheet
 
-                break # At most one extends clause in part def.
+                break  # At most one extends clause in part def.
 
         # Get symbol properties, primarily to get the reference id.
         # Properties are stored as lists: ["property", name, value].
@@ -187,7 +176,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         # Create a Part object and add it to the library object.
         lib.add_parts(
             Part(
-                part_defn=part_defn, # A list of lists that define the part.
+                part_defn=part_defn,  # A list of lists that define the part.
                 tool=KICAD8,
                 dest=LIBRARY,
                 filename=filename,
@@ -229,7 +218,9 @@ def parse_lib_part(part, partial_parse):
 
     part.aliases = Alias()  # Part aliases.
     part.fplist = []  # Footprint list.
-    part.draw_cmds = defaultdict(list)  # Drawing commands for the part and any units, including pins.
+    part.draw_cmds = defaultdict(
+        list
+    )  # Drawing commands for the part and any units, including pins.
 
     # Search for a parent that this part inherits from.
     for item in part.part_defn:
@@ -282,7 +273,7 @@ def parse_lib_part(part, partial_parse):
             break
 
     def parse_pins(symbol, unit):
-        '''Parse the pins within a symbol and add them to the Part object.'''
+        """Parse the pins within a symbol and add them to the Part object."""
 
         # Association between KiCad : SKiDL pin types.
         pin_io_type_translation = {
@@ -346,16 +337,16 @@ def parse_lib_part(part, partial_parse):
 
         # Return true if the symbol had pins.
         return bool(symbol_pins)
-    
+
     def parse_draw_cmds(symbol):
-        '''Return a list of graphic drawing commands contained in the symbol.'''
+        """Return a list of graphic drawing commands contained in the symbol."""
         return [
             item
             for item in symbol
             if item[0].value().lower()
             in ("arc", "bezier", "circle", "pin", "polyline", "rectangle", "text")
         ]
-    
+
     # Parse top-level pins. (Any units with pins are parsed later.)
     top_has_pins = parse_pins(part.part_defn, unit=1)
 
@@ -371,7 +362,9 @@ def parse_lib_part(part, partial_parse):
     # The bool(units) will test for units within this part, while bool(part.unit)
     # will test for units in the part this part is extending.
     # This assertion will check that assumption.
-    assert top_has_pins ^ (bool(units) or bool(part.unit)), "Top-level pins must be present if and only if there are no units."
+    assert top_has_pins ^ (
+        bool(units) or bool(part.unit)
+    ), "Top-level pins must be present if and only if there are no units."
 
     # If there are pins in the top-level part, then the part shouldn't have any units.
     # Therefore, make the part a unit of itself.
@@ -436,7 +429,9 @@ def parse_lib_part(part, partial_parse):
 
     # Populate part fields from symbol properties. Properties will also be included below in drawing commands.
     props = {
-        prop[1].lower(): prop for prop in part.part_defn if prop[0].value().lower() == "property"
+        prop[1].lower(): prop
+        for prop in part.part_defn
+        if prop[0].value().lower() == "property"
     }
     part.ref_prefix = props["reference"][2]
     part.value = props["value"][2]

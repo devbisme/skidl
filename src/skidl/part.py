@@ -6,25 +6,10 @@
 Handles parts.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import functools
 import re
-from builtins import dict, int, object, range, str, super
 from copy import copy
 from random import randint
-
-try:
-    from future import standard_library
-
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from .erc import dflt_part_erc
 from .logger import active_logger
@@ -336,7 +321,9 @@ class Part(SkidlBaseObject):
                 cap = Part("Device", 'C')   # Get a capacitor
                 caps = 10 * cap             # Make an array with 10 copies of it.
         """
-        return self.copy(num_copies=num_copies, dest=dest, circuit=circuit, io=io, **attribs)
+        return self.copy(
+            num_copies=num_copies, dest=dest, circuit=circuit, io=io, **attribs
+        )
 
     def __mul__(self, num_copies):
         if num_copies is None:
@@ -1054,7 +1041,7 @@ class Part(SkidlBaseObject):
         add_unique_attr(self, label, self.unit[label])
 
         return self.unit[label]
-    
+
     def rmv_unit(self, label):
         """Remove a PartUnit from a Part."""
         delattr(self, label)
@@ -1114,11 +1101,11 @@ class Part(SkidlBaseObject):
                 "aliases",
                 "pin",
                 "footprint",
-                "draw_cmds", # Add it to make sure removal doesn't cause an error.
+                "draw_cmds",  # Add it to make sure removal doesn't cause an error.
             )
         )
-        keys = set(keys) # Remove duplicates.
-        keys.remove("draw_cmds") # Don't export drawing commands.
+        keys = set(keys)  # Remove duplicates.
+        keys.remove("draw_cmds")  # Don't export drawing commands.
 
         # TODO: Implement export of units. Or don't allow a Part to be a unit of itself.
         # Remove units because having a Part as a unit causes an error.

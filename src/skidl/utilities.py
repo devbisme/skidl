@@ -6,20 +6,6 @@
 Utility functions used by the rest of SKiDL.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
-
 import collections
 import os
 import os.path
@@ -28,7 +14,6 @@ import sys
 import traceback
 import urllib.parse
 import urllib.request
-from builtins import chr, dict, int, open, range, str, super
 from contextlib import contextmanager
 
 __all__ = ["INDEX_SEPARATOR", "export_to_all"]

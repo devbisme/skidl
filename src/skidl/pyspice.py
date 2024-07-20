@@ -6,19 +6,6 @@
 Import this file to reconfigure SKiDL for doing SPICE simulations.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
 from .bus import Bus
 from .group import subcircuit
 from .logger import active_logger

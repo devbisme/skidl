@@ -5,27 +5,13 @@
 """
 Routines for getting information about a script.
 """
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 import inspect
 import os
 import sys
 import traceback
-from builtins import str
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from .utilities import export_to_all
-
 
 
 @export_to_all

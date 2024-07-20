@@ -6,22 +6,7 @@
 Class and decorator to handle hierarchical grouping of circuit parts and nets..
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import functools
-from builtins import str
-from collections import Counter
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from .utilities import export_to_all
 

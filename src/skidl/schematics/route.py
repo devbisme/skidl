@@ -6,26 +6,12 @@
 Autorouter for generating wiring between symbols in a schematic.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import copy
 import random
 import sys
-from builtins import range, super, zip
 from collections import Counter, defaultdict
 from enum import Enum
-from itertools import chain, product, zip_longest
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
+from itertools import chain, zip_longest
 
 from skidl import Part
 from skidl.utilities import export_to_all, rmv_attr

@@ -6,23 +6,9 @@
 Functions for finding/displaying parts and footprints.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import os
 import os.path
 import re
-from builtins import open, super
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from .logger import active_logger
 from .utilities import export_to_all, fullmatch, rmv_quotes, to_list

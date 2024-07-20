@@ -2,21 +2,7 @@
 
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import sys
-from builtins import open
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from .circuit import Circuit
 from .common import builtins
@@ -91,6 +77,7 @@ POWER = Pin.drives.POWER
 def get_default_tool():
     """Get the ECAD tool that will be used by default."""
     return config.tool
+
 
 @export_to_all
 def set_default_tool(tool):

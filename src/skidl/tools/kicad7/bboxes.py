@@ -6,23 +6,7 @@
 Calculate bounding boxes for part symbols and hierarchical sheets.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-from builtins import range, str
-import os
-from builtins import int, range, zip
 from collections import namedtuple
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from skidl.logger import active_logger
 from skidl.schematics.geometry import (
@@ -40,7 +24,6 @@ from skidl.schematics.geometry import (
 from skidl.utilities import export_to_all
 from .constants import HIER_TERM_SIZE, PIN_LABEL_FONT_SIZE
 from skidl.schematics.geometry import BBox, Point, Tx, Vector
-
 
 
 @export_to_all
@@ -94,7 +77,7 @@ def calc_symbol_bbox(part, **options):
                 height = obj.size
 
                 # Create bbox with lower-left point at (0, 0).
-                bbox = BBox(Point(0,0), Point(length, height))
+                bbox = BBox(Point(0, 0), Point(length, height))
 
                 # Rotate bbox around origin.
                 rot_tx = {"H": Tx(), "V": tx_rot_90}[obj.orientation.upper()]
@@ -107,27 +90,31 @@ def calc_symbol_bbox(part, **options):
                 elif halign == "R":
                     bbox *= Tx().move(Point(-bbox.w, 0))
                 elif halign == "C":
-                    bbox *= Tx().move(Point(-bbox.w/2, 0))
+                    bbox *= Tx().move(Point(-bbox.w / 2, 0))
                 else:
-                    raise Exception("Inconsistent horizontal alignment: {}".format(halign))
+                    raise Exception(
+                        "Inconsistent horizontal alignment: {}".format(halign)
+                    )
 
                 # Vertically align bbox.
-                valign = obj.valign[:1].upper() # valign is first letter.
+                valign = obj.valign[:1].upper()  # valign is first letter.
                 if valign == "B":
                     pass
                 elif valign == "T":
                     bbox *= Tx().move(Point(0, -bbox.h))
                 elif valign == "C":
-                    bbox *= Tx().move(Point(0, -bbox.h/2))
+                    bbox *= Tx().move(Point(0, -bbox.h / 2))
                 else:
-                    raise Exception("Inconsistent vertical alignment: {}".format(valign))
-                
+                    raise Exception(
+                        "Inconsistent vertical alignment: {}".format(valign)
+                    )
+
                 bbox *= Tx().move(Point(obj.x, obj.y))
                 obj_bbox.add(bbox)
 
             elif obj_type == "value" and not options.get("graphics_only", False):
                 raise NotImplementedError
-            
+
                 # Skip if the object is invisible.
                 if obj.visibility.upper() == "I":
                     continue
@@ -139,7 +126,7 @@ def calc_symbol_bbox(part, **options):
                 height = obj.size
 
                 # Create bbox with lower-left point at (0, 0).
-                bbox = BBox(Point(0,0), Point(length, height))
+                bbox = BBox(Point(0, 0), Point(length, height))
 
                 # Rotate bbox around origin.
                 rot_tx = {"H": Tx(), "V": tx_rot_90}[obj.orientation.upper()]
@@ -152,21 +139,25 @@ def calc_symbol_bbox(part, **options):
                 elif halign == "R":
                     bbox *= Tx().move(Point(-bbox.w, 0))
                 elif halign == "C":
-                    bbox *= Tx().move(Point(-bbox.w/2, 0))
+                    bbox *= Tx().move(Point(-bbox.w / 2, 0))
                 else:
-                    raise Exception("Inconsistent horizontal alignment: {}".format(halign))
+                    raise Exception(
+                        "Inconsistent horizontal alignment: {}".format(halign)
+                    )
 
                 # Vertically align bbox.
-                valign = obj.valign[:1].upper() # valign is first letter.
+                valign = obj.valign[:1].upper()  # valign is first letter.
                 if valign == "B":
                     pass
                 elif valign == "T":
                     bbox *= Tx().move(Point(0, -bbox.h))
                 elif valign == "C":
-                    bbox *= Tx().move(Point(0, -bbox.h/2))
+                    bbox *= Tx().move(Point(0, -bbox.h / 2))
                 else:
-                    raise Exception("Inconsistent vertical alignment: {}".format(valign))
-                
+                    raise Exception(
+                        "Inconsistent vertical alignment: {}".format(valign)
+                    )
+
                 bbox *= Tx().move(Point(obj.x, obj.y))
                 obj_bbox.add(bbox)
 

@@ -6,27 +6,13 @@
 Handles part pins.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import random
 import re
 import sys
-from builtins import range, super
 from collections import defaultdict
 from copy import copy
 from enum import IntEnum
 from functools import total_ordering
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from .logger import active_logger
 from .skidlbaseobj import ERROR, OK, WARNING, SkidlBaseObject
@@ -41,7 +27,6 @@ from .utilities import (
     set_iadd,
     to_list,
 )
-
 
 
 @export_to_all

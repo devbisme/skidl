@@ -6,25 +6,9 @@
 Handler for reading SKiDL libraries.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-from builtins import str
 import os.path
 
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
-
 from skidl.utilities import export_to_all
-
 
 
 # These aren't used here, but they are used in modules
@@ -51,7 +35,7 @@ def default_lib_paths():
 def get_fp_lib_tbl_dir():
     """Get the path to where the global fp-lib-table file is found."""
 
-    return "" # No global fp-lib-table file for SKiDL.
+    return ""  # No global fp-lib-table file for SKiDL.
 
 
 @export_to_all

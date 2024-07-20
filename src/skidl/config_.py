@@ -6,23 +6,9 @@
 Handles configuration parameters stored in a JSON file.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import collections
 import json
 import os.path
-from builtins import open, super
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from .logger import active_logger
 from .part_query import footprint_cache
@@ -46,7 +32,7 @@ class Config(dict):
             return self[key]
         except KeyError:
             raise AttributeError
-        
+
     def __setattr__(self, key, value):
         """Set the value of both a Config attribute and a Config dictionary entry."""
         self.__dict__[key] = value
@@ -100,7 +86,9 @@ class SkidlConfig(Config):
 
         # If no configuration files were found, set some default part lib search paths.
         if "lib_search_paths" not in self:
-            self["lib_search_paths"] = {tool: tool_modules[tool].default_lib_paths() for tool in ALL_TOOLS}
+            self["lib_search_paths"] = {
+                tool: tool_modules[tool].default_lib_paths() for tool in ALL_TOOLS
+            }
 
         # If no configuration files were found, set base name of default backup part library.
         if "backup_lib_name" not in self:
@@ -114,7 +102,9 @@ class SkidlConfig(Config):
 
         # If no configuration files were found, set some default footprint search paths.
         if "footprint_search_paths" not in self:
-            self["footprint_search_paths"] = {tool: tool_modules[tool].get_fp_lib_tbl_dir() for tool in ALL_TOOLS}
+            self["footprint_search_paths"] = {
+                tool: tool_modules[tool].get_fp_lib_tbl_dir() for tool in ALL_TOOLS
+            }
 
         # Cause the footprint cache to be invalidated if the footprint search path changes.
         def invalidate_footprint_cache(self, k, v):

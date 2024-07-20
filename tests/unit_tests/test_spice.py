@@ -740,7 +740,7 @@ def test_all_parts():
 
 
 @pytest.mark.spice
-@pytest.mark.xfail(raises=(FileNotFoundError))
+# @pytest.mark.xfail(raises=(FileNotFoundError))
 def test_skywater_1():
 
     reset()
@@ -970,7 +970,7 @@ def test_skywater_1():
 
 
 @pytest.mark.spice
-@pytest.mark.xfail(raises=(FileNotFoundError))
+# @pytest.mark.xfail(raises=(FileNotFoundError))
 def test_skywater_2():
 
     reset()

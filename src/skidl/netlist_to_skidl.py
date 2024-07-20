@@ -6,28 +6,11 @@
 Convert a netlist into an equivalent SKiDL program.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import re
-from builtins import int
-from collections import defaultdict
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
 from kinparse import parse_netlist
 
 from .part import TEMPLATE
 from .utilities import export_to_all
-
 
 
 @export_to_all

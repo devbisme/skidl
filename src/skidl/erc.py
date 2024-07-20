@@ -6,24 +6,8 @@
 ERC functions for Circuit, Part, Pin, Net, Bus, Interface objects.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-from builtins import range
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
 from .logger import active_logger
 from .utilities import export_to_all
-
 
 
 @export_to_all

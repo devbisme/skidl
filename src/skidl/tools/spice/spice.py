@@ -6,23 +6,9 @@
 Handler for reading SPICE libraries.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import os.path
 import re
 import sys
-from builtins import dict, int, object, range, str, zip
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from skidl import Alias, Net, LIBRARY, Part, Pin
 from skidl.logger import active_logger
@@ -65,7 +51,7 @@ def default_lib_paths():
 def get_fp_lib_tbl_dir():
     """Get the path to where the global fp-lib-table file is found."""
 
-    return "" # No global fp-lib-table file for SPICE.
+    return ""  # No global fp-lib-table file for SPICE.
 
 
 def _gather_statement(file):

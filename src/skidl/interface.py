@@ -6,21 +6,6 @@
 Handles interfaces for subsystems with complicated I/O.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-from builtins import str, super
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
 from .alias import Alias
 from .bus import Bus
 from .net import Net

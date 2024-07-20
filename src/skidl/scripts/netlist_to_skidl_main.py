@@ -6,29 +6,14 @@
 Command-line program to convert a netlist into an equivalent SKiDL program.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import argparse
 import logging
 import os
 import shutil
 import sys
-from builtins import open
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from skidl.netlist_to_skidl import netlist_to_skidl
 from skidl.pckg_info import __version__
-
 
 
 ###############################################################################

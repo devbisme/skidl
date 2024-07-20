@@ -2,29 +2,14 @@
 
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
-
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import re
 from collections import defaultdict
 from itertools import chain
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from skidl.utilities import export_to_all, rmv_attr
 from .geometry import BBox, Point, Tx, Vector
 from .place import Placer
 from .route import Router
-
 
 
 """
@@ -39,7 +24,15 @@ class Node(Placer, Router):
     filename_sz = 20
     name_sz = 40
 
-    def __init__(self, circuit=None, tool_module=None, filepath=".", top_name="", title="", flatness=0.0):
+    def __init__(
+        self,
+        circuit=None,
+        tool_module=None,
+        filepath=".",
+        top_name="",
+        title="",
+        flatness=0.0,
+    ):
         self.parent = None
         self.children = defaultdict(
             lambda: Node(None, tool_module, filepath, top_name, title, flatness)
@@ -51,7 +44,7 @@ class Node(Placer, Router):
         self.title = title
         self.flatness = flatness
         self.flattened = False
-        self.tool_module = tool_module # Backend tool.
+        self.tool_module = tool_module  # Backend tool.
         self.parts = []
         self.wires = defaultdict(list)
         self.junctions = defaultdict(list)

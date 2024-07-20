@@ -6,21 +6,6 @@
 Specialized list for handling nets, pins, and buses.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-from builtins import range
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
 from .alias import Alias
 from .logger import active_logger
 from .net import Net
@@ -28,7 +13,6 @@ from .network import Network
 from .pin import Pin
 from .protonet import ProtoNet
 from .utilities import expand_buses, export_to_all, flatten, set_iadd
-
 
 
 @export_to_all

@@ -4,6 +4,12 @@ History
 -------
 
 
+2.0.0 (2024-XX-XX)
+______________________
+- No longer compatible with Python 2.
+- `@package` decorator removed.
+
+
 1.2.2 (2024-07-13)
 ______________________
 - Added SVG schematic generation feature for KiCad 6, 7, and 8.

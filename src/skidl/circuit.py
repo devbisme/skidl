@@ -6,19 +6,8 @@
 Handles complete circuits made of parts and nets.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-import functools
 import json
-import re
 import subprocess
-import time
-from builtins import range, str, super
 from collections import Counter, deque
 
 import graphviz

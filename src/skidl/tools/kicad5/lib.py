@@ -6,29 +6,18 @@
 Parsing of Kicad 5 libraries.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-import os
-# import os.path
-from builtins import range
 import os
 import re
-from builtins import int, range, zip
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from skidl.logger import active_logger
 from skidl.part import LIBRARY
-from skidl.utilities import export_to_all, find_and_read_file, find_and_open_file, num_to_chars, rmv_quotes
+from skidl.utilities import (
+    export_to_all,
+    find_and_read_file,
+    find_and_open_file,
+    num_to_chars,
+    rmv_quotes,
+)
 from .draw_objs import *
 
 

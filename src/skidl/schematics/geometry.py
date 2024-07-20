@@ -1,21 +1,9 @@
 # -*- coding: utf-8 -*-
 
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 
 from math import sqrt, sin, cos, radians
 from copy import copy
-
-try:
-    from future import standard_library
-except ImportError:
-    pass
 
 from ..utilities import export_to_all
 
@@ -160,7 +148,7 @@ class Tx:
     def flip_y(self):
         """Return Tx with Y coords flipped around (0, 0)."""
         return self * Tx(d=-1)
-    
+
     def no_translate(self):
         """Return Tx with translation set to (0,0)."""
         return Tx(a=self.a, b=self.b, c=self.c, d=self.d)

@@ -17,18 +17,6 @@ outputs a netlist that can be imported into a PCB layout tool or Spice simulator
 The script can also check the resulting circuitry for electrical rule violations.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from .alias import Alias
 from .bus import Bus
@@ -75,5 +63,4 @@ from .skidl import (
     set_default_tool,
 )
 from .utilities import Rgx
-from . import scripts # Necessary to get access to netlist_to_skidl_main.
-
+from . import scripts  # Necessary to get access to netlist_to_skidl_main.
