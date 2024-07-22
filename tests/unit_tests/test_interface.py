@@ -316,7 +316,7 @@ def test_interface_8():
     }
     vr = vreg_adj(bom=bom)
     vr["vin, vout, gnd"] += vin, vout, gnd
-    default_circuit.instantiate_packages()
+
     # generate_netlist()
     assert len(vin) == 2
     assert len(gnd) == 3
@@ -445,8 +445,6 @@ def test_interface_11():
     sub.my_gnd += gnd
     r1 = r()
     vin1 & r1 & gnd
-
-    default_circuit.instantiate_packages()
 
     assert len(gnd) == 3
     assert len(vin1) == 2

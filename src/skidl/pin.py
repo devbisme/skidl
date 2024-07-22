@@ -543,13 +543,10 @@ class Pin(SkidlBaseObject):
         """
 
         from .net import Net
-        from .protonet import ProtoNet
 
         # Go through all the pins and/or nets and connect them to this pin.
         for pn in expand_buses(flatten(pins_nets_buses)):
-            if isinstance(pn, ProtoNet):
-                pn += self
-            elif isinstance(pn, Pin):
+            if isinstance(pn, Pin):
                 # Connecting pin-to-pin.
                 if self.is_connected():
                     # If self is already connected to a net, then add the

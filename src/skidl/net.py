@@ -404,7 +404,6 @@ class Net(SkidlBaseObject):
         """
 
         from .pin import PhantomPin, Pin
-        from .protonet import ProtoNet
 
         def join(net):
             """
@@ -474,9 +473,7 @@ class Net(SkidlBaseObject):
 
         # Go through all the pins and/or nets and connect them to this net.
         for pn in expand_buses(flatten(pins_nets_buses)):
-            if isinstance(pn, ProtoNet):
-                pn += self
-            elif isinstance(pn, Net):
+            if isinstance(pn, Net):
                 if pn.circuit == self.circuit:
                     join(pn)
                 else:

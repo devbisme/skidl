@@ -11,7 +11,6 @@ from .bus import Bus
 from .net import Net
 from .netpinlist import NetPinList
 from .pin import Pin
-from .protonet import ProtoNet
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
     expand_indices,
@@ -43,12 +42,7 @@ class Interface(dict):
         dict.__init__(self, *args, **kwargs)
         dict.__setattr__(self, "match_pin_regex", False)
         for k, v in list(self.items()):
-            if isinstance(v, ProtoNet):
-                # Store the ProtoNet directly in the Interface.
-                # It will get promoted to a Net when it gets connected to something.
-                v.aliases += k
-                setattr(self, k, v)
-            elif isinstance(v, (Pin, Net)):
+            if isinstance(v, (Pin, Net)):
                 cct = v.circuit
                 n = Net(circuit=cct)
                 n.aliases += k
@@ -71,12 +65,7 @@ class Interface(dict):
                 dict.__setattr__(self, k, v)
 
     def __getattribute__(self, key):
-        value = dict.__getattribute__(self, key)
-        if isinstance(value, ProtoNet):
-            # If the retrieved attribute is a ProtoNet, record where it came from.
-            value.intfc_key = key
-            value.intfc = self
-        return value
+        return dict.__getattribute__(self, key)
 
     def __setattr__(self, key, value):
         """Sets attribute and also a dict entry with a key using the attribute name."""
@@ -123,7 +112,7 @@ class Interface(dict):
         min_pin, max_pin = 0, 0
 
         # Get I/O entries.
-        io_types = (Net, ProtoNet, Pin, NetPinList, Bus)
+        io_types = (Net, Pin, NetPinList, Bus)
         ios = [io for io in self.values() if isinstance(io, io_types)]
 
         # Use this for looking up the dict key using the id of a given I/O.
@@ -141,20 +130,12 @@ class Interface(dict):
                 pass
             else:
                 # Add exact match to the list of selected I/Os and go to the next ID.
-                if isinstance(io, ProtoNet):
-                    # Store key for this ProtoNet I/O so we'll know where to update it later.
-                    io.intfc = self
-                    io.intfc_key = io_id
                 selected_ios.append(io)
                 continue
 
             # Check I/O aliases for an exact match with the current ID.
             tmp_ios = filter_list(ios, aliases=io_id, do_str_match=True, **criteria)
             for io in tmp_ios:
-                if isinstance(io, ProtoNet):
-                    # Store key for this ProtoNet I/O so we'll know where to update it later.
-                    io.intfc = self
-                    io.intfc_key = id_to_key[id(io)]
                 selected_ios.append(io)
             if tmp_ios:
                 # Found exact match between alias and ID, so done with this ID and go to next ID.
@@ -167,10 +148,6 @@ class Interface(dict):
             # OK, ID doesn't exactly match an I/O name or alias. Does it match as a regex?
             tmp_ios = filter_list(ios, aliases=Alias(io_id), **criteria)
             for io in tmp_ios:
-                if isinstance(io, ProtoNet):
-                    # Store key for this ProtoNet I/O so we'll know where to update it later.
-                    io.intfc = self
-                    io.intfc_key = id_to_key[id(io)]
                 selected_ios.append(io)
 
         # Return list of I/Os that were selected by the IDs.

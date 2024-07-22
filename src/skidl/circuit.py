@@ -403,26 +403,6 @@ class Circuit(SkidlBaseObject):
                 distinct_nets.append(net)
         return distinct_nets
 
-    def instantiate_packages(self):
-        """Run the package executables to instantiate their circuitry."""
-
-        # Set default_circuit to this circuit and instantiate the packages.
-        with self:
-            while self.packages:
-                package = self.packages.pop()
-
-                # If there are still ProtoNets attached to the package at this point,
-                # just replace them with Nets. This will allow any internal connections
-                # inside the package to be reflected on the package I/O pins.
-                # **THIS WILL PROBABLY FAIL IF THE INTERNAL CONNECTIONS ARE BUSES.**
-                # DISABLE THIS FOR NOW...
-                # for k, v in package.items():
-                #     if isinstance(v, ProtoNet):
-                #         package[k] = Net()
-
-                # Call the function to instantiate the package with its arguments.
-                package.subcircuit(**package)
-
     def merge_net_names(self):
         """Assign same name to all segments of multi-segment nets."""
 
@@ -1161,7 +1141,6 @@ class Circuit(SkidlBaseObject):
     def _preprocess(self):
         """Prepare the circuit for generating a netlist, PCB, etc."""
 
-        self.instantiate_packages()
         # self._cull_unconnected_parts()
         self.merge_nets()
         self._check_for_empty_footprints()
