@@ -10,7 +10,6 @@ from .bus import Bus
 from .group import subcircuit
 from .logger import active_logger
 from .net import Net
-from .package import package
 from .part import TEMPLATE, Part
 from .schlib import SchLib
 from .skidl import (

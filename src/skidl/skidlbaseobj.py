@@ -3,7 +3,7 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Base object for Circuit, Interface, Package, Part, Net, Bus, Pin objects.
+Base object for Circuit, Interface, Part, Net, Bus, Pin objects.
 """
 
 import inspect

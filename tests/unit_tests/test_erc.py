@@ -7,6 +7,7 @@ import pytest
 import skidl
 from skidl import (
     ERC,
+    Interface,
     POWER,
     SKIDL,
     TEMPLATE,
@@ -15,7 +16,6 @@ from skidl import (
     Pin,
     erc_assert,
     erc_logger,
-    package,
     subcircuit,
 )
 
@@ -281,15 +281,15 @@ def test_assert_2():
         my_vin & r1 & c1 & my_gnd
         erc_assert("len(my_vin) == len(my_gnd)")
 
-    @package
-    # @subcircuit
+    @subcircuit
     def sub2(my_vin, my_gnd):
         sub1(my_vin, my_gnd)
         sub1(my_vin, my_gnd)
         erc_assert("len(my_vin) == 2")  # Will fail because of connection below.
+        return Interface(my_vin=my_vin, my_gnd=my_gnd)
 
     vin, gnd = Net("VIN"), Net("GND")
-    sub = sub2()
+    sub = sub2(vin, gnd)
     vin += sub.my_vin
     gnd += sub.my_gnd
     # sub.my_vin += vin

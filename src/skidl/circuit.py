@@ -346,56 +346,8 @@ class Circuit(SkidlBaseObject):
                     "Can't remove unmovable bus {} from this circuit.".format(bus.name),
                 )
 
-    def add_packages(self, *packages):
-        for package in packages:
-            if package.circuit is None:
-                if package.is_movable():
-
-                    # Add the package to this circuit.
-                    self.packages.appendleft(package)
-                    package.circuit = self
-                    for obj in package.values():
-                        try:
-                            if obj.is_movable():
-                                obj.circuit = self
-                        except AttributeError:
-                            pass
-            else:
-                active_logger.raise_(
-                    ValueError,
-                    "Can't add the same package to more than one circuit.",
-                )
-
-    def rmv_packages(self, *packages):
-        for package in packages:
-            if package.is_movable():
-                if package.circuit == self and package in self.packages:
-                    self.packages.remove(package)
-                    package.circuit = None
-                    for obj in package.values():
-                        try:
-                            if obj.is_movable():
-                                obj.circuit = None
-                        except AttributeError:
-                            pass
-                else:
-                    active_logger.active_logger.warning(
-                        "Removing non-existent package {} from this circuit.".format(
-                            package.name
-                        )
-                    )
-            else:
-                active_logger.raise_(
-                    ValueError,
-                    "Can't remove unmovable package {} from this circuit.".format(
-                        package.name
-                    ),
-                )
-
     def add_stuff(self, *stuff):
         """Add Parts, Nets, Buses, and Interfaces to the circuit."""
-
-        from .package import Package
 
         for thing in flatten(stuff):
             if isinstance(thing, Part):
@@ -404,8 +356,6 @@ class Circuit(SkidlBaseObject):
                 self.add_nets(thing)
             elif isinstance(thing, Bus):
                 self.add_buses(thing)
-            elif isinstance(thing, Package):
-                self.add_packages(thing)
             else:
                 active_logger.raise_(
                     ValueError,
@@ -415,8 +365,6 @@ class Circuit(SkidlBaseObject):
 
     def rmv_stuff(self, *stuff):
         """Remove Parts, Nets, Buses, and Interfaces from the circuit."""
-
-        from .package import Package
 
         for thing in flatten(stuff):
             if isinstance(thing, Part):
