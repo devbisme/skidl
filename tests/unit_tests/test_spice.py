@@ -11,7 +11,7 @@ except ModuleNotFoundError:
     # are not being run anyway. So just eat the exception.
     pass
 
-from skidl import SKIDL, SPICE, KICAD
+from skidl import SKIDL, SPICE, KICAD, Interface
 from skidl.pyspice import (
     TEMPLATE,
     Parameters,
@@ -799,8 +799,10 @@ def test_skywater_1():
         vdd_ps["p, n"] += Net("Vdd"), gnd
         return vdd_ps["p"]
 
-    @package
-    def inverter(a=Net(), out=Net()):
+    @subcircuit
+    def inverter(a=None, out=None):
+        a = a or Net()
+        out = out or Net()
         qp = pfet()
         qn = nfet()
 
@@ -808,9 +810,13 @@ def test_skywater_1():
         vdd & qp.b
         vdd & qp["s,d"] & out & qn["d,s"] & gnd
         a & qn.g & qp.g
+        return Interface(a=a, out=out)
 
-    @package
-    def nand(a=Net(), b=Net(), out=Net()):
+    @subcircuit
+    def nand(a=None, b=None, out=None):
+        a = a or Net()
+        b = b or Net()
+        out = out or Net()
         q1, q2 = 2 * pfet
         q3, q4 = 2 * nfet
 
@@ -819,9 +825,13 @@ def test_skywater_1():
         vdd & (q1["s,d"] | q2["s,d"]) & out & q3["d,s"] & q4["d,s"] & gnd
         a & q1.g & q3.g
         b & q2.g & q4.g
+        return Interface(a=a, b=b, out=out)
 
-    @package
-    def xor(a=Net(), b=Net(), out=Net()):
+    @subcircuit
+    def xor(a=None, b=None, out=None):
+        a = a or Net()
+        b = b or Net()
+        out = out or Net()
         a_inv, b_inv = inverter(), inverter()
         a_inv.a += a
         b_inv.a += b
@@ -840,8 +850,15 @@ def test_skywater_1():
         vdd & ap.b & abp.b & bp.b & bbp.b
         gnd & an.b & abn.b & bn.b & bbn.b
 
-    @package
-    def full_adder(a=Net(), b=Net(), cin=Net(), s=Net(), cout=Net()):
+        return Interface(a=a, b=b, out=out)
+
+    @subcircuit
+    def full_adder(a=None, b=None, cin=None, s=None, cout=None):
+        a = a or Net()
+        b = b or Net()
+        cin = cin or Net()
+        s = s or Net()
+        cout = cout or Net()
         ab_sum = Net()
         xor()["a,b,out"] += a, b, ab_sum
         xor()["a,b,out"] += ab_sum, cin, s
@@ -850,6 +867,7 @@ def test_skywater_1():
         nand1["a,b"] += ab_sum, cin
         nand2["a,b"] += a, b
         nand3["a,b,out"] += nand1.out, nand2.out, cout
+        return Interface(a=a, b=b, cin=cin, s=s, cout=cout)
 
     @subcircuit
     def adder(a, b, cin, s, cout):
@@ -889,8 +907,10 @@ def test_skywater_1():
                     break
         return sample_vals
 
-    @package
-    def weak_inverter(a=Net(), out=Net()):
+    @subcircuit
+    def weak_inverter(a=None, out=None):
+        a = a or Net()
+        out = out or Net()
         weak_nfet_wl = Parameters(W=1.0, L=8.0)
         weak_pfet_wl = Parameters(W=1.0, L=8.0)
         qp = Part(sky_lib, "sky130_fd_pr__pfet_01v8", params=weak_pfet_wl)
@@ -900,9 +920,14 @@ def test_skywater_1():
         vdd & qp.b
         vdd & qp["s,d"] & out & qn["d,s"] & gnd
         a & qn.g & qp.g
+        
+        return Interface(a=a, out=out)
 
-    @package
-    def sram_bit(wr=Net(), in_=Net(), out=Net()):
+    @subcircuit
+    def sram_bit(wr=None, in_=None, out=None):
+        wr = wr or Net()
+        in_ = in_ or Net()
+        out = out or Net()
         in_inv = inverter()
         inv12, inv34 = weak_inverter(), weak_inverter()
         m5, m6 = nfet(), nfet()
@@ -915,8 +940,13 @@ def test_skywater_1():
         wr & m5.g & m6.g
         gnd & m5.b & m6.b
 
-    @package
-    def latch_bit(wr=Net(), in_=Net(), out=Net()):
+        return Interface(wr=wr, in_=in_, out=out)
+
+    @subcircuit
+    def latch_bit(wr=None, in_=None, out=None):
+        wr = wr or Net()
+        in_ = in_ or Net()
+        out = out or Net()
         inv_in, inv_out, inv_wr = inverter(), inverter(), inverter()
         q_in, q_latch = nfet(), nfet()
         in_ & q_in["s,d"] & inv_in["a, out"] & inv_out["a, out"] & out
@@ -927,14 +957,21 @@ def test_skywater_1():
         q_latch.g & inv_wr.out
         q_latch.b & gnd
 
-    @package
-    def reg_bit(wr=Net(), in_=Net(), out=Net()):
+        return Interface(wr=wr, in_=in_, out=out)
+
+    @subcircuit
+    def reg_bit(wr=None, in_=None, out=None):
+        wr = wr or Net()
+        in_ = in_ or Net()
+        out = out or Net()
         master, slave = latch_bit(), latch_bit()
         wr_inv = inverter()
         wr_inv.a += wr
         in_ & master["in_, out"] & slave["in_, out"] & out
         wr_inv.out & master.wr
         wr & slave.wr
+
+        return Interface(wr=wr, in_=in_, out=out)
 
     @subcircuit
     def register(wr, in_, out):
