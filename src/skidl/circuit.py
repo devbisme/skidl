@@ -43,6 +43,7 @@ from .schlib import SchLib
 from .scriptinfo import get_script_name, get_skidl_trace
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
+    detect_os,
     expand_buses,
     export_to_all,
     flatten,
@@ -1025,10 +1026,16 @@ class Circuit(SkidlBaseObject):
                     )
                 )
 
-            subprocess.Popen(
-                ["netlistsvg", json_file, "--skin", skin_file, "-o", svg_file],
-                shell=False,
-            )
+            if detect_os() == "Windows":
+                subprocess.Popen(
+                    ["netlistsvg.cmd", json_file, "--skin", skin_file, "-o", svg_file],
+                    shell=False,
+                )
+            else:
+                subprocess.Popen(
+                    ["netlistsvg", json_file, "--skin", skin_file, "-o", svg_file],
+                    shell=False,
+                )
 
         active_logger.report_summary("generating SVG")
 

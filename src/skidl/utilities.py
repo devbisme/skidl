@@ -15,6 +15,7 @@ from __future__ import (  # isort:skip
 
 try:
     from future import standard_library
+
     standard_library.install_aliases()
 except ImportError:
     pass
@@ -23,6 +24,7 @@ except ImportError:
 import collections
 import os
 import os.path
+import platform
 import re
 import sys
 import traceback
@@ -53,6 +55,19 @@ def export_to_all(fn):
     else:
         mod.__all__ = [fn.__name__]
     return fn
+
+
+@export_to_all
+def detect_os():
+    os_name = platform.system()
+    if os_name == "Windows":
+        return "Windows"
+    elif os_name == "Linux":
+        return "Linux"
+    elif os_name == "Darwin":
+        return "MacOS"
+    else:
+        raise Exception("Unknown type of operating system!")
 
 
 @export_to_all
