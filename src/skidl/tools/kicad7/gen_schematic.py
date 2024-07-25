@@ -23,6 +23,7 @@ try:
 except ImportError:
     pass
 
+from skidl.logger import active_logger
 from skidl.scriptinfo import get_script_name
 from skidl.schematics.geometry import BBox, Point, Tx, Vector
 from skidl.schematics.net_terminal import NetTerminal
@@ -716,6 +717,9 @@ def gen_schematic(
     import skidl
     from skidl.tools import tool_modules
     from skidl.schematics.node import Node
+
+    active_logger.warning("Schematic generation is not implemented for KiCad version 8.")
+    return
 
     tool = options.get("tool", skidl.config.tool)
 
