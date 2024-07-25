@@ -140,3 +140,8 @@ def test_gen_hier_xml():
 def test_gen_hier_graph():
     hier_circuit()
     generate_graph()
+
+def test_gen_pcb():
+    esp32 = Part('RF_Module','ESP32-WROOM-32', footprint='RF_Module:ESP32-WROOM-32')
+    generate_pcb()
+    
