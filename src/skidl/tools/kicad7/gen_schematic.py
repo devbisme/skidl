@@ -703,6 +703,9 @@ def gen_schematic(
     from skidl.tools import tool_modules
     from skidl.schematics.node import Node
 
+    active_logger.warning("Schematic generation is not implemented for KiCad version 8.")
+    return
+
     tool = options.get("tool", skidl.config.tool)
 
     # Part placement options that should always be turned on.
