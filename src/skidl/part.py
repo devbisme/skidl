@@ -277,7 +277,58 @@ class Part(SkidlBaseObject):
             pins="\n    ".join([p.__str__() for p in self.pins]),
         )
 
-    __repr__ = __str__
+    # __repr__ = __str__
+
+    def __repr__(self):
+        """Return a string to recreate a Part object."""
+
+        # Make sure the part is fully instantiated. Otherwise, attributes like
+        # pins may be missing because they haven't been parsed from the part definition.
+        self.parse()
+
+        # Get the names of fields to export.
+        keys = self._get_fields()
+        keys.extend(
+            (
+                "ref_prefix",
+                "num_units",
+                "fplist",
+                "do_erc",
+                "aliases",
+                "pin",
+                "footprint",
+                "draw_cmds",  # Add it to make sure removal doesn't cause an error.
+            )
+        )
+        keys = set(keys)  # Remove duplicates.
+        keys.remove("draw_cmds")  # Don't export drawing commands.
+
+        # TODO: Implement export of units. Or don't allow a Part to be a unit of itself.
+        # Remove units because having a Part as a unit causes an error.
+        try:
+            for unit_label in self.unit:
+                keys.remove(unit_label)
+            keys.remove("unit")
+        except KeyError:
+            pass
+
+        # Export the part as a SKiDL template.
+        attribs = []
+        attribs.append("'{}':{}".format("name", repr(self.name)))
+        attribs.append("'dest':TEMPLATE")
+        attribs.append("'tool':SKIDL")
+
+        # Collect all the part attributes and the list of pins as Python code.
+        for k in keys:
+            v = getattr(self, k, None)
+            attribs.append("'{}':{}".format(k, repr(v)))
+        if self.pins:
+            pin_strs = [p.export() for p in self.pins]
+            attribs.append("'pins':[{}]".format(",".join(pin_strs)))
+
+        # Return the string after removing all the non-ascii stuff (like ohm symbols).
+        # This string is a Part instantiation with parameters that will create the part when executed.
+        return "Part(**{{ {} }})".format(", ".join(attribs))
 
     def __bool__(self):
         """Any valid Part is True"""
@@ -1083,56 +1134,8 @@ class Part(SkidlBaseObject):
         """Create description of part for ERC and other error reporting."""
         return "{p.name}/{p.ref}".format(p=self)
 
-    def export(self):
-        """Return a string to recreate a Part object."""
-
-        # Make sure the part is fully instantiated. Otherwise, attributes like
-        # pins may be missing because they haven't been parsed from the part definition.
-        self.parse()
-
-        # Get the names of fields to export.
-        keys = self._get_fields()
-        keys.extend(
-            (
-                "ref_prefix",
-                "num_units",
-                "fplist",
-                "do_erc",
-                "aliases",
-                "pin",
-                "footprint",
-                "draw_cmds",  # Add it to make sure removal doesn't cause an error.
-            )
-        )
-        keys = set(keys)  # Remove duplicates.
-        keys.remove("draw_cmds")  # Don't export drawing commands.
-
-        # TODO: Implement export of units. Or don't allow a Part to be a unit of itself.
-        # Remove units because having a Part as a unit causes an error.
-        try:
-            for unit_label in self.unit:
-                keys.remove(unit_label)
-            keys.remove("unit")
-        except KeyError:
-            pass
-
-        # Export the part as a SKiDL template.
-        attribs = []
-        attribs.append("'{}':{}".format("name", repr(self.name)))
-        attribs.append("'dest':TEMPLATE")
-        attribs.append("'tool':SKIDL")
-
-        # Collect all the part attributes and the list of pins as Python code.
-        for k in keys:
-            v = getattr(self, k, None)
-            attribs.append("'{}':{}".format(k, repr(v)))
-        if self.pins:
-            pin_strs = [p.export() for p in self.pins]
-            attribs.append("'pins':[{}]".format(",".join(pin_strs)))
-
-        # Return the string after removing all the non-ascii stuff (like ohm symbols).
-        # This string is a Part instantiation with parameters that will create the part when executed.
-        return "Part(**{{ {} }})".format(", ".join(attribs))
+    # Exporting a Part object is the same as using it's __repr__ method.
+    export = __repr__
 
     def convert_for_spice(self, spice_part, pin_map):
         """Convert a Part object for use with SPICE.
