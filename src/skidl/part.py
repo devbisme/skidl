@@ -272,12 +272,17 @@ class Part(SkidlBaseObject):
         if ref:
             self.ref = ref
 
+        # Add any pins that were passed in, and make sure they're associated with the part.
+        self.add_pins(kwargs.pop("pins", []))
+        self.associate_pins()
+
+        # If any unit definitions were passed in, then make units.
+        for unit_def in kwargs.pop("unit_defs", []):
+            self.make_unit(unit_def["label"], *unit_def["pin_nums"], unit=unit_def["num"])
+
         # Add any other passed-in attributes to the part.
         for k, v in list(kwargs.items()):
             setattr(self, k, v)
-
-        # If any pins were added, make sure they're associated with the part.
-        self.associate_pins()
 
         # Make sure the part name is also included in the list of aliases
         # because part searching only checks the aliases for name matches.
@@ -291,59 +296,8 @@ class Part(SkidlBaseObject):
             desc=self.description,
             pins="\n    ".join([p.__str__() for p in self.pins]),
         )
-
-    # __repr__ = __str__
-
-    def __repr__(self):
-        """Return a string to recreate a Part object."""
-
-        # Make sure the part is fully instantiated. Otherwise, attributes like
-        # pins may be missing because they haven't been parsed from the part definition.
-        self.parse()
-
-        # Get the names of fields to export.
-        keys = self._get_fields()
-        keys.extend(
-            (
-                "ref_prefix",
-                "num_units",
-                "fplist",
-                "do_erc",
-                "aliases",
-                "pin",
-                "footprint",
-                "draw_cmds",  # Add it to make sure removal doesn't cause an error.
-            )
-        )
-        keys = set(keys)  # Remove duplicates.
-        keys.remove("draw_cmds")  # Don't export drawing commands.
-
-        # TODO: Implement export of units. Or don't allow a Part to be a unit of itself.
-        # Remove units because having a Part as a unit causes an error.
-        try:
-            for unit_label in self.unit:
-                keys.remove(unit_label)
-            keys.remove("unit")
-        except KeyError:
-            pass
-
-        # Export the part as a SKiDL template.
-        attribs = []
-        attribs.append("'{}':{}".format("name", repr(self.name)))
-        attribs.append("'dest':TEMPLATE")
-        attribs.append("'tool':SKIDL")
-
-        # Collect all the part attributes and the list of pins as Python code.
-        for k in keys:
-            v = getattr(self, k, None)
-            attribs.append("'{}':{}".format(k, repr(v)))
-        if self.pins:
-            pin_strs = [p.export() for p in self.pins]
-            attribs.append("'pins':[{}]".format(",".join(pin_strs)))
-
-        # Return the string after removing all the non-ascii stuff (like ohm symbols).
-        # This string is a Part instantiation with parameters that will create the part when executed.
-        return "Part(**{{ {} }})".format(", ".join(attribs))
+    
+    __repr__ = __str__
 
     def __bool__(self):
         """Any valid Part is True"""
@@ -423,56 +377,6 @@ class Part(SkidlBaseObject):
         from .network import Network
 
         return obj | Network(self)
-
-    def _get_fields(self):
-        """
-        Return a list of component field names.
-        """
-
-        from .pin import Pin
-
-        # Get all the component attributes and subtract all the ones that
-        # should not appear under "fields" in the netlist or XML.
-        # Also, skip all the Pin and PartUnit attributes.
-        fields = set(
-            [
-                k
-                for k, v in list(self.__dict__.items())
-                if not isinstance(v, (Pin, PartUnit))
-            ]
-        )
-        non_fields = set(
-            [
-                "name",
-                "min_pin",
-                "max_pin",
-                "hierarchy",
-                "_tag",
-                "_value",
-                "_ref",
-                "ref_prefix",
-                "unit",
-                "num_units",
-                "part_defn",
-                "definition",
-                "fields",
-                "draw",
-                "lib",
-                "fplist",
-                "do_erc",
-                "aliases",
-                "tool",
-                "pins",
-                "footprint",
-                "circuit",
-                "skidl_trace",
-                "search_text",
-                "filename",
-                "p",
-                "n",
-            ]
-        )
-        return list(fields - non_fields)
 
     # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
     def __getitem__(self, *pin_ids, **criteria):
@@ -1154,6 +1058,7 @@ class Part(SkidlBaseObject):
         # pins may be missing because they haven't been parsed from the part definition.
         self.parse()
 
+<<<<<<< HEAD
         # Get the names of fields to export.
         keys = self._get_fields()
         keys.extend(
@@ -1179,6 +1084,10 @@ class Part(SkidlBaseObject):
             keys.remove("unit")
         except KeyError:
             pass
+=======
+        # List of attributes to export that are necessary for rebuilding a part.
+        keys = ["aliases", "ref_prefix", "fplist", "footprint", "keywords", "description", "datasheet"]
+>>>>>>> 92deef56 (fix: Parts with PartUnits can now be exported and rebuilt.)
 
         # Export the part as a SKiDL template.
         attribs = []
@@ -1186,13 +1095,24 @@ class Part(SkidlBaseObject):
         attribs.append("'dest':TEMPLATE")
         attribs.append("'tool':SKIDL")
 
+<<<<<<< HEAD
         # Collect all the part attributes and the list of pins as Python code.
+=======
+        # Collect all the part attributes and the list of pins and units as Python code.
+>>>>>>> 92deef56 (fix: Parts with PartUnits can now be exported and rebuilt.)
         for k in keys:
             v = getattr(self, k, None)
             attribs.append("'{}':{}".format(k, repr(v)))
         if self.pins:
             pin_strs = [p.export() for p in self.pins]
             attribs.append("'pins':[{}]".format(",".join(pin_strs)))
+<<<<<<< HEAD
+=======
+        if self.unit:
+            #TODO: How to handle a Part that is also a unit?
+            unit_strs = [unit.export() for unit in self.unit.values() if isinstance(unit, PartUnit)]
+            attribs.append("'unit_defs':[{}]".format(",".join(unit_strs)))
+>>>>>>> 92deef56 (fix: Parts with PartUnits can now be exported and rebuilt.)
 
         # Return the string after removing all the non-ascii stuff (like ohm symbols).
         # This string is a Part instantiation with parameters that will create the part when executed.
@@ -1465,6 +1385,15 @@ class PartUnit(Part):
 
         for pin in self.pins:
             pin.part = self.parent
+
+    def export(self):
+        """Return a string describing the PartUnit for exporting purposes."""
+
+        d = dict()
+        d["label"]= self.label
+        d["num"] = self.num
+        d["pin_nums"] = [pin.num for pin in self.pins]
+        return repr(d)
 
     @property
     def ref(self):
