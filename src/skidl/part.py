@@ -263,7 +263,9 @@ class Part(SkidlBaseObject):
 
         # If any unit definitions were passed in, then make units.
         for unit_def in kwargs.pop("unit_defs", []):
-            self.make_unit(unit_def["label"], *unit_def["pin_nums"], unit=unit_def["num"])
+            self.make_unit(
+                unit_def["label"], *unit_def["pin_nums"], unit=unit_def["num"]
+            )
 
         # Add any other passed-in attributes to the part.
         for k, v in list(kwargs.items()):
@@ -281,7 +283,7 @@ class Part(SkidlBaseObject):
             desc=self.description,
             pins="\n    ".join([p.__str__() for p in self.pins]),
         )
-    
+
     __repr__ = __str__
 
     def __bool__(self):
@@ -891,7 +893,9 @@ class Part(SkidlBaseObject):
         # Log an error if no pins were selected using the pin ids.
         if not pins and not silent:
             active_logger.error(
-                "No pins found using {self.ref}[{pin_ids}]".format(**locals())
+                "No pins found using {self.name}:{self.ref}[{pin_ids}]".format(
+                    **locals()
+                )
             )
 
         return list_or_scalar(pins)
@@ -1046,7 +1050,15 @@ class Part(SkidlBaseObject):
         self.parse()
 
         # List of attributes to export that are necessary for rebuilding a part.
-        keys = ["aliases", "ref_prefix", "fplist", "footprint", "keywords", "description", "datasheet"]
+        keys = [
+            "aliases",
+            "ref_prefix",
+            "fplist",
+            "footprint",
+            "keywords",
+            "description",
+            "datasheet",
+        ]
 
         # Export the part as a SKiDL template.
         attribs = []
@@ -1062,8 +1074,12 @@ class Part(SkidlBaseObject):
             pin_strs = [p.export() for p in self.pins]
             attribs.append("'pins':[{}]".format(",".join(pin_strs)))
         if self.unit:
-            #TODO: How to handle a Part that is also a unit?
-            unit_strs = [unit.export() for unit in self.unit.values() if isinstance(unit, PartUnit)]
+            # TODO: How to handle a Part that is also a unit?
+            unit_strs = [
+                unit.export()
+                for unit in self.unit.values()
+                if isinstance(unit, PartUnit)
+            ]
             attribs.append("'unit_defs':[{}]".format(",".join(unit_strs)))
 
         # Return the string after removing all the non-ascii stuff (like ohm symbols).
@@ -1265,6 +1281,8 @@ class PartUnit(Part):
 
     def __init__(self, parent, label, *pin_ids, **criteria):
 
+        from .pin import Pin
+
         # Don't use super() for this.
         SkidlBaseObject.__init__(self)
 
@@ -1283,19 +1301,31 @@ class PartUnit(Part):
         for k, v in list(parent.__dict__.items()):
             self.__dict__[k] = v
 
+        # Setup the pin number and name search objects for this unit
+        # so the equivalent ones in the parent aren't used which will search
+        # *all* pins rather than just the unit's pins.
+        self.p = PinNumberSearch(self)
+        self.n = PinNameSearch(self)
+
         # Don't associate any units from the parent with this unit itself.
         self.unit = {}
 
         # Remove the pins copied from the parent and replace them with
         # pins selected from the parent.
         self.pins = []
-        self.add_pins_from_parent(*pin_ids, **criteria)
-        # Add pins from global unit.
+
+        # A unit may have no pins but gets them from the global unit 0,
+        # so suppress errors if no pins from this unit are found.
+        self.add_pins_from_parent(*pin_ids, silent=True, **criteria)
+
+        # Now Add pins from the global unit 0. Suppress errors if it doesn't exist.
         # TODO: KiCad uses unit 0 for global unit. What about other tools?
         self.add_pins_from_parent(unit=0, silent=True)
 
     def __getattr__(self, key):
         """Return attribute from parent Part if it wasn't found in the PartUnit."""
+        # FIXME: This allows the unit to access *all* the attributes of the parent
+        #        even those it shouldn't be able to (like pins not assigned to it).
         return getattr(self.parent, key)
 
     def add_pins_from_parent(self, *pin_ids, **criteria):
@@ -1305,7 +1335,6 @@ class PartUnit(Part):
 
         # Get new pins selected from the parent.
         new_pins = to_list(self.parent.get_pins(*pin_ids, **criteria))
-
         # Remove None if that's gotten into the list.
         try:
             new_pins.remove(None)
@@ -1342,7 +1371,7 @@ class PartUnit(Part):
         """Return a string describing the PartUnit for exporting purposes."""
 
         d = dict()
-        d["label"]= self.label
+        d["label"] = self.label
         d["num"] = self.num
         d["pin_nums"] = [pin.num for pin in self.pins]
         return repr(d)

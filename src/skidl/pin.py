@@ -662,7 +662,7 @@ class Pin(SkidlBaseObject):
     def export(self):
         """Return a string to recreate a Pin object."""
         attribs = []
-        for k in ["num", "name", "func", "do_erc"]:
+        for k in ["num", "name", "func", "unit"]:
             v = getattr(self, k, None)
             if v:
                 if k == "func":
