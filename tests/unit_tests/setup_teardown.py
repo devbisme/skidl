@@ -3,9 +3,11 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 import os
+from collections import defaultdict
 
 from skidl import *
 from skidl.tools import ALL_TOOLS
+from skidl.logger import rt_logger, erc_logger
 
 this_file_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -31,7 +33,9 @@ def setup_function(f):
     lib_search_paths[SKIDL].append(skidl_lib_dir)
 
     # SPICE models from the SkyWater 130nm process.
-    skywater_lib_dir = os.path.join(this_file_dir, "..", "test_data", "skywater", "models")
+    skywater_lib_dir = os.path.join(
+        this_file_dir, "..", "test_data", "skywater", "models"
+    )
     lib_search_paths[SPICE].append(skywater_lib_dir)
 
     spice_lib_dir = os.path.join(this_file_dir, "..", "test_data", "SpiceLib")
@@ -39,8 +43,21 @@ def setup_function(f):
 
     skidl.config.query_backup_lib = True
 
-    # Set the default tool for the test suite.
-    tool = KICAD8
+    # Clear any logger errors and warnings.
+    rt_logger.error.reset()
+    rt_logger.warning.reset()
+    erc_logger.error.reset()
+    erc_logger.warning.reset()
+
+    # Set the default tool for the test suite from the env variable SKIDL_TOOL.
+    tool = {
+        "SKIDL": SKIDL,
+        "SPICE": SPICE,
+        "KICAD5": KICAD5,
+        "KICAD6": KICAD6,
+        "KICAD7": KICAD7,
+        "KICAD8": KICAD8,
+    }.get(os.getenv("SKIDL_TOOL"), KICAD8)
     set_default_tool(tool)
 
 

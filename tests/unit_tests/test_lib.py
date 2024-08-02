@@ -25,6 +25,7 @@ from skidl import (
     get_default_tool,
     set_default_tool,
 )
+from skidl.logger import active_logger
 from skidl.tools import ALL_TOOLS, lib_suffixes
 from skidl.utilities import to_list, find_and_read_file
 
@@ -56,6 +57,7 @@ def test_lib_export_1():
     lib.export("my_device", tool=SKIDL)
     my_lib = SchLib("my_device", tool=SKIDL)
     assert len(lib) == len(my_lib)
+    assert active_logger.error.count == 0
 
 
 def test_lib_creation_1():
@@ -107,21 +109,18 @@ def test_backup_2():
     for nm in num_pins_per_net_1:
         assert num_pins_per_net_1[nm] == num_pins_per_net_2[nm]
 
-@pytest.mark.skip(reason="Part export doesn't support units.")
+# @pytest.mark.skip(reason="Part export doesn't support units.")
 def test_backup_3():
     SchLib.reset()
-    a = Part("Device", "R", footprint="null")
-    b = Part("Device", "C", footprint="null")
-    c = Part("Device", "L", footprint="null")
-    a & b & c  # Connect device to keep them from being culled.
+    rn1 = Part("Device", "R_Pack08_Split", footprint="null")
+    rn1.uA[1] & rn1.uC[3]
     generate_netlist(do_backup=True)  # This creates the backup parts library.
     default_circuit.reset()
     skidl.config.query_backup_lib = True  # FIXME: this is already True by default!
     # Non-existent library so these parts should come from the backup library.
-    a = Part("crap", "R", footprint="null")
-    b = Part("crap", "C", footprint="null")
+    rn2 = Part("crap", "R_Pack08_Split", footprint="null")
     # Connect parts using them as units.
-    a.uA & b.uA
+    rn2.uA[1] & rn2.uC[3]
     generate_netlist()
 
 
