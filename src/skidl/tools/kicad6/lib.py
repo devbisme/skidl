@@ -401,7 +401,14 @@ def parse_lib_part(part, partial_parse):
         # Save unit number if the unit has pins. Use this to create units
         # after the entire part is created.
         unit_has_pins = parse_pins(unit_data, unit=major)
-        if major != 0 and unit_has_pins:
+        if major == 0 and unit_has_pins:
+            # If the global unit has pins, then save it so it can give
+            # pins to non-global units or because it may be an actual
+            # unit itself.
+            unit_nums.append(major)
+        elif major != 0:
+            # Always save non-global units even if they don't have pins
+            # because they may get pins from the global unit.
             unit_nums.append(major)
 
     # Copy drawing objects from the global unit with major id 0 to all the other units.
@@ -419,10 +426,25 @@ def parse_lib_part(part, partial_parse):
     # Make sure all the pins have a valid reference to this part.
     part.associate_pins()
 
+    # Do some extra processing on the global unit if it exists.
+    if 0 in unit_nums:
+        if len(unit_nums) == 1:
+            # If there is only one unit and it is the global unit,
+            # then re-assign the unit identifier to 1 so it looks
+            # like a normal, non-global unit.
+            unit_nums = [1]
+        else:
+            # Otherwise there are non-global units so don't bother
+            # creating the global unit. Any pins in the global unit
+            # will be assigned to non-global units when make_unit()
+            # is called below.
+            unit_nums.remove(0)
+
     # Create any units now that all the part pins have been added.
     for unit_num in unit_nums:
         unit_label = "u" + num_to_chars(unit_num)
         # Create a unit using pins with the same unit number.
+        # This will also add pins from the global unit to this unit.
         u = part.make_unit(unit_label, unit=unit_num)
 
     if len(part.unit) == 1:
