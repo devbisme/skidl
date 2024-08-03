@@ -346,7 +346,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='28',name='UVLO',func=Pin.types.INPUT,unit=3),
             Pin(num='29',name='VIN',func=Pin.types.PWRIN,unit=3),
             Pin(num='33',name='EP',func=Pin.types.UNSPEC,unit=3),
-            Pin(num='8',name='VCCDIS',func=Pin.types.INPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '31', '10', '3', '7', '32', '5', '6', '30', '4', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['22', '11', '20', '16', '19', '25', '27', '15', '21', '23', '18', '24', '26']},{'label': 'uC', 'num': 3, 'pin_nums': ['17', '12', '13', '28', '14', '33', '8', '29']}] }),
+            Pin(num='8',name='VCCDIS',func=Pin.types.INPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['10', '3', '31', '5', '7', '30', '2', '6', '32', '9', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['25', '19', '16', '11', '24', '26', '21', '22', '23', '15', '20', '18', '27']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '13', '29', '17', '14', '33', '28', '12']}] }),
         Part(**{ 'name':'LM3478MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3478MA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Boost flyback SEPIC DC-DC controller', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/lm3478', 'pins':[
             Pin(num='1',name='I_{SEN}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='COMP',func=Pin.types.INPUT,unit=1),

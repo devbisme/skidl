@@ -242,7 +242,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='THR',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='DIS',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='TR',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '5', '1', '4', '14', '3', '7', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '10', '8', '11', '14', '13', '7', '12']}] }),
+            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '5', '4', '6', '1', '2', '3', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '10', '8', '13', '9', '12', '11', '7']}] }),
         Part(**{ 'name':'LMC555xTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMC555xTP'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-8_1.43x1.41mm_Layout3x3_P0.5mm'], 'footprint':'Package_BGA:Texas_DSBGA-8_1.43x1.41mm_Layout3x3_P0.5mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmc555.pdf', 'pins':[
             Pin(num='A2',name='VCC',func=Pin.types.PWRIN),
             Pin(num='A3',name='GND',func=Pin.types.PWRIN),
@@ -569,7 +569,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='THR',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='DIS',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='TR',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '4', '14', '7', '1', '5', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '10', '12', '14', '13', '7', '11', '9']}] }),
+            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '1', '3', '5', '7', '4', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '14', '8', '9', '10', '11', '13', '7']}] }),
         Part(**{ 'name':'LM555xM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM555xM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm555.pdf', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
@@ -730,7 +730,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='THR',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='DIS',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='TR',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '14', '2', '5', '4', '7', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '10', '11', '8', '12', '7', '9', '13']}] }),
+            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '6', '4', '14', '2', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '12', '14', '11', '13', '10', '7', '8']}] }),
         Part(**{ 'name':'NE556', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NE556'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'dual timer', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne556.pdf', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
@@ -745,7 +745,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='THR',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='DIS',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='TR',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '14', '7', '3', '5', '4', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '7', '8', '10', '11', '9', '12']}] }),
+            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '5', '1', '3', '4', '6', '14', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '10', '11', '9', '13', '8', '14', '7']}] }),
         Part(**{ 'name':'NLV14541BD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NLV14541BD'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'cmos', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mc14541b-d.pdf', 'pins':[
             Pin(num='1',name='R_{TC}',func=Pin.types.INPUT),
             Pin(num='10',name='MODE',func=Pin.types.INPUT),
@@ -808,7 +808,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='THR',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='DIS',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='TR',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '7', '1', '4', '2', '14', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '13', '10', '11', '8', '14', '9', '12']}] }),
+            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '5', '3', '7', '6', '1', '4', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '12', '9', '14', '7', '13', '10', '11']}] }),
         Part(**{ 'name':'SE555D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SE555D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
@@ -841,7 +841,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='THR',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='DIS',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='TR',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '7', '6', '1', '14', '4', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '12', '9', '14', '13', '10', '11', '8']}] }),
+            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '4', '1', '2', '5', '7', '3', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '14', '13', '10', '11', '7', '8', '12']}] }),
         Part(**{ 'name':'SE567', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SE567'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'tone decoder PLL', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm567.pdf', 'pins':[
             Pin(num='1',name='OFLT_C',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='LP_FLT_C',func=Pin.types.OUTPUT,unit=1),

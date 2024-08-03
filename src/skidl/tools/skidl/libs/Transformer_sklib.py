@@ -156,7 +156,7 @@ Transformer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='2',func=Pin.types.NOCONNECT,unit=2),
             Pin(num='3',name='3',func=Pin.types.NOCONNECT,unit=2),
             Pin(num='4',name='4',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='6',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '5', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '4', '2']}] }),
+            Pin(num='6',name='6',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '5', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '4', '3', '6']}] }),
         Part(**{ 'name':'CST2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CST2'}), 'ref_prefix':'T', 'fplist':['Transformer_SMD:Transformer_Coilcraft_CST2'], 'footprint':'Transformer_SMD:Transformer_Coilcraft_CST2', 'keywords':'current sense transformer', 'description':'', 'datasheet':'https://www.coilcraft.com/pdfs/cst.pdf', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='3',name='3',func=Pin.types.PASSIVE),
@@ -191,7 +191,7 @@ Transformer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='6',func=Pin.types.NOCONNECT,unit=2),
             Pin(num='7',name='7',func=Pin.types.NOCONNECT,unit=2),
             Pin(num='8',name='8',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='9',name='9',func=Pin.types.NOCONNECT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '12', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6', '4', '1', '5', '9', '7', '8', '3']}] }),
+            Pin(num='9',name='9',func=Pin.types.NOCONNECT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '10', '11']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '8', '7', '4', '9', '2', '6', '1']}] }),
         Part(**{ 'name':'CST2_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CST2_Split'}), 'ref_prefix':'T', 'fplist':['Transformer_SMD:Transformer_Coilcraft_CST2'], 'footprint':'Transformer_SMD:Transformer_Coilcraft_CST2', 'keywords':'current sense transformer', 'description':'', 'datasheet':'https://www.coilcraft.com/pdfs/cst.pdf', 'pins':[
             Pin(num='5',name='5',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='6',func=Pin.types.NOCONNECT,unit=1),
@@ -200,7 +200,7 @@ Transformer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='2',name='2',func=Pin.types.NOCONNECT,unit=2),
             Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='4',name='4',func=Pin.types.NOCONNECT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '7', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3', '2', '4']}] }),
+            Pin(num='4',name='4',func=Pin.types.NOCONNECT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '6', '8', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '1', '3', '4']}] }),
         Part(**{ 'name':'ED8_4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ED8_4'}), 'ref_prefix':'T', 'fplist':['Transformer_SMD:Transformer_ED8_4-Lead_10.5x8mm_P5mm'], 'footprint':'Transformer_SMD:Transformer_ED8_4-Lead_10.5x8mm_P5mm', 'keywords':'ED8 4-lead body 10.5x8mm body pitch 5mm height 5mm', 'description':'', 'datasheet':'https://gitlab.com/kicad/libraries/kicad-footprints/-/merge_requests/3626', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),

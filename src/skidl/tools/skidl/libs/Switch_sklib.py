@@ -210,14 +210,14 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='5',func=Pin.types.PASSIVE,unit=2),
             Pin(num='6',name='6',func=Pin.types.PASSIVE,unit=2),
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '8', '6', '7']}] }),
+            Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '4', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '8', '7']}] }),
         Part(**{ 'name':'SW_DPDT_x2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DPDT_x2'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch dual-pole double-throw DPDT spdt ON-ON', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='A',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='B',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='C',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']}] }),
+            Pin(num='6',name='C',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']}] }),
         Part(**{ 'name':'SW_DPST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DPST'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch dual double-pole single-throw OFF-ON', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
@@ -232,7 +232,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='4',name='B',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']}] }),
+            Pin(num='4',name='B',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']}] }),
         Part(**{ 'name':'SW_E3_SA3216', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_E3_SA3216'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button LCD', 'description':'', 'datasheet':'http://www.e3-keys.com/files/SA%20Technical%20Datasheet%20v2.0.pdf', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='2',name='5V',func=Pin.types.PWRIN),
@@ -312,7 +312,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='1',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='4',name='2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']}] }),
+            Pin(num='4',name='2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']}] }),
         Part(**{ 'name':'SW_Push_SPDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_SPDT'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch single-pole double-throw spdt ON-ON', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1),

@@ -51,7 +51,7 @@ Interface_LineDriver = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='IN1',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='IN',func=Pin.types.INPUT,unit=2),
-            Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '5', '2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '8', '5', '4', '6']}] }),
+            Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '5', '2', '8', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4', '3', '8']}] }),
         Part(**{ 'name':'MC3486N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC3486N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Quadruple differential line receiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/mc3486.pdf', 'pins':[
             Pin(num='1',name='E-',func=Pin.types.INPUT,unit=1),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -76,7 +76,7 @@ Interface_LineDriver = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='E+',func=Pin.types.INPUT,unit=4),
             Pin(num='15',name='E-',func=Pin.types.INPUT,unit=4),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=4),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '8', '1', '2', '3', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '8', '7', '6', '16', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '8', '16', '12', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '14', '16', '15', '12', '8']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '3', '1', '8', '16', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '7', '5', '8', '16']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '12', '8', '11', '9', '16']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '8', '16', '14', '12', '15']}] }),
         Part(**{ 'name':'MC3487DX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC3487DX'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'Four independent differential line drivers', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/mc3487.pdf', 'pins':[
             Pin(num='1',name='INPUT',func=Pin.types.INPUT,unit=1),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -101,7 +101,7 @@ Interface_LineDriver = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='OUT+',func=Pin.types.TRISTATE,unit=4),
             Pin(num='15',name='INPUT',func=Pin.types.INPUT,unit=4),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=4),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '16', '3', '4', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '8', '16', '6', '4', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '11', '16', '9', '12', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '16', '15', '13', '8']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '3', '1', '8', '4', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '5', '16', '6', '7', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '16', '11', '10', '8', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '15', '8', '12', '14', '16']}] }),
         Part(**{ 'name':'MC3487N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC3487N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'Four independent differential line drivers', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/mc3487.pdf', 'pins':[
             Pin(num='1',name='INPUT',func=Pin.types.INPUT,unit=1),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -126,7 +126,7 @@ Interface_LineDriver = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='OUT+',func=Pin.types.TRISTATE,unit=4),
             Pin(num='15',name='INPUT',func=Pin.types.INPUT,unit=4),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=4),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '16', '8', '3', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '5', '8', '6', '16']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '16', '8', '10', '12', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '8', '13', '12', '16', '14']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '3', '4', '2', '1', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '5', '8', '6', '16']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '12', '11', '16', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '8', '16', '12', '14', '13']}] }),
         Part(**{ 'name':'UA9637', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UA9637'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Dual differential line receiver', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheets2/28/284473_1.pdf', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUT',func=Pin.types.OUTPUT,unit=1),
@@ -137,7 +137,7 @@ Interface_LineDriver = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='OUT',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='IN-',func=Pin.types.INPUT,unit=2),
-            Pin(num='6',name='IN+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '4', '2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6', '4', '1']}] }),
+            Pin(num='6',name='IN+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '4', '1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '4', '1', '5']}] }),
         Part(**{ 'name':'UA9638CD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UA9638CD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual high-speed differential line driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ua9638.pdf', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
@@ -148,7 +148,7 @@ Interface_LineDriver = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='IN',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='OUTA',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '8', '1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '4', '3', '5', '6']}] }),
+            Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '8', '1', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6', '1', '4']}] }),
         Part(**{ 'name':'UA9638CP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UA9638CP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Dual high-speed differential line driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ua9638.pdf', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
@@ -159,7 +159,7 @@ Interface_LineDriver = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='IN',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='OUTA',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1', '8', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '1', '5', '3']}] }),
+            Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '4', '8', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '4', '5', '3', '6']}] }),
         Part(**{ 'name':'DS8830', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS8830'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Dual differential line driver', 'description':'', 'datasheet':'http://pdf1.alldatasheet.com/datasheet-pdf/view/8473/NSC/DS7830J.html', 'pins':[
             Pin(num='1',name='A_1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='B_4',func=Pin.types.INPUT,unit=1),
@@ -185,7 +185,7 @@ Interface_LineDriver = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='IN',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='OUTA',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '1', '7', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6', '1', '4']}] }),
+            Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1', '8', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '1', '4', '6', '3']}] }),
         Part(**{ 'name':'UA9638CDG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UA9638CDG4'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual high-speed differential line driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ua9638.pdf', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
@@ -196,7 +196,7 @@ Interface_LineDriver = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='IN',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='OUTA',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '7', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6', '1', '4']}] }),
+            Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '2', '7', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '3', '4', '1', '5']}] }),
         Part(**{ 'name':'UA9638CDR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UA9638CDR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual high-speed differential line driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ua9638.pdf', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
@@ -207,7 +207,7 @@ Interface_LineDriver = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='IN',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='OUTA',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '2', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6', '1', '4']}] }),
+            Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '1', '8', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '3', '4', '1']}] }),
         Part(**{ 'name':'UA9638CDRG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UA9638CDRG4'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual high-speed differential line driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ua9638.pdf', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
@@ -218,7 +218,7 @@ Interface_LineDriver = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='IN',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='OUTA',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '7', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '1', '6', '4']}] }),
+            Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '7', '2', '4', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '6', '1', '5']}] }),
         Part(**{ 'name':'UA9638CPE4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UA9638CPE4'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Dual high-speed differential line driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ua9638.pdf', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
@@ -229,4 +229,4 @@ Interface_LineDriver = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='IN',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='OUTA',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '4', '8', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5', '6', '1']}] })])
+            Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '4', '2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6', '4', '1']}] })])

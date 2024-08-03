@@ -362,7 +362,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='HVC/A0',func=Pin.types.INPUT,unit=5),
             Pin(num='5',name='SCL',func=Pin.types.INPUT,unit=5),
             Pin(num='6',name='SDA',func=Pin.types.BIDIR,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '13', '11']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '9', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['18', '20', '19']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '2', '3']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '5', '15', '7', '17', '4', '16', '6']}] }),
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '11', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '10', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['18', '19', '20']},{'label': 'uD', 'num': 4, 'pin_nums': ['3', '2', '1']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '15', '5', '17', '7', '16', '4', '6']}] }),
         Part(**{ 'name':'MCP45HV51-MQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP45HV51-MQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'I2C Potentiometer pot digital', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005304A.pdf', 'pins':[
             Pin(num='1',name='VL',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.PASSIVE,unit=1),
@@ -684,7 +684,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='HVC/A0',func=Pin.types.INPUT,unit=5),
             Pin(num='5',name='SCL',func=Pin.types.INPUT,unit=5),
             Pin(num='6',name='SDA',func=Pin.types.BIDIR,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '11', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '9', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['19', '18', '20']},{'label': 'uD', 'num': 4, 'pin_nums': ['3', '1', '2']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '5', '7', '17', '15', '16', '6', '4']}] }),
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '11', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '8', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['18', '20', '19']},{'label': 'uD', 'num': 4, 'pin_nums': ['2', '3', '1']},{'label': 'uE', 'num': 5, 'pin_nums': ['6', '17', '5', '16', '14', '7', '4', '15']}] }),
         Part(**{ 'name':'MCP4451-xxxx-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4451-xxxx-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Digital Pot Potentiometer DigiPot', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22267A_MCP4431.pdf', 'pins':[
             Pin(num='11',name='P0A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='P0W',func=Pin.types.PASSIVE,unit=1),
@@ -705,7 +705,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='HVC/A0',func=Pin.types.INPUT,unit=5),
             Pin(num='5',name='SCL',func=Pin.types.INPUT,unit=5),
             Pin(num='6',name='SDA',func=Pin.types.BIDIR,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '11', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '8', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['19', '18', '20']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '3', '2']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '17', '16', '6', '15', '4', '7', '5']}] }),
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '12', '11']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '8', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['18', '19', '20']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '2', '3']},{'label': 'uE', 'num': 5, 'pin_nums': ['16', '5', '17', '15', '14', '6', '7', '4']}] }),
         Part(**{ 'name':'MCP4461-xxxx-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4461-xxxx-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Digital Pot Potentiometer DigiPot', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22267A_MCP4431.pdf', 'pins':[
             Pin(num='11',name='P0A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='P0W',func=Pin.types.PASSIVE,unit=1),
@@ -726,7 +726,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='HVC/A0',func=Pin.types.INPUT,unit=5),
             Pin(num='5',name='SCL',func=Pin.types.INPUT,unit=5),
             Pin(num='6',name='SDA',func=Pin.types.BIDIR,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '13', '11']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '8', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['20', '18', '19']},{'label': 'uD', 'num': 4, 'pin_nums': ['2', '3', '1']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '4', '7', '15', '17', '5', '16', '6']}] }),
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '11', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '10', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['18', '20', '19']},{'label': 'uD', 'num': 4, 'pin_nums': ['2', '1', '3']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '6', '17', '5', '16', '4', '14', '15']}] }),
         Part(**{ 'name':'MCP45HV31-MQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP45HV31-MQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'I2C Potentiometer pot digital', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005304A.pdf', 'pins':[
             Pin(num='1',name='VL',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.PASSIVE,unit=1),

@@ -979,7 +979,7 @@ Regulator_Linear = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='INN',func=Pin.types.PWRIN,unit=2),
             Pin(num='7',name='OUTN',func=Pin.types.PWROUT,unit=2),
             Pin(num='8',name='ADJN',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='INN',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '14', '1', '13', '4', '2', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '9', '8', '6', '11', '5', '7']}] }),
+            Pin(num='9',name='INN',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '3', '13', '12', '1', '4', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '9', '10', '5', '6', '8', '11']}] }),
         Part(**{ 'name':'LT3032-5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3032-5'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Linear_DE14MA'], 'footprint':'Package_DFN_QFN:Linear_DE14MA', 'keywords':'LDO low noise', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/3032ff.pdf', 'pins':[
             Pin(num='1',name='OUTP',func=Pin.types.PWROUT,unit=1),
             Pin(num='12',name='~{SHDNP}',func=Pin.types.INPUT,unit=1),
@@ -994,7 +994,7 @@ Regulator_Linear = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='INN',func=Pin.types.PWRIN,unit=2),
             Pin(num='7',name='OUTN',func=Pin.types.PWROUT,unit=2),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='9',name='INN',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '14', '3', '2', '1', '4', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '8', '5', '6', '7', '10', '9']}] }),
+            Pin(num='9',name='INN',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '14', '4', '2', '3', '12', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '11', '8', '6', '10', '9', '5']}] }),
         Part(**{ 'name':'LT3033xUDC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3033xUDC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UDC-QFN-20-4EP_3x4mm_P0.5mm_EP0.41x0.25mm'], 'footprint':'Package_DFN_QFN:UDC-QFN-20-4EP_3x4mm_P0.5mm_EP0.41x0.25mm', 'keywords':'linear positive voltage regulator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT3033.pdf', 'pins':[
             Pin(num='15',name='IN',func=Pin.types.PASSIVE),
             Pin(num='16',name='IN',func=Pin.types.PASSIVE),
@@ -5913,7 +5913,7 @@ Regulator_Linear = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='INN',func=Pin.types.PWRIN,unit=2),
             Pin(num='7',name='OUTN',func=Pin.types.PWROUT,unit=2),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='9',name='INN',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '14', '12', '2', '4', '3', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '10', '7', '5', '6', '8', '11']}] }),
+            Pin(num='9',name='INN',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '4', '14', '13', '2', '1', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '9', '7', '11', '8', '6', '5']}] }),
         Part(**{ 'name':'LT3032-15', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3032-15'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Linear_DE14MA', 'Package_DFN_QFN:Linear_DE14MA', 'Package_DFN_QFN:Linear_DE14MA'], 'footprint':'Package_DFN_QFN:Linear_DE14MA', 'keywords':'LDO low noise', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/3032ff.pdf', 'pins':[
             Pin(num='1',name='OUTP',func=Pin.types.PWROUT,unit=1),
             Pin(num='12',name='~{SHDNP}',func=Pin.types.INPUT,unit=1),
@@ -5928,7 +5928,7 @@ Regulator_Linear = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='INN',func=Pin.types.PWRIN,unit=2),
             Pin(num='7',name='OUTN',func=Pin.types.PWROUT,unit=2),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='9',name='INN',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '3', '4', '1', '2', '13', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '8', '7', '6', '10', '9', '11']}] }),
+            Pin(num='9',name='INN',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '1', '3', '14', '4', '2', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '5', '10', '8', '6', '9', '7']}] }),
         Part(**{ 'name':'LT3032-3.3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3032-3.3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Linear_DE14MA', 'Package_DFN_QFN:Linear_DE14MA', 'Package_DFN_QFN:Linear_DE14MA', 'Package_DFN_QFN:Linear_DE14MA'], 'footprint':'Package_DFN_QFN:Linear_DE14MA', 'keywords':'LDO low noise', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/3032ff.pdf', 'pins':[
             Pin(num='1',name='OUTP',func=Pin.types.PWROUT,unit=1),
             Pin(num='12',name='~{SHDNP}',func=Pin.types.INPUT,unit=1),
@@ -5943,7 +5943,7 @@ Regulator_Linear = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='INN',func=Pin.types.PWRIN,unit=2),
             Pin(num='7',name='OUTN',func=Pin.types.PWROUT,unit=2),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='9',name='INN',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '13', '2', '1', '12', '14', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '6', '9', '11', '7', '5', '8']}] }),
+            Pin(num='9',name='INN',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '4', '3', '14', '12', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '9', '11', '5', '7', '8', '10']}] }),
         Part(**{ 'name':'LT3094xDD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3094xDD'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-12-1EP_3x4mm_P0.65mm_EP1.65x2.85mm', 'Package_DFN_QFN:DFN-12-1EP_3x3mm_P0.45mm_EP1.65x2.38mm_ThermalVias'], 'footprint':'Package_SO:MSOP-12-1EP_3x4mm_P0.65mm_EP1.65x2.85mm', 'keywords':'linear negative voltage regulator low-noise', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT3094.pdf', 'pins':[
             Pin(num='12',name='OUT',func=Pin.types.PASSIVE),
             Pin(num='13',name='IN',func=Pin.types.PASSIVE),

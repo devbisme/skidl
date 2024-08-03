@@ -37,7 +37,7 @@ Comparator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='9',name='+',func=Pin.types.INPUT,unit=4),
             Pin(num='12',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '4', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '1', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '13']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['3', '12']}] }),
+            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['13', '10', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '3']}] }),
         Part(**{ 'name':'LM2903', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM2903'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'cmp open collector', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm393.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -46,7 +46,7 @@ Comparator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OPENCOLL,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'LM311', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM311'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'cmp open collector', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lm311.pdf', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='+',func=Pin.types.INPUT,unit=1),
@@ -70,7 +70,7 @@ Comparator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=2),
             Pin(num='9',name='+',func=Pin.types.INPUT,unit=2),
             Pin(num='11',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='6',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '12', '4', '5', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '9', '14', '10', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '6']}] }),
+            Pin(num='6',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '3', '2', '12', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '7', '8', '14', '9', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '11']}] }),
         Part(**{ 'name':'LM319H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM319H'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-100-10'], 'footprint':'Package_TO_SOT_THT:TO-100-10', 'keywords':'cmp open collector', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm319-n.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -81,7 +81,7 @@ Comparator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='+',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='10',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '5']}] }),
+            Pin(num='5',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '4', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '9', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '5']}] }),
         Part(**{ 'name':'LM339', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM339'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'cmp open collector', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lm139.pdf', 'pins':[
             Pin(num='2',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='-',func=Pin.types.INPUT,unit=1),
@@ -96,7 +96,7 @@ Comparator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='9',name='+',func=Pin.types.INPUT,unit=4),
             Pin(num='12',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '10', '13']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['3', '12']}] }),
+            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '1', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['13', '11', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '3']}] }),
         Part(**{ 'name':'LM397', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM397'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'single comparator', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm397.pdf', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -136,7 +136,7 @@ Comparator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='26',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='27',name='+',func=Pin.types.INPUT,unit=4),
             Pin(num='28',name='VEE',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='33',name='VEE/EP',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['29', '32', '30', '2', '4', '1', '31', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '10', '11', '6', '12', '9', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['17', '19', '15', '13', '16', '14', '18', '20']},{'label': 'uD', 'num': 4, 'pin_nums': ['23', '27', '25', '21', '22', '24', '26', '28']},{'label': 'uE', 'num': 5, 'pin_nums': ['33']}] }),
+            Pin(num='33',name='VEE/EP',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '1', '31', '2', '3', '29', '32', '30']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '9', '7', '10', '5', '8', '11', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '16', '18', '20', '17', '13', '15', '19']},{'label': 'uD', 'num': 4, 'pin_nums': ['21', '25', '27', '23', '22', '24', '26', '28']},{'label': 'uE', 'num': 5, 'pin_nums': ['33']}] }),
         Part(**{ 'name':'LMV331', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMV331'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'single comparator', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmv331.pdf', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -151,7 +151,7 @@ Comparator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OPENCOLL,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'LMV7271', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMV7271'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'cmp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmv7271.pdf', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -166,7 +166,7 @@ Comparator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='B3',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='C3',name='+',func=Pin.types.INPUT,unit=2),
             Pin(num='A2',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='C2',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['B1', 'A1', 'C1']},{'label': 'uB', 'num': 2, 'pin_nums': ['A3', 'C3', 'B3']},{'label': 'uC', 'num': 3, 'pin_nums': ['A2', 'C2']}] }),
+            Pin(num='C2',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['C1', 'B1', 'A1']},{'label': 'uB', 'num': 2, 'pin_nums': ['A3', 'B3', 'C3']},{'label': 'uC', 'num': 3, 'pin_nums': ['C2', 'A2']}] }),
         Part(**{ 'name':'LT1016', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1016'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'cmp push-pull complementary latch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/lt1016.pdf', 'pins':[
             Pin(num='1',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='+',func=Pin.types.INPUT,unit=1),
@@ -308,7 +308,7 @@ Comparator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MCP6566', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP6566'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'cmp collector', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP6566-6R-6U-7-9-1.8V-Low-Power-Open-Drain-Output-Comparator-DS20002143G.pdf', 'pins':[
             Pin(num='2',name='V-',func=Pin.types.PWRIN),
             Pin(num='5',name='V+',func=Pin.types.PWRIN),
@@ -335,7 +335,7 @@ Comparator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OPENCOLL,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MCP6569', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP6569'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'cmp collector', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP6566-6R-6U-7-9-1.8V-Low-Power-Open-Drain-Output-Comparator-DS20002143G.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -350,7 +350,7 @@ Comparator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OPENCOLL,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'MCP65R41', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP65R41'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'cmp reference', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22269B.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -415,7 +415,7 @@ Comparator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OPENCOLL,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'LMV339', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMV339'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'cmp open collector', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lmv331.pdf', 'pins':[
             Pin(num='2',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='-',func=Pin.types.INPUT,unit=1),
@@ -430,7 +430,7 @@ Comparator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='9',name='+',func=Pin.types.INPUT,unit=4),
             Pin(num='12',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '10', '13']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['3', '12']}] }),
+            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '10', '13']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '3']}] }),
         Part(**{ 'name':'LMV7219M5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMV7219M5'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'cmp', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/lmv7219.pdf', 'pins':[
             Pin(num='2',name='V-',func=Pin.types.PWRIN),
             Pin(num='5',name='V+',func=Pin.types.PWRIN),
@@ -463,7 +463,7 @@ Comparator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='9',name='+',func=Pin.types.INPUT,unit=4),
             Pin(num='12',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '2', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '10', '13']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['3', '12']}] }),
+            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['13', '10', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '3']}] }),
         Part(**{ 'name':'LT1011', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1011'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'cmp open collector', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/lt1011.pdf', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='+',func=Pin.types.INPUT,unit=1),

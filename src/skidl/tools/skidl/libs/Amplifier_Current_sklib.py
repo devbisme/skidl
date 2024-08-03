@@ -56,7 +56,7 @@ Amplifier_Current = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='1',name='-IN',func=Pin.types.INPUT,unit=2),
             Pin(num='2',name='+IN',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='OUT',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='5',name='CF',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '9', '3', '10', '8', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2', '4', '1']}] }),
+            Pin(num='5',name='CF',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '9', '10', '8', '6', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '1', '2']}] }),
         Part(**{ 'name':'AD8215', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8215'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'highside HS current sense amplifier linear buffered monitor', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8215.pdf', 'pins':[
             Pin(num='1',name='-IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),

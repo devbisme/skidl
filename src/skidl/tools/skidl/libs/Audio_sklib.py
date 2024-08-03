@@ -365,7 +365,7 @@ Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='VCE2',func=Pin.types.INPUT,unit=2),
             Pin(num='15',name='VG2',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='OUT2',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='17',name='DTRIM2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '7', '2', '8', '5', '10', '18', '6', '3', '1', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '16', '12', '5', '10', '18', '11', '15', '13', '17']}] }),
+            Pin(num='17',name='DTRIM2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['18', '6', '4', '3', '1', '10', '9', '7', '5', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '14', '15', '13', '11', '17', '10', '18', '5', '16']}] }),
         Part(**{ 'name':'AS3330F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS3330F'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'VCA CEM3330 ALFA', 'description':'', 'datasheet':'http://www.alfarzpp.lv/eng/sc/AS3330.pdf', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='3',name='GND',func=Pin.types.PWRIN),
@@ -390,7 +390,7 @@ Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='20',name='IN2',func=Pin.types.INPUT,unit=2),
             Pin(num='22',name='VCE2',func=Pin.types.INPUT,unit=2),
             Pin(num='23',name='VG2',func=Pin.types.INPUT,unit=2),
-            Pin(num='24',name='OUT2',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '15', '5', '12', '21', '6', '8', '3', '1', '14', '18', '9', '10', '4', '16', '11', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['17', '24', '19', '3', '22', '9', '2', '23', '16', '20']}] }),
+            Pin(num='24',name='OUT2',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '4', '16', '3', '18', '7', '9', '10', '5', '11', '21', '6', '14', '8', '13', '15', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '16', '3', '23', '9', '20', '17', '24', '19', '22']}] }),
         Part(**{ 'name':'AS3340', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS3340'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'VCO CEM340 ALFA', 'description':'', 'datasheet':'http://www.alfarzpp.lv/eng/sc/AS3340.pdf', 'pins':[
             Pin(num='1',name='SCALE1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VTO',func=Pin.types.OUTPUT,unit=1),
@@ -466,7 +466,7 @@ Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='VO2',func=Pin.types.OUTPUT,unit=2),
             Pin(num='12',name='VE2',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='IO2',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='9',name='II2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '5', '8', '3', '7', '6', '4', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '13', '11', '7', '12', '9', '10', '14']}] }),
+            Pin(num='9',name='II2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '14', '4', '2', '7', '5', '8', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '10', '14', '9', '12', '7', '11', '13']}] }),
         Part(**{ 'name':'CS4245', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CS4245'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'audio codec 2ch 24bit 192kHz', 'description':'', 'datasheet':'https://d3uzseaevmutz1.cloudfront.net/pubs/proDatasheet/CS4245_F3.pdf', 'pins':[
             Pin(num='1',name='SDA/CDOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AIN2B',func=Pin.types.INPUT,unit=1),
@@ -1357,7 +1357,7 @@ Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name="OUT_B'",func=Pin.types.OUTPUT,unit=2),
             Pin(num='12',name='OUT_B',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='02B',func=Pin.types.INPUT,unit=2),
-            Pin(num='15',name='IN_B',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '5', '6', '16', '3', '13', '1', '4', '7', '9', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '14', '16', '15', '10', '12', '13', '4', '7', '9', '1']}] }),
+            Pin(num='15',name='IN_B',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '13', '9', '1', '4', '7', '2', '5', '8', '6', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '9', '10', '12', '15', '1', '4', '7', '11', '14', '16']}] }),
         Part(**{ 'name':'SGTL5000XNAA3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SGTL5000XNAA3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm', 'keywords':'Codec', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SGTL5000.pdf', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VAG',func=Pin.types.PASSIVE,unit=1),
@@ -1586,7 +1586,7 @@ Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='23',name='GPO0',func=Pin.types.BIDIR,unit=2),
             Pin(num='24',name='GPO1',func=Pin.types.BIDIR,unit=2),
             Pin(num='25',name='GPO2',func=Pin.types.BIDIR,unit=2),
-            Pin(num='26',name='GPO3',func=Pin.types.BIDIR,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['29', '5', '8', '33', '3', '10', '7', '9', '2', '11', '28', '27', '32', '4', '6', '30', '1', '31']},{'label': 'uB', 'num': 2, 'pin_nums': ['20', '17', '15', '13', '19', '23', '25', '14', '16', '18', '21', '22', '24', '26', '12']}] }),
+            Pin(num='26',name='GPO3',func=Pin.types.BIDIR,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '8', '33', '10', '3', '7', '9', '1', '2', '28', '29', '32', '4', '6', '11', '27', '31', '30']},{'label': 'uB', 'num': 2, 'pin_nums': ['20', '19', '13', '15', '17', '23', '25', '14', '16', '18', '21', '22', '24', '26', '12']}] }),
         Part(**{ 'name':'THAT5173', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THAT5173'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.4x3.4mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.4x3.4mm', 'keywords':'mic preamp gain controller', 'description':'', 'datasheet':'http://www.thatcorp.com/datashts/THAT_5173_Datasheet.pdf', 'pins':[
             Pin(num='1',name='SCAP2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='19',name='VEE',func=Pin.types.PWRIN,unit=1),
@@ -1612,7 +1612,7 @@ Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{RST}',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~{CS}',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='SCLK',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='DIN',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['20', '24', '1', '19', '22', '4', '2', '25', '3', '23', '5', '21']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '15', '6', '17', '11', '8', '10', '14', '12', '16', '18', '7', '9']}] }),
+            Pin(num='9',name='DIN',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['20', '21', '5', '24', '19', '1', '22', '4', '2', '25', '3', '23']},{'label': 'uB', 'num': 2, 'pin_nums': ['17', '11', '13', '15', '6', '8', '12', '10', '14', '16', '18', '7', '9']}] }),
         Part(**{ 'name':'THAT5263', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THAT5263'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.4x3.4mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.4x3.4mm', 'keywords':'dual mic preamp gain controller', 'description':'', 'datasheet':'http://www.thatcorp.com/datashts/THAT_5263_Datasheet.pdf', 'pins':[
             Pin(num='10',name='IN2_CH1',func=Pin.types.INPUT,unit=1),
             Pin(num='25',name='PAD',func=Pin.types.PASSIVE,unit=1),
@@ -1638,7 +1638,7 @@ Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='21',name='IN1_CH2',func=Pin.types.INPUT,unit=3),
             Pin(num='22',name='RA_CH2',func=Pin.types.PASSIVE,unit=3),
             Pin(num='23',name='RG1_CH2',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='24',name='RG2_CH2',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '3', '9', '7', '10', '4', '25', '5', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '14', '16', '18', '20', '15', '19', '13', '11', '17']},{'label': 'uC', 'num': 3, 'pin_nums': ['23', '21', '1', '2', '22', '24']}] }),
+            Pin(num='24',name='RG2_CH2',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '6', '9', '3', '10', '25', '7', '4', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['19', '17', '14', '12', '13', '15', '16', '18', '20', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '24', '21', '1', '23', '22']}] }),
         Part(**{ 'name':'THAT6261', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THAT6261'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.45x5.45mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.45x5.45mm', 'keywords':'dual mic preamp', 'description':'', 'datasheet':'http://www.thatcorp.com/datashts/THAT_626x_Datasheet.pdf', 'pins':[
             Pin(num='1',name='RFB+_CH1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='VA+',func=Pin.types.PASSIVE,unit=1),
@@ -1688,7 +1688,7 @@ Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='39',name='RFB+_CH2',func=Pin.types.PASSIVE,unit=3),
             Pin(num='40',name='RFB-_CH2',func=Pin.types.PASSIVE,unit=3),
             Pin(num='41',name='OUT+_CH2',func=Pin.types.OUTPUT,unit=3),
-            Pin(num='42',name='OUT-_CH2',func=Pin.types.OUTPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['20', '47', '2', '1', '48', '3', '49', '11', '4', '5', '12', '43', '6', '13', '44', '7', '8', '15', '45', '46', '10', '14', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['30', '28', '26', '32', '34', '36', '27', '25', '29', '31', '33', '35']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '18', '21', '23', '17', '19', '22', '24', '38', '39', '40', '41', '42', '37']}] }),
+            Pin(num='42',name='OUT-_CH2',func=Pin.types.OUTPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '12', '43', '44', '13', '7', '15', '45', '8', '10', '14', '46', '9', '20', '47', '2', '1', '48', '3', '49', '11', '4', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['25', '29', '31', '33', '27', '35', '26', '28', '30', '32', '34', '36']},{'label': 'uC', 'num': 3, 'pin_nums': ['19', '22', '38', '24', '17', '40', '42', '18', '16', '21', '23', '37', '39', '41']}] }),
         Part(**{ 'name':'TLV320AIC23BPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV320AIC23BPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'audio codec 2ch 96kHz headphone amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlv320aic23b.pdf', 'pins':[
             Pin(num='1',name='BVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RHPOUT',func=Pin.types.PASSIVE,unit=1),
@@ -2558,7 +2558,7 @@ Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name="OUT_B'",func=Pin.types.OUTPUT,unit=2),
             Pin(num='12',name='OUT_B',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='02B',func=Pin.types.INPUT,unit=2),
-            Pin(num='15',name='IN_B',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['9', '5', '1', '6', '2', '16', '7', '4', '3', '8', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '15', '9', '1', '12', '14', '16', '7', '4', '11', '13']}] }),
+            Pin(num='15',name='IN_B',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '7', '16', '2', '8', '3', '13', '4', '9', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '7', '16', '11', '14', '10', '15', '13', '4', '9', '12']}] }),
         Part(**{ 'name':'THAT1583', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THAT1583'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm_ThermalVias', 'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm_ThermalVias', 'keywords':'diff amp mic preamp', 'description':'', 'datasheet':'http://www.thatcorp.com/datashts/THAT_1583_Datasheet.pdf', 'pins':[
             Pin(num='10',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -2618,7 +2618,7 @@ Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='39',name='RFB+_CH2',func=Pin.types.PASSIVE,unit=3),
             Pin(num='40',name='RFB-_CH2',func=Pin.types.PASSIVE,unit=3),
             Pin(num='41',name='OUT+_CH2',func=Pin.types.OUTPUT,unit=3),
-            Pin(num='42',name='OUT-_CH2',func=Pin.types.OUTPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['45', '10', '8', '3', '1', '46', '9', '15', '47', '2', '48', '43', '13', '49', '14', '5', '11', '4', '6', '12', '44', '7', '20']},{'label': 'uB', 'num': 2, 'pin_nums': ['29', '31', '33', '27', '25', '35', '28', '32', '34', '30', '26', '36']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '39', '23', '18', '21', '41', '37', '17', '19', '22', '24', '38', '40', '42']}] }),
+            Pin(num='42',name='OUT-_CH2',func=Pin.types.OUTPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['45', '8', '11', '46', '9', '12', '20', '47', '10', '48', '3', '1', '15', '49', '5', '2', '43', '6', '4', '7', '13', '44', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['25', '27', '29', '31', '33', '35', '34', '36', '26', '28', '30', '32']},{'label': 'uC', 'num': 3, 'pin_nums': ['18', '21', '23', '37', '16', '39', '41', '19', '22', '24', '38', '40', '42', '17']}] }),
         Part(**{ 'name':'THAT6263', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THAT6263'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.45x5.45mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.45x5.45mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.45x5.45mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.45x5.45mm', 'keywords':'dual mic preamp', 'description':'', 'datasheet':'http://www.thatcorp.com/datashts/THAT_626x_Datasheet.pdf', 'pins':[
             Pin(num='1',name='RFB+_CH1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='VA+',func=Pin.types.PASSIVE,unit=1),
@@ -2668,7 +2668,7 @@ Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='39',name='RFB+_CH2',func=Pin.types.PASSIVE,unit=3),
             Pin(num='40',name='RFB-_CH2',func=Pin.types.PASSIVE,unit=3),
             Pin(num='41',name='OUT+_CH2',func=Pin.types.OUTPUT,unit=3),
-            Pin(num='42',name='OUT-_CH2',func=Pin.types.OUTPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['45', '11', '10', '46', '47', '12', '1', '13', '48', '49', '14', '15', '2', '5', '20', '6', '3', '7', '4', '8', '43', '9', '44']},{'label': 'uB', 'num': 2, 'pin_nums': ['31', '26', '34', '25', '29', '32', '27', '35', '30', '33', '28', '36']},{'label': 'uC', 'num': 3, 'pin_nums': ['18', '39', '42', '22', '16', '37', '21', '19', '40', '23', '17', '38', '41', '24']}] }),
+            Pin(num='42',name='OUT-_CH2',func=Pin.types.OUTPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '45', '11', '10', '46', '12', '47', '13', '48', '14', '49', '15', '2', '5', '20', '6', '3', '7', '4', '8', '43', '9', '44']},{'label': 'uB', 'num': 2, 'pin_nums': ['28', '36', '31', '34', '26', '29', '32', '27', '35', '30', '33', '25']},{'label': 'uC', 'num': 3, 'pin_nums': ['24', '39', '18', '22', '42', '17', '16', '37', '19', '40', '23', '38', '41', '21']}] }),
         Part(**{ 'name':'WM8731CSEFL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'WM8731CSEFL'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm', 'Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm', 'keywords':'wolfson stereo audio codec adc dac headphone', 'description':'', 'datasheet':'https://statics.cirrus.com/pubs/proDatasheet/WM8731_v4.9.pdf', 'pins':[
             Pin(num='1',name='XTI/MCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='ADCDAT',func=Pin.types.OUTPUT,unit=1),

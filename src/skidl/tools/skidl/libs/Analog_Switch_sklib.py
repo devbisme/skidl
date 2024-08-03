@@ -88,7 +88,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '3', '5']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '2', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '5', '3']}] }),
         Part(**{ 'name':'ADG633YCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADG633YCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm'], 'footprint':'Package_CSP:LFCSP-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/adg633.pdf', 'pins':[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -106,7 +106,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='17',name='EP',func=Pin.types.PWRIN,unit=4),
             Pin(num='4',name='~{EN}',func=Pin.types.INPUT,unit=4),
             Pin(num='5',name='VSS',func=Pin.types.PWRIN,unit=4),
-            Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['10', '11', '9', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['15', '13', '8', '16']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '2', '3', '1']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '5', '17', '6', '14']}] }),
+            Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '12', '9', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '8', '15', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '3', '7', '1']},{'label': 'uD', 'num': 4, 'pin_nums': ['17', '5', '14', '6', '4']}] }),
         Part(**{ 'name':'ADG633YRU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADG633YRU'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADG633.pdf', 'pins':[
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -123,7 +123,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=4),
             Pin(num='6',name='~{EN}',func=Pin.types.INPUT,unit=4),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=4),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '11', '14', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '10', '15', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4', '5', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['16', '6', '8', '7']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '11', '12', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '15', '2', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '5', '9', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '7', '6', '16']}] }),
         Part(**{ 'name':'ADG658YCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADG658YCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:Analog_LFCSP-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm'], 'footprint':'Package_CSP:Analog_LFCSP-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm', 'keywords':'analog switch multiplexer SP8T', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADG658_659.pdf', 'pins':[
             Pin(num='6',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='D',func=Pin.types.BIDIR,unit=1),
@@ -246,7 +246,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=4),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=4),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=4),
-            Pin(num='~{EN}',name='6',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '13', '12', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '15', '2', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '3', '4', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['16', '7', '8', '~{EN}']}] }),
+            Pin(num='~{EN}',name='6',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '11', '13', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '10', '15', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '3', '5', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['16', '7', '8', '~{EN}']}] }),
         Part(**{ 'name':'ADG734', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADG734'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADG733_734.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -267,7 +267,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='NC',func=Pin.types.NOCONNECT,unit=5),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=5),
             Pin(num='5',name='VSS',func=Pin.types.PWRIN,unit=5),
-            Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '4', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '10', '9', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['13', '11', '14', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['17', '19', '18', '20']},{'label': 'uE', 'num': 5, 'pin_nums': ['15', '5', '6', '16']}] }),
+            Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '4', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '9', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['13', '14', '12', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['19', '17', '18', '20']},{'label': 'uE', 'num': 5, 'pin_nums': ['15', '16', '5', '6']}] }),
         Part(**{ 'name':'ADG758CPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADG758CPZ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'analog switch multiplexer SP8T', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADG758_759.pdf', 'pins':[
             Pin(num='15',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='1',name='EN',func=Pin.types.INPUT,unit=1),
@@ -433,7 +433,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='~',func=Pin.types.BIDIR,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='V_{DD}',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='V_{SS}',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='V_{SS}',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '13', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '6', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'CD4097B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD4097B'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'analog switch selector multiplexer', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd4097b.pdf', 'pins':[
             Pin(num='1',name='X',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
@@ -475,7 +475,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='NC',func=Pin.types.NOCONNECT,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '16', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['13', '4', '12', '5']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '8', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '5', '13', '4']}] }),
         Part(**{ 'name':'DG308AxY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG308AxY'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheets/70/494502_DS.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -492,7 +492,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='NC',func=Pin.types.NOCONNECT,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '13', '5', '4']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['13', '4', '5', '12']}] }),
         Part(**{ 'name':'DG309xJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG309xJ'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheets/70/494502_DS.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -509,7 +509,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='NC',func=Pin.types.NOCONNECT,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '14', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '13', '5', '4']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '14', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '12', '13', '5']}] }),
         Part(**{ 'name':'DG309xY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG309xY'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheets/70/494502_DS.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -526,7 +526,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='NC',func=Pin.types.NOCONNECT,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '13', '5', '4']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '8', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '11', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '16', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '13', '4', '5']}] }),
         Part(**{ 'name':'DG411xJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG411xJ'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -543,7 +543,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '8', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '13', '4', '5']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '16', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '13', '4', '5']}] }),
         Part(**{ 'name':'DG411xUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG411xUE'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -560,7 +560,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '4', '5', '13']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '16', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '5', '12', '13']}] }),
         Part(**{ 'name':'DG411xY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG411xY'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -577,7 +577,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['13', '12', '4', '5']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '11', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['13', '5', '12', '4']}] }),
         Part(**{ 'name':'DG412xJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG412xJ'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -594,7 +594,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '16', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '13', '5', '4']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '5', '13', '4']}] }),
         Part(**{ 'name':'DG412xUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG412xUE'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -611,7 +611,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['13', '12', '4', '5']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '8', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '16', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '13', '5', '4']}] }),
         Part(**{ 'name':'DG412xY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG412xY'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -628,7 +628,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '16', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '13', '4', '5']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '4', '13', '5']}] }),
         Part(**{ 'name':'DG413xJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG413xJ'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -645,7 +645,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '13', '12', '5']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '8', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '5', '13', '4']}] }),
         Part(**{ 'name':'DG413xUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG413xUE'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -662,7 +662,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '13', '4', '5']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '8', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '4', '5', '13']}] }),
         Part(**{ 'name':'DG413xY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG413xY'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -679,7 +679,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '16', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '13', '4', '5']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '8', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '4', '5', '13']}] }),
         Part(**{ 'name':'DG417LDJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG417LDJ'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417L-DG419L.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -688,7 +688,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '2', '7', '3']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5', '3', '4', '7']}] }),
         Part(**{ 'name':'DG417LDJ_Maxim', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG417LDJ_Maxim'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417L-DG419L.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -697,7 +697,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '2', '4', '3']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '7', '5', '2', '4']}] }),
         Part(**{ 'name':'DG417LDY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG417LDY'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -706,7 +706,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3', '7', '2']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '2', '5', '3', '7']}] }),
         Part(**{ 'name':'DG417LDY_Maxim', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG417LDY_Maxim'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -715,7 +715,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '7', '5', '4', '2']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '7', '2', '4', '5']}] }),
         Part(**{ 'name':'DG417LEUA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG417LEUA'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -724,7 +724,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '2', '5', '3', '7']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '7', '2', '4', '5']}] }),
         Part(**{ 'name':'DG417LEUA_Maxim', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG417LEUA_Maxim'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -733,7 +733,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3', '7', '5', '4']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '2', '3', '7']}] }),
         Part(**{ 'name':'DG417xJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG417xJ'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -742,7 +742,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2', '4', '7', '3']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '2', '4', '7']}] }),
         Part(**{ 'name':'DG417xY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG417xY'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -751,7 +751,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '4', '7', '3', '5']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2', '7', '4', '3']}] }),
         Part(**{ 'name':'DG418LDJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG418LDJ'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -760,7 +760,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '4', '5', '3', '7']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '4', '2', '5', '3']}] }),
         Part(**{ 'name':'DG418LDJ_Maxim', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG418LDJ_Maxim'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -769,7 +769,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3', '4', '7', '5']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '2', '3', '5', '4']}] }),
         Part(**{ 'name':'DG418LDY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG418LDY'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -778,7 +778,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '2', '5', '4']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '3', '7', '2']}] }),
         Part(**{ 'name':'DG418LDY_Maxim', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG418LDY_Maxim'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -787,7 +787,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '7', '5', '2', '4']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '7', '4', '5', '3']}] }),
         Part(**{ 'name':'DG418LEUA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG418LEUA'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -796,7 +796,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '7', '2', '4']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3', '5', '7', '4']}] }),
         Part(**{ 'name':'DG418LEUA_Maxim', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG418LEUA_Maxim'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -805,7 +805,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '7', '2', '5', '4']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3', '7', '5', '4']}] }),
         Part(**{ 'name':'DG418xJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG418xJ'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -814,7 +814,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3', '4', '7', '5']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '2', '7', '3', '5']}] }),
         Part(**{ 'name':'DG418xY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG418xY'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -823,7 +823,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '4', '7', '3', '5']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '2', '7', '4']}] }),
         Part(**{ 'name':'DG419LDJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG419LDJ'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -832,7 +832,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '4', '3']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '7', '4', '5']}] }),
         Part(**{ 'name':'DG419LDJ_Maxim', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG419LDJ_Maxim'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -841,7 +841,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '4', '7']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '5', '3']}] }),
         Part(**{ 'name':'DG419LDY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG419LDY'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -850,7 +850,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '7', '4']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '4', '5', '3']}] }),
         Part(**{ 'name':'DG419LDY_Maxim', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG419LDY_Maxim'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -859,7 +859,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '7', '5', '4']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '8', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '7', '4']}] }),
         Part(**{ 'name':'DG419LEUA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG419LEUA'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -868,7 +868,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '8', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5', '7']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '6', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4', '7']}] }),
         Part(**{ 'name':'DG419LEUA_Maxim', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG419LEUA_Maxim'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -877,7 +877,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '2', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '4', '5', '3']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '2', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5', '7']}] }),
         Part(**{ 'name':'DG419xJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG419xJ'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -886,7 +886,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '4', '5']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '8', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '7', '4']}] }),
         Part(**{ 'name':'DG419xY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG419xY'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG417-DG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -895,7 +895,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '5', '4']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3', '7']}] }),
         Part(**{ 'name':'DG884DN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG884DN'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-44'], 'footprint':'Package_LCC:PLCC-44', 'keywords':'CMOS Analog Switch Video Crosspoint', 'description':'', 'datasheet':'http://www.vishay.com/docs/70071/dg884.pdf', 'pins':[
             Pin(num='1',name='GNDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GNDA',func=Pin.types.PASSIVE,unit=1),
@@ -947,14 +947,14 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='1',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='3',name='V-',func=Pin.types.PWRIN,unit=2),
-            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3', '4']}] }),
+            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '6', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3', '4']}] }),
         Part(**{ 'name':'DG9422DV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG9422DV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-6_1.65x3.05mm_P0.95mm'], 'footprint':'Package_SO:TSOP-6_1.65x3.05mm_P0.95mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://www.vishay.com/docs/70679/dg9421.pdf', 'pins':[
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='1',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='3',name='V-',func=Pin.types.PWRIN,unit=2),
-            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '1']}] }),
+            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '2', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '1']}] }),
         Part(**{ 'name':'HI524', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HI524'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-18_W7.62mm'], 'footprint':'Package_DIP:DIP-18_W7.62mm', 'keywords':'Video Multiplexer analog switch', 'description':'', 'datasheet':'https://www.intersil.com/content/dam/Intersil/documents/hi-5/hi-524.pdf', 'pins':[
             Pin(num='1',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
@@ -1013,7 +1013,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='VN',func=Pin.types.PASSIVE,unit=2),
             Pin(num='6',name='VP',func=Pin.types.PASSIVE,unit=2),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='9',name='VN',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '4', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '1', '7', '6', '2', '9']}] }),
+            Pin(num='9',name='VN',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '8', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '3', '1', '7', '6', '2']}] }),
         Part(**{ 'name':'MAX14761', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX14761'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm', 'keywords':'analog switch low resistance above below rails', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX14759-MAX14763.pdf', 'pins':[
             Pin(num='10',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='B1',func=Pin.types.PASSIVE,unit=1),
@@ -1025,7 +1025,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='VN',func=Pin.types.PASSIVE,unit=3),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=3),
             Pin(num='4',name='VN',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='7',name='VP',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '10', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '11', '4', '1', '2']}] }),
+            Pin(num='7',name='VP',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '10', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '9', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '2', '11', '4', '1']}] }),
         Part(**{ 'name':'MAX14778', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX14778'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-20-1EP_5x5mm_P0.65mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:TQFN-20-1EP_5x5mm_P0.65mm_EP3.1x3.1mm', 'keywords':'Analog Differential Multiplexer', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX14778.pdf', 'pins':[
             Pin(num='1',name='BCOM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='ENA',func=Pin.types.INPUT,unit=1),
@@ -1056,7 +1056,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MAX323CSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX323CSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX323-MAX325.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1065,7 +1065,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MAX323CUA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX323CUA'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX323-MAX325.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1074,7 +1074,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MAX324CPA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX324CPA'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX323-MAX325.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1083,7 +1083,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MAX324CSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX324CSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX323-MAX325.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1092,7 +1092,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'MAX324CUA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX324CUA'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX323-MAX325.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1101,7 +1101,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'MAX325CPA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX325CPA'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX323-MAX325.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1110,7 +1110,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'MAX325CSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX325CSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX323-MAX325.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1119,7 +1119,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MAX325CUA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX325CUA'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX323-MAX325.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1128,7 +1128,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MAX333', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX333'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX333.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1149,7 +1149,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='NC',func=Pin.types.NOCONNECT,unit=5),
             Pin(num='16',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='5',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '10', '9', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '12', '13', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['17', '18', '19', '20']},{'label': 'uE', 'num': 5, 'pin_nums': ['16', '15', '6', '5']}] }),
+            Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '4', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '7', '8', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '12', '11', '13']},{'label': 'uD', 'num': 4, 'pin_nums': ['17', '19', '18', '20']},{'label': 'uE', 'num': 5, 'pin_nums': ['16', '5', '6', '15']}] }),
         Part(**{ 'name':'MAX333A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX333A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX333A.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1170,7 +1170,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='NC',func=Pin.types.NOCONNECT,unit=5),
             Pin(num='16',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='5',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '4', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '7', '8', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '12', '14', '13']},{'label': 'uD', 'num': 4, 'pin_nums': ['17', '19', '18', '20']},{'label': 'uE', 'num': 5, 'pin_nums': ['5', '15', '6', '16']}] }),
+            Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '9', '10', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '13', '14', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['17', '19', '20', '18']},{'label': 'uE', 'num': 5, 'pin_nums': ['6', '5', '15', '16']}] }),
         Part(**{ 'name':'MAX40200ANS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX40200ANS'}), 'ref_prefix':'U', 'fplist':['Package_BGA:WLP-4_0.73x0.73mm_Layout2x2_P0.35mm_Ball0.22mm_Pad0.2mm_NSMD'], 'footprint':'Package_BGA:WLP-4_0.73x0.73mm_Layout2x2_P0.35mm_Ball0.22mm_Pad0.2mm_NSMD', 'keywords':'current switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX40200.pdf', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='OUT',func=Pin.types.PASSIVE,unit=1),
@@ -1188,14 +1188,14 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '4', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']}] }),
+            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '4', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'NC7SB3157P6X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NC7SB3157P6X'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NC7SB3157-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '4', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']}] }),
+            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '4', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'SN74CBT3253', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74CBT3253'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Analog Multiplexer', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74cbt3253', 'pins':[
             Pin(num='1',name='1~{OE}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='2B1',func=Pin.types.BIDIR,unit=1),
@@ -1257,7 +1257,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '5', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '9', '10', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '1']}] }),
+            Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '5', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '8', '9', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '1']}] }),
         Part(**{ 'name':'TS3A24159DRC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS3A24159DRC'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_S-PVSON-N10'], 'footprint':'Package_SON:Texas_S-PVSON-N10', 'keywords':'switch analog SPDT', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ts3a24159.pdf', 'pins':[
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1269,7 +1269,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=3),
             Pin(num='11',name='PAD',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '4', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '8', '9', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '6', '11']}] }),
+            Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '2', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '9', '10', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '6', '11']}] }),
         Part(**{ 'name':'TS3A24159YZP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS3A24159YZP'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-10_1.36x1.86mm_Layout3x4_P0.5mm'], 'footprint':'Package_BGA:Texas_DSBGA-10_1.36x1.86mm_Layout3x4_P0.5mm', 'keywords':'switch analog SPDT', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ts3a24159.pdf', 'pins':[
             Pin(num='A1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='B1',name='~',func=Pin.types.INPUT,unit=1),
@@ -1280,7 +1280,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='C3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='D3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='A2',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='D2',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['A1', 'B1', 'C1', 'D1']},{'label': 'uB', 'num': 2, 'pin_nums': ['A3', 'B3', 'C3', 'D3']},{'label': 'uC', 'num': 3, 'pin_nums': ['A2', 'D2']}] }),
+            Pin(num='D2',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['B1', 'D1', 'A1', 'C1']},{'label': 'uB', 'num': 2, 'pin_nums': ['D3', 'C3', 'B3', 'A3']},{'label': 'uC', 'num': 3, 'pin_nums': ['A2', 'D2']}] }),
         Part(**{ 'name':'TS3A27518EPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS3A27518EPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'SPI qSPI multiplexer demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ts3a27518e.pdf', 'pins':[
             Pin(num='1',name='NC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='COM5',func=Pin.types.BIDIR,unit=1),
@@ -1431,7 +1431,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='VDD',func=Pin.types.PWRIN,unit=6),
             Pin(num='43',name='GND',func=Pin.types.PWRIN,unit=6),
             Pin(num='5',name='PD',func=Pin.types.INPUT,unit=6),
-            Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['35', '38', '2', '36', '37', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['31', '33', '6', '32', '34', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['26', '28', '9', '27', '29', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['25', '22', '24', '23', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['16', '18', '41', '40', '17', '15', '19', '42', '20']},{'label': 'uF', 'num': 6, 'pin_nums': ['21', '8', '39', '43', '14', '1', '13', '30', '4', '5']}] }),
+            Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['35', '38', '2', '36', '37', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '32', '34', '7', '31', '33']},{'label': 'uC', 'num': 3, 'pin_nums': ['29', '27', '10', '26', '28', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '24', '11', '22', '25', '23']},{'label': 'uE', 'num': 5, 'pin_nums': ['16', '20', '17', '15', '19', '40', '42', '18', '41']},{'label': 'uF', 'num': 6, 'pin_nums': ['4', '5', '30', '1', '14', '39', '13', '21', '43', '8']}] }),
         Part(**{ 'name':'TS5A23159DGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS5A23159DGS'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'keywords':'switch analog SPDT', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ts5a23159.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1442,7 +1442,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '10', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['10', '1', '9', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '8']}] }),
         Part(**{ 'name':'TS5A23159RSE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS5A23159RSE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_R-PUQFN-N10'], 'footprint':'Package_DFN_QFN:Texas_R-PUQFN-N10', 'keywords':'switch analog SPDT', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ts5a23159.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1453,21 +1453,21 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['10', '9', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['9', '2', '1', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '8']}] }),
         Part(**{ 'name':'TS5A3159AYZPR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS5A3159AYZPR'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-6_0.9x1.4mm_Layout2x3_P0.5mm'], 'footprint':'Package_BGA:Texas_DSBGA-6_0.9x1.4mm_Layout2x3_P0.5mm', 'keywords':'Analog Switch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ts5a3159a.pdf', 'pins':[
             Pin(num='A1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='C1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='C2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='B1',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='B2',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['C1', 'A2', 'A1', 'C2']},{'label': 'uB', 'num': 2, 'pin_nums': ['B2', 'B1']}] }),
+            Pin(num='B2',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['A1', 'A2', 'C2', 'C1']},{'label': 'uB', 'num': 2, 'pin_nums': ['B1', 'B2']}] }),
         Part(**{ 'name':'TS5A3159DBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS5A3159DBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Analog Switch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ts5a3159.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '4', '3', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
+            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '3', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'TS5A3166DBVR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS5A3166DBVR'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'Analog Switch SPST', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ts5a3166.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1522,7 +1522,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '2', '7', '4']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '2', '5', '4', '3']}] }),
         Part(**{ 'name':'ADG417BR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADG417BR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADG417.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -1531,7 +1531,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '7', '3', '2']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2', '3', '7', '4']}] }),
         Part(**{ 'name':'ADG419BN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADG419BN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1540,7 +1540,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '7', '4']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '8', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '7', '5']}] }),
         Part(**{ 'name':'ADG419BR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADG419BR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADG419.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1549,7 +1549,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '2', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '4', '3']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '3', '5']}] }),
         Part(**{ 'name':'ADG733BRU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADG733BRU'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADG733_734.pdf', 'pins':[
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1566,7 +1566,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=4),
             Pin(num='6',name='~{EN}',func=Pin.types.INPUT,unit=4),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=4),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '12', '14', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '15', '2', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4', '5', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['6', '7', '8', '16']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '13', '12', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['15', '1', '2', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '9', '3', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['16', '6', '7', '8']}] }),
         Part(**{ 'name':'CD4066BM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD4066BM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'analog switch selector multiplexer spst mux amux', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd4066b.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.BIDIR,unit=1),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=1),
@@ -1581,7 +1581,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='~',func=Pin.types.BIDIR,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='V_{DD}',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='V_{SS}',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '13', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='V_{SS}',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '13', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '10']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'CD4066BNS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD4066BNS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:SO-14_5.3x10.2mm_P1.27mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'analog switch selector multiplexer spst mux amux', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd4066b.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.BIDIR,unit=1),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=1),
@@ -1596,7 +1596,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='~',func=Pin.types.BIDIR,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='V_{DD}',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='V_{SS}',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '13', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '10', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='V_{SS}',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'CD4066BPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD4066BPW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:SO-14_5.3x10.2mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'analog switch selector multiplexer spst mux amux', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd4066b.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.BIDIR,unit=1),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=1),
@@ -1611,7 +1611,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='~',func=Pin.types.BIDIR,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='V_{DD}',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='V_{SS}',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '10', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='V_{SS}',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '6', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '10', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'DG441xJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG441xJ'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG441-DG442.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1628,7 +1628,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='NC',func=Pin.types.NOCONNECT,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '16', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '5', '13', '4']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '8', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '11', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '14', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '4', '5', '13']}] }),
         Part(**{ 'name':'DG441xY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG441xY'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG441-DG442.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1645,7 +1645,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='NC',func=Pin.types.NOCONNECT,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '5', '4', '13']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '16', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '13', '4', '5']}] }),
         Part(**{ 'name':'DG442xJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG442xJ'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG441-DG442.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1662,7 +1662,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='NC',func=Pin.types.NOCONNECT,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '16', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['13', '4', '12', '5']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '13', '5', '4']}] }),
         Part(**{ 'name':'DG442xY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DG442xY'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DG441-DG442.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1679,21 +1679,21 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='NC',func=Pin.types.NOCONNECT,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '8', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['16', '15', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '13', '5', '4']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['13', '4', '12', '5']}] }),
         Part(**{ 'name':'FSA3157L6X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FSA3157L6X'}), 'ref_prefix':'U', 'fplist':['Package_SON:Fairchild_MicroPak-6_1.0x1.45mm_P0.5mm', 'Package_SON:Fairchild_MicroPak-6_1.0x1.45mm_P0.5mm'], 'footprint':'Package_SON:Fairchild_MicroPak-6_1.0x1.45mm_P0.5mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NC7SB3157-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '6', '4', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
+            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '3', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'FSA3157P6X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FSA3157P6X'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NC7SB3157-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '6', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
+            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '4', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'MAX312CPE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX312CPE'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX312-MAX314.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1710,7 +1710,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '14', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['5', '13', '12', '4']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '16', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '4', '13', '5']}] }),
         Part(**{ 'name':'MAX312CSE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX312CSE'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX312-MAX314.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1727,7 +1727,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '16', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['13', '4', '12', '5']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '8', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['13', '5', '4', '12']}] }),
         Part(**{ 'name':'MAX312CUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX312CUE'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX312-MAX314.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1744,7 +1744,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '4', '5', '13']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '14', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '5', '12', '13']}] }),
         Part(**{ 'name':'MAX313CPE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX313CPE'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX312-MAX314.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1761,7 +1761,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '8', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '16', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '13', '5', '4']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '11', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '5', '13', '4']}] }),
         Part(**{ 'name':'MAX313CSE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX313CSE'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX312-MAX314.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1778,7 +1778,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '12', '13', '5']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '8', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '4', '13', '5']}] }),
         Part(**{ 'name':'MAX313CUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX313CUE'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX312-MAX314.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1795,7 +1795,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '11', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['13', '12', '4', '5']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '8', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '16', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '5', '13', '4']}] }),
         Part(**{ 'name':'MAX314CPE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX314CPE'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX312-MAX314.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1812,7 +1812,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '13', '12', '5']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '11', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '5', '13', '4']}] }),
         Part(**{ 'name':'MAX314CSE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX314CSE'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX312-MAX314.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1829,7 +1829,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '8', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['5', '13', '4', '12']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['16', '14', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '4', '13', '5']}] }),
         Part(**{ 'name':'MAX314CUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX314CUE'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX312-MAX314.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1846,7 +1846,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='VL',func=Pin.types.PWRIN,unit=5),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '4', '13', '5']}] }),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '16', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '4', '5', '13']}] }),
         Part(**{ 'name':'MAX317xPA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX317xPA'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX317-MAX319.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -1855,7 +1855,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '4', '2', '5', '3']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '7', '2', '5']}] }),
         Part(**{ 'name':'MAX317xSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX317xSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX317-MAX319.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -1864,7 +1864,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5', '3', '7', '4']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3', '5', '4', '7']}] }),
         Part(**{ 'name':'MAX318xPA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX318xPA'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX317-MAX319.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -1873,7 +1873,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '2', '4', '5']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '7', '3', '2']}] }),
         Part(**{ 'name':'MAX318xSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX318xSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX317-MAX319.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
@@ -1882,7 +1882,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '4', '5', '7', '3']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '2', '4', '5', '7']}] }),
         Part(**{ 'name':'MAX319xPA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX319xPA'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX317-MAX319.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1891,7 +1891,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '6', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '3', '4']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '4', '7']}] }),
         Part(**{ 'name':'MAX319xSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX319xSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX317-MAX319.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1900,7 +1900,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '4', '3']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '1', '6', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '7', '3']}] }),
         Part(**{ 'name':'MAX394', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX394'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'CMOS Analog Switch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX394.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1921,7 +1921,7 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='NC',func=Pin.types.NOCONNECT,unit=5),
             Pin(num='16',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='5',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '7', '8', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '14', '11', '13']},{'label': 'uD', 'num': 4, 'pin_nums': ['17', '19', '18', '20']},{'label': 'uE', 'num': 5, 'pin_nums': ['5', '15', '16', '6']}] }),
+            Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '10', '9', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '12', '13', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['20', '19', '18', '17']},{'label': 'uE', 'num': 5, 'pin_nums': ['6', '5', '15', '16']}] }),
         Part(**{ 'name':'TMUX1101DCK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMUX1101DCK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-353_SC-70-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-353_SC-70-5', 'keywords':'Analog Switch SPST', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmux1101.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1957,39 +1957,39 @@ Analog_Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '3', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']}] }),
+            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '3', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'TS5A3159ADCK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS5A3159ADCK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'Analog Switch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ts5a3159a.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '3', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']}] }),
+            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '4', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'TS5A3159DCK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS5A3159DCK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'Analog Switch SPDT', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ts5a3159.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '6', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']}] }),
+            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '3', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'TS5A3160DBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS5A3160DBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Analog Switch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ts5a3160.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '4', '6', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
+            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '3', '4', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'TS5A3160DCK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS5A3160DCK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'Analog Switch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ts5a3160.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '4', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']}] }),
+            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '3', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'TS5A63157DBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS5A63157DBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Analog Switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ts5a63157.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '4', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']}] })])
+            Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '4', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] })])

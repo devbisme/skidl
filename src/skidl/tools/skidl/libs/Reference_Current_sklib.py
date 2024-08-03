@@ -60,7 +60,7 @@ Reference_Current = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=3),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '6', '4', '5']}] }),
+            Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '6', '3', '5']}] }),
         Part(**{ 'name':'LM234Z-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM234Z-3'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'Adjustable Current Source 10mA', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm134.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),

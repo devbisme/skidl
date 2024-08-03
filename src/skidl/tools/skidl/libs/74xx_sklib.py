@@ -200,7 +200,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='1',name='S',func=Pin.types.INPUT,unit=5),
             Pin(num='15',name='~{OE}',func=Pin.types.INPUT,unit=5),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['15', '16', '8', '1']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '4', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['1', '16', '8', '15']}] }),
         Part(**{ 'name':'74CBTLV3861', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBTLV3861'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'bus', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74cbtlv3861', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='A9',func=Pin.types.PASSIVE,unit=1),
@@ -274,7 +274,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74HC164', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC164'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8-bit shift register', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT164.pdf', 'pins':[
             Pin(num='1',name='DSA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q4',func=Pin.types.OUTPUT,unit=1),
@@ -497,7 +497,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74LCX07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LCX07'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS hex buffer', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/74lcx07.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OPENCOLL,unit=1),
@@ -512,7 +512,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74LS00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS00'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL nand 2-input', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls00', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -527,7 +527,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS01'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL nand 2-input open collector', 'description':'', 'datasheet':'http://www.nteinc.com/specs/7400to7499/pdf/nte74LS01.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -542,7 +542,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.OPENCOLL,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS02'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nor2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls02', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -557,7 +557,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS03', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS03'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand2 OpenColl', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS03', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -572,7 +572,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74LS04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS04'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL not inv', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS04', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -587,7 +587,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS05', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS05'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL not inv OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS05', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OPENCOLL,unit=1),
@@ -602,7 +602,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS08'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL and2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS08', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -617,7 +617,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74LS09', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS09'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL and2 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS09', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -632,7 +632,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74LS10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS10'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand3', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS10', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -647,7 +647,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=3),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=4),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '2', '12', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '12', '13', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '11', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74LS107', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS107'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS107', 'pins':[
             Pin(num='1',name='J',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='C',func=Pin.types.INPUT,unit=1),
@@ -662,7 +662,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='J',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='C',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1', '4', '12', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '6', '10', '8', '11', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '12', '13', '2', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '5', '9', '6', '10', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS109', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS109'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS109', 'pins':[
             Pin(num='1',name='~{R}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='J',func=Pin.types.INPUT,unit=1),
@@ -679,7 +679,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='~{R}',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '2', '7', '3', '4', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '11', '15', '14', '9', '12', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '6', '1', '2', '4', '7', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '14', '10', '13', '15', '11', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
         Part(**{ 'name':'74LS11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS11'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL And3', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS11', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -694,7 +694,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=3),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=4),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '2', '1', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '13', '12', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '11', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS112'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS112', 'pins':[
             Pin(num='1',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='15',name='~{R}',func=Pin.types.INPUT,unit=1),
@@ -711,7 +711,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '6', '1', '3', '2', '4', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '9', '14', '12', '7', '13', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '5', '6', '15', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '13', '10', '11', '12', '14', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
         Part(**{ 'name':'74LS113', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS113'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS113', 'pins':[
             Pin(num='1',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='K',func=Pin.types.INPUT,unit=1),
@@ -726,7 +726,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '4', '3', '6', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '10', '11', '8', '12', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '3', '4', '1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '12', '13', '10', '8', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74LS114', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS114'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS114', 'pins':[
             Pin(num='1',name='~{R}',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='C',func=Pin.types.INPUT,unit=1),
@@ -741,7 +741,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '4', '2', '13', '5', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '10', '9', '12', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '4', '2', '1', '13', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '12', '8', '10', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74LS12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS12'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand3 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS12', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=1),
@@ -756,7 +756,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OPENCOLL,unit=3),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=4),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '12', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '11', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '13', '2', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74LS121', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS121'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'monostable', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74121', 'pins':[
             Pin(num='1',name='~{Q}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='Cext',func=Pin.types.INPUT,unit=1),
@@ -797,7 +797,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RCext',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='A',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '14', '4', '13', '15', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '9', '10', '5', '7', '11', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '4', '15', '1', '3', '13', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '9', '5', '6', '12', '11', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
         Part(**{ 'name':'74LS125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS125'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL buffer 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS125', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -812,7 +812,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS126', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS126'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Buffer 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS126', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -827,7 +827,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74LS13', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS13'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS13', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -840,7 +840,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '6', '4', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '10', '8', '12', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '4', '1', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '8', '10', '12', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS132', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS132'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS132', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -855,7 +855,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS133', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS133'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand13', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS133', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~',func=Pin.types.INPUT,unit=1),
@@ -872,7 +872,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=2),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '12', '3', '13', '5', '7', '2', '9', '10', '4', '1', '11', '14', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '16']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '3', '10', '14', '15', '9', '1', '11', '13', '2', '12', '6', '4', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '8']}] }),
         Part(**{ 'name':'74LS136', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS136'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL XOR2 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn54ls136.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -887,7 +887,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74LS137', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS137'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD8 DECOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS137', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Y5',func=Pin.types.OUTPUT,unit=1),
@@ -938,7 +938,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='E',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='O3',func=Pin.types.OUTPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '2', '4', '7', '1', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '9', '10', '13', '15', '11', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '6', '1', '2', '4', '7', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '12', '14', '9', '13', '10', '15']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
         Part(**{ 'name':'74LS145', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS145'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD10 OpenColl', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS145', 'pins':[
             Pin(num='1',name='Q0',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='Q8',func=Pin.types.OPENCOLL,unit=1),
@@ -1003,7 +1003,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OPENCOLL,unit=3),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=4),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '13', '1', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '1', '2', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS151', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS151'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS151', 'pins':[
             Pin(num='1',name='I3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='S1',func=Pin.types.INPUT,unit=1),
@@ -1387,7 +1387,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '2', '4', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '12', '9', '13', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '4', '1', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '8', '9', '12', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS21', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS21'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL And4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS21', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -1400,7 +1400,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '4', '6', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '9', '12', '13', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '2', '6', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '8', '12', '9', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS221', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS221'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Monostable', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS221', 'pins':[
             Pin(num='1',name='~{A}',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='Q',func=Pin.types.OUTPUT,unit=1),
@@ -1417,7 +1417,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RCext',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='~{A}',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '3', '2', '1', '15', '13', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '9', '10', '6', '11', '12', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '14', '4', '15', '1', '3', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '5', '10', '6', '12', '11', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
         Part(**{ 'name':'74LS240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS240'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls240.pdf', 'pins':[
             Pin(num='1',name='OEa',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1459,7 +1459,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='17',name='~',func=Pin.types.INPUT,unit=8),
             Pin(num='3',name='~',func=Pin.types.TRISTATE,unit=8),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=9),
-            Pin(num='20',name='VCC',func=Pin.types.PWRIN,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['18', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '16']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '19', '9']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['15', '5']},{'label': 'uH', 'num': 8, 'pin_nums': ['17', '3']},{'label': 'uI', 'num': 9, 'pin_nums': ['20', '10']}] }),
+            Pin(num='20',name='VCC',func=Pin.types.PWRIN,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['18', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '19', '9']},{'label': 'uF', 'num': 6, 'pin_nums': ['7', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['15', '5']},{'label': 'uH', 'num': 8, 'pin_nums': ['17', '3']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '20']}] }),
         Part(**{ 'name':'74LS241', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS241'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls241.pdf', 'pins':[
             Pin(num='1',name='OEa',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1501,7 +1501,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='17',name='~',func=Pin.types.INPUT,unit=8),
             Pin(num='3',name='~',func=Pin.types.TRISTATE,unit=8),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=9),
-            Pin(num='20',name='VCC',func=Pin.types.PWRIN,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['18', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '16']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '9', '19']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['15', '5']},{'label': 'uH', 'num': 8, 'pin_nums': ['17', '3']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '20']}] }),
+            Pin(num='20',name='VCC',func=Pin.types.PWRIN,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '18', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '19', '9']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['15', '5']},{'label': 'uH', 'num': 8, 'pin_nums': ['17', '3']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '20']}] }),
         Part(**{ 'name':'74LS242', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS242'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'bus 3state', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS242', 'pins':[
             Pin(num='1',name='OEa',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='B1',func=Pin.types.TRISTATE,unit=1),
@@ -1569,7 +1569,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='17',name='~',func=Pin.types.INPUT,unit=8),
             Pin(num='3',name='~',func=Pin.types.TRISTATE,unit=8),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=9),
-            Pin(num='20',name='VCC',func=Pin.types.PWRIN,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '18', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '16']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '19', '9']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['15', '5']},{'label': 'uH', 'num': 8, 'pin_nums': ['3', '17']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '20']}] }),
+            Pin(num='20',name='VCC',func=Pin.types.PWRIN,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '18', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '16']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '9', '19']},{'label': 'uF', 'num': 6, 'pin_nums': ['7', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['15', '5']},{'label': 'uH', 'num': 8, 'pin_nums': ['17', '3']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '20']}] }),
         Part(**{ 'name':'74LS245', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS245'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL BUS 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS245', 'pins':[
             Pin(num='1',name='A->B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1741,7 +1741,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS27', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS27'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nor3', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS27', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -1756,7 +1756,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=3),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=4),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '12', '13', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '3', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '13', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS273', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS273'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF DFF8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS273', 'pins':[
             Pin(num='1',name='~{Mr}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1794,7 +1794,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='~{R}',func=Pin.types.INPUT,unit=4),
             Pin(num='15',name='~{S}',func=Pin.types.INPUT,unit=4),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '4', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '11', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['16', '8']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '4', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '12', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['16', '8']}] }),
         Part(**{ 'name':'74LS280', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS280'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ALU Arith', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS280', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C',func=Pin.types.INPUT,unit=1),
@@ -1904,7 +1904,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '12', '6', '11', '1', '4', '2', '8', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '4', '1', '2', '8', '3', '5', '12', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS32'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Or2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS32', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -1919,7 +1919,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS322', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS322'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'register', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS322', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1976,7 +1976,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.OPENCOLL,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS348', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS348'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ENCOD Arith', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS348', 'pins':[
             Pin(num='1',name='4',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='0',func=Pin.types.INPUT,unit=1),
@@ -2245,7 +2245,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS390', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS390'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS390', 'pins':[
             Pin(num='1',name='~{CP0}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='MR',func=Pin.types.INPUT,unit=1),
@@ -2262,7 +2262,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='~{CP0}',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='Q3',func=Pin.types.OUTPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '4', '3', '2', '5', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '14', '12', '15', '13', '11', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '4', '2', '1', '7', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '12', '10', '13', '15', '14', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
         Part(**{ 'name':'74LS393', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS393'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'74xx\\74LS393.pdf', 'pins':[
             Pin(num='1',name='CP',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='MR',func=Pin.types.INPUT,unit=1),
@@ -2277,7 +2277,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='Q3',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='Q2',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '4', '1', '3', '2', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '8', '9', '12', '13', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '4', '1', '5', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '11', '12', '13', '10', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS395', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS395'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL SR SR4 REG 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS395', 'pins':[
             Pin(num='1',name='~{MR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CP}',func=Pin.types.INPUT,unit=1),
@@ -2413,7 +2413,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '8', '10', '12', '1', '9', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '3', '6', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '11', '8', '12', '10', '9', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5', '6', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS54', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS54'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ANDNOR', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS54', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~',func=Pin.types.INPUT,unit=1),
@@ -2425,7 +2425,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['9', '3', '10', '1', '5', '4', '8', '13', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '1', '3', '8', '2', '10', '13', '9', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS540', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS540'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'BUFFER BUS TTL 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS540', 'pins':[
             Pin(num='1',name='G1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -2479,7 +2479,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '10', '4', '2', '12', '11', '8', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '2', '12', '10', '3', '8', '13', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74LS573', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS573'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF DFF8 LATCH 3State', 'description':'', 'datasheet':'74xx/74hc573.pdf', 'pins':[
             Pin(num='1',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -2538,7 +2538,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='RNG',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='OSC',func=Pin.types.PASSIVE,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '3', '15', '6', '4', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '10', '14', '11', '13', '1', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '9']}] }),
+            Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '6', '15', '4', '7', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '13', '8', '12', '1', '14', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '9']}] }),
         Part(**{ 'name':'74LS688', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS688'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD Arith', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS688', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -2574,7 +2574,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='~{R}',func=Pin.types.INPUT,unit=2),
             Pin(num='3',name='K',func=Pin.types.INPUT,unit=2),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='4',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '9', '8', '10', '6', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '14', '2', '13', '1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '6', '5', '10', '9', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '13', '3', '1', '12', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '11']}] }),
         Part(**{ 'name':'74LS74', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS74'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF', 'description':'', 'datasheet':'74xx/74hc_hct74.pdf', 'pins':[
             Pin(num='1',name='~{R}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -2589,7 +2589,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '4', '3', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '11', '8', '10', '12', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '5', '3', '4', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '11', '9', '13', '10', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS75', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS75'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF Latch', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS75', 'pins':[
             Pin(num='1',name='~{Q0}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='Q2',func=Pin.types.OUTPUT,unit=1),
@@ -2623,7 +2623,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~{R}',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='J',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '16', '4', '3', '2', '14', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '10', '12', '11', '6', '8', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['13', '5']}] }),
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '4', '2', '14', '1', '3', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '10', '9', '11', '7', '12', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['13', '5']}] }),
         Part(**{ 'name':'74LS77', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS77'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF Latch', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS77', 'pins':[
             Pin(num='1',name='D0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -2653,7 +2653,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='Q',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='4',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '14', '12', '5', '1', '2', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '7', '1', '8', '6', '10', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '2', '13', '12', '3', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '8', '10', '5', '9', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'74LS83', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS83'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ADD ARITH ALU', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS83', 'pins':[
             Pin(num='1',name='A4',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A1',func=Pin.types.INPUT,unit=1),
@@ -2702,7 +2702,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS90', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS90'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS90', 'pins':[
             Pin(num='1',name='CP1..3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -2775,7 +2775,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='3.3V',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LV8154', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LV8154'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'counter binary', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74lv8154.pdf', 'pins':[
             Pin(num='1',name='CKLA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -3030,7 +3030,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'7402', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7402'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL Nor2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn7402', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -3045,7 +3045,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74AHC04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC04'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS not inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT04.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -3060,7 +3060,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74AHC240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC240'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS BUFFER 3State inv', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn54ahc240.pdf', 'pins':[
             Pin(num='1',name='1OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -3218,7 +3218,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74AHCT123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT123'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL monostable, multivibrator', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ahct123a', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='Q',func=Pin.types.OUTPUT,unit=1),
@@ -3235,7 +3235,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RCext',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='A',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '2', '13', '1', '3', '14', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '5', '6', '9', '12', '10', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '15', '1', '3', '2', '13', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '11', '12', '9', '6', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
         Part(**{ 'name':'74AHCT125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT125'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'buffer 3State', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74ahct125.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -3250,7 +3250,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74AHCT240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT240'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'AHCTMOS BUFFER 3State inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHCT240.pdf', 'pins':[
             Pin(num='1',name='1OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -3948,7 +3948,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74HC02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC02'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'HCMOS Nor2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74hc02', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -3963,7 +3963,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74HC04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC04'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCMOS not inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -3978,7 +3978,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74HC123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC123'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL monostable, multivibrator', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT123.pdf', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='Q',func=Pin.types.OUTPUT,unit=1),
@@ -3995,7 +3995,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RCext',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='A',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '13', '14', '3', '4', '15', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '12', '5', '9', '6', '10', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '2', '1', '13', '14', '3', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '10', '7', '11', '12', '5', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
         Part(**{ 'name':'74HC165', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC165'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8 bit shift register parallel load cmos', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT165.pdf', 'pins':[
             Pin(num='1',name='~{PL}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DS',func=Pin.types.INPUT,unit=1),
@@ -4200,7 +4200,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '6', '1', '3', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '11', '8', '9', '12', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '6', '4', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '12', '8', '13', '10', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74HC85', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC85'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL COMP ARITH', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT85.pdf', 'pins':[
             Pin(num='1',name='B3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
@@ -4232,7 +4232,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74HCT00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT00'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCTMOS nand 2-input', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74hct00', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -4247,7 +4247,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74HCT02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT02'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCTMOS Nor2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74hct02', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -4262,7 +4262,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74HCT04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT04'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'HCTMOS not inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -4277,7 +4277,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74HCT123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT123'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'TTL monostable, multivibrator', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT123.pdf', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='Q',func=Pin.types.OUTPUT,unit=1),
@@ -4294,7 +4294,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RCext',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='A',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '3', '14', '1', '4', '15', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '12', '5', '9', '6', '10', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '1', '2', '3', '13', '14', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '10', '7', '11', '12', '5', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
         Part(**{ 'name':'74HCT137', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT137'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc237.pdf', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{Y5}',func=Pin.types.OUTPUT,unit=1),
@@ -4645,7 +4645,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '3', '6', '2', '5', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '12', '13', '10', '8', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1', '6', '4', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '10', '8', '11', '12', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74HCT85', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT85'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL COMP ARITH', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT85.pdf', 'pins':[
             Pin(num='1',name='B3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
@@ -4677,7 +4677,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS06N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS06N'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL not inv OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS06N', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OPENCOLL,unit=1),
@@ -4692,7 +4692,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS07'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL hex buffer OpenCol', 'description':'', 'datasheet':'www.ti.com/lit/ds/symlink/sn74ls07.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OPENCOLL,unit=1),
@@ -4707,7 +4707,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74LS14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS14'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL not inverter', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS14', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -4722,7 +4722,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS156', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS156'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL DECOD8 DECOD4 DEMUX4 DEMUX8 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS156', 'pins':[
             Pin(num='1',name='Ea1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q1b',func=Pin.types.OUTPUT,unit=1),
@@ -4869,7 +4869,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '5', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '12', '9', '13', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '5', '6', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '10', '13', '8', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74LS246', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS246'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL DECOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS246', 'pins':[
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='d',func=Pin.types.OPENCOLL,unit=1),
@@ -4918,7 +4918,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS293', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS293'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS293', 'pins':[
             Pin(num='1',name='Ms1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Cp0',func=Pin.types.INPUT,unit=1),
@@ -4946,7 +4946,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'74LS38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS38'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL Nand2 OpenCol Buffer', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS38', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -4961,7 +4961,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS40'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL Nand4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS40', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -4974,7 +4974,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '4', '1', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '9', '8', '10', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '2', '6', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '13', '8', '9', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'74LS46', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS46'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL DECOD DECOD7 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS46', 'pins':[
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='d',func=Pin.types.OPENCOLL,unit=1),
@@ -5074,7 +5074,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
         Part(**{ 'name':'CD74AC238', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD74AC238'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74ac238.pdf', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Y5',func=Pin.types.OUTPUT,unit=1),
@@ -5229,7 +5229,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'SN74LS07N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74LS07N'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'TTL hex buffer OpenCol', 'description':'', 'datasheet':'www.ti.com/lit/ds/symlink/sn74ls07.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OPENCOLL,unit=1),
@@ -5244,7 +5244,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['7', '14']}] }),
         Part(**{ 'name':'SN74LV4T125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74LV4T125'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'3State CMOS shifter translator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74lv4t125.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -5259,4 +5259,4 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] })])
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] })])

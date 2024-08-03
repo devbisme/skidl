@@ -18,7 +18,7 @@ Amplifier_Video = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=3),
             Pin(num='9',name='-',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=4),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '5', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '13', '2', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '3', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '5', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '12', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'MAX453', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX453'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'amplifier', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX452-MAX455.pdf', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),

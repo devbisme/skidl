@@ -92,7 +92,7 @@ Power_Management = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S2',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='IN2',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3', '6']}] }),
+            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '4', '5']}] }),
         Part(**{ 'name':'AUIPS1051L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AUIPS1051L'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-223-3_TabPin2'], 'footprint':'Package_TO_SOT_SMD:SOT-223-3_TabPin2', 'keywords':'low side switch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/auips1051.pdf?fileId=5546d462533600a4015355a4710712fc', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.PASSIVE,unit=1),
@@ -140,7 +140,7 @@ Power_Management = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='GND4',func=Pin.types.PWRIN,unit=4),
             Pin(num='16',name='OUT4',func=Pin.types.PWROUT,unit=4),
             Pin(num='17',name='OUT4',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='18',name='OUT4',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['27', '15', '3', '28', '4', '14', '2', '1', '25', '26']},{'label': 'uB', 'num': 2, 'pin_nums': ['22', '6', '5', '23', '24', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8', '21', '20', '19']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '18', '17', '12', '16']}] }),
+            Pin(num='18',name='OUT4',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '26', '15', '28', '2', '1', '25', '27', '14', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['23', '5', '24', '7', '6', '22']},{'label': 'uC', 'num': 3, 'pin_nums': ['19', '21', '8', '10', '20', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['18', '13', '11', '17', '12', '16']}] }),
         Part(**{ 'name':'AUIPS7081S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AUIPS7081S'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TO-263-4'], 'footprint':'Package_TO_SOT_SMD:TO-263-4', 'keywords':'high side switch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/auips7081.pdf?fileId=5546d462533600a4015355a7b8d5131e', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
@@ -175,7 +175,7 @@ Power_Management = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='OUT2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='12',name='OUT2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='IN2',func=Pin.types.INPUT,unit=2),
-            Pin(num='6',name='IFB2',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '13', '3', '2', '1', '7', '9', '4', '14', '16', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '5', '11', '6', '10']}] }),
+            Pin(num='6',name='IFB2',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '16', '3', '2', '1', '7', '8', '14', '9', '13', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '10', '5', '11', '12']}] }),
         Part(**{ 'name':'AUIPS71451G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AUIPS71451G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'high side switch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/auips71451g.pdf?fileId=5546d462533600a4015355a7f7461332', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='IFB',func=Pin.types.OUTPUT,unit=1),
@@ -1139,7 +1139,7 @@ Power_Management = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='IN2',func=Pin.types.PWRIN,unit=2),
             Pin(num='7',name='~{EN3}',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='~{EN4}',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='~{OC4}',func=Pin.types.OPENCOLL,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '2', '4', '15', '1', '13', '3', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '7', '5', '6', '8', '12', '11', '10']}] }),
+            Pin(num='9',name='~{OC4}',func=Pin.types.OPENCOLL,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '14', '1', '4', '2', '15', '3', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '8', '10', '12', '11', '7', '9']}] }),
         Part(**{ 'name':'TPS2051CDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2051CDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'Limit USB Active High', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tps2051c.pdf', 'pins':[
             Pin(num='1',name='OUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1162,7 +1162,7 @@ Power_Management = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='IN2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='7',name='EN3',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='EN4',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='~{OC4}',func=Pin.types.OPENCOLL,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '4', '14', '1', '2', '15', '16', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '5', '7', '11', '12', '8', '6', '10']}] }),
+            Pin(num='9',name='~{OC4}',func=Pin.types.OPENCOLL,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '16', '4', '2', '15', '1', '14', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '12', '8', '7', '5', '9', '6', '10']}] }),
         Part(**{ 'name':'TPS2116DRL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2116DRL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-583-8'], 'footprint':'Package_TO_SOT_SMD:SOT-583-8', 'keywords':'Texas-Instruments power-mux switchover', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tps2116.pdf', 'pins':[
             Pin(num='7',name='VOUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1357,7 +1357,7 @@ Power_Management = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='V-',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=5),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '16', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '9', '13', '8']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '12', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '16', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['13', '4', '8', '9']}] }),
         Part(**{ 'name':'TSM103W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TSM103W'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual opamp reference', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tsm103w.pdf', 'pins':[
             Pin(num='4',name='V-',func=Pin.types.PWRIN),
             Pin(num='8',name='V+',func=Pin.types.PWRIN),
@@ -1366,7 +1366,7 @@ Power_Management = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='+',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
-            Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '4', '1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '7', '4', '5', '6']}] }),
+            Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '3', '2', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '8', '6', '5']}] }),
         Part(**{ 'name':'UCC39002D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC39002D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'load share controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/slus495i/slus495i.pdf', 'pins':[
             Pin(num='1',name='CS-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CS+',func=Pin.types.INPUT,unit=1),
@@ -1444,7 +1444,7 @@ Power_Management = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S2',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='IN2',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '7', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3', '6']}] }),
+            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '8', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '3', '4', '5']}] }),
         Part(**{ 'name':'AUIPS2031R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AUIPS2031R'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TO-252-3_TabPin2', 'Package_TO_SOT_SMD:TO-252-3_TabPin2'], 'footprint':'Package_TO_SOT_SMD:TO-252-3_TabPin2', 'keywords':'low side switch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-AUIPS2031R-DS-v01_00-EN.pdf?fileId=5546d4625a888733015aae1488334c5c', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.PASSIVE,unit=1),
@@ -1465,7 +1465,7 @@ Power_Management = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S2',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='IN2',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3', '6']}] }),
+            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '3', '4']}] }),
         Part(**{ 'name':'AUIPS6031R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AUIPS6031R'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TO-252-4', 'Package_TO_SOT_SMD:TO-252-4'], 'footprint':'Package_TO_SOT_SMD:TO-252-4', 'keywords':'high side switch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/auips6031.pdf?fileId=5546d462533600a4015355a797f51311', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
@@ -2576,7 +2576,7 @@ Power_Management = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='V-',func=Pin.types.PWRIN,unit=5),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=5),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '12', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '14', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '8', '9', '13']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['16', '15', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '8', '13', '9']}] }),
         Part(**{ 'name':'TSM103WA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TSM103WA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual opamp reference', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tsm103w.pdf', 'pins':[
             Pin(num='4',name='V-',func=Pin.types.PWRIN),
             Pin(num='8',name='V+',func=Pin.types.PWRIN),
@@ -2585,4 +2585,4 @@ Power_Management = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='+',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
-            Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '3', '4', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '6', '7', '4', '5']}] })])
+            Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '3', '2', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '6', '5', '7', '4']}] })])

@@ -94,7 +94,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Cext',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='RCext',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '2', '6', '3', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '6', '7', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74LVC1G125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC1G125'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Single Gate Buff Tri-State LVC CMOS', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74lvc1g125.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -141,7 +141,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='~',func=Pin.types.TRISTATE,unit=1),
             Pin(num='6',name='~',func=Pin.types.TRISTATE,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '4', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '4', '6', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']}] }),
         Part(**{ 'name':'74LVC1G19', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC1G19'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Single Decoder LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -177,7 +177,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='~',func=Pin.types.BIDIR,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '3', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']}] }),
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '6', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']}] }),
         Part(**{ 'name':'74LVC1G32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC1G32'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Single Gate OR LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -250,7 +250,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='~',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3']}] }),
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5']}] }),
         Part(**{ 'name':'74LVC1G79', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC1G79'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Single D Flip-Flop D CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='C',func=Pin.types.INPUT,unit=1),
@@ -292,7 +292,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74LVC2G02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G02'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual Gate NOR LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -301,7 +301,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74LVC2G04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G04'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual Gate NOT LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -322,7 +322,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='~',func=Pin.types.OPENCOLL,unit=2),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '2']}] }),
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'74LVC2G08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G08'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual Gate AND LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -331,7 +331,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'74LVC2G125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G125'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual Buff Tri-State LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -340,7 +340,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'74LVC2G126', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G126'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual Buff Tri-State LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -349,14 +349,14 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74LVC2G14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G14'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual Gate NOT Schmitt LVC CMOS', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74lvc2g14.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '2']}] }),
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'74LVC2G157', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G157'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Single Mux CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='B',func=Pin.types.INPUT,unit=1),
@@ -372,7 +372,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '2']}] }),
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'74LVC2G240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G240'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual Inv Buff Tri-State LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -381,7 +381,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74LVC2G241', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G241'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual Buff Tri-State LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -390,7 +390,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74LVC2G32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G32'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual Gate OR LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -399,14 +399,14 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74LVC2G34', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G34'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual Buffer LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '2']}] }),
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'74LVC2G38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G38'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual Gate NAND Open Drain LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -415,7 +415,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74LVC2G53', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G53'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Analog Switch 1 to 2 CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -424,7 +424,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '5', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '8', '4']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '5', '7', '6', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '8']}] }),
         Part(**{ 'name':'74LVC2G66', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G66'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual Analog Switch', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.TRISTATE,unit=1),
@@ -433,7 +433,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.TRISTATE,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74LVC2G74', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G74'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Single D Flip-Flop D CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -451,7 +451,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='C',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='D',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74LVC2G80', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G80'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual D Flip-Flop Negative CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -460,7 +460,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='C',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='D',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74LVC2G86', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC2G86'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual Gate XOR LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -469,7 +469,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74LVC3G04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC3G04'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Triple Gate NOT LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -478,7 +478,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='5',name='~',func=Pin.types.OUTPUT,unit=3),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=4),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74LVC3G06', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC3G06'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Triple Gate NOT Open Drain LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~',func=Pin.types.OPENCOLL,unit=1),
@@ -496,7 +496,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='5',name='~',func=Pin.types.OPENCOLL,unit=3),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=4),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'74LVC3G14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC3G14'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Triple NOT Schmitt LVC CMOS', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74lvc3g14.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -505,7 +505,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='5',name='~',func=Pin.types.OUTPUT,unit=3),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=4),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74LVC3G17', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC3G17'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Triple Buf Schmitt LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -514,7 +514,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='5',name='~',func=Pin.types.OUTPUT,unit=3),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=4),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74LVC3G34', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC3G34'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Triple Buf LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -523,7 +523,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='5',name='~',func=Pin.types.OUTPUT,unit=3),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=4),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'Inverter_Schmitt_Dual', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Inverter_Schmitt_Dual'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'dual schmitt inverter', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='1A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -609,7 +609,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74AHCT1G00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT1G00'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Single Gate NAND LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -676,7 +676,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74AUC1G00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC1G00'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Single Gate NAND LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -741,7 +741,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='~',func=Pin.types.TRISTATE,unit=1),
             Pin(num='6',name='~',func=Pin.types.TRISTATE,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '1', '6', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']}] }),
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '4', '6', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']}] }),
         Part(**{ 'name':'74AUC1G19', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC1G19'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Single Decoder LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -798,7 +798,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'74AUC2G02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G02'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual Gate NOR LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -807,28 +807,28 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'74AUC2G04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G04'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual Gate NOT LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '5']}] }),
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'74AUC2G06', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G06'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual Gate NOT Open Drain LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='~',func=Pin.types.OPENCOLL,unit=2),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '5']}] }),
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'74AUC2G07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G07'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual Gate Buffer Open Drain LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='~',func=Pin.types.OPENCOLL,unit=2),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '5']}] }),
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '2']}] }),
         Part(**{ 'name':'74AUC2G08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G08'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual Gate AND LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -837,7 +837,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74AUC2G125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G125'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual Buff Tri-State LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -846,7 +846,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'74AUC2G126', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G126'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual Buff Tri-State LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -855,7 +855,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'74AUC2G240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G240'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual Inv Buff Tri-State LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -864,7 +864,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74AUC2G241', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G241'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual Buff Tri-State LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -873,7 +873,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'74AUC2G32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G32'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual Gate OR LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -882,14 +882,14 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'74AUC2G34', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G34'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual Buffer LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '2']}] }),
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '2']}] }),
         Part(**{ 'name':'74AUC2G53', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G53'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Analog Switch 1 to 2 CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -898,7 +898,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '7', '6', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '2', '6', '5', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '8']}] }),
         Part(**{ 'name':'74AUC2G66', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G66'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual Analog Switch', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.TRISTATE,unit=1),
@@ -907,7 +907,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.TRISTATE,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74AUC2G79', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G79'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual D Flip-Flop D CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -916,7 +916,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='C',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='D',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74AUC2G80', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G80'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual D Flip-Flop Negative CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -925,7 +925,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='C',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='D',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'74AUC2G86', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2G86'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual Gate XOR LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -934,14 +934,14 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'74AUC2GU04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUC2GU04'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Dual Gate NOT LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '5']}] }),
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '2']}] }),
         Part(**{ 'name':'74AUP1G00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AUP1G00'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'Single Gate NAND LVC CMOS', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74aup1g00.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -1130,7 +1130,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '2']}] }),
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'74LVC3GU04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC3GU04'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Triple Gate NOT LVC CMOS', 'description':'', 'datasheet':'http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -1139,7 +1139,7 @@ _74xGxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='5',name='~',func=Pin.types.OUTPUT,unit=3),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=4),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'NC7SZ125P5X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NC7SZ125P5X'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-353_SC-70-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'buffer three-state', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/nc7sz125-d.pdf', 'pins':[
             Pin(num='1',name='~{OE}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A',func=Pin.types.INPUT,unit=1),

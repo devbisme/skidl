@@ -266,7 +266,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Dual_CommonAnode_AKK_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_CommonAnode_AKK_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '1']}] }),
+            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '1']}] }),
         Part(**{ 'name':'D_Dual_CommonAnode_KAK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_CommonAnode_KAK'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='A',func=Pin.types.PASSIVE),
@@ -278,7 +278,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Dual_CommonAnode_KAK_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_CommonAnode_KAK_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='2',name='A',func=Pin.types.PASSIVE),
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '2']}] }),
+            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']}] }),
         Part(**{ 'name':'D_Dual_CommonAnode_KKA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_CommonAnode_KKA'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='K',func=Pin.types.PASSIVE),
@@ -290,7 +290,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Dual_CommonAnode_KKA_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_CommonAnode_KKA_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='3',name='A',func=Pin.types.PASSIVE),
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']}] }),
+            Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '2']}] }),
         Part(**{ 'name':'D_Dual_CommonCathode_AAK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_CommonCathode_AAK'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE),
             Pin(num='2',name='A',func=Pin.types.PASSIVE),
@@ -302,7 +302,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Dual_CommonCathode_AAK_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_CommonCathode_AAK_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='3',name='K',func=Pin.types.PASSIVE),
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']}] }),
+            Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '2']}] }),
         Part(**{ 'name':'D_Dual_CommonCathode_AKA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_CommonCathode_AKA'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE),
             Pin(num='2',name='K',func=Pin.types.PASSIVE),
@@ -314,7 +314,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Dual_CommonCathode_AKA_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_CommonCathode_AKA_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='2',name='K',func=Pin.types.PASSIVE),
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']}] }),
+            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']}] }),
         Part(**{ 'name':'D_Dual_CommonCathode_KAA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_CommonCathode_KAA'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='A',func=Pin.types.PASSIVE),
@@ -362,7 +362,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Dual_Series_CAK_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_Series_CAK_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']}] }),
+            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']}] }),
         Part(**{ 'name':'D_Dual_Series_CKA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_Series_CKA'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='common',func=Pin.types.PASSIVE),
             Pin(num='2',name='K',func=Pin.types.PASSIVE),
@@ -374,7 +374,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Dual_Series_CKA_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_Series_CKA_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '2']}] }),
+            Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '1']}] }),
         Part(**{ 'name':'D_Dual_Series_KAC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_Series_KAC'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='A',func=Pin.types.PASSIVE),
@@ -386,7 +386,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Dual_Series_KAC_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_Series_KAC_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='3',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '1']}] }),
+            Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']}] }),
         Part(**{ 'name':'D_Dual_Series_KCA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_Series_KCA'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='common',func=Pin.types.PASSIVE),
@@ -398,7 +398,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Dual_Series_KCA_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Dual_Series_KCA_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='2',name='K',func=Pin.types.PASSIVE),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '1']}] }),
+            Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '2']}] }),
         Part(**{ 'name':'D_Filled', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Filled'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
@@ -482,7 +482,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Schottky_Dual_CommonAnode_KAK_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Schottky_Dual_CommonAnode_KAK_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='2',name='A',func=Pin.types.PASSIVE),
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '2']}] }),
+            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']}] }),
         Part(**{ 'name':'D_Schottky_Dual_CommonAnode_KKA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Schottky_Dual_CommonAnode_KKA'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='K',func=Pin.types.PASSIVE),
@@ -494,7 +494,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Schottky_Dual_CommonAnode_KKA_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Schottky_Dual_CommonAnode_KKA_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='3',name='A',func=Pin.types.PASSIVE),
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '2']}] }),
+            Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']}] }),
         Part(**{ 'name':'D_Schottky_Dual_CommonCathode_AAK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Schottky_Dual_CommonCathode_AAK'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE),
             Pin(num='2',name='A',func=Pin.types.PASSIVE),
@@ -518,7 +518,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Schottky_Dual_CommonCathode_AKA_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Schottky_Dual_CommonCathode_AKA_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='2',name='K',func=Pin.types.PASSIVE),
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']}] }),
+            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '2']}] }),
         Part(**{ 'name':'D_Schottky_Dual_CommonCathode_KAA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Schottky_Dual_CommonCathode_KAA'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='A',func=Pin.types.PASSIVE),
@@ -530,7 +530,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Schottky_Dual_CommonCathode_KAA_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Schottky_Dual_CommonCathode_KAA_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']}] }),
+            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '1']}] }),
         Part(**{ 'name':'D_Schottky_Dual_Series_ACK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Schottky_Dual_Series_ACK'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE),
             Pin(num='2',name='common',func=Pin.types.PASSIVE),
@@ -578,7 +578,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Schottky_Dual_Series_CKA_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Schottky_Dual_Series_CKA_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '2']}] }),
+            Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '1']}] }),
         Part(**{ 'name':'D_Schottky_Dual_Series_KAC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Schottky_Dual_Series_KAC'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='A',func=Pin.types.PASSIVE),
@@ -590,7 +590,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Schottky_Dual_Series_KAC_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Schottky_Dual_Series_KAC_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='3',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']}] }),
+            Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '1']}] }),
         Part(**{ 'name':'D_Schottky_Dual_Series_KCA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Schottky_Dual_Series_KCA'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='common',func=Pin.types.PASSIVE),
@@ -602,7 +602,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Schottky_Dual_Series_KCA_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Schottky_Dual_Series_KCA_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='2',name='K',func=Pin.types.PASSIVE),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '2']}] }),
+            Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '1']}] }),
         Part(**{ 'name':'D_Schottky_Filled', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Schottky_Filled'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode Schottky', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
@@ -692,7 +692,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Zener_Dual_CommonAnode_AKK_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Zener_Dual_CommonAnode_AKK_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '1']}] }),
+            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '1']}] }),
         Part(**{ 'name':'D_Zener_Dual_CommonAnode_KAK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Zener_Dual_CommonAnode_KAK'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode zener dual', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='A',func=Pin.types.PASSIVE),
@@ -704,7 +704,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Zener_Dual_CommonAnode_KAK_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Zener_Dual_CommonAnode_KAK_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='2',name='A',func=Pin.types.PASSIVE),
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']}] }),
+            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']}] }),
         Part(**{ 'name':'D_Zener_Dual_CommonAnode_KKA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Zener_Dual_CommonAnode_KKA'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode zener dual', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='K',func=Pin.types.PASSIVE),
@@ -728,7 +728,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Zener_Dual_CommonCathode_AAK_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Zener_Dual_CommonCathode_AAK_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='3',name='K',func=Pin.types.PASSIVE),
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']}] }),
+            Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']}] }),
         Part(**{ 'name':'D_Zener_Dual_CommonCathode_AKA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Zener_Dual_CommonCathode_AKA'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode zener dual', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE),
             Pin(num='2',name='K',func=Pin.types.PASSIVE),
@@ -740,7 +740,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Zener_Dual_CommonCathode_AKA_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Zener_Dual_CommonCathode_AKA_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='2',name='K',func=Pin.types.PASSIVE),
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '2']}] }),
+            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']}] }),
         Part(**{ 'name':'D_Zener_Dual_CommonCathode_KAA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Zener_Dual_CommonCathode_KAA'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode zener dual', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='A',func=Pin.types.PASSIVE),
@@ -752,7 +752,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
         Part(**{ 'name':'D_Zener_Dual_CommonCathode_KAA_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Zener_Dual_CommonCathode_KAA_Split'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']}] }),
+            Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']}] }),
         Part(**{ 'name':'D_Zener_Filled', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D_Zener_Filled'}), 'ref_prefix':'D', 'fplist':[''], 'footprint':'', 'keywords':'diode', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
@@ -1421,7 +1421,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'Opamp_Quad', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Opamp_Quad'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1436,7 +1436,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'Oscilloscope', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Oscilloscope'}), 'ref_prefix':'MES', 'fplist':[''], 'footprint':'', 'keywords':'oscilloscope', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='+',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
@@ -1455,7 +1455,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='S',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='G',func=Pin.types.INPUT,unit=2),
-            Pin(num='4',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '5', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3', '4']}] }),
+            Pin(num='4',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3', '4']}] }),
         Part(**{ 'name':'Q_Dual_NMOS_S1G1D2S2G2D1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_NMOS_S1G1D2S2G2D1'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor NMOS N-MOS N-MOSFET', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G',func=Pin.types.INPUT,unit=1),
@@ -1469,7 +1469,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='S',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G',func=Pin.types.INPUT,unit=2),
-            Pin(num='5',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '5']}] }),
+            Pin(num='5',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4']}] }),
         Part(**{ 'name':'Q_Dual_NMOS_S1G1S2G2D2D2D1D1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_NMOS_S1G1S2G2D2D2D1D1'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor NMOS N-MOS N-MOSFET', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G',func=Pin.types.INPUT,unit=1),
@@ -1478,7 +1478,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '4', '5']}] }),
+            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '3', '5']}] }),
         Part(**{ 'name':'Q_Dual_NPN_C2C1E1E2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_NPN_C2C1E1E2'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor NPN', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='C2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
@@ -1490,56 +1490,56 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='B1',func=Pin.types.INPUT,unit=1),
             Pin(num='1',name='E1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='2',name='B1',func=Pin.types.INPUT,unit=2),
-            Pin(num='6',name='C1',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '5', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '1', '6']}] }),
+            Pin(num='6',name='C1',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '3', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6', '1']}] }),
         Part(**{ 'name':'Q_Dual_NPN_NPN_BRT_No_R2_E1B1C2E2B2C1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_NPN_NPN_BRT_No_R2_E1B1C2E2B2C1'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor NPN', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='3',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='E1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='B1',func=Pin.types.INPUT,unit=1),
             Pin(num='1',name='E1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='2',name='B1',func=Pin.types.INPUT,unit=2),
-            Pin(num='6',name='C1',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '1', '2']}] }),
+            Pin(num='6',name='C1',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '4', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '2', '6']}] }),
         Part(**{ 'name':'Q_Dual_NPN_NPN_C2E2C1E1B1B2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_NPN_NPN_C2E2C1E1B1B2'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor NPN', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='3',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='E1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='B1',func=Pin.types.INPUT,unit=1),
             Pin(num='1',name='C2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='2',name='E2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='B2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '4', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '2', '1']}] }),
+            Pin(num='6',name='B2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '5', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '2', '6']}] }),
         Part(**{ 'name':'Q_Dual_NPN_NPN_E1B1C2E2B2C1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_NPN_NPN_E1B1C2E2B2C1'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor NPN', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='E1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B1',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='E2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='5',name='B2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3']}] }),
+            Pin(num='5',name='B2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5']}] }),
         Part(**{ 'name':'Q_Dual_NPN_PNP_BRT_E1B1C2E2B2C1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_NPN_PNP_BRT_E1B1C2E2B2C1'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor NPN', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='E1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B1',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='E1',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='5',name='B1',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5']}] }),
+            Pin(num='5',name='B1',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4']}] }),
         Part(**{ 'name':'Q_Dual_NPN_PNP_E1B1C2E2B2C1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_NPN_PNP_E1B1C2E2B2C1'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor NPN PNP', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='E1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B1',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='E2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='5',name='B2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4']}] }),
+            Pin(num='5',name='B2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '5']}] }),
         Part(**{ 'name':'Q_Dual_PMOS_G1S2G2D2S1D1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_PMOS_G1S2G2D2S1D1'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor PMOS P-MOS P-MOSFET', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='S',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='G',func=Pin.types.INPUT,unit=2),
-            Pin(num='4',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '2', '4']}] }),
+            Pin(num='4',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3', '4']}] }),
         Part(**{ 'name':'Q_Dual_PMOS_S1G1D2S2G2D1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_PMOS_S1G1D2S2G2D1'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor PMOS P-MOS P-MOSFET', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='D',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='S',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='5',name='G',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '4']}] }),
+            Pin(num='5',name='G',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '4']}] }),
         Part(**{ 'name':'Q_Dual_PMOS_S1G1S2G2D2D2D1D1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_PMOS_S1G1S2G2D2D2D1D1'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor PMOS P-MOS P-MOSFET', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G',func=Pin.types.INPUT,unit=1),
@@ -1548,7 +1548,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '3', '4']}] }),
+            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3', '6']}] }),
         Part(**{ 'name':'Q_Dual_PNP_C2C1E1E2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_PNP_C2C1E1E2'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor PNP', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='C2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
@@ -1560,35 +1560,35 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='E1',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='5',name='B1',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '5']}] }),
+            Pin(num='5',name='B1',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5']}] }),
         Part(**{ 'name':'Q_Dual_PNP_PNP_BRT_E1B1C2E2B2C1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_PNP_PNP_BRT_E1B1C2E2B2C1'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor NPN', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='E1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B1',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='E2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='5',name='B2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '3']}] }),
+            Pin(num='5',name='B2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5']}] }),
         Part(**{ 'name':'Q_Dual_PNP_PNP_C1B1B2C2E2E1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_PNP_PNP_C1B1B2C2E2E1'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor PNP', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/ds30437.pdf', 'pins':[
             Pin(num='1',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B1',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='E1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='B2',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='C2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='5',name='E2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '5']}] }),
+            Pin(num='5',name='E2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4']}] }),
         Part(**{ 'name':'Q_Dual_PNP_PNP_C2E2C1E1B1B2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_PNP_PNP_C2E2C1E1B1B2'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor PNP', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='3',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='E1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='B1',func=Pin.types.INPUT,unit=1),
             Pin(num='1',name='C2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='2',name='E2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='B2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '4', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '1', '6']}] }),
+            Pin(num='6',name='B2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '3', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '6', '2']}] }),
         Part(**{ 'name':'Q_Dual_PNP_PNP_E1B1C2E2B2C1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_Dual_PNP_PNP_E1B1C2E2B2C1'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor PNP', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='E1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B1',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='E2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='5',name='B2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4']}] }),
+            Pin(num='5',name='B2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5']}] }),
         Part(**{ 'name':'Q_NIGBT_CEG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Q_NIGBT_CEG'}), 'ref_prefix':'Q', 'fplist':[''], 'footprint':'', 'keywords':'transistor IGBT N-IGBT', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='C',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='E',func=Pin.types.PASSIVE,unit=1),
@@ -2001,7 +2001,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='R1.2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='R2.2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='R3.2',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='5',name='R4.2',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '1']}] }),
+            Pin(num='5',name='R4.2',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '1']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '1']}] }),
         Part(**{ 'name':'R_Network04_US', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Network04_US'}), 'ref_prefix':'RN', 'fplist':['Resistor_THT:R_Array_SIP5'], 'footprint':'Resistor_THT:R_Array_SIP5', 'keywords':'R network star-topology', 'description':'', 'datasheet':'http://www.vishay.com/docs/31509/csc.pdf', 'pins':[
             Pin(num='1',name='common',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='R1',func=Pin.types.PASSIVE,unit=1),
@@ -2021,7 +2021,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='R2.2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='R3.2',func=Pin.types.PASSIVE,unit=3),
             Pin(num='5',name='R4.2',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='6',name='R5.2',func=Pin.types.PASSIVE,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '5']},{'label': 'uE', 'num': 5, 'pin_nums': ['1', '6']}] }),
+            Pin(num='6',name='R5.2',func=Pin.types.PASSIVE,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '5']},{'label': 'uE', 'num': 5, 'pin_nums': ['6', '1']}] }),
         Part(**{ 'name':'R_Network05_US', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Network05_US'}), 'ref_prefix':'RN', 'fplist':['Resistor_THT:R_Array_SIP6'], 'footprint':'Resistor_THT:R_Array_SIP6', 'keywords':'R network star-topology', 'description':'', 'datasheet':'http://www.vishay.com/docs/31509/csc.pdf', 'pins':[
             Pin(num='1',name='common',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='R1',func=Pin.types.PASSIVE,unit=1),
@@ -2044,7 +2044,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='R3.2',func=Pin.types.PASSIVE,unit=3),
             Pin(num='5',name='R4.2',func=Pin.types.PASSIVE,unit=4),
             Pin(num='6',name='R5.2',func=Pin.types.PASSIVE,unit=5),
-            Pin(num='7',name='R6.2',func=Pin.types.PASSIVE,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '1']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '5']},{'label': 'uE', 'num': 5, 'pin_nums': ['1', '6']},{'label': 'uF', 'num': 6, 'pin_nums': ['1', '7']}] }),
+            Pin(num='7',name='R6.2',func=Pin.types.PASSIVE,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '5']},{'label': 'uE', 'num': 5, 'pin_nums': ['1', '6']},{'label': 'uF', 'num': 6, 'pin_nums': ['1', '7']}] }),
         Part(**{ 'name':'R_Network06_US', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Network06_US'}), 'ref_prefix':'RN', 'fplist':['Resistor_THT:R_Array_SIP7'], 'footprint':'Resistor_THT:R_Array_SIP7', 'keywords':'R network star-topology', 'description':'', 'datasheet':'http://www.vishay.com/docs/31509/csc.pdf', 'pins':[
             Pin(num='1',name='common',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='R1',func=Pin.types.PASSIVE,unit=1),
@@ -2070,7 +2070,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='R4.2',func=Pin.types.PASSIVE,unit=4),
             Pin(num='6',name='R5.2',func=Pin.types.PASSIVE,unit=5),
             Pin(num='7',name='R6.2',func=Pin.types.PASSIVE,unit=6),
-            Pin(num='8',name='R7.2',func=Pin.types.PASSIVE,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '5']},{'label': 'uE', 'num': 5, 'pin_nums': ['1', '6']},{'label': 'uF', 'num': 6, 'pin_nums': ['7', '1']},{'label': 'uG', 'num': 7, 'pin_nums': ['8', '1']}] }),
+            Pin(num='8',name='R7.2',func=Pin.types.PASSIVE,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '1']},{'label': 'uE', 'num': 5, 'pin_nums': ['1', '6']},{'label': 'uF', 'num': 6, 'pin_nums': ['1', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['1', '8']}] }),
         Part(**{ 'name':'R_Network07_US', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Network07_US'}), 'ref_prefix':'RN', 'fplist':['Resistor_THT:R_Array_SIP8'], 'footprint':'Resistor_THT:R_Array_SIP8', 'keywords':'R network star-topology', 'description':'', 'datasheet':'http://www.vishay.com/docs/31509/csc.pdf', 'pins':[
             Pin(num='1',name='common',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='R1',func=Pin.types.PASSIVE,unit=1),
@@ -2131,7 +2131,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='R6.2',func=Pin.types.PASSIVE,unit=6),
             Pin(num='8',name='R7.2',func=Pin.types.PASSIVE,unit=7),
             Pin(num='9',name='R8.2',func=Pin.types.PASSIVE,unit=8),
-            Pin(num='10',name='R9.2',func=Pin.types.PASSIVE,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '1']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '1']},{'label': 'uE', 'num': 5, 'pin_nums': ['6', '1']},{'label': 'uF', 'num': 6, 'pin_nums': ['7', '1']},{'label': 'uG', 'num': 7, 'pin_nums': ['8', '1']},{'label': 'uH', 'num': 8, 'pin_nums': ['1', '9']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '1']}] }),
+            Pin(num='10',name='R9.2',func=Pin.types.PASSIVE,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '5']},{'label': 'uE', 'num': 5, 'pin_nums': ['1', '6']},{'label': 'uF', 'num': 6, 'pin_nums': ['1', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['1', '8']},{'label': 'uH', 'num': 8, 'pin_nums': ['1', '9']},{'label': 'uI', 'num': 9, 'pin_nums': ['1', '10']}] }),
         Part(**{ 'name':'R_Network09_US', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Network09_US'}), 'ref_prefix':'RN', 'fplist':['Resistor_THT:R_Array_SIP10'], 'footprint':'Resistor_THT:R_Array_SIP10', 'keywords':'R network star-topology', 'description':'', 'datasheet':'http://www.vishay.com/docs/31509/csc.pdf', 'pins':[
             Pin(num='1',name='common',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R9',func=Pin.types.PASSIVE,unit=1),
@@ -2166,7 +2166,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='R7.2',func=Pin.types.PASSIVE,unit=7),
             Pin(num='9',name='R8.2',func=Pin.types.PASSIVE,unit=8),
             Pin(num='10',name='R9.2',func=Pin.types.PASSIVE,unit=9),
-            Pin(num='11',name='R10.2',func=Pin.types.PASSIVE,unit=10)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '5']},{'label': 'uE', 'num': 5, 'pin_nums': ['1', '6']},{'label': 'uF', 'num': 6, 'pin_nums': ['1', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['1', '8']},{'label': 'uH', 'num': 8, 'pin_nums': ['1', '9']},{'label': 'uI', 'num': 9, 'pin_nums': ['1', '10']},{'label': 'uJ', 'num': 10, 'pin_nums': ['1', '11']}] }),
+            Pin(num='11',name='R10.2',func=Pin.types.PASSIVE,unit=10)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '1']},{'label': 'uE', 'num': 5, 'pin_nums': ['1', '6']},{'label': 'uF', 'num': 6, 'pin_nums': ['7', '1']},{'label': 'uG', 'num': 7, 'pin_nums': ['8', '1']},{'label': 'uH', 'num': 8, 'pin_nums': ['9', '1']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '1']},{'label': 'uJ', 'num': 10, 'pin_nums': ['1', '11']}] }),
         Part(**{ 'name':'R_Network10_US', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Network10_US'}), 'ref_prefix':'RN', 'fplist':['Resistor_THT:R_Array_SIP11'], 'footprint':'Resistor_THT:R_Array_SIP11', 'keywords':'R network star-topology', 'description':'', 'datasheet':'http://www.vishay.com/docs/31509/csc.pdf', 'pins':[
             Pin(num='1',name='common',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R9',func=Pin.types.PASSIVE,unit=1),
@@ -2204,7 +2204,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='R8.2',func=Pin.types.PASSIVE,unit=8),
             Pin(num='10',name='R9.2',func=Pin.types.PASSIVE,unit=9),
             Pin(num='11',name='R10.2',func=Pin.types.PASSIVE,unit=10),
-            Pin(num='12',name='R11.2',func=Pin.types.PASSIVE,unit=11)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '5']},{'label': 'uE', 'num': 5, 'pin_nums': ['1', '6']},{'label': 'uF', 'num': 6, 'pin_nums': ['7', '1']},{'label': 'uG', 'num': 7, 'pin_nums': ['1', '8']},{'label': 'uH', 'num': 8, 'pin_nums': ['9', '1']},{'label': 'uI', 'num': 9, 'pin_nums': ['1', '10']},{'label': 'uJ', 'num': 10, 'pin_nums': ['1', '11']},{'label': 'uK', 'num': 11, 'pin_nums': ['12', '1']}] }),
+            Pin(num='12',name='R11.2',func=Pin.types.PASSIVE,unit=11)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '5']},{'label': 'uE', 'num': 5, 'pin_nums': ['1', '6']},{'label': 'uF', 'num': 6, 'pin_nums': ['7', '1']},{'label': 'uG', 'num': 7, 'pin_nums': ['1', '8']},{'label': 'uH', 'num': 8, 'pin_nums': ['9', '1']},{'label': 'uI', 'num': 9, 'pin_nums': ['1', '10']},{'label': 'uJ', 'num': 10, 'pin_nums': ['11', '1']},{'label': 'uK', 'num': 11, 'pin_nums': ['12', '1']}] }),
         Part(**{ 'name':'R_Network11_US', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Network11_US'}), 'ref_prefix':'RN', 'fplist':['Resistor_THT:R_Array_SIP12'], 'footprint':'Resistor_THT:R_Array_SIP12', 'keywords':'R network star-topology', 'description':'', 'datasheet':'http://www.vishay.com/docs/31509/csc.pdf', 'pins':[
             Pin(num='1',name='common',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R9',func=Pin.types.PASSIVE,unit=1),
@@ -2245,7 +2245,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='R9.2',func=Pin.types.PASSIVE,unit=9),
             Pin(num='11',name='R10.2',func=Pin.types.PASSIVE,unit=10),
             Pin(num='12',name='R11.2',func=Pin.types.PASSIVE,unit=11),
-            Pin(num='13',name='R12.2',func=Pin.types.PASSIVE,unit=12)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '1']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '5']},{'label': 'uE', 'num': 5, 'pin_nums': ['1', '6']},{'label': 'uF', 'num': 6, 'pin_nums': ['1', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['1', '8']},{'label': 'uH', 'num': 8, 'pin_nums': ['1', '9']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '1']},{'label': 'uJ', 'num': 10, 'pin_nums': ['1', '11']},{'label': 'uK', 'num': 11, 'pin_nums': ['1', '12']},{'label': 'uL', 'num': 12, 'pin_nums': ['13', '1']}] }),
+            Pin(num='13',name='R12.2',func=Pin.types.PASSIVE,unit=12)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '1']},{'label': 'uE', 'num': 5, 'pin_nums': ['1', '6']},{'label': 'uF', 'num': 6, 'pin_nums': ['1', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['1', '8']},{'label': 'uH', 'num': 8, 'pin_nums': ['9', '1']},{'label': 'uI', 'num': 9, 'pin_nums': ['1', '10']},{'label': 'uJ', 'num': 10, 'pin_nums': ['1', '11']},{'label': 'uK', 'num': 11, 'pin_nums': ['1', '12']},{'label': 'uL', 'num': 12, 'pin_nums': ['13', '1']}] }),
         Part(**{ 'name':'R_Network12_US', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Network12_US'}), 'ref_prefix':'RN', 'fplist':['Resistor_THT:R_Array_SIP13'], 'footprint':'Resistor_THT:R_Array_SIP13', 'keywords':'R network star-topology', 'description':'', 'datasheet':'http://www.vishay.com/docs/31509/csc.pdf', 'pins':[
             Pin(num='1',name='common',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R9',func=Pin.types.PASSIVE,unit=1),
@@ -2289,7 +2289,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='R10.2',func=Pin.types.PASSIVE,unit=10),
             Pin(num='12',name='R11.2',func=Pin.types.PASSIVE,unit=11),
             Pin(num='13',name='R12.2',func=Pin.types.PASSIVE,unit=12),
-            Pin(num='14',name='R13.2',func=Pin.types.PASSIVE,unit=13)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '1']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '1']},{'label': 'uE', 'num': 5, 'pin_nums': ['6', '1']},{'label': 'uF', 'num': 6, 'pin_nums': ['1', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['8', '1']},{'label': 'uH', 'num': 8, 'pin_nums': ['1', '9']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '1']},{'label': 'uJ', 'num': 10, 'pin_nums': ['1', '11']},{'label': 'uK', 'num': 11, 'pin_nums': ['1', '12']},{'label': 'uL', 'num': 12, 'pin_nums': ['1', '13']},{'label': 'uM', 'num': 13, 'pin_nums': ['14', '1']}] }),
+            Pin(num='14',name='R13.2',func=Pin.types.PASSIVE,unit=13)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '1']},{'label': 'uE', 'num': 5, 'pin_nums': ['1', '6']},{'label': 'uF', 'num': 6, 'pin_nums': ['1', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['1', '8']},{'label': 'uH', 'num': 8, 'pin_nums': ['1', '9']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '1']},{'label': 'uJ', 'num': 10, 'pin_nums': ['1', '11']},{'label': 'uK', 'num': 11, 'pin_nums': ['1', '12']},{'label': 'uL', 'num': 12, 'pin_nums': ['1', '13']},{'label': 'uM', 'num': 13, 'pin_nums': ['1', '14']}] }),
         Part(**{ 'name':'R_Network13_US', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Network13_US'}), 'ref_prefix':'RN', 'fplist':['Resistor_THT:R_Array_SIP14'], 'footprint':'Resistor_THT:R_Array_SIP14', 'keywords':'R network star-topology', 'description':'', 'datasheet':'http://www.vishay.com/docs/31509/csc.pdf', 'pins':[
             Pin(num='1',name='common',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R9',func=Pin.types.PASSIVE,unit=1),
@@ -2447,7 +2447,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='R2.1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='R2.2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='R3.1',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='4',name='R3.2',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']}] }),
+            Pin(num='4',name='R3.2',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '3']}] }),
         Part(**{ 'name':'R_Pack04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Pack04'}), 'ref_prefix':'RN', 'fplist':[''], 'footprint':'', 'keywords':'R network parallel topology isolated', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='R1.1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='R2.1',func=Pin.types.PASSIVE,unit=1),
@@ -2483,7 +2483,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='R3.1',func=Pin.types.PASSIVE,unit=3),
             Pin(num='6',name='R3.2',func=Pin.types.PASSIVE,unit=3),
             Pin(num='4',name='R4.1',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='5',name='R4.2',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '5']}] }),
+            Pin(num='5',name='R4.2',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '5']}] }),
         Part(**{ 'name':'R_Pack05', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Pack05'}), 'ref_prefix':'RN', 'fplist':[''], 'footprint':'', 'keywords':'R network parallel topology isolated', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='R1.1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R1.2',func=Pin.types.PASSIVE,unit=1),
@@ -2516,7 +2516,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='R4.1',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='R4.2',func=Pin.types.PASSIVE,unit=4),
             Pin(num='10',name='R5.2',func=Pin.types.PASSIVE,unit=5),
-            Pin(num='9',name='R5.1',func=Pin.types.PASSIVE,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['9', '10']}] }),
+            Pin(num='9',name='R5.1',func=Pin.types.PASSIVE,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '9']}] }),
         Part(**{ 'name':'R_Pack05_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Pack05_Split'}), 'ref_prefix':'RN', 'fplist':[''], 'footprint':'', 'keywords':'R network parallel topology isolated', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='R1.1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R1.2',func=Pin.types.PASSIVE,unit=1),
@@ -2527,7 +2527,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='R4.1',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='R4.2',func=Pin.types.PASSIVE,unit=4),
             Pin(num='5',name='R5.1',func=Pin.types.PASSIVE,unit=5),
-            Pin(num='6',name='R5.2',func=Pin.types.PASSIVE,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '7']},{'label': 'uE', 'num': 5, 'pin_nums': ['5', '6']}] }),
+            Pin(num='6',name='R5.2',func=Pin.types.PASSIVE,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '7']},{'label': 'uE', 'num': 5, 'pin_nums': ['5', '6']}] }),
         Part(**{ 'name':'R_Pack06', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Pack06'}), 'ref_prefix':'RN', 'fplist':[''], 'footprint':'', 'keywords':'R network parallel topology isolated', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='R1.1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R3.2',func=Pin.types.PASSIVE,unit=1),
@@ -2566,7 +2566,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='R5.2',func=Pin.types.PASSIVE,unit=5),
             Pin(num='9',name='R5.1',func=Pin.types.PASSIVE,unit=5),
             Pin(num='11',name='R6.1',func=Pin.types.PASSIVE,unit=6),
-            Pin(num='12',name='R6.2',func=Pin.types.PASSIVE,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '9']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '11']}] }),
+            Pin(num='12',name='R6.2',func=Pin.types.PASSIVE,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '9']},{'label': 'uF', 'num': 6, 'pin_nums': ['11', '12']}] }),
         Part(**{ 'name':'R_Pack06_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Pack06_Split'}), 'ref_prefix':'RN', 'fplist':[''], 'footprint':'', 'keywords':'R network parallel topology isolated', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='R1.1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='R1.2',func=Pin.types.PASSIVE,unit=1),
@@ -2579,7 +2579,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='R5.1',func=Pin.types.PASSIVE,unit=5),
             Pin(num='8',name='R5.2',func=Pin.types.PASSIVE,unit=5),
             Pin(num='6',name='R6.1',func=Pin.types.PASSIVE,unit=6),
-            Pin(num='7',name='R6.2',func=Pin.types.PASSIVE,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '4']},{'label': 'uE', 'num': 5, 'pin_nums': ['5', '8']},{'label': 'uF', 'num': 6, 'pin_nums': ['6', '7']}] }),
+            Pin(num='7',name='R6.2',func=Pin.types.PASSIVE,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '4']},{'label': 'uE', 'num': 5, 'pin_nums': ['5', '8']},{'label': 'uF', 'num': 6, 'pin_nums': ['6', '7']}] }),
         Part(**{ 'name':'R_Pack07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Pack07'}), 'ref_prefix':'RN', 'fplist':[''], 'footprint':'', 'keywords':'R network parallel topology isolated', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='R1.1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R5.2',func=Pin.types.PASSIVE,unit=1),
@@ -2624,7 +2624,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='R6.1',func=Pin.types.PASSIVE,unit=6),
             Pin(num='12',name='R6.2',func=Pin.types.PASSIVE,unit=6),
             Pin(num='13',name='R7.1',func=Pin.types.PASSIVE,unit=7),
-            Pin(num='14',name='R7.2',func=Pin.types.PASSIVE,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '9']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '11']},{'label': 'uG', 'num': 7, 'pin_nums': ['13', '14']}] }),
+            Pin(num='14',name='R7.2',func=Pin.types.PASSIVE,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['9', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '11']},{'label': 'uG', 'num': 7, 'pin_nums': ['13', '14']}] }),
         Part(**{ 'name':'R_Pack07_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Pack07_Split'}), 'ref_prefix':'RN', 'fplist':[''], 'footprint':'', 'keywords':'R network parallel topology isolated', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='R1.1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='14',name='R1.2',func=Pin.types.PASSIVE,unit=1),
@@ -2639,7 +2639,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='R6.1',func=Pin.types.PASSIVE,unit=6),
             Pin(num='9',name='R6.2',func=Pin.types.PASSIVE,unit=6),
             Pin(num='7',name='R7.1',func=Pin.types.PASSIVE,unit=7),
-            Pin(num='8',name='R7.2',func=Pin.types.PASSIVE,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '4']},{'label': 'uE', 'num': 5, 'pin_nums': ['5', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['9', '6']},{'label': 'uG', 'num': 7, 'pin_nums': ['8', '7']}] }),
+            Pin(num='8',name='R7.2',func=Pin.types.PASSIVE,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '4']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '5']},{'label': 'uF', 'num': 6, 'pin_nums': ['6', '9']},{'label': 'uG', 'num': 7, 'pin_nums': ['7', '8']}] }),
         Part(**{ 'name':'R_Pack08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Pack08'}), 'ref_prefix':'RN', 'fplist':[''], 'footprint':'', 'keywords':'R network parallel topology isolated', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='R1.1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R7.2',func=Pin.types.PASSIVE,unit=1),
@@ -2673,7 +2673,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='R7.2',func=Pin.types.PASSIVE,unit=7),
             Pin(num='7',name='R7.1',func=Pin.types.PASSIVE,unit=7),
             Pin(num='8',name='R8.1',func=Pin.types.PASSIVE,unit=8),
-            Pin(num='9',name='R8.2',func=Pin.types.PASSIVE,unit=8)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['15', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '4']},{'label': 'uE', 'num': 5, 'pin_nums': ['5', '12']},{'label': 'uF', 'num': 6, 'pin_nums': ['11', '6']},{'label': 'uG', 'num': 7, 'pin_nums': ['10', '7']},{'label': 'uH', 'num': 8, 'pin_nums': ['8', '9']}] }),
+            Pin(num='9',name='R8.2',func=Pin.types.PASSIVE,unit=8)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['15', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '4']},{'label': 'uE', 'num': 5, 'pin_nums': ['12', '5']},{'label': 'uF', 'num': 6, 'pin_nums': ['6', '11']},{'label': 'uG', 'num': 7, 'pin_nums': ['10', '7']},{'label': 'uH', 'num': 8, 'pin_nums': ['8', '9']}] }),
         Part(**{ 'name':'R_Pack09', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Pack09'}), 'ref_prefix':'RN', 'fplist':[''], 'footprint':'', 'keywords':'R network parallel topology isolated', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='R1.1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R9.2',func=Pin.types.PASSIVE,unit=1),
@@ -2711,7 +2711,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='R8.2',func=Pin.types.PASSIVE,unit=8),
             Pin(num='8',name='R8.1',func=Pin.types.PASSIVE,unit=8),
             Pin(num='10',name='R9.2',func=Pin.types.PASSIVE,unit=9),
-            Pin(num='9',name='R9.1',func=Pin.types.PASSIVE,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['18', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['17', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '4']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '5']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '6']},{'label': 'uG', 'num': 7, 'pin_nums': ['12', '7']},{'label': 'uH', 'num': 8, 'pin_nums': ['8', '11']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '9']}] }),
+            Pin(num='9',name='R9.1',func=Pin.types.PASSIVE,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '18']},{'label': 'uB', 'num': 2, 'pin_nums': ['17', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '4']},{'label': 'uE', 'num': 5, 'pin_nums': ['5', '14']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '6']},{'label': 'uG', 'num': 7, 'pin_nums': ['12', '7']},{'label': 'uH', 'num': 8, 'pin_nums': ['8', '11']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '9']}] }),
         Part(**{ 'name':'R_Pack10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Pack10'}), 'ref_prefix':'RN', 'fplist':[''], 'footprint':'', 'keywords':'R network parallel topology isolated', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='R1.1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R10.1',func=Pin.types.PASSIVE,unit=1),
@@ -2753,7 +2753,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='R9.2',func=Pin.types.PASSIVE,unit=9),
             Pin(num='9',name='R9.1',func=Pin.types.PASSIVE,unit=9),
             Pin(num='10',name='R10.1',func=Pin.types.PASSIVE,unit=10),
-            Pin(num='11',name='R10.2',func=Pin.types.PASSIVE,unit=10)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['20', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '19']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '18']},{'label': 'uD', 'num': 4, 'pin_nums': ['17', '4']},{'label': 'uE', 'num': 5, 'pin_nums': ['5', '16']},{'label': 'uF', 'num': 6, 'pin_nums': ['15', '6']},{'label': 'uG', 'num': 7, 'pin_nums': ['7', '14']},{'label': 'uH', 'num': 8, 'pin_nums': ['13', '8']},{'label': 'uI', 'num': 9, 'pin_nums': ['12', '9']},{'label': 'uJ', 'num': 10, 'pin_nums': ['10', '11']}] }),
+            Pin(num='11',name='R10.2',func=Pin.types.PASSIVE,unit=10)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '20']},{'label': 'uB', 'num': 2, 'pin_nums': ['19', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['18', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['17', '4']},{'label': 'uE', 'num': 5, 'pin_nums': ['16', '5']},{'label': 'uF', 'num': 6, 'pin_nums': ['6', '15']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']},{'label': 'uH', 'num': 8, 'pin_nums': ['13', '8']},{'label': 'uI', 'num': 9, 'pin_nums': ['9', '12']},{'label': 'uJ', 'num': 10, 'pin_nums': ['10', '11']}] }),
         Part(**{ 'name':'R_Pack11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Pack11'}), 'ref_prefix':'RN', 'fplist':[''], 'footprint':'', 'keywords':'R network parallel topology isolated', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='R1.1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R10.1',func=Pin.types.PASSIVE,unit=1),
@@ -2799,7 +2799,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='R10.1',func=Pin.types.PASSIVE,unit=10),
             Pin(num='13',name='R10.2',func=Pin.types.PASSIVE,unit=10),
             Pin(num='11',name='R11.1',func=Pin.types.PASSIVE,unit=11),
-            Pin(num='12',name='R11.2',func=Pin.types.PASSIVE,unit=11)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '22']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '21']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '20']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '19']},{'label': 'uE', 'num': 5, 'pin_nums': ['5', '18']},{'label': 'uF', 'num': 6, 'pin_nums': ['17', '6']},{'label': 'uG', 'num': 7, 'pin_nums': ['16', '7']},{'label': 'uH', 'num': 8, 'pin_nums': ['15', '8']},{'label': 'uI', 'num': 9, 'pin_nums': ['14', '9']},{'label': 'uJ', 'num': 10, 'pin_nums': ['13', '10']},{'label': 'uK', 'num': 11, 'pin_nums': ['11', '12']}] }),
+            Pin(num='12',name='R11.2',func=Pin.types.PASSIVE,unit=11)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '22']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '21']},{'label': 'uC', 'num': 3, 'pin_nums': ['20', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '19']},{'label': 'uE', 'num': 5, 'pin_nums': ['18', '5']},{'label': 'uF', 'num': 6, 'pin_nums': ['17', '6']},{'label': 'uG', 'num': 7, 'pin_nums': ['16', '7']},{'label': 'uH', 'num': 8, 'pin_nums': ['15', '8']},{'label': 'uI', 'num': 9, 'pin_nums': ['14', '9']},{'label': 'uJ', 'num': 10, 'pin_nums': ['10', '13']},{'label': 'uK', 'num': 11, 'pin_nums': ['11', '12']}] }),
         Part(**{ 'name':'R_Photo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Photo'}), 'ref_prefix':'R', 'fplist':[''], 'footprint':'', 'keywords':'resistor variable light sensitive opto LDR', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
@@ -2828,7 +2828,7 @@ Device = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='4',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='5',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='6',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']}] }),
+            Pin(num='6',name='6',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']}] }),
         Part(**{ 'name':'R_Potentiometer_MountingPin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R_Potentiometer_MountingPin'}), 'ref_prefix':'RV', 'fplist':[''], 'footprint':'', 'keywords':'resistor variable', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),

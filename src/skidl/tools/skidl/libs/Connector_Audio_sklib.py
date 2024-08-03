@@ -16,7 +16,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T2',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', 'TN1', 'SN1', 'S1', 'T1']},{'label': 'uB', 'num': 2, 'pin_nums': ['TN2', 'SN2', 'S2', 'T2']}] }),
+            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['TN1', 'G', 'S1', 'SN1', 'T1']},{'label': 'uB', 'num': 2, 'pin_nums': ['S2', 'SN2', 'T2', 'TN2']}] }),
         Part(**{ 'name':'AudioJack2_Dual_Switch', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AudioJack2_Dual_Switch'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'audio jack dual receptacle mono headphones phone TS connector', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='S1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SN1',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -25,7 +25,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T2',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['T1', 'TN1', 'SN1', 'S1']},{'label': 'uB', 'num': 2, 'pin_nums': ['SN2', 'T2', 'S2', 'TN2']}] }),
+            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['S1', 'SN1', 'TN1', 'T1']},{'label': 'uB', 'num': 2, 'pin_nums': ['SN2', 'S2', 'TN2', 'T2']}] }),
         Part(**{ 'name':'AudioJack2_Ground', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AudioJack2_Ground'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'audio jack receptacle mono phone headphone TS connector', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -67,7 +67,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T2',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['TN1', 'RN1', 'S1', 'SN1', 'G', 'R1', 'T1']},{'label': 'uB', 'num': 2, 'pin_nums': ['R2', 'SN2', 'TN2', 'RN2', 'T2', 'S2']}] }),
+            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['R1', 'TN1', 'S1', 'G', 'SN1', 'T1', 'RN1']},{'label': 'uB', 'num': 2, 'pin_nums': ['SN2', 'TN2', 'RN2', 'S2', 'R2', 'T2']}] }),
         Part(**{ 'name':'AudioJack3_Dual_Switch', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AudioJack3_Dual_Switch'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'audio jack dual receptacle stereo headphones phones TRS connector', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='R1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='RN1',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -80,7 +80,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T2',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['R1', 'TN1', 'RN1', 'T1', 'S1', 'SN1']},{'label': 'uB', 'num': 2, 'pin_nums': ['RN2', 'S2', 'T2', 'R2', 'SN2', 'TN2']}] }),
+            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['SN1', 'T1', 'TN1', 'S1', 'R1', 'RN1']},{'label': 'uB', 'num': 2, 'pin_nums': ['R2', 'SN2', 'TN2', 'RN2', 'S2', 'T2']}] }),
         Part(**{ 'name':'AudioJack3_Ground', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AudioJack3_Ground'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'audio jack receptacle stereo headphones phones TRS connector', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -214,21 +214,21 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['T', 'S']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'T']}] }),
         Part(**{ 'name':'XLR3_AudioJack2_Combo_Ground', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XLR3_AudioJack2_Combo_Ground'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'xlr connector', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', 'G', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'T']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', 'G', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['T', 'S']}] }),
         Part(**{ 'name':'XLR3_AudioJack3_Combo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XLR3_AudioJack3_Combo'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'xlr connector', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'T', 'R']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'R', 'T']}] }),
         Part(**{ 'name':'XLR3_AudioJack3_Combo_Ground', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XLR3_AudioJack3_Combo_Ground'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'xlr connector', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -236,7 +236,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', 'G', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['R', 'S', 'T']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', 'G', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['T', 'S', 'R']}] }),
         Part(**{ 'name':'XLR3_AudioJack3_Combo_GroundSwitch_Switch', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XLR3_AudioJack3_Combo_GroundSwitch_Switch'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'xlr connector', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -248,7 +248,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['GN', '1', 'G', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['RN', 'SN', 'T', 'R', 'S', 'TN']}] }),
+            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', 'GN', 'G', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['R', 'SN', 'S', 'T', 'RN', 'TN']}] }),
         Part(**{ 'name':'XLR3_AudioJack3_Combo_Ground_Switch', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XLR3_AudioJack3_Combo_Ground_Switch'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'xlr connector', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -259,7 +259,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', 'G', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['R', 'RN', 'T', 'S', 'TN', 'SN']}] }),
+            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', 'G', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'T', 'TN', 'RN', 'SN', 'R']}] }),
         Part(**{ 'name':'XLR3_AudioJack3_Combo_Switch', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XLR3_AudioJack3_Combo_Switch'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'xlr connector', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -269,7 +269,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['T', 'TN', 'RN', 'SN', 'S', 'R']}] }),
+            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['SN', 'RN', 'R', 'T', 'S', 'TN']}] }),
         Part(**{ 'name':'XLR3_Ground', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XLR3_Ground'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'xlr connector', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE),
             Pin(num='2',name='~',func=Pin.types.PASSIVE),
@@ -282,14 +282,14 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='N',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='NC',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', '3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['NC', 'NO', 'N']}] }),
+            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3', 'G']},{'label': 'uB', 'num': 2, 'pin_nums': ['N', 'NC', 'NO']}] }),
         Part(**{ 'name':'XLR3_Switched', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XLR3_Switched'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'xlr connector', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='N',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='NC',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['N', 'NO', 'NC']}] }),
+            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['NC', 'N', 'NO']}] }),
         Part(**{ 'name':'XLR4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XLR4'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'xlr connector', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -323,7 +323,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='N',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='NC',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '2', 'G', '5', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['N', 'NC', 'NO']}] }),
+            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '5', '1', '2', '4', 'G']},{'label': 'uB', 'num': 2, 'pin_nums': ['N', 'NC', 'NO']}] }),
         Part(**{ 'name':'XLR6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XLR6'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'xlr connector', 'description':'', 'datasheet':'~', 'pins':[
             Pin(num='1',name='P1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='P2',func=Pin.types.PASSIVE,unit=1),
@@ -573,7 +573,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='N',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='NC',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', 'G', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['NC', 'N', 'NO']}] }),
+            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', 'G', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['N', 'NO', 'NC']}] }),
         Part(**{ 'name':'NC3MAAH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NC3MAAH'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR_Neutrik_NC3FAAH2_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC3FAAH2-0_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC3FAAV2_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC3FAAV2-0_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC3FAH2_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC3FAH2-0_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC3FAH2-DA_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC3FAHR2_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC3FAHR2-0_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC3FAV2_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC3FAV2-0_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC3FAV2-DA_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC3FBH2_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC3FBH2-B_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC3FBH2-DA_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC3FBH2-E_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC3FBV2_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC3FBV2-B_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC3FBV2-DA_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC3MAAH_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/nc3maah', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE),
             Pin(num='2',name='~',func=Pin.types.PASSIVE),
@@ -715,7 +715,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='N',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='NC',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', '1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['NC', 'N', 'NO']}] }),
+            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2', 'G']},{'label': 'uB', 'num': 2, 'pin_nums': ['N', 'NC', 'NO']}] }),
         Part(**{ 'name':'NC4FAH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NC4FAH'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR_Neutrik_NC4FAH_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/nc4fah', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -820,7 +820,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='N',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='NC',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '2', 'G', '5', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['NC', 'N', 'NO']}] }),
+            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', '1', '4', '3', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['N', 'NO', 'NC']}] }),
         Part(**{ 'name':'NC5FBH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NC5FBH'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR_Neutrik_NC5FAH_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC5FAH-0_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC5FAH-DA_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC5FAV_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC5FAV-DA_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC5FBH_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/nc5fbh', 'pins':[
             Pin(num='1',name='P1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='P2',func=Pin.types.PASSIVE,unit=1),
@@ -858,7 +858,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='N',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='NC',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', '3', '4', '2', '1', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['NC', 'N', 'NO']}] }),
+            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', 'G', '4', '2', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['N', 'NO', 'NC']}] }),
         Part(**{ 'name':'NC5MAH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NC5MAH'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR_Neutrik_NC5FAH_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC5FAH-0_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC5FAH-DA_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC5FAV_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC5FAV-DA_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC5FBH_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC5FBH-B_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC5FBV_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC5FBV-B_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC5MAH_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/nc5mah', 'pins':[
             Pin(num='1',name='P1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='P2',func=Pin.types.PASSIVE,unit=1),
@@ -882,7 +882,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='N',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='NC',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', 'G', '4', '2', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['NC', 'N', 'NO']}] }),
+            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', '4', '2', '5', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['NO', 'N', 'NC']}] }),
         Part(**{ 'name':'NC5MBH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NC5MBH'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR_Neutrik_NC5FAH_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC5FAH-0_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC5FAH-DA_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC5FAV_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC5FAV-DA_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC5FBH_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC5FBH-B_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC5FBV_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC5FBV-B_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC5MAH_Horizontal', 'Connector_Audio:Jack_XLR_Neutrik_NC5MAV_Vertical', 'Connector_Audio:Jack_XLR_Neutrik_NC5MBH_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/nc5mbh', 'pins':[
             Pin(num='1',name='P1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='P2',func=Pin.types.PASSIVE,unit=1),
@@ -920,7 +920,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='N',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='NC',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', 'G', '1', '4', '2', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['N', 'NC', 'NO']}] }),
+            Pin(num='NO',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', 'G', '4', '1', '2', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['N', 'NC', 'NO']}] }),
         Part(**{ 'name':'NCJ10FI-H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ10FI-H'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ10FI-H_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj10fi-h', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -932,7 +932,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', 'G', '3', '2', 'GN']},{'label': 'uB', 'num': 2, 'pin_nums': ['R', 'S', 'TN', 'RN', 'SN', 'T']}] }),
+            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['GN', '3', 'G', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'T', 'RN', 'TN', 'SN', 'R']}] }),
         Part(**{ 'name':'NCJ10FI-H-0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ10FI-H-0'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ10FI-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ10FI-H-0_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj10fi-h-0', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -944,7 +944,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', 'GN', '3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'TN', 'SN', 'RN', 'R', 'T']}] }),
+            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', '1', '3', 'GN', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['R', 'RN', 'SN', 'T', 'S', 'TN']}] }),
         Part(**{ 'name':'NCJ10FI-V', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ10FI-V'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ10FI-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ10FI-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ10FI-V_Vertical'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj10fi-v', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -956,7 +956,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', 'GN', '1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['SN', 'R', 'T', 'RN', 'S', 'TN']}] }),
+            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1', 'GN', 'G']},{'label': 'uB', 'num': 2, 'pin_nums': ['RN', 'S', 'TN', 'SN', 'R', 'T']}] }),
         Part(**{ 'name':'NCJ10FI-V-0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ10FI-V-0'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ10FI-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ10FI-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ10FI-V_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ10FI-V-0_Vertical'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj10fi-v-0', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -968,35 +968,35 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', 'G', '1', 'GN', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['T', 'R', 'RN', 'S', 'TN', 'SN']}] }),
+            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['GN', '2', '1', 'G', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['TN', 'SN', 'RN', 'R', 'T', 'S']}] }),
         Part(**{ 'name':'NCJ5FI-H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ5FI-H'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ5FI-H_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj5fi-h', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2', 'G']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'T']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', '3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['T', 'S']}] }),
         Part(**{ 'name':'NCJ5FI-H-0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ5FI-H-0'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ5FI-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ5FI-H-0_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj5fi-h-0', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2', 'G']},{'label': 'uB', 'num': 2, 'pin_nums': ['T', 'S']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', 'G', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'T']}] }),
         Part(**{ 'name':'NCJ5FI-V', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ5FI-V'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ5FI-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ5FI-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ5FI-V_Vertical'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj5fi-v', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', '2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'T']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', 'G', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'T']}] }),
         Part(**{ 'name':'NCJ5FI-V-0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ5FI-V-0'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ5FI-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ5FI-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ5FI-V_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ5FI-V-0_Vertical'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj5fi-v-0', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', 'G', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'T']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', 'G', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'T']}] }),
         Part(**{ 'name':'NCJ6FA-H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ6FA-H'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj6fa-h', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1004,7 +1004,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', 'G', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['R', 'T', 'S']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2', 'G']},{'label': 'uB', 'num': 2, 'pin_nums': ['T', 'S', 'R']}] }),
         Part(**{ 'name':'NCJ6FA-H-0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ6FA-H-0'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-0_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj6fa-h-0', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1012,7 +1012,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3', 'G']},{'label': 'uB', 'num': 2, 'pin_nums': ['R', 'S', 'T']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', 'G', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['T', 'R', 'S']}] }),
         Part(**{ 'name':'NCJ6FA-H-DA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ6FA-H-DA'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-DA_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj6fa-h-da', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1020,7 +1020,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', '2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'R', 'T']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', '1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'R', 'T']}] }),
         Part(**{ 'name':'NCJ6FA-V', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ6FA-V'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-DA_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V_Vertical'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj6fa-v', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1028,7 +1028,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', 'G', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'T', 'R']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', 'G', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['T', 'S', 'R']}] }),
         Part(**{ 'name':'NCJ6FA-V-0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ6FA-V-0'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-DA_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V-0_Vertical'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj6fa-v-0', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1036,7 +1036,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', '3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['R', 'T', 'S']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', '1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['T', 'S', 'R']}] }),
         Part(**{ 'name':'NCJ6FA-V-DA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ6FA-V-DA'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-DA_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V-0_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V-DA_Vertical'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj6fa-v-da', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1044,7 +1044,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', 'G', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['R', 'T', 'S']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2', 'G']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'R', 'T']}] }),
         Part(**{ 'name':'NCJ6FI-H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ6FI-H'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-DA_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V-0_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V-DA_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FI-H_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj6fi-h', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1052,7 +1052,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', '3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['R', 'T', 'S']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', 'G', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['R', 'T', 'S']}] }),
         Part(**{ 'name':'NCJ6FI-H-0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ6FI-H-0'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-DA_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V-0_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V-DA_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FI-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FI-H-0_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj6fi-h-0', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1060,7 +1060,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', 'G', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'T', 'R']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', 'G', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['T', 'S', 'R']}] }),
         Part(**{ 'name':'NCJ6FI-V', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ6FI-V'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-DA_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V-0_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V-DA_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FI-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FI-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FI-V_Vertical'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj6fi-v', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1068,7 +1068,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', 'G', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['R', 'T', 'S']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', '1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['T', 'R', 'S']}] }),
         Part(**{ 'name':'NCJ6FI-V-0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ6FI-V-0'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-H-DA_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V-0_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FA-V-DA_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FI-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FI-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FI-V_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ6FI-V-0_Vertical'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj6fi-v-0', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1076,7 +1076,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', 'G', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['R', 'T', 'S']}] }),
+            Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', 'G', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'T', 'R']}] }),
         Part(**{ 'name':'NCJ9FI-H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ9FI-H'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ9FI-H_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj9fi-h', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1087,7 +1087,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3', 'G']},{'label': 'uB', 'num': 2, 'pin_nums': ['RN', 'SN', 'R', 'T', 'S', 'TN']}] }),
+            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', 'G', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['S', 'T', 'SN', 'RN', 'TN', 'R']}] }),
         Part(**{ 'name':'NCJ9FI-H-0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ9FI-H-0'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ9FI-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ9FI-H-0_Horizontal'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj9fi-h-0', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1098,7 +1098,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', 'G', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['T', 'RN', 'TN', 'S', 'SN', 'R']}] }),
+            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', 'G', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['TN', 'RN', 'T', 'S', 'SN', 'R']}] }),
         Part(**{ 'name':'NCJ9FI-V', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ9FI-V'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ9FI-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ9FI-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ9FI-V_Vertical'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj9fi-v', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1109,7 +1109,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3', 'G']},{'label': 'uB', 'num': 2, 'pin_nums': ['R', 'T', 'RN', 'TN', 'S', 'SN']}] }),
+            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', 'G', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['RN', 'SN', 'R', 'T', 'TN', 'S']}] }),
         Part(**{ 'name':'NCJ9FI-V-0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCJ9FI-V-0'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ9FI-H_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ9FI-H-0_Horizontal', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ9FI-V_Vertical', 'Connector_Audio:Jack_XLR-6.35mm_Neutrik_NCJ9FI-V-0_Vertical'], 'footprint':'', 'keywords':'xlr connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/ncj9fi-v-0', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1120,7 +1120,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', 'G', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['RN', 'S', 'SN', 'R', 'T', 'TN']}] }),
+            Pin(num='TN',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2', 'G']},{'label': 'uB', 'num': 2, 'pin_nums': ['RN', 'TN', 'T', 'S', 'SN', 'R']}] }),
         Part(**{ 'name':'NJ2FD-V', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NJ2FD-V'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_6.35mm_Neutrik_NJ2FD-V_Vertical'], 'footprint':'', 'keywords':'audio jack receptacle mono phone headphone TS connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/nj2fd-v', 'pins':[
             Pin(num='S',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='T',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
@@ -1384,7 +1384,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T2',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['S1', 'R1', 'T1', 'RN1', 'SN1', 'G', 'TN1']},{'label': 'uB', 'num': 2, 'pin_nums': ['T2', 'S2', 'R2', 'SN2', 'RN2', 'TN2']}] }),
+            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['T1', 'SN1', 'RN1', 'TN1', 'R1', 'G', 'S1']},{'label': 'uB', 'num': 2, 'pin_nums': ['R2', 'S2', 'TN2', 'SN2', 'RN2', 'T2']}] }),
         Part(**{ 'name':'NSJ12HF-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NSJ12HF-1'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_6.35mm_Neutrik_NSJ12HC_Horizontal', 'Connector_Audio:Jack_6.35mm_Neutrik_NSJ12HF-1_Horizontal'], 'footprint':'', 'keywords':'audio jack dual receptacle stereo headphones phones TRS connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/nsj12hf-1', 'pins':[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R1',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1398,7 +1398,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T2',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['RN1', 'T1', 'G', 'TN1', 'R1', 'SN1', 'S1']},{'label': 'uB', 'num': 2, 'pin_nums': ['T2', 'S2', 'R2', 'TN2', 'RN2', 'SN2']}] }),
+            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['R1', 'RN1', 'T1', 'G', 'TN1', 'S1', 'SN1']},{'label': 'uB', 'num': 2, 'pin_nums': ['T2', 'RN2', 'S2', 'TN2', 'R2', 'SN2']}] }),
         Part(**{ 'name':'NSJ12HH-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NSJ12HH-1'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_6.35mm_Neutrik_NSJ12HC_Horizontal', 'Connector_Audio:Jack_6.35mm_Neutrik_NSJ12HF-1_Horizontal', 'Connector_Audio:Jack_6.35mm_Neutrik_NSJ12HH-1_Horizontal'], 'footprint':'', 'keywords':'audio jack dual receptacle stereo headphones phones TRS connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/nsj12hh-1', 'pins':[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R1',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1412,7 +1412,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T2',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['RN1', 'R1', 'TN1', 'T1', 'S1', 'G', 'SN1']},{'label': 'uB', 'num': 2, 'pin_nums': ['T2', 'RN2', 'S2', 'TN2', 'R2', 'SN2']}] }),
+            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['SN1', 'TN1', 'R1', 'G', 'S1', 'T1', 'RN1']},{'label': 'uB', 'num': 2, 'pin_nums': ['SN2', 'R2', 'RN2', 'T2', 'S2', 'TN2']}] }),
         Part(**{ 'name':'NSJ12HL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NSJ12HL'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_6.35mm_Neutrik_NSJ12HC_Horizontal', 'Connector_Audio:Jack_6.35mm_Neutrik_NSJ12HF-1_Horizontal', 'Connector_Audio:Jack_6.35mm_Neutrik_NSJ12HH-1_Horizontal', 'Connector_Audio:Jack_6.35mm_Neutrik_NSJ12HL_Horizontal'], 'footprint':'', 'keywords':'audio jack dual receptacle stereo headphones phones TRS connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/nsj12hl', 'pins':[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R1',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1426,7 +1426,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T2',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['SN1', 'G', 'R1', 'RN1', 'T1', 'TN1', 'S1']},{'label': 'uB', 'num': 2, 'pin_nums': ['RN2', 'T2', 'S2', 'TN2', 'R2', 'SN2']}] }),
+            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['SN1', 'T1', 'TN1', 'R1', 'G', 'RN1', 'S1']},{'label': 'uB', 'num': 2, 'pin_nums': ['RN2', 'T2', 'S2', 'TN2', 'R2', 'SN2']}] }),
         Part(**{ 'name':'NSJ8HC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NSJ8HC'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_6.35mm_Neutrik_NSJ8HC_Horizontal'], 'footprint':'', 'keywords':'audio jack dual receptacle mono headphones phone TS connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/nsj8hc', 'pins':[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S1',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1436,7 +1436,7 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T2',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['T1', 'SN1', 'TN1', 'S1', 'G']},{'label': 'uB', 'num': 2, 'pin_nums': ['S2', 'TN2', 'SN2', 'T2']}] }),
+            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', 'TN1', 'S1', 'SN1', 'T1']},{'label': 'uB', 'num': 2, 'pin_nums': ['S2', 'SN2', 'T2', 'TN2']}] }),
         Part(**{ 'name':'NSJ8HL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NSJ8HL'}), 'ref_prefix':'J', 'fplist':['', 'Connector_Audio:Jack_6.35mm_Neutrik_NSJ8HC_Horizontal', 'Connector_Audio:Jack_6.35mm_Neutrik_NSJ8HL_Horizontal'], 'footprint':'', 'keywords':'audio jack dual receptacle mono headphones phone TS connector neutrik', 'description':'', 'datasheet':'https://www.neutrik.com/en/product/nsj8hl', 'pins':[
             Pin(num='G',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S1',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1446,4 +1446,4 @@ Connector_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='S2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='SN2',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='T2',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['SN1', 'T1', 'TN1', 'S1', 'G']},{'label': 'uB', 'num': 2, 'pin_nums': ['S2', 'T2', 'TN2', 'SN2']}] })])
+            Pin(num='TN2',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G', 'S1', 'T1', 'SN1', 'TN1']},{'label': 'uB', 'num': 2, 'pin_nums': ['S2', 'TN2', 'T2', 'SN2']}] })])

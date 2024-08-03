@@ -840,7 +840,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='Vdd',func=Pin.types.PWRIN,unit=2),
             Pin(num='16',name='~{CLOCK}',func=Pin.types.INPUT,unit=2),
             Pin(num='17',name='DATA',func=Pin.types.INPUT,unit=2),
-            Pin(num='18',name='~{OUT}',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '4', '6', '5', '2', '9', '3', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '15', '12', '16', '11', '13', '17', '10', '18']}] }),
+            Pin(num='18',name='~{OUT}',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1', '6', '4', '9', '8', '7', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['18', '14', '11', '15', '17', '10', '12', '13', '16']}] }),
         Part(**{ 'name':'SLA7070MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7070MPRT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7070mprt_ds_en.pdf', 'pins':[
             Pin(num='1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CLOCK',func=Pin.types.INPUT,unit=1),
@@ -1814,7 +1814,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='Vdd',func=Pin.types.PWRIN,unit=2),
             Pin(num='16',name='~{CLOCK}',func=Pin.types.INPUT,unit=2),
             Pin(num='17',name='DATA',func=Pin.types.INPUT,unit=2),
-            Pin(num='18',name='~{OUT}',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '8', '1', '9', '7', '5', '3', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '13', '15', '18', '14', '16', '12', '10', '17']}] }),
+            Pin(num='18',name='~{OUT}',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '5', '1', '9', '7', '2', '8', '4', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['17', '14', '16', '13', '15', '11', '10', '18', '12']}] }),
         Part(**{ 'name':'SLA7071MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7071MPRT'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7071mprt_ds_en.pdf', 'pins':[
             Pin(num='1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CLOCK',func=Pin.types.INPUT,unit=1),

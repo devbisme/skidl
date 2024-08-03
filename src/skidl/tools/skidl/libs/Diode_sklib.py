@@ -45,7 +45,7 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']}] }),
+            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']}] }),
         Part(**{ 'name':'BAS16W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BAS16W'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:SOT-323_SC-70'], 'footprint':'Package_TO_SOT_SMD:SOT-323_SC-70', 'keywords':'diode', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/BAS16_SER.pdf', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -106,7 +106,7 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=3),
             Pin(num='4',name='A',func=Pin.types.PASSIVE,unit=3),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '3']}] }),
+            Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['3', '5']}] }),
         Part(**{ 'name':'BAT54W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BAT54W'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:SOT-323_SC-70'], 'footprint':'Package_TO_SOT_SMD:SOT-323_SC-70', 'keywords':'schottky diode', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/BAT54W_SER.pdf', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -121,14 +121,14 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='A',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='5',name='A',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '3']}] }),
+            Pin(num='5',name='A',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5']}] }),
         Part(**{ 'name':'BAV756S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BAV756S'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'Diode', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/BAV756S_BAW56_SER.pdf', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='A4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='CK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='K2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='CA',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='4',name='K3',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '5', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '2', '4']}] }),
+            Pin(num='4',name='K3',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '4', '3']}] }),
         Part(**{ 'name':'BAV99', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BAV99'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'diode', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/BAV99_SER.pdf', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
@@ -139,7 +139,7 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='K3A4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='K1A2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='A3',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='5',name='K4',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5']}] }),
+            Pin(num='5',name='K4',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '4']}] }),
         Part(**{ 'name':'BZX84Cxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BZX84Cxx'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'zener diode', 'description':'', 'datasheet':'https://diotec.com/tl_files/diotec/files/pdf/datasheets/bzx84c2v4.pdf', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -211,7 +211,7 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=3),
             Pin(num='4',name='A',func=Pin.types.PASSIVE,unit=3),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='5',name='A',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['2', '5']}] }),
+            Pin(num='5',name='A',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'Rohm_UMP11N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Rohm_UMP11N'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'diode', 'description':'', 'datasheet':'https://fscdn.rohm.com/en/products/databook/datasheet/discrete/diode/switching/ump11ntn-e.pdf', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='A',func=Pin.types.PASSIVE,unit=1),
@@ -220,7 +220,7 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=3),
             Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['3', '5']}] }),
+            Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '3']}] }),
         Part(**{ 'name':'SB120', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SB120'}), 'ref_prefix':'D', 'fplist':['Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal'], 'footprint':'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'keywords':'diode Schottky', 'description':'', 'datasheet':'http://www.diodes.com/_files/datasheets/ds23022.pdf', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
@@ -233,7 +233,7 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='A',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='4',name='A',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']}] }),
+            Pin(num='4',name='A',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '3']}] }),
         Part(**{ 'name':'SM6T6V8A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SM6T6V8A'}), 'ref_prefix':'D', 'fplist':['Diode_SMD:D_SMB'], 'footprint':'Diode_SMD:D_SMB', 'keywords':'diode TVS voltage suppressor', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/sm6t.pdf', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
@@ -479,7 +479,7 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']}] }),
+            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']}] }),
         Part(**{ 'name':'BAS19', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BAS19'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:SOT-323_SC-70', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-323_SC-70', 'keywords':'diode', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/Ds12004.pdf', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -562,7 +562,7 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='K3A4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='K1A2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='A3',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='5',name='K4',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4']}] }),
+            Pin(num='5',name='K4',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '5']}] }),
         Part(**{ 'name':'BAV20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BAV20'}), 'ref_prefix':'D', 'fplist':['Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_SMD:D_SOD-123', 'Diode_SMD:D_SOD-323', 'Diode_SMD:D_SOD-523', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_SMD:D_SOD-123', 'Diode_SMD:D_SOD-323', 'Diode_SMD:D_SOD-523', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_SMD:D_SOD-523', 'Diode_SMD:D_SOD-323F', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_SMD:D_SOD-323', 'Diode_SMD:D_SOD-523', 'Diode_SMD:D_SOD-123', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal'], 'footprint':'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'keywords':'diode', 'description':'', 'datasheet':'http://www.vishay.com/docs/85543/bav17.pdf', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
@@ -601,7 +601,7 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=3),
             Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['3', '5']}] }),
+            Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['3', '5']}] }),
         Part(**{ 'name':'BAW56S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BAW56S'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'diode', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/BAV756S_BAW56_SER.pdf', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='A',func=Pin.types.PASSIVE,unit=1),
@@ -1062,14 +1062,14 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']}] }),
+            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']}] }),
         Part(**{ 'name':'Central_Semi_CMKD6001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Central_Semi_CMKD6001'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'diode', 'description':'', 'datasheet':'http://www.centralsemi.com/PDFs/products/CMKD6001.PDF', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '3']}] }),
+            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '3']}] }),
         Part(**{ 'name':'Comchip_ACDSV6-4448TI-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Comchip_ACDSV6-4448TI-G'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'diode', 'description':'', 'datasheet':'http://www.comchiptech.com/cms/UserFiles/ACDSV6-4448TI-G%20RevA285610.pdf', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='K',func=Pin.types.PASSIVE,unit=1),
@@ -1083,7 +1083,7 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']}] }),
+            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '3']}] }),
         Part(**{ 'name':'Comchip_CDSV6-4448TI-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Comchip_CDSV6-4448TI-G'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'diode', 'description':'', 'datasheet':'http://www.comchiptech.com/cms/UserFiles/CDSV6-4448XX-G%20RevC285574.pdf', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='K',func=Pin.types.PASSIVE,unit=1),
@@ -1181,7 +1181,7 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']}] }),
+            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '3']}] }),
         Part(**{ 'name':'IDDD06G65C6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDDD06G65C6'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:Infineon_PG-HDSOP-10-1', 'Package_TO_SOT_SMD:Infineon_PG-HDSOP-10-1'], 'footprint':'Package_TO_SOT_SMD:Infineon_PG-HDSOP-10-1', 'keywords':'sic diode', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IDDD06G65C6-DS-v02_00-EN.pdf?fileId=5546d462625a528f01628f86ff8c0e09', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='K',func=Pin.types.PASSIVE,unit=1),
@@ -1314,7 +1314,7 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']}] }),
+            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']}] }),
         Part(**{ 'name':'MMBD4448HADW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MMBD4448HADW'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'diode', 'description':'', 'datasheet':'http://www.diodes.com/datasheets/ds30153.pdf', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='A',func=Pin.types.PASSIVE,unit=1),
@@ -1323,7 +1323,7 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=3),
             Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['3', '5']}] }),
+            Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '3']}] }),
         Part(**{ 'name':'MMBD4448HCQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MMBD4448HCQW'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:SOT-353_SC-70-5', 'Package_TO_SOT_SMD:SOT-353_SC-70-5'], 'footprint':'Package_TO_SOT_SMD:SOT-353_SC-70-5', 'keywords':'diode', 'description':'', 'datasheet':'http://www.diodes.com/datasheets/ds30153.pdf', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=1),
@@ -1332,14 +1332,14 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=3),
             Pin(num='4',name='A',func=Pin.types.PASSIVE,unit=3),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='5',name='A',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['2', '5']}] }),
+            Pin(num='5',name='A',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['2', '5']}] }),
         Part(**{ 'name':'MMBD4448HTW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MMBD4448HTW'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'diode', 'description':'', 'datasheet':'http://www.diodes.com/datasheets/ds30153.pdf', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '3']}] }),
+            Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']}] }),
         Part(**{ 'name':'MMBZxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MMBZxx'}), 'ref_prefix':'D', 'fplist':['Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'dual zener diode', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/MMBZ5V6ALT1-D.PDF', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=1),
@@ -1698,7 +1698,7 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=3),
             Pin(num='4',name='A',func=Pin.types.PASSIVE,unit=3),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='5',name='A',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '2']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '2']}] }),
+            Pin(num='5',name='A',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '2']}] }),
         Part(**{ 'name':'RF01VM2S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RF01VM2S'}), 'ref_prefix':'D', 'fplist':['Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_SMD:D_SOD-123', 'Diode_SMD:D_SOD-323', 'Diode_SMD:D_SOD-523', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_SMD:D_SOD-123', 'Diode_SMD:D_SOD-323', 'Diode_SMD:D_SOD-523', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_SMD:D_SOD-523', 'Diode_SMD:D_SOD-323F', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_SMD:D_SOD-323', 'Diode_SMD:D_SOD-523', 'Diode_SMD:D_SOD-123', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_SMD:D_MicroMELF', 'Diode_SMD:D_MicroMELF', 'Diode_SMD:D_MicroMELF', 'Diode_SMD:D_MicroMELF', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Package_TO_SOT_THT:TO-220-2_Vertical', 'Package_TO_SOT_THT:TO-220-2_Vertical', 'Package_TO_SOT_THT:TO-220-2_Vertical', 'Diode_SMD:D_0805_2012Metric', 'Diode_SMD:D_SMP_DO-220AA', 'Diode_SMD:D_SMP_DO-220AA', 'Diode_SMD:D_SMP_DO-220AA', 'Diode_SMD:D_MiniMELF', 'Diode_SMD:D_MiniMELF', 'Diode_SMD:D_MicroMELF', 'Diode_SMD:D_MicroMELF', 'Diode_SMD:D_SOD-123', 'Diode_SMD:D_SOD-123', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SOD-323'], 'footprint':'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'keywords':'diode', 'description':'', 'datasheet':'https://fscdn.rohm.com/en/products/databook/datasheet/discrete/diode/fast_recovery/rf01vm2s.pdf', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
@@ -2361,7 +2361,7 @@ Diode = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=3),
             Pin(num='4',name='K',func=Pin.types.PASSIVE,unit=3),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '3']}] }),
+            Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '3']}] }),
         Part(**{ 'name':'UF5400', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UF5400'}), 'ref_prefix':'D', 'fplist':['Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_SMD:D_SOD-123', 'Diode_SMD:D_SOD-323', 'Diode_SMD:D_SOD-523', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_SMD:D_SOD-123', 'Diode_SMD:D_SOD-323', 'Diode_SMD:D_SOD-523', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_SMD:D_SOD-523', 'Diode_SMD:D_SOD-323F', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_SMD:D_SOD-323', 'Diode_SMD:D_SOD-523', 'Diode_SMD:D_SOD-123', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_SMD:D_MicroMELF', 'Diode_SMD:D_MicroMELF', 'Diode_SMD:D_MicroMELF', 'Diode_SMD:D_MicroMELF', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal', 'Package_TO_SOT_THT:TO-220-2_Vertical', 'Package_TO_SOT_THT:TO-220-2_Vertical', 'Package_TO_SOT_THT:TO-220-2_Vertical', 'Diode_SMD:D_0805_2012Metric', 'Diode_SMD:D_SMP_DO-220AA', 'Diode_SMD:D_SMP_DO-220AA', 'Diode_SMD:D_SMP_DO-220AA', 'Diode_SMD:D_MiniMELF', 'Diode_SMD:D_MiniMELF', 'Diode_SMD:D_MicroMELF', 'Diode_SMD:D_MicroMELF', 'Diode_SMD:D_SOD-123', 'Diode_SMD:D_SOD-123', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SMA', 'Diode_SMD:D_SOD-323', 'Diode_SMD:D_SMB', 'Diode_SMD:D_MELF', 'Diode_SMD:D_MELF', 'Diode_SMD:D_MELF', 'Diode_SMD:D_MELF', 'Diode_SMD:D_MELF', 'Diode_SMD:D_MELF', 'Diode_SMD:D_MELF', 'Diode_SMD:D_MELF', 'Diode_SMD:D_MELF', 'Diode_SMD:D_MELF', 'Diode_SMD:D_MELF', 'Diode_THT:D_DO-247_Vertical', 'Diode_THT:D_DO-247_Vertical', 'Diode_THT:D_DO-247_Vertical', 'Diode_THT:D_DO-247_Vertical', 'Diode_SMD:D_SMB', 'Diode_THT:D_DO-201AD_P15.24mm_Horizontal'], 'footprint':'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal', 'keywords':'diode', 'description':'', 'datasheet':'http://www.vishay.com/docs/88756/uf5400.pdf', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),

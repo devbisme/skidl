@@ -140,7 +140,7 @@ Relay_SolidState = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5', '6']}] }),
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6', '3']}] }),
         Part(**{ 'name':'TLP3123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP3123'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-4_4.4x3.9mm_P2.54mm'], 'footprint':'Package_SO:SO-4_4.4x3.9mm_P2.54mm', 'keywords':'MOSFET Output Photorelay 1-Form-A', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=10047&prodName=TLP3123', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -332,7 +332,7 @@ Relay_SolidState = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '3', '4']}] }),
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '7', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3', '6']}] }),
         Part(**{ 'name':'LBB110', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LBB110'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Dual MOSFET Output Photorelay 1-Form-B', 'description':'', 'datasheet':'http://www.ixysic.com/home/pdfs.nsf/www/LBB110.pdf/$file/LBB110.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -341,7 +341,7 @@ Relay_SolidState = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '3', '5']}] }),
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6', '3']}] }),
         Part(**{ 'name':'MOC3011M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MOC3011M'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Opto-Triac Opto Triac Random Phase', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MOC3023M-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),

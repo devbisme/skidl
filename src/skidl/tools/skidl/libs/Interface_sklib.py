@@ -1171,7 +1171,7 @@ Interface = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='B4',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='B3',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '7', '4', '5', '2', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '15', '10', '14', '9', '12', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '4', '2', '1', '6', '3', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '11', '15', '13', '10', '14', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
         Part(**{ 'name':'LTC1688', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1688'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'driver rs485 rs422 differential', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/16889fa.pdf', 'pins':[
             Pin(num='1',name='DI1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DO3A',func=Pin.types.OUTPUT,unit=1),
@@ -1205,7 +1205,7 @@ Interface = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='DI4',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='DI3',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '5', '4', '1', '6', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['15', '11', '12', '14', '9', '10', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '7', '5', '2', '1', '6', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '14', '15', '10', '13', '11', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
         Part(**{ 'name':'LTC6957xDD-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6957xDD-1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-12-1EP_3x3mm_P0.45mm_EP1.65x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-12-1EP_3x3mm_P0.45mm_EP1.65x2.38mm', 'keywords':'LTC clock converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/6957fb.pdf', 'pins':[
             Pin(num='1',name='FILTA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OUT1-',func=Pin.types.OPENEMIT,unit=1),

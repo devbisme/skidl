@@ -769,7 +769,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6', '4']}] }),
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '4', '3']}] }),
         Part(**{ 'name':'ILQ74', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ILQ74'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NPN DC Dual Optocoupler', 'description':'', 'datasheet':'https://www.vishay.com/docs/83640/ild74.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -786,7 +786,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '16', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '4', '14', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '11', '6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '10', '9', '8']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '16', '15', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '14', '4', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '11', '12', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '10', '8', '7']}] }),
         Part(**{ 'name':'ISO1211', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1211'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'isolated digital input', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso1211.pdf', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='EN',func=Pin.types.INPUT,unit=1),
@@ -1309,7 +1309,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '16', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '4', '13', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '11', '6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '10', '9', '8']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '1', '15', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '13', '14', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '6', '12', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '7', '8', '9']}] }),
         Part(**{ 'name':'LTV-352T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-352T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-4_4.4x3.6mm_P2.54mm'], 'footprint':'Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'keywords':'NPN Darlington DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS70-2001-002/S_110_LTV-352T%2020140520.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1358,7 +1358,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '6', '5']}] }),
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5', '6']}] }),
         Part(**{ 'name':'LTV-827M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-827M'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W10.16mm'], 'footprint':'Package_DIP:DIP-8_W10.16mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1367,7 +1367,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '3', '4']}] }),
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6', '4']}] }),
         Part(**{ 'name':'LTV-827S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-827S'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-8_W9.53mm'], 'footprint':'Package_DIP:SMDIP-8_W9.53mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1376,7 +1376,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '3', '5']}] }),
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '3', '4']}] }),
         Part(**{ 'name':'LTV-844', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-844'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'Quad NPN AC DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS-70-96-0013/S_110_LTV-814%20824%20844%20(M,%20S,%20S-TA,%20S-TA1,%20S-TP)%20Series.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1393,7 +1393,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '16', '2', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '13', '14', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '5', '6', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8', '10', '9']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '2', '16', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '14', '3', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '12', '5', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8', '10', '9']}] }),
         Part(**{ 'name':'LTV-847M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-847M'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W10.16mm'], 'footprint':'Package_DIP:DIP-16_W10.16mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1410,7 +1410,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '16', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '3', '13', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6', '12', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '9', '8', '7']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '16', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '3', '4', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '6', '5', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '9', '7', '8']}] }),
         Part(**{ 'name':'LTV-847S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-847S'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-16_W9.53mm'], 'footprint':'Package_DIP:SMDIP-16_W9.53mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1427,7 +1427,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '1', '2', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '3', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '12', '11', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '8', '9', '7']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '1', '16', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '13', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5', '12', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '7', '8', '9']}] }),
         Part(**{ 'name':'MAX14850AEE+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX14850AEE+'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator bidirectional', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX14850.pdf', 'pins':[
             Pin(num='1',name='VCCA',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='I/OB2',func=Pin.types.BIDIR,unit=1),
@@ -1477,7 +1477,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '3', '4']}] }),
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6', '4']}] }),
         Part(**{ 'name':'PC837', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PC837'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-12_W7.62mm'], 'footprint':'Package_DIP:DIP-12_W7.62mm', 'keywords':'NPN DC Triple Optocoupler', 'description':'', 'datasheet':'http://www.soselectronic.cz/a_info/resource/d/pc817.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1490,7 +1490,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=3),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=3),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '11', '12', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '3', '4', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '8', '6', '7']}] }),
+            Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '12', '11']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '10', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '5', '8', '6']}] }),
         Part(**{ 'name':'PC847', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PC847'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'NPN DC Quad Optocoupler', 'description':'', 'datasheet':'http://www.soselectronic.cz/a_info/resource/d/pc817.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1507,7 +1507,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '16', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '14', '13', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '6', '5', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '9', '7', '8']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '16', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '13', '4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '5', '12', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '10', '8', '9']}] }),
         Part(**{ 'name':'PS8802-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PS8802-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-8_3.95x5.21x3.27mm_P1.27mm'], 'footprint':'Package_SO:SSOP-8_3.95x5.21x3.27mm_P1.27mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'http://www.cel.com/pdf/datasheets/ps8802.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
@@ -1844,7 +1844,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '15', '2', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '5', '6', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '7', '8', '9']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '1', '2', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '13', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '6', '11', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '9', '10', '8']}] }),
         Part(**{ 'name':'TLP127', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP127'}), 'ref_prefix':'U', 'fplist':['Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm'], 'footprint':'Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm', 'keywords':'NPN Darlington DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16902&prodName=TLP127', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1933,7 +1933,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '15', '2', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '12', '5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '7', '8', '9']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '16', '15', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '11', '12', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '10', '8', '9']}] }),
         Part(**{ 'name':'TLP291', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP291'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-4_4.55x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-4_4.55x2.6mm_P1.27mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=12884&prodName=TLP291', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1955,7 +1955,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '15', '16', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '3', '13', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5', '11', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '7', '9', '8']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '1', '2', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '13', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '12', '5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8', '7', '10']}] }),
         Part(**{ 'name':'TLP3021', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP3021'}), 'ref_prefix':'U', 'fplist':['Package_DIP:Toshiba_11-7A9'], 'footprint':'Package_DIP:Toshiba_11-7A9', 'keywords':'Photo-Triac Opto Triac', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=1421&prodName=TLP3021(S)', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1975,7 +1975,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5', '3']}] }),
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '3', '5']}] }),
         Part(**{ 'name':'TLP627-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP627-4'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'NPN Quad Darlington DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16914&prodName=TLP627', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1992,7 +1992,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '1', '16', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '3', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '5', '11', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '7', '8', '9']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '2', '1', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '11', '12', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8', '10', '9']}] }),
         Part(**{ 'name':'TLP785', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP785'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=10569&prodName=TLP785', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -2786,7 +2786,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '3', '4']}] }),
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '7', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5', '3']}] }),
         Part(**{ 'name':'LTV-847', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-847'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'NPN DC Quad Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS-70-96-0016/LTV-8X7%20series.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -2803,7 +2803,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '16', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '13', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '6', '12', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '8', '9', '7']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '15', '16', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '3', '4', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '12', '6', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '10', '8', '9']}] }),
         Part(**{ 'name':'MAX14850ASE+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX14850ASE+'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator bidirectional', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX14850.pdf', 'pins':[
             Pin(num='1',name='VCCA',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='I/OB2',func=Pin.types.BIDIR,unit=1),
@@ -4495,7 +4495,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '1', '2', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '3', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '12', '11', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '9', '10', '8']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '2', '1', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '13', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6', '11', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '8', '7', '9']}] }),
         Part(**{ 'name':'TCMT4600', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT4600'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOP-16_4.55x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'keywords':'NPN AC DC Quad Phototransistor Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/83512/tcmt1600.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -4512,7 +4512,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '2', '16', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '12', '11', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '7', '10', '8']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '1', '15', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '13', '4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '12', '5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '7', '10', '9']}] }),
         Part(**{ 'name':'TCMT4606', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT4606'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOP-16_4.55x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'keywords':'NPN AC DC Quad Phototransistor Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/83512/tcmt1600.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -4529,7 +4529,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '15', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '12', '6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '9', '8', '7']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '1', '16', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '13', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '5', '11', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '8', '7', '9']}] }),
         Part(**{ 'name':'TIL111', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TIL111'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.egr.msu.edu/eceshop/Parts_Inventory/datasheets/til111.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -4589,7 +4589,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '2', '1', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '4', '13', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '5', '12', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '8', '7', '9']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '15', '2', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '4', '3', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '12', '6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '10', '8', '9']}] }),
         Part(**{ 'name':'TLP293', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP293'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-4_4.55x2.6mm_P1.27mm', 'Package_SO:SOIC-4_4.55x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-4_4.55x2.6mm_P1.27mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TLP293_datasheet_en_20191129.pdf?did=14419&prodName=TLP293', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -4611,7 +4611,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '15', '16', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '4', '3', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6', '11', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '7', '9', '8']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '16', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '13', '14', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '5', '11', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '10', '9', '7']}] }),
         Part(**{ 'name':'TLP3022', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP3022'}), 'ref_prefix':'U', 'fplist':['Package_DIP:Toshiba_11-7A9', 'Package_DIP:Toshiba_11-7A9'], 'footprint':'Package_DIP:Toshiba_11-7A9', 'keywords':'Photo-Triac Opto Triac', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=1421&prodName=TLP3021(S)', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),

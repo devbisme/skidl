@@ -72,7 +72,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='DN',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='DP',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='SP',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='5',name='GP',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5']}] }),
+            Pin(num='5',name='GP',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5']}] }),
         Part(**{ 'name':'BSF030NE2LQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BSF030NE2LQ'}), 'ref_prefix':'Q', 'fplist':['Package_DirectFET:DirectFET_SQ'], 'footprint':'Package_DirectFET:DirectFET_SQ', 'keywords':'N-Channel MOSFET', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-BSF030NE2LQ-DS-v02_03-en.pdf?fileId=db3a30432e398416012e47a8f0792588', 'pins':[
             Pin(num='1',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G',func=Pin.types.INPUT,unit=1),
@@ -171,7 +171,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='S',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='G',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='4',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '4', '3']}] }),
+            Pin(num='4',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '5', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3', '4']}] }),
         Part(**{ 'name':'DMG1012T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DMG1012T'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_SMD:SOT-523'], 'footprint':'Package_TO_SOT_SMD:SOT-523', 'keywords':'N-Channel MOSFET', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/ds31783.pdf', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='S',func=Pin.types.PASSIVE,unit=1),
@@ -239,14 +239,14 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='D',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='S',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='5',name='G',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '4']}] }),
+            Pin(num='5',name='G',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4']}] }),
         Part(**{ 'name':'FDMC8032L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FDMC8032L'}), 'ref_prefix':'Q', 'fplist':['Package_SON:Fairchild_DualPower33-6_3x3mm'], 'footprint':'Package_SON:Fairchild_DualPower33-6_3x3mm', 'keywords':'Dual N-Channel MOSFET', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FDMC8032L-D.PDF', 'pins':[
             Pin(num='1',name='G1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='S1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='D1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='S2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '6']}] }),
+            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '6']}] }),
         Part(**{ 'name':'FDMT80060DC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FDMT80060DC'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_SMD:PQFN_8x8'], 'footprint':'Package_TO_SOT_SMD:PQFN_8x8', 'keywords':'PowerTrench Power MOSFET N-MOS', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FDMT80060DC-D.pdf', 'pins':[
             Pin(num='1',name='G',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='S',func=Pin.types.PASSIVE,unit=1),
@@ -259,7 +259,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='D2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '4', '3']}] }),
+            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3', '6']}] }),
         Part(**{ 'name':'GS66502B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GS66502B'}), 'ref_prefix':'Q', 'fplist':['Transistor_Power:GaN_Systems_GaNPX-3_5x6.6mm_Drain2.93x0.6mm'], 'footprint':'Transistor_Power:GaN_Systems_GaNPX-3_5x6.6mm_Drain2.93x0.6mm', 'keywords':'gan hemt bottom-side-cooled enhancement-mode', 'description':'', 'datasheet':'https://gansystems.com/wp-content/uploads/2020/04/GS66502B-DS-Rev-200402.pdf', 'pins':[
             Pin(num='1',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G',func=Pin.types.INPUT,unit=1),
@@ -277,7 +277,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='7',name='G2',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='CASE',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '7']}] }),
+            Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '7']}] }),
         Part(**{ 'name':'IGLD60R070D1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IGLD60R070D1'}), 'ref_prefix':'Q', 'fplist':['Package_SON:Infineon_PG-LSON-8-1'], 'footprint':'Package_SON:Infineon_PG-LSON-8-1', 'keywords':'N-Channel GaN MOSFET', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IGLD60R070D1-DataSheet-v02_00-EN.pdf?fileId=5546d46265f064ff016685f03f056511', 'pins':[
             Pin(num='1',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='D',func=Pin.types.PASSIVE,unit=1),
@@ -385,7 +385,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='D',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G2',func=Pin.types.INPUT,unit=2),
-            Pin(num='5',name='S2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '4', '5']}] }),
+            Pin(num='5',name='S2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '4', '5']}] }),
         Part(**{ 'name':'IRF6892S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRF6892S'}), 'ref_prefix':'Q', 'fplist':['Package_DirectFET:DirectFET_S3C'], 'footprint':'Package_DirectFET:DirectFET_S3C', 'keywords':'N-Channel MOSFET', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irf6892spbf.pdf?fileId=5546d462533600a4015355f0bb961ab8', 'pins':[
             Pin(num='1',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G',func=Pin.types.INPUT,unit=1),
@@ -398,7 +398,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4', '3']}] }),
+            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '7', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3', '6']}] }),
         Part(**{ 'name':'IRF7324', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRF7324'}), 'ref_prefix':'Q', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual HEXFET P-Channel MOSFET', 'description':'', 'datasheet':'http://www.infineon.com/dgdl/irf7324pbf.pdf?fileId=5546d462533600a4015355f5f0861b4b', 'pins':[
             Pin(num='1',name='S1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G1',func=Pin.types.INPUT,unit=1),
@@ -407,7 +407,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G2',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '7', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5', '6']}] }),
+            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '6', '5']}] }),
         Part(**{ 'name':'IRF7404', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRF7404'}), 'ref_prefix':'Q', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'P-Channel MOSFET', 'description':'', 'datasheet':'http://www.infineon.com/dgdl/irf7404.pdf?fileId=5546d462533600a4015355fa2b5b1b9e', 'pins':[
             Pin(num='1',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='S',func=Pin.types.PASSIVE,unit=1),
@@ -486,7 +486,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='VCH',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='2',name='VCL',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '3', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '1']}] }),
+            Pin(num='2',name='VCL',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '2']}] }),
         Part(**{ 'name':'JFE2140D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'JFE2140D'}), 'ref_prefix':'Q', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'low noise n-channel dual matched jfet', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/jfe2140.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -495,7 +495,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='8',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='3',name='VCH',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='7',name='VCL',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '4', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '3']}] }),
+            Pin(num='7',name='VCL',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '7']}] }),
         Part(**{ 'name':'PGA26E07BA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PGA26E07BA'}), 'ref_prefix':'Q', 'fplist':['Package_DFN_QFN:Panasonic_HSON-8_8x8mm_P2.00mm'], 'footprint':'Package_DFN_QFN:Panasonic_HSON-8_8x8mm_P2.00mm', 'keywords':'N-Channel GaN MOSFET', 'description':'', 'datasheet':'https://industrial.panasonic.com/content/data/SC/ds/ds4/PGA26E07BA_E.pdf', 'pins':[
             Pin(num='1',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='D',func=Pin.types.PASSIVE,unit=1),
@@ -635,7 +635,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='D2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '3', '4']}] }),
+            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '8', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '3', '4']}] }),
         Part(**{ 'name':'AO4892', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AO4892'}), 'ref_prefix':'Q', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NMOS Alpha-Omega', 'description':'', 'datasheet':'https://aosmd.com/sites/default/files/res/datasheets/AO4892.pdf', 'pins':[
             Pin(num='1',name='S1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G1',func=Pin.types.PASSIVE,unit=1),
@@ -644,7 +644,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='D2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5', '3']}] }),
+            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5', '6']}] }),
         Part(**{ 'name':'BF244B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BF244B'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92', 'Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'N-Channel FET Transistor Low Voltage', 'description':'', 'datasheet':'https://media.digikey.com/pdf/Data%20Sheets/Fairchild%20PDFs/BF244x.pdf', 'pins':[
             Pin(num='1',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G',func=Pin.types.INPUT,unit=1),
@@ -1697,7 +1697,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='S',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='G',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='4',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '5', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '4', '3']}] }),
+            Pin(num='4',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3', '4']}] }),
         Part(**{ 'name':'DMG2301L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DMG2301L'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'P-Channel MOSFET', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/DMG2301L.pdf', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='S',func=Pin.types.PASSIVE,unit=1),
@@ -1834,7 +1834,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G2',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '2', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6', '3']}] }),
+            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '6', '5']}] }),
         Part(**{ 'name':'EPC2036', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EPC2036'}), 'ref_prefix':'Q', 'fplist':['Package_BGA:EPC_BGA-4_0.9x0.9mm_Layout2x2_P0.45mm', 'Package_BGA:EPC_BGA-4_0.9x0.9mm_Layout2x2_P0.45mm'], 'footprint':'Package_BGA:EPC_BGA-4_0.9x0.9mm_Layout2x2_P0.45mm', 'keywords':'hemt enhancement', 'description':'', 'datasheet':'https://epc-co.com/epc/Portals/0/epc/documents/datasheets/EPC2036_datasheet.pdf', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='S',func=Pin.types.PASSIVE,unit=1),
@@ -1873,7 +1873,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='D',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='S',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='5',name='G',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5']}] }),
+            Pin(num='5',name='G',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '3']}] }),
         Part(**{ 'name':'FDMS8050', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FDMS8050'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1', 'Package_TO_SOT_SMD:TDSON-8-1'], 'footprint':'Package_TO_SOT_SMD:TDSON-8-1', 'keywords':'powertrench MOSFET fairchild', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FDMS8050-D.pdf', 'pins':[
             Pin(num='1',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='S',func=Pin.types.PASSIVE,unit=1),
@@ -2005,7 +2005,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4', '3']}] }),
+            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5', '4']}] }),
         Part(**{ 'name':'FDS4897AC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FDS4897AC'}), 'ref_prefix':'Q', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual N-Channel P-Channel MOSFET', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FDS4897AC-D.pdf', 'pins':[
             Pin(num='1',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G',func=Pin.types.INPUT,unit=1),
@@ -2014,7 +2014,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '8', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '3', '6']}] }),
+            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '3', '5', '4']}] }),
         Part(**{ 'name':'FDS4897C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FDS4897C'}), 'ref_prefix':'Q', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual N-Channel P-Channel MOSFET', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FDS4897C-D.pdf', 'pins':[
             Pin(num='1',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G',func=Pin.types.INPUT,unit=1),
@@ -2023,7 +2023,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '3', '6']}] }),
+            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '3', '5']}] }),
         Part(**{ 'name':'FDS6630A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FDS6630A'}), 'ref_prefix':'Q', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'N-Channel MOSFET', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FDS6630A-D.pdf', 'pins':[
             Pin(num='1',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='S',func=Pin.types.PASSIVE,unit=1),
@@ -2041,7 +2041,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='D2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '8', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '4', '5']}] }),
+            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5', '3']}] }),
         Part(**{ 'name':'FDS6898A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FDS6898A'}), 'ref_prefix':'Q', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual N-Channel MOSFET', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FDS6898A-D.PDF', 'pins':[
             Pin(num='1',name='S1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G1',func=Pin.types.PASSIVE,unit=1),
@@ -2050,7 +2050,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='D2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '4', '3']}] }),
+            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4', '3']}] }),
         Part(**{ 'name':'FDS6930A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FDS6930A'}), 'ref_prefix':'Q', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual N-Channel MOSFET', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FDS6930A-D.PDF', 'pins':[
             Pin(num='1',name='S1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G1',func=Pin.types.PASSIVE,unit=1),
@@ -2059,7 +2059,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='D2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4', '3']}] }),
+            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '7', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3', '6']}] }),
         Part(**{ 'name':'FDS6930B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FDS6930B'}), 'ref_prefix':'Q', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual N-Channel MOSFET', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FDS6930B-D.PDF', 'pins':[
             Pin(num='1',name='S1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G1',func=Pin.types.PASSIVE,unit=1),
@@ -2068,7 +2068,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='D2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '8', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3', '6']}] }),
+            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '2', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '6', '5']}] }),
         Part(**{ 'name':'FDS8960C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FDS8960C'}), 'ref_prefix':'Q', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual N-Channel P-Channel MOSFET', 'description':'', 'datasheet':'https://www.mouser.fr/datasheet/2/308/FDS8960C-D-1808807.pdf', 'pins':[
             Pin(num='1',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G',func=Pin.types.INPUT,unit=1),
@@ -2077,7 +2077,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '3', '5', '4']}] }),
+            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '7', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5', '6']}] }),
         Part(**{ 'name':'FDS9435A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FDS9435A'}), 'ref_prefix':'Q', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'P-Channel MOSFET', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FDS9435A-D.PDF', 'pins':[
             Pin(num='1',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='S',func=Pin.types.PASSIVE,unit=1),
@@ -2095,7 +2095,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='D2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '3', '4']}] }),
+            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6', '4']}] }),
         Part(**{ 'name':'FDS9934C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FDS9934C'}), 'ref_prefix':'Q', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual N-Channel P-Channel MOSFET', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FDS9934C-D.pdf', 'pins':[
             Pin(num='1',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G',func=Pin.types.INPUT,unit=1),
@@ -2104,7 +2104,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '7', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '3', '4']}] }),
+            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '3', '6']}] }),
         Part(**{ 'name':'FQP27P06', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FQP27P06'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_THT:TO-220-3_Vertical', 'Package_TO_SOT_THT:TO-220-3_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-3_Vertical', 'keywords':'QFET P-Channel MOSFET', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FQP27P06-D.PDF', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.PASSIVE,unit=1),
@@ -2412,7 +2412,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '4', '6']}] }),
+            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '1', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '5', '6']}] }),
         Part(**{ 'name':'IRF740', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRF740'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_THT:TO-220-3_Vertical', 'Package_TO_SOT_THT:TO-220-3_Vertical', 'Package_TO_SOT_THT:TO-220-3_Vertical', 'Package_TO_SOT_THT:TO-220-3_Vertical', 'Package_TO_SOT_THT:TO-220-3_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-3_Vertical', 'keywords':'N Channel', 'description':'', 'datasheet':'http://www.vishay.com/docs/91054/91054.pdf', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.PASSIVE,unit=1),
@@ -2544,7 +2544,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='D',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G2',func=Pin.types.INPUT,unit=2),
-            Pin(num='5',name='S2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '1', '5']}] }),
+            Pin(num='5',name='S2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '4', '5']}] }),
         Part(**{ 'name':'IRL7472L1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRL7472L1'}), 'ref_prefix':'Q', 'fplist':['Package_DirectFET:DirectFET_L8', 'Package_DirectFET:DirectFET_L8', 'Package_DirectFET:DirectFET_L8', 'Package_DirectFET:DirectFET_L8', 'Package_DirectFET:DirectFET_L8', 'Package_DirectFET:DirectFET_L8'], 'footprint':'Package_DirectFET:DirectFET_L8', 'keywords':'N-Channel HEXFET MOSFET Logic-Level IRFET', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IRL7472L1-DS-v02_00-EN.pdf?fileId=5546d46254e133b401555d17178250d8', 'pins':[
             Pin(num='1',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G',func=Pin.types.INPUT,unit=1),
@@ -2598,7 +2598,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='VCH',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='2',name='VCL',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '3', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '1']}] }),
+            Pin(num='2',name='VCL',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '4', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '1']}] }),
         Part(**{ 'name':'MMBF170', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MMBF170'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'N-Channel MOSFET', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/ds30104.pdf', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='S',func=Pin.types.PASSIVE,unit=1),
@@ -2651,7 +2651,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='DN',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='DP',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='SP',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='5',name='GP',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4']}] }),
+            Pin(num='5',name='GP',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '5']}] }),
         Part(**{ 'name':'QM6006D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'QM6006D'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_SMD:TO-252-2', 'Package_TO_SOT_SMD:TO-252-2', 'Package_TO_SOT_SMD:TO-252-2'], 'footprint':'Package_TO_SOT_SMD:TO-252-2', 'keywords':'N-Channel MOSFET', 'description':'', 'datasheet':'http://www.jaolen.com/images/pdf/QM6006D.pdf', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.PASSIVE,unit=1),
@@ -2803,7 +2803,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='S2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='D2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '6', '5']}] }),
+            Pin(num='6',name='D2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5', '3']}] }),
         Part(**{ 'name':'SUD08P06-155L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SUD08P06-155L'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_SMD:TO-252-2', 'Package_TO_SOT_SMD:TO-252-2'], 'footprint':'Package_TO_SOT_SMD:TO-252-2', 'keywords':'TrenchFET P-Channel Power MOSFET', 'description':'', 'datasheet':'https://www.vishay.com/docs/62843/sud08p06-155l-ge3.pdf', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.PASSIVE,unit=1),
@@ -2861,7 +2861,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '2', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4', '3']}] }),
+            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5', '3']}] }),
         Part(**{ 'name':'Si4542DY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4542DY'}), 'ref_prefix':'Q', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual N-Channel P-Channel MOSFET', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/SI4542DY-D.PDF', 'pins':[
             Pin(num='1',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='G',func=Pin.types.INPUT,unit=1),
@@ -2870,7 +2870,7 @@ Transistor_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='G',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='D',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6', '3']}] }),
+            Pin(num='6',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5', '3']}] }),
         Part(**{ 'name':'Si7450DP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si7450DP'}), 'ref_prefix':'Q', 'fplist':['Package_SO:PowerPAK_SO-8_Single', 'Package_SO:PowerPAK_SO-8_Single'], 'footprint':'Package_SO:PowerPAK_SO-8_Single', 'keywords':'N-Channel MOSFET', 'description':'', 'datasheet':'https://www.vishay.com/docs/71432/si7450dp.pdf', 'pins':[
             Pin(num='1',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='S',func=Pin.types.PASSIVE,unit=1),

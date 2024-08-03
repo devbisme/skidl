@@ -362,7 +362,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='TYPE2',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='CPC2',func=Pin.types.BIDIR,unit=2),
             Pin(num='8',name='VSS2',func=Pin.types.PWRIN,unit=2),
-            Pin(num='9',name='VDD2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '16', '3', '14', '13', '2', '15', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '11', '5', '9', '7', '8', '10', '12']}] }),
+            Pin(num='9',name='VDD2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '3', '14', '13', '2', '15', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '8', '12', '6', '9', '10', '5', '7']}] }),
         Part(**{ 'name':'PCF8883', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8883'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NXP capacitive touch sensor auto-calibration', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCF8883.pdf', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='TYPE',func=Pin.types.INPUT,unit=1),

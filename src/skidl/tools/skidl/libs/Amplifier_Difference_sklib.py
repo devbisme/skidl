@@ -77,7 +77,7 @@ Amplifier_Difference = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=2),
             Pin(num='6',name='V+',func=Pin.types.PASSIVE,unit=2),
             Pin(num='7',name='V+',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='8',name='V+',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '2', '9', '3', '1', '11', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '5', '16', '17', '7', '13', '6', '15', '8', '12']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '4', '2', '9', '3', '10', '11']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '14', '16', '17', '7', '13', '6', '15', '8', '5']}] }),
         Part(**{ 'name':'ADA4940-1xCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4940-1xCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.3x1.3mm_ThermalVias'], 'footprint':'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.3x1.3mm_ThermalVias', 'keywords':'differential amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADA4940-1_4940-2.pdf', 'pins':[
             Pin(num='1',name='-FB',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='+OUT',func=Pin.types.OUTPUT,unit=1),
@@ -95,7 +95,7 @@ Amplifier_Difference = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='+Vs',func=Pin.types.PWRIN,unit=2),
             Pin(num='6',name='+Vs',func=Pin.types.PASSIVE,unit=2),
             Pin(num='7',name='+Vs',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='8',name='+Vs',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '10', '4', '2', '12', '1', '9', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '16', '6', '17', '15', '5', '8', '14', '7']}] }),
+            Pin(num='8',name='+Vs',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '11', '12', '4', '10', '2', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['17', '7', '16', '14', '13', '6', '15', '5', '8']}] }),
         Part(**{ 'name':'ADA4940-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4940-2'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_CSP:LFCSP-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'differential amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADA4940-1_4940-2.pdf', 'pins':[
             Pin(num='1',name='-IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='17',name='VOCM1',func=Pin.types.INPUT,unit=1),
@@ -121,7 +121,7 @@ Amplifier_Difference = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='+FB2',func=Pin.types.INPUT,unit=4),
             Pin(num='15',name='-FB2',func=Pin.types.INPUT,unit=4),
             Pin(num='16',name='-FB2',func=Pin.types.INPUT,unit=4),
-            Pin(num='9',name='+FB2',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['23', '18', '2', '17', '24', '1', '20', '19']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '12', '6', '14', '7', '8', '5', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['21', '25', '4', '22', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '15', '9', '16']}] }),
+            Pin(num='9',name='+FB2',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '19', '18', '20', '2', '23', '17', '24']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '8', '13', '7', '5', '11', '12', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['25', '21', '4', '22', '3']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '15', '9', '16']}] }),
         Part(**{ 'name':'AMC1100DWV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AMC1100DWV'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_7.5x5.85mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_7.5x5.85mm_P1.27mm', 'keywords':'isolated difference amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/amc1100.pdf', 'pins':[
             Pin(num='1',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='+',func=Pin.types.INPUT,unit=1),
@@ -192,7 +192,7 @@ Amplifier_Difference = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='VS+',func=Pin.types.PWRIN,unit=2),
             Pin(num='6',name='VS+',func=Pin.types.PASSIVE,unit=2),
             Pin(num='7',name='VS+',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='8',name='VS+',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '11', '9', '3', '12', '2', '4', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '8', '14', '17', '16', '7', '13', '6', '15']}] }),
+            Pin(num='8',name='VS+',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '10', '11', '1', '9', '3', '12', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '14', '5', '8', '15', '16', '17', '7', '13']}] }),
         Part(**{ 'name':'AMC1200BDWV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AMC1200BDWV'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_7.5x5.85mm_P1.27mm', 'Package_SO:SOIC-8_7.5x5.85mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_7.5x5.85mm_P1.27mm', 'keywords':'isolated difference amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/amc1200.pdf', 'pins':[
             Pin(num='1',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='+',func=Pin.types.INPUT,unit=1),

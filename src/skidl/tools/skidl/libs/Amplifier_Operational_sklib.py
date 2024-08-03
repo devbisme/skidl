@@ -55,7 +55,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '4']}] }),
+            Pin(num='9',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '9', '8']}] }),
         Part(**{ 'name':'ADA4610-4xCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4610-4xCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm'], 'footprint':'Package_CSP:LFCSP-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm', 'keywords':'quad opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADA4610-1_4610-2_4610-4.pdf', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='NIC',func=Pin.types.NOCONNECT,unit=1),
@@ -73,7 +73,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='10',name='V-',func=Pin.types.PWRIN,unit=5),
             Pin(num='17',name='V-',func=Pin.types.PASSIVE,unit=5),
-            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '1', '2', '16', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '7', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['3', '10', '17']}] }),
+            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '13', '15', '1', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['3', '10', '17']}] }),
         Part(**{ 'name':'ADA4622-2xCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4622-2xCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-8-1EP_3x3mm_P0.5mm_EP1.45x1.74mm'], 'footprint':'Package_CSP:LFCSP-8-1EP_3x3mm_P0.5mm_EP1.45x1.74mm', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ada4622-1-4622-2-4622-4.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -83,7 +83,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='V+',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8', '9']}] }),
+            Pin(num='9',name='V+',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4', '9']}] }),
         Part(**{ 'name':'ADA4622-4xCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4622-4xCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:Analog_LFCSP-16-1EP_4x4mm_P0.65mm_EP2.35x2.35mm'], 'footprint':'Package_CSP:Analog_LFCSP-16-1EP_4x4mm_P0.65mm_EP2.35x2.35mm', 'keywords':'quad opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ada4622-1-4622-2-4622-4.pdf', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='15',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -101,7 +101,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='NIC',func=Pin.types.FREE,unit=5),
             Pin(num='16',name='NIC',func=Pin.types.FREE,unit=5),
             Pin(num='17',name='V+',func=Pin.types.PASSIVE,unit=5),
-            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '17', '3', '13', '16']}] }),
+            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['3', '13', '17', '10', '16']}] }),
         Part(**{ 'name':'ADA4625-1ARDZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4625-1ARDZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.29x3mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.29x3mm', 'keywords':'analog-devices adi operational amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADA4625-1-4625-2.pdf', 'pins':[
             Pin(num='4',name='V-',func=Pin.types.PWRIN),
             Pin(num='7',name='V+',func=Pin.types.PWRIN),
@@ -130,7 +130,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='10',name='V+',func=Pin.types.PWRIN,unit=3),
             Pin(num='11',name='EPAD',func=Pin.types.PWRIN,unit=3),
-            Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '9', '6', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '4']}] }),
+            Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '5', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '8', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '4', '11']}] }),
         Part(**{ 'name':'ADA4817-1ACP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4817-1ACP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-8-1EP_3x3mm_P0.5mm_EP1.45x1.74mm'], 'footprint':'Package_CSP:LFCSP-8-1EP_3x3mm_P0.5mm_EP1.45x1.74mm', 'keywords':'single opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADA4817-1_4817-2.pdf', 'pins':[
             Pin(num='2',name='FB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',func=Pin.types.NOCONNECT,unit=1),
@@ -168,7 +168,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='6',name='+V_{S}',func=Pin.types.PWRIN,unit=2),
             Pin(num='7',name='~{PD}',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='-',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '15', '13', '12', '17', '2', '14', '11', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '8', '4', '6', '9', '3', '10']}] }),
+            Pin(num='9',name='-',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '12', '14', '11', '17', '13', '15', '1', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '9', '5', '10', '3', '7', '8']}] }),
         Part(**{ 'name':'ADA4841-1YRJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4841-1YRJ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'single opamp low-noise rail-to-rail', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADA4841-1_4841-2.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -215,7 +215,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='EP',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8', '9']}] }),
+            Pin(num='9',name='EP',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8', '9']}] }),
         Part(**{ 'name':'AS13704', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS13704'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'operational transconductance amplifier OTA', 'description':'', 'datasheet':'http://www.alfarzpp.lv/eng/sc/AS13704.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='18',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -240,7 +240,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='23',name='DIODE_BIAS',func=Pin.types.INPUT,unit=4),
             Pin(num='24',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='19',name='V+',func=Pin.types.PWRIN,unit=5),
-            Pin(num='6',name='V-',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '5', '1', '18', '3', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '10', '11', '8', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['15', '13', '16', '14', '17']},{'label': 'uD', 'num': 4, 'pin_nums': ['24', '22', '20', '23', '21']},{'label': 'uE', 'num': 5, 'pin_nums': ['6', '19']}] }),
+            Pin(num='6',name='V-',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '18', '3', '7', '4', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '11', '9', '12', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['13', '16', '14', '17', '15']},{'label': 'uD', 'num': 4, 'pin_nums': ['22', '23', '20', '21', '24']},{'label': 'uE', 'num': 5, 'pin_nums': ['6', '19']}] }),
         Part(**{ 'name':'CA3080', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA3080'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'operational transconductance amplifier ota', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/ca30/ca3080-a.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -293,7 +293,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='16',name='GND',func=Pin.types.PASSIVE,unit=3),
             Pin(num='2',name='Vs',func=Pin.types.PWRIN,unit=3),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '12', '16', '10', '15', '11', '13', '4', '14', '2']}] }),
+            Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['13', '10', '14', '2', '11', '12', '16', '4', '9', '15']}] }),
         Part(**{ 'name':'L272D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L272D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'dual power opamp', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/l272.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='13',name='+',func=Pin.types.INPUT,unit=1),
@@ -310,7 +310,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='6',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '8', '14', '3', '2', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '12', '15', '9', '10', '5', '16']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '6']}] }),
+            Pin(num='6',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2', '7', '14', '8', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '16', '12', '10', '15', '5', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '6']}] }),
         Part(**{ 'name':'L272M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L272M'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm_LongPads'], 'footprint':'Package_DIP:DIP-8_W7.62mm_LongPads', 'keywords':'dual power opamp', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/l272.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='+',func=Pin.types.INPUT,unit=1),
@@ -319,7 +319,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='+',func=Pin.types.INPUT,unit=2),
             Pin(num='2',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '2']}] }),
+            Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '4']}] }),
         Part(**{ 'name':'LF351D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LF351D'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Single OpAmp JFET', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lf351.pdf', 'pins':[
             Pin(num='1',name='NULL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -354,7 +354,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V+',func=Pin.types.PWRIN,unit=5),
-            Pin(num='6',name='V-',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '14', '13', '15', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '4', '2', '3', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '6']}] }),
+            Pin(num='6',name='V-',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '15', '12', '14', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '2', '3', '5', '1']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '6']}] }),
         Part(**{ 'name':'LM2902', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM2902'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm2902-n.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -369,7 +369,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'LM2904', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM2904'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm358.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -378,7 +378,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'LM318J', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM318J'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'single opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm318-n.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -501,7 +501,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='+VS',func=Pin.types.PWRIN,unit=4),
             Pin(num='13',name='-VS',func=Pin.types.PASSIVE,unit=4),
             Pin(num='15',name='+VS',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='-VS',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '14', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '5', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '7', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '9', '15', '11']}] }),
+            Pin(num='9',name='-VS',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '1', '2', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '3', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '6', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '15', '9', '11']}] }),
         Part(**{ 'name':'LMV321', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMV321'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'single opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmv324.pdf', 'pins':[
             Pin(num='2',name='V-',func=Pin.types.PWRIN),
             Pin(num='5',name='V+',func=Pin.types.PWRIN),
@@ -548,7 +548,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'LTC1151CSW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1151CSW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1151fa.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -565,7 +565,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='16',name='NC',func=Pin.types.NOCONNECT,unit=2),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=2),
             Pin(num='14',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='6',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '4', '5', '1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '11', '9', '16', '12', '15', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '6']}] }),
+            Pin(num='6',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '3', '2', '1', '8', '4', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '11', '16', '12', '10', '15', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '6']}] }),
         Part(**{ 'name':'LTC1152', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1152'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'single opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/lt1152.pdf', 'pins':[
             Pin(num='1',name='SHDN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -586,7 +586,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='10',name='V+',func=Pin.types.PWRIN,unit=3),
             Pin(num='11',name='V-',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '10', '11']}] }),
+            Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '8', '9', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '10', '4']}] }),
         Part(**{ 'name':'LTC6082xDHC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6082xDHC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-16-1EP_3x5mm_P0.5mm_EP1.66x4.4mm'], 'footprint':'Package_DFN_QFN:DFN-16-1EP_3x5mm_P0.5mm_EP1.66x4.4mm', 'keywords':'quad opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/60812fd.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -604,7 +604,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='16',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='13',name='V-',func=Pin.types.PWRIN,unit=5),
             Pin(num='17',name='V-',func=Pin.types.PASSIVE,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '1', '3', '2', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '12', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['13', '17', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '1', '3', '2', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['16', '14', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '17', '13']}] }),
         Part(**{ 'name':'LTC6082xGN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6082xGN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/60812fd.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -621,7 +621,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='16',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='13',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '9', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '12', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['16', '15', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['13', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '3', '9', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '11', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '14', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '13']}] }),
         Part(**{ 'name':'LTC6228xDC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6228xDC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-6-1EP_2x2mm_P0.5mm_EP0.6x1.37mm'], 'footprint':'Package_DFN_QFN:DFN-6-1EP_2x2mm_P0.5mm_EP0.6x1.37mm', 'keywords':'single opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LTC6228-6229.pdf', 'pins':[
             Pin(num='1',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='+',func=Pin.types.INPUT,unit=1),
@@ -657,7 +657,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='10',name='V+',func=Pin.types.PWRIN,unit=3),
             Pin(num='11',name='V-',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '8', '6', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '11', '10']}] }),
+            Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '8', '9', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '10', '11']}] }),
         Part(**{ 'name':'LTC6229xMS8E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6229xMS8E'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm'], 'footprint':'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LTC6228-6229.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -740,7 +740,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '9', '8']}] }),
+            Pin(num='9',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '4', '8']}] }),
         Part(**{ 'name':'MCP601-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP601-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single opamp', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21314g.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -805,7 +805,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4', '9']}] }),
+            Pin(num='9',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8', '9']}] }),
         Part(**{ 'name':'NCS20071SN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCS20071SN'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-5_1.65x3.05mm_P0.95mm'], 'footprint':'Package_SO:TSOP-5_1.65x3.05mm_P0.95mm', 'keywords':'OpAmp Rail-to-rail Output Single vfa', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCS20071-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -826,7 +826,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'NCS20074DTB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCS20074DTB'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'quad rail-to-rail output opamp vfa', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCS20071-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -841,7 +841,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'NCS2325D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCS2325D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual opamp low-power', 'description':'', 'datasheet':'http://www.onsemi.com/PowerSolutions/document/NCS325-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -850,7 +850,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'NCS2325DM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCS2325DM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'dual opamp low-power', 'description':'', 'datasheet':'http://www.onsemi.com/PowerSolutions/document/NCS325-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -859,7 +859,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'NCS325', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCS325'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'single opamp low-power', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCS325-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -880,7 +880,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'NE5534', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NE5534'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'single opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne5534.pdf', 'pins':[
             Pin(num='1',name='BAL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -940,7 +940,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='2',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '6']}] }),
+            Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '6']}] }),
         Part(**{ 'name':'OP279', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OP279'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/OP179_279.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -949,7 +949,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA1641', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA1641'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'single opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa1641.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -976,7 +976,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA2325', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2325'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa2325.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -985,7 +985,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'OPA2333xxDRB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2333xxDRB'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_S-PVSON-N8'], 'footprint':'Package_SON:Texas_S-PVSON-N8', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa333.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -995,7 +995,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8', '9']}] }),
+            Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '4', '8']}] }),
         Part(**{ 'name':'OPA2376xxYZD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2376xxYZD'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-8_0.9x1.9mm_Layout2x4_P0.5mm'], 'footprint':'Package_BGA:Texas_DSBGA-8_0.9x1.9mm_Layout2x4_P0.5mm', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa376.pdf', 'pins':[
             Pin(num='A1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='B1',name='-',func=Pin.types.INPUT,unit=1),
@@ -1004,7 +1004,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='C2',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='D2',name='+',func=Pin.types.INPUT,unit=2),
             Pin(num='A2',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='D1',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['B1', 'A1', 'C1']},{'label': 'uB', 'num': 2, 'pin_nums': ['D2', 'C2', 'B2']},{'label': 'uC', 'num': 3, 'pin_nums': ['D1', 'A2']}] }),
+            Pin(num='D1',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['A1', 'B1', 'C1']},{'label': 'uB', 'num': 2, 'pin_nums': ['B2', 'D2', 'C2']},{'label': 'uC', 'num': 3, 'pin_nums': ['A2', 'D1']}] }),
         Part(**{ 'name':'OPA2691-14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2691-14'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'dual current feedback opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/sbos224d/sbos224d.pdf', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1019,7 +1019,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='11',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '3', '2', '9', '1', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '13', '8', '5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['9', '3', '1', '14', '10', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '13', '5', '6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'OPA2695xD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2695xD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/sbos354a/sbos354a.pdf', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='+',func=Pin.types.INPUT,unit=1),
@@ -1028,7 +1028,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '7']}] }),
+            Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '7']}] }),
         Part(**{ 'name':'OPA2695xRGT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2695xRGT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm_ThermalVias'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm_ThermalVias', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/sbos354a/sbos354a.pdf', 'pins':[
             Pin(num='1',name='~{DIS_A}',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -1045,7 +1045,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='V+',func=Pin.types.PWRIN,unit=3),
             Pin(num='11',name='V+',func=Pin.types.PASSIVE,unit=3),
             Pin(num='12',name='V-',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='9',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '13', '1', '2', '15', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '6', '8', '4', '7', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '12', '9']}] }),
+            Pin(num='9',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '1', '2', '13', '14', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '4', '6', '16', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '11', '10', '12']}] }),
         Part(**{ 'name':'OPA310SxDCK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA310SxDCK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:Texas_R-PDSO-G6'], 'footprint':'Package_TO_SOT_SMD:Texas_R-PDSO-G6', 'keywords':'single opamp ', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/opa310.pdf', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -1089,7 +1089,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'OPA4197xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA4197xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'quad opamp rtor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa4197.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1104,7 +1104,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'OPA551P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA551P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa551.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1154,7 +1154,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='FB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='+',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='V-',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['6', '7', '1', '9', '8']},{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '5', '3', '7', '8', '1', '9', '4']}] }),
+            Pin(num='5',name='V-',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['8', '7', '1', '9', '6']},{'label': 'uA', 'num': 1, 'pin_nums': ['8', '7', '1', '9', '5', '4', '6', '2', '3']}] }),
         Part(**{ 'name':'OPA858xDSG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA858xDSG'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm'], 'footprint':'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'keywords':'opamp VFA', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa858.pdf', 'pins':[
             Pin(num='7',name='V+',func=Pin.types.PWRIN),
             Pin(num='8',name='~{PD}',func=Pin.types.INPUT),
@@ -1164,7 +1164,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='1',name='FB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='+',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='V-',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['6', '2', '8', '9', '7']},{'label': 'uA', 'num': 1, 'pin_nums': ['3', '6', '2', '5', '8', '1', '4', '9', '7']}] }),
+            Pin(num='5',name='V-',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['9', '2', '6', '7', '8']},{'label': 'uA', 'num': 1, 'pin_nums': ['1', '9', '2', '3', '4', '6', '7', '5', '8']}] }),
         Part(**{ 'name':'OPA890xD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA890xD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single opamp wideband low-power', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/opa890.pdf', 'pins':[
             Pin(num='4',name='V-',func=Pin.types.PWRIN),
             Pin(num='7',name='V+',func=Pin.types.PWRIN),
@@ -1221,7 +1221,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='10',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['3', '10']}] }),
+            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '14', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '7', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['3', '10']}] }),
         Part(**{ 'name':'TLV9061xDPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV9061xDPW'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_X2SON-5_0.8x0.8mm_P0.48mm'], 'footprint':'Package_SON:Texas_X2SON-5_0.8x0.8mm_P0.48mm', 'keywords':'single opamp', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlv9061.pdf', 'pins':[
             Pin(num='3',name='V-',func=Pin.types.PWRIN),
             Pin(num='5',name='V+',func=Pin.types.PWRIN),
@@ -1245,7 +1245,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
             Pin(num='17',name='V-',func=Pin.types.PASSIVE,unit=5),
-            Pin(num='2',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '16', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '7', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '2', '17']}] }),
+            Pin(num='2',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '16', '6', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['2', '17', '11']}] }),
         Part(**{ 'name':'TSV524xIQ4T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TSV524xIQ4T'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.7x1.7mm', 'keywords':'quad opamp', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/tsv521.pdf', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='15',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -1263,7 +1263,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
             Pin(num='17',name='EP',func=Pin.types.PASSIVE,unit=5),
             Pin(num='2',name='V+',func=Pin.types.PWRIN,unit=5),
-            Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '16', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '7', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['2', '11', '10', '17', '3']}] }),
+            Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '1', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '2', '10', '17', '3']}] }),
         Part(**{ 'name':'TSV912IQ2T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TSV912IQ2T'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP1.05x1.75mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP1.05x1.75mm', 'keywords':'dual opamp', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/tsv911.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1273,7 +1273,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8', '9']}] }),
+            Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8', '9']}] }),
         Part(**{ 'name':'AD797', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD797'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'single opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD797.pdf', 'pins':[
             Pin(num='1',name='BAL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1318,7 +1318,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'AD8606ARZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8606ARZ'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8605_8606_8608.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1327,7 +1327,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'AD8610xR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8610xR'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'', 'keywords':'single opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8610_8620.pdf', 'pins':[
             Pin(num='1',name='NULL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1354,7 +1354,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'AD8620xRM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8620xRM'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8610_8620.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1363,7 +1363,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'AD8655', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8655'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', ''], 'footprint':'', 'keywords':'single opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad8655_8656.pdf', 'pins':[
             Pin(num='1',name='NULL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1381,7 +1381,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'AD8676xR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8676xR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual opamp precision high-voltage RRO RTR', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8676.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1390,7 +1390,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'ADA4075-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4075-2'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', ''], 'footprint':'', 'keywords':'dual low-power opamp', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADA4075-2.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1399,7 +1399,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'ADA4077-1xR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4077-1xR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADA4077-1_4077-2_4077-4.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1435,7 +1435,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='10',name='V-',func=Pin.types.PWRIN,unit=5),
             Pin(num='17',name='V-',func=Pin.types.PASSIVE,unit=5),
-            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '16', '2', '15', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['3', '17', '10']}] }),
+            Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '16', '1', '2', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '7', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '3', '17']}] }),
         Part(**{ 'name':'ADA4610-1xR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4610-1xR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADA4610-1_4610-2_4610-4.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1459,7 +1459,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'ADA4610-2xRM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4610-2xRM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADA4610-1_4610-2_4610-4.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1468,7 +1468,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'ADA4610-4xR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4610-4xR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'quad opamp low-power', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADA4610-1_4610-2_4610-4.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1483,7 +1483,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'ADA4625-2ARDZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4625-2ARDZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.81mm', 'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.29x3mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.81mm', 'keywords':'analog-devices adi operational amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADA4625-1-4625-2.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1493,7 +1493,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='EP',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '9', '8']}] }),
+            Pin(num='9',name='EP',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '9', '8']}] }),
         Part(**{ 'name':'ADA4807-2ARM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4807-2ARM'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADA4807-1_4807-2_4807-4.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1502,7 +1502,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'ADA4807-4ARUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADA4807-4ARUZ'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADA4807-1_4807-2_4807-4.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1517,7 +1517,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
         Part(**{ 'name':'CA3080A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA3080A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'operational transconductance amplifier ota', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/ca30/ca3080-a.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1624,7 +1624,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V+',func=Pin.types.PWRIN,unit=5),
-            Pin(num='6',name='V-',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '14', '13', '15', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '1', '3', '4', '2']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '6']}] }),
+            Pin(num='6',name='V-',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '14', '15', '13', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '3', '2', '1', '4']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['6', '11']}] }),
         Part(**{ 'name':'LM201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM201'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'single opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm101a-n.pdf', 'pins':[
             Pin(num='1',name='BAL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1675,7 +1675,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'LM324A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM324A'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm2902-n.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1690,7 +1690,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'LM358', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM358'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm2904-n.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1709,7 +1709,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8', '9']}] }),
+            Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8', '9']}] }),
         Part(**{ 'name':'LM4562', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4562'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4562.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1718,7 +1718,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'LM6142xIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM6142xIx'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', ''], 'footprint':'', 'keywords':'dual opamp rail', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/lm6142.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1727,7 +1727,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'LM6144xIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM6144xIx'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', ''], 'footprint':'', 'keywords':'quad opamp rail', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/lm6142.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1742,7 +1742,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'LM6171D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM6171D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm6171.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1769,7 +1769,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'LM7332', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM7332'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm7332.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1778,7 +1778,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'LM8261', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM8261'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'RRIO CapLoad gate driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/lm8261.pdf', 'pins':[
             Pin(num='2',name='V-',func=Pin.types.PWRIN),
             Pin(num='5',name='V+',func=Pin.types.PWRIN),
@@ -1793,7 +1793,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'LMC6082', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMC6082'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmc6082.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1802,7 +1802,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'LMC6482', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMC6482'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmc6482.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1811,7 +1811,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'LMC6484', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMC6484'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmc6484.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1826,7 +1826,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'LMH6609MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMH6609MA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'opamp single wideband unity-gain stable', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmh6609.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1871,7 +1871,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'LMV358', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMV358'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'single opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmv324.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1880,7 +1880,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'LPV811DBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LPV811DBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'single opamp low-power rail-to-rail', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/lpv812.pdf', 'pins':[
             Pin(num='2',name='V-',func=Pin.types.PWRIN),
             Pin(num='5',name='V+',func=Pin.types.PWRIN),
@@ -1895,7 +1895,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'LT1012', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1012'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'single opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/lt1012.pdf', 'pins':[
             Pin(num='1',name='BAL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1922,7 +1922,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'LT1493', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1493'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/14923f.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1939,7 +1939,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='16',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='13',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '1', '9', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['16', '14', '15']},{'label': 'uE', 'num': 5, 'pin_nums': ['13', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '9', '1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '12', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '16', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '13']}] }),
         Part(**{ 'name':'LT6015xS5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT6015xS5'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'single opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/601567ff.pdf', 'pins':[
             Pin(num='2',name='V-',func=Pin.types.PWRIN),
             Pin(num='5',name='V+',func=Pin.types.PWRIN),
@@ -1954,7 +1954,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'LT6237', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT6237'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/623637fb.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1963,7 +1963,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'LTC6081xMS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6081xMS8'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/60812fd.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1972,7 +1972,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'LTC6253xMS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6253xMS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'dual opamp low-power', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/625234fc.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1981,7 +1981,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'LTC6269xDD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6269xDD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.65x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/62689f.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -1993,7 +1993,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='10',name='V+',func=Pin.types.PWRIN,unit=3),
             Pin(num='11',name='V-',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '5', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '7', '8', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '10', '11']}] }),
+            Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '8', '9', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '4', '11']}] }),
         Part(**{ 'name':'LTC6269xMS8E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6269xMS8E'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm', 'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm'], 'footprint':'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/62689f.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2003,7 +2003,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '4', '8']}] }),
+            Pin(num='9',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8', '9']}] }),
         Part(**{ 'name':'MAX4239ASA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX4239ASA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single opamp', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX4238-MAX4239.pdf', 'pins':[
             Pin(num='1',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2034,7 +2034,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
         Part(**{ 'name':'MAX4395EUD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX4395EUD'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX4389-MAX4396.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2049,7 +2049,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
         Part(**{ 'name':'MC33078', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC33078'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC33078-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2058,7 +2058,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MC33079', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC33079'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC33078-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2073,7 +2073,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'MC33172', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC33172'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/MC33171-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2082,7 +2082,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MC33174', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC33174'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/MC33171-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2097,7 +2097,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'MC33178', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC33178'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC33178-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2106,7 +2106,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MC33179', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC33179'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC33178-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2121,7 +2121,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
         Part(**{ 'name':'MCP6001-OT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP6001-OT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'single opamp', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/MCP6001-1R-1U-2-4-1-MHz-Low-Power-Op-Amp-DS20001733L.pdf', 'pins':[
             Pin(num='2',name='V-',func=Pin.types.PWRIN),
             Pin(num='5',name='V+',func=Pin.types.PWRIN),
@@ -2142,7 +2142,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MCP6002-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP6002-xP'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2151,7 +2151,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MCP6002-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP6002-xSN'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2160,7 +2160,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MCP6004', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP6004'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2175,7 +2175,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'MCP601-xOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP601-xOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'single opamp', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21314g.pdf', 'pins':[
             Pin(num='2',name='V-',func=Pin.types.PWRIN),
             Pin(num='5',name='V+',func=Pin.types.PWRIN),
@@ -2205,7 +2205,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MCP6022', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP6022'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp rail-to-rail', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/20001685e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2214,7 +2214,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'MCP603-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP603-xSN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'single opamp', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21314g.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2247,7 +2247,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'MCP6401RT-xOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP6401RT-xOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'single opamp', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/22229d.pdf', 'pins':[
             Pin(num='2',name='V-',func=Pin.types.PWRIN),
             Pin(num='5',name='V+',func=Pin.types.PWRIN),
@@ -2304,7 +2304,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'MCP6L02x-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP6L02x-xSN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'opamp vfa r2r rtr', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/22140b.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2313,7 +2313,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'MCP6L04-xST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP6L04-xST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'opamp vfa r2r rtr', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/22140b.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2328,7 +2328,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'MCP6L04x-xSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP6L04x-xSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'opamp vfa r2r rtr', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/22140b.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2343,7 +2343,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
         Part(**{ 'name':'MCP6L91RT-ESN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP6L91RT-ESN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single opamp', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22141b.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2376,7 +2376,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
         Part(**{ 'name':'MCP6V67EMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP6V67EMS'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp zero drift', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP6V66-Family-Data-Sheet-DS20006266A.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2385,7 +2385,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'NCS20072D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCS20072D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual rail-to-rail output opamp vfa', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCS20071-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2394,7 +2394,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'NCS20072DM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCS20072DM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'dual rail-to-rail output opamp vfa', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCS20071-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2403,7 +2403,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'NCS20074D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCS20074D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'quad rail-to-rail output opamp vfa', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCS20071-D.PDF', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2418,7 +2418,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'NE5532', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NE5532'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne5532.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2427,7 +2427,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'NJM2043', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NJM2043'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.njr.com/semicon/PDF/NJM2043_E.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2445,7 +2445,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'NJM4556A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NJM4556A'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.njr.com/semicon/PDF/NJM4556A_E.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2454,7 +2454,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'NJM4558', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NJM4558'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.njr.com/semicon/PDF/NJM4558_NJM4559_E.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2463,7 +2463,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'NJM4559', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NJM4559'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.njr.com/semicon/PDF/NJM4558_NJM4559_E.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2472,7 +2472,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'NJM4560', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NJM4560'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.njr.com/semicon/PDF/NJM4560_E.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2481,7 +2481,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'NJM4580', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NJM4580'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.njr.com/semicon/PDF/NJM4580_E.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2490,7 +2490,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'NJM5532', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NJM5532'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.njr.com/semicon/PDF/NJM5532_E.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2499,7 +2499,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OP249', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OP249'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/OP249.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2508,7 +2508,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OP275', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OP275'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/OP275.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2517,7 +2517,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OP77', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OP77'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'single opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/OP77.pdf', 'pins':[
             Pin(num='1',name='VOS',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2544,7 +2544,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'OPA1604', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA1604'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa1604.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2559,7 +2559,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
         Part(**{ 'name':'OPA1612AxD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA1612AxD'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa1612.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2568,7 +2568,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA1678', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA1678'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa1678.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2577,7 +2577,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA1679', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA1679'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa1678.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2592,7 +2592,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
         Part(**{ 'name':'OPA1692xD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA1692xD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'VFA opamp', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/opa1692.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2601,7 +2601,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'OPA1692xDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA1692xDGK'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'keywords':'VFA opamp', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/opa1692.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2610,7 +2610,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA188xxD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA188xxD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single opamp zero-drift', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa188.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2673,7 +2673,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'OPA2156xD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2156xD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual opamp low-noise r2r', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/opa2156.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2682,7 +2682,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA2156xDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2156xDGK'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'keywords':'dual opamp low-noise r2r', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa2156.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2691,7 +2691,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA2196xD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2196xD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual opamp low-power', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa4196.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2700,7 +2700,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'OPA2196xDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2196xDGK'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'keywords':'dual opamp rtor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa4196.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2709,7 +2709,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA2197xD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2197xD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual opamp rtor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa2197.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2718,7 +2718,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'OPA2277', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2277'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/opa2277.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2727,7 +2727,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA2333xxD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2333xxD'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa333.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2736,7 +2736,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA2333xxDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2333xxDGK'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa333.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2745,7 +2745,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA2340', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2340'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa4340.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2754,7 +2754,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA2356xxD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2356xxD'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa2356.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2763,7 +2763,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA2356xxDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2356xxDGK'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa2356.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2772,7 +2772,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA2376xxD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2376xxD'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa376.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2781,7 +2781,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA2376xxDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2376xxDGK'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa376.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2790,7 +2790,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA2691', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2691'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual current feedback opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/sbos224d/sbos224d.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2799,7 +2799,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA2994xD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2994xD'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'', 'keywords':'high-output-current rrio', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/opa2994.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2808,7 +2808,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'OPA310SxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA310SxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'single opamp ', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/opa310.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -2965,7 +2965,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'OPA4196xD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA4196xD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'quad opamp rtor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa4196.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2980,7 +2980,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'OPA4196xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA4196xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'quad opamp rtor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa4196.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -2995,7 +2995,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
         Part(**{ 'name':'OPA4340EA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA4340EA'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa340.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3012,7 +3012,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='16',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='13',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '3', '1', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '11', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '13']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3', '9', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '10', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '15', '16']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '13']}] }),
         Part(**{ 'name':'OPA4340UA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA4340UA'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa340.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3027,7 +3027,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'OPA4376', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA4376'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa376.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3042,7 +3042,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'OPA552P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA552P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa552.pdf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3147,7 +3147,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='1',name='FB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='+',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='V-',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['2', '8', '7', '6', '9']},{'label': 'uA', 'num': 1, 'pin_nums': ['4', '1', '2', '8', '9', '5', '6', '3', '7']}] }),
+            Pin(num='5',name='V-',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['6', '9', '7', '2', '8']},{'label': 'uA', 'num': 1, 'pin_nums': ['3', '6', '7', '9', '4', '1', '2', '8', '5']}] }),
         Part(**{ 'name':'OPA859xDSG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA859xDSG'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm'], 'footprint':'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'keywords':'opamp VFA', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa859.pdf', 'pins':[
             Pin(num='7',name='V+',func=Pin.types.PWRIN),
             Pin(num='8',name='~{PD}',func=Pin.types.INPUT),
@@ -3157,7 +3157,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='1',name='FB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='+',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='V-',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['2', '9', '7', '6', '8']},{'label': 'uA', 'num': 1, 'pin_nums': ['9', '2', '7', '1', '6', '4', '8', '5', '3']}] }),
+            Pin(num='5',name='V-',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['6', '8', '9', '7', '2']},{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '3', '8', '7', '9', '4', '5', '2']}] }),
         Part(**{ 'name':'RC4558', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RC4558'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/rc4558.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3166,7 +3166,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'RC4560', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RC4560'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/rc4560.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3184,7 +3184,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'SA5532', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA5532'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne5532.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3193,7 +3193,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'SA5534', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA5534'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'single opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne5534.pdf', 'pins':[
             Pin(num='1',name='BAL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3239,7 +3239,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'TL064', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TL064'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tl061.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3254,7 +3254,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
         Part(**{ 'name':'TL071', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TL071'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'singel opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tl071.pdf', 'pins':[
             Pin(num='1',name='NULL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3272,7 +3272,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'TL074', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TL074'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tl071.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3287,7 +3287,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
         Part(**{ 'name':'TL081', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TL081'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'single opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tl081.pdf', 'pins':[
             Pin(num='1',name='NULL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3320,7 +3320,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'TLC272', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC272'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc272.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3329,7 +3329,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'TLC274', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC274'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc274.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3344,7 +3344,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'TLC277', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC277'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc272.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3353,7 +3353,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'TLC279', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC279'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc274.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3368,7 +3368,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
         Part(**{ 'name':'TLE2141ACD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLE2141ACD'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'', 'keywords':'single opamp', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tle2141a.pdf', 'pins':[
             Pin(num='1',name='NULL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3515,7 +3515,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'TLV9062xD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV9062xD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual op-amp low power', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlv9062.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3524,7 +3524,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'TLV9062xDSG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV9062xDSG'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_S-PVSON-N8', 'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias'], 'footprint':'Package_SON:Texas_S-PVSON-N8', 'keywords':'dual opamp low-power', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlv9062.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3534,7 +3534,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4', '9']}] }),
+            Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '4', '8']}] }),
         Part(**{ 'name':'TLV9064', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV9064'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlv9064.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3549,7 +3549,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'TLV9301xDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV9301xDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'single opamp 40V rail to rail output', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlv9301.pdf', 'pins':[
             Pin(num='2',name='V-',func=Pin.types.PWRIN),
             Pin(num='5',name='V+',func=Pin.types.PWRIN),
@@ -3570,7 +3570,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'TLV9302xDDF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV9302xDDF'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_TO_SOT_SMD:SOT-23-8'], 'footprint':'', 'keywords':'dual opamp 40V rail to rail output', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlv9302.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3579,7 +3579,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'TLV9302xDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV9302xDGK'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_TO_SOT_SMD:SOT-23-8', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'', 'keywords':'dual opamp 40V rail to rail output', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlv9302.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3588,7 +3588,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'TLV9302xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV9302xPW'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_TO_SOT_SMD:SOT-23-8', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'', 'keywords':'dual opamp 40V rail to rail output', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlv9302.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3597,7 +3597,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'TLV9304xD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV9304xD'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm'], 'footprint':'', 'keywords':'quad opamp 40V rail to rail output', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlv9304.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3612,7 +3612,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
         Part(**{ 'name':'TLV9304xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV9304xPW'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'', 'keywords':'quad opamp 40V rail to rail output', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlv9304.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3627,7 +3627,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'TS881xCx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS881xCx'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-353_SC-70-5', 'Package_TO_SOT_SMD:SOT-353_SC-70-5', 'Package_TO_SOT_SMD:SOT-353_SC-70-5', 'Package_TO_SOT_SMD:SOT-353_SC-70-5'], 'footprint':'Package_TO_SOT_SMD:SOT-353_SC-70-5', 'keywords':'single comparator', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/a2/60/3e/5d/b2/c1/4a/e9/DM00057901.pdf/files/DM00057901.pdf/jcr:content/translations/en.DM00057901.pdf', 'pins':[
             Pin(num='2',name='V-',func=Pin.types.PWRIN),
             Pin(num='5',name='V+',func=Pin.types.PWRIN),
@@ -3678,7 +3678,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
         Part(**{ 'name':'TSV912IST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TSV912IST'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_TO_SOT_SMD:SOT-23-8', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', '', '', ''], 'footprint':'', 'keywords':'dual opamp', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/tsv911.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3687,7 +3687,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '4']}] }),
         Part(**{ 'name':'TSV914', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TSV914'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/tsv911.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3702,7 +3702,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
         Part(**{ 'name':'TSV994', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TSV994'}), 'ref_prefix':'U', 'fplist':['', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', '', ''], 'footprint':'', 'keywords':'quad opamp', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/tsv994.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3717,7 +3717,7 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='-',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['4', '11']}] }),
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '4']}] }),
         Part(**{ 'name':'OPA2604AP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA2604AP'}), 'ref_prefix':'U', 'fplist':['', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', '', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_TO_SOT_SMD:SOT-23-8', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', '', '', '', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'', 'keywords':'dual opamp fet-input', 'description':'', 'datasheet':'https://pdf1.alldatasheetcn.com/datasheet-pdf/view/785955/TI1/OPA2604AP.html', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -3726,4 +3726,4 @@ Amplifier_Operational = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] })])
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] })])

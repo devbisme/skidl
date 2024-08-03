@@ -240,7 +240,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.PASSIVE,unit=2),
             Pin(num='7',name='C',func=Pin.types.PASSIVE,unit=2),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='9',name='VEE',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '14', '3', '16', '1', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '7', '6', '8', '11', '9']}] }),
+            Pin(num='9',name='VEE',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '14', '1', '15', '3', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '7', '6', '8', '11', '9']}] }),
         Part(**{ 'name':'HIP2100_DFN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2100_DFN'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-12-1EP_4x4mm_P0.5mm_EP2.66x3.38mm'], 'footprint':'Package_DFN_QFN:DFN-12-1EP_4x4mm_P0.5mm_EP2.66x3.38mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2100.pdf', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),

@@ -36,7 +36,7 @@ Relay = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='14',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='23',name='~',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='24',name='~',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['A1', 'SH', 'A2']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['24', '23']}] }),
+            Pin(num='24',name='~',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['A2', 'A1', 'SH']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['24', '23']}] }),
         Part(**{ 'name':'COTO_3650_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'COTO_3650_Split'}), 'ref_prefix':'K', 'fplist':['Relay_THT:Relay_3PST_COTO_3650'], 'footprint':'Relay_THT:Relay_3PST_COTO_3650', 'keywords':'reed relay low thermal emf', 'description':'', 'datasheet':'https://cotorelay.com/wp-content/uploads/2014/09/3600_series_reed_relay_datasheet.pdf', 'pins':[
             Pin(num='A1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -46,7 +46,7 @@ Relay = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='23',name='~',func=Pin.types.PASSIVE,unit=3),
             Pin(num='24',name='~',func=Pin.types.PASSIVE,unit=3),
             Pin(num='33',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='34',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['SH', 'A2', 'A1']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['23', '24']},{'label': 'uD', 'num': 4, 'pin_nums': ['33', '34']}] }),
+            Pin(num='34',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['A1', 'A2', 'SH']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['23', '24']},{'label': 'uD', 'num': 4, 'pin_nums': ['33', '34']}] }),
         Part(**{ 'name':'COTO_3660_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'COTO_3660_Split'}), 'ref_prefix':'K', 'fplist':['Relay_THT:Relay_3PST_COTO_3660'], 'footprint':'Relay_THT:Relay_3PST_COTO_3660', 'keywords':'reed relay low thermal emf', 'description':'', 'datasheet':'https://cotorelay.com/wp-content/uploads/2014/09/3600_series_reed_relay_datasheet.pdf', 'pins':[
             Pin(num='A1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -55,7 +55,7 @@ Relay = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='23',name='~',func=Pin.types.PASSIVE,unit=3),
             Pin(num='24',name='~',func=Pin.types.PASSIVE,unit=3),
             Pin(num='33',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='34',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['A2', 'A1']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['23', '24']},{'label': 'uD', 'num': 4, 'pin_nums': ['33', '34']}] }),
+            Pin(num='34',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['A1', 'A2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['23', '24']},{'label': 'uD', 'num': 4, 'pin_nums': ['34', '33']}] }),
         Part(**{ 'name':'DIPxx-1Axx-11x', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIPxx-1Axx-11x'}), 'ref_prefix':'K', 'fplist':['Relay_THT:Relay_StandexMeder_DIP_LowProfile'], 'footprint':'Relay_THT:Relay_StandexMeder_DIP_LowProfile', 'keywords':'Single Pole Reed Relay SPST', 'description':'', 'datasheet':'https://standexelectronics.com/wp-content/uploads/datasheet_reed_relay_DIP.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='14',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -311,7 +311,7 @@ Relay = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=3),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '7', '9']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '9', '8']}] }),
         Part(**{ 'name':'Fujitsu_FTR-F1A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Fujitsu_FTR-F1A'}), 'ref_prefix':'K', 'fplist':['Relay_THT:Relay_DPST_Fujitsu_FTR-F1A'], 'footprint':'Relay_THT:Relay_DPST_Fujitsu_FTR-F1A', 'keywords':'double pole single throw relay', 'description':'', 'datasheet':'https://www.fcl.fujitsu.com/downloads/MICRO/fcai/relays/ftr-f1.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -369,7 +369,7 @@ Relay = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=3),
             Pin(num='13',name='~',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '13', '9']}] }),
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '8', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '9', '13']}] }),
         Part(**{ 'name':'G6E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'G6E'}), 'ref_prefix':'K', 'fplist':['Relay_THT:Relay_SPDT_Omron_G6E'], 'footprint':'Relay_THT:Relay_SPDT_Omron_G6E', 'keywords':'Single Pole Relay SPDT', 'description':'', 'datasheet':'https://www.omron.com/ecb/products/pdf/en-g6e.pdf', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
