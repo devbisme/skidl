@@ -36,6 +36,6 @@ $(window).resize(function(){
         $("li.nav-item-0 a").text("Top");
     }
     else {
-        $("li.nav-item-0 a").text("SKiDL 1.2.2 documentation");
+        $("li.nav-item-0 a").text("SKiDL 1.2.3 documentation");
     }
 });

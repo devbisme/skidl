@@ -4,6 +4,12 @@ History
 -------
 
 
+1.2.3 (2024-08-03)
+______________________
+- Fixed SVG generation for Windows OS.
+- Improved export into `*_sklib.py` files of parts with units. 
+
+
 1.2.2 (2024-07-13)
 ______________________
 - Added SVG schematic generation feature for KiCad 6, 7, and 8.

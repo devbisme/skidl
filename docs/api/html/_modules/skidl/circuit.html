@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.circuit &#8212; SKiDL 1.2.2 documentation</title>
+    <title>skidl.circuit &#8212; SKiDL 1.2.3 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../../_static/documentation_options.js?v=590429e0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.circuit</a></li> 
       </ul>
@@ -89,6 +89,7 @@
 <span class="kn">from</span> <span class="nn">.scriptinfo</span> <span class="kn">import</span> <span class="n">get_script_name</span><span class="p">,</span> <span class="n">get_skidl_trace</span>
 <span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">SkidlBaseObject</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">detect_os</span><span class="p">,</span>
     <span class="n">expand_buses</span><span class="p">,</span>
     <span class="n">export_to_all</span><span class="p">,</span>
     <span class="n">flatten</span><span class="p">,</span>
@@ -1153,10 +1154,16 @@
                     <span class="p">)</span>
                 <span class="p">)</span>
 
-            <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
-                <span class="p">[</span><span class="s2">&quot;netlistsvg&quot;</span><span class="p">,</span> <span class="n">json_file</span><span class="p">,</span> <span class="s2">&quot;--skin&quot;</span><span class="p">,</span> <span class="n">skin_file</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">svg_file</span><span class="p">],</span>
-                <span class="n">shell</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">detect_os</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+                <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+                    <span class="p">[</span><span class="s2">&quot;netlistsvg.cmd&quot;</span><span class="p">,</span> <span class="n">json_file</span><span class="p">,</span> <span class="s2">&quot;--skin&quot;</span><span class="p">,</span> <span class="n">skin_file</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">svg_file</span><span class="p">],</span>
+                    <span class="n">shell</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+                    <span class="p">[</span><span class="s2">&quot;netlistsvg&quot;</span><span class="p">,</span> <span class="n">json_file</span><span class="p">,</span> <span class="s2">&quot;--skin&quot;</span><span class="p">,</span> <span class="n">skin_file</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">svg_file</span><span class="p">],</span>
+                    <span class="n">shell</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">)</span>
 
         <span class="n">active_logger</span><span class="o">.</span><span class="n">report_summary</span><span class="p">(</span><span class="s2">&quot;generating SVG&quot;</span><span class="p">)</span>
 
@@ -1409,7 +1416,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.circuit</a></li> 
       </ul>

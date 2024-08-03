@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.part &#8212; SKiDL 1.2.2 documentation</title>
+    <title>skidl.part &#8212; SKiDL 1.2.3 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../../_static/documentation_options.js?v=590429e0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part</a></li> 
       </ul>
@@ -320,12 +320,19 @@
         <span class="k">if</span> <span class="n">ref</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">ref</span>
 
+        <span class="c1"># Add any pins that were passed in, and make sure they&#39;re associated with the part.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_pins</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;pins&quot;</span><span class="p">,</span> <span class="p">[]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">associate_pins</span><span class="p">()</span>
+
+        <span class="c1"># If any unit definitions were passed in, then make units.</span>
+        <span class="k">for</span> <span class="n">unit_def</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;unit_defs&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">make_unit</span><span class="p">(</span>
+                <span class="n">unit_def</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">],</span> <span class="o">*</span><span class="n">unit_def</span><span class="p">[</span><span class="s2">&quot;pin_nums&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="n">unit_def</span><span class="p">[</span><span class="s2">&quot;num&quot;</span><span class="p">]</span>
+            <span class="p">)</span>
+
         <span class="c1"># Add any other passed-in attributes to the part.</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-
-        <span class="c1"># If any pins were added, make sure they&#39;re associated with the part.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">associate_pins</span><span class="p">()</span>
 
         <span class="c1"># Make sure the part name is also included in the list of aliases</span>
         <span class="c1"># because part searching only checks the aliases for name matches.</span>
@@ -420,56 +427,6 @@
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">obj</span> <span class="o">|</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_get_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return a list of component field names.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
-
-        <span class="c1"># Get all the component attributes and subtract all the ones that</span>
-        <span class="c1"># should not appear under &quot;fields&quot; in the netlist or XML.</span>
-        <span class="c1"># Also, skip all the Pin and PartUnit attributes.</span>
-        <span class="n">fields</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span>
-            <span class="p">[</span>
-                <span class="n">k</span>
-                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="n">Pin</span><span class="p">,</span> <span class="n">PartUnit</span><span class="p">))</span>
-            <span class="p">]</span>
-        <span class="p">)</span>
-        <span class="n">non_fields</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span>
-            <span class="p">[</span>
-                <span class="s2">&quot;name&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;min_pin&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;max_pin&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;hierarchy&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;_tag&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;_value&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;_ref&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;ref_prefix&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;unit&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;num_units&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;part_defn&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;definition&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;fields&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;draw&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;lib&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;fplist&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;do_erc&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;aliases&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;tool&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;pins&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;footprint&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;circuit&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;skidl_trace&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;search_text&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;filename&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;p&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;n&quot;</span><span class="p">,</span>
-            <span class="p">]</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">fields</span> <span class="o">-</span> <span class="n">non_fields</span><span class="p">)</span>
 
     <span class="c1"># Get pins from a part using brackets, e.g. [1,5:9,&#39;A[0-9]+&#39;].</span>
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">):</span>
@@ -1038,7 +995,9 @@
         <span class="c1"># Log an error if no pins were selected using the pin ids.</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">pins</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">silent</span><span class="p">:</span>
             <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s2">&quot;No pins found using </span><span class="si">{self.ref}</span><span class="s2">[</span><span class="si">{pin_ids}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+                <span class="s2">&quot;No pins found using </span><span class="si">{self.name}</span><span class="s2">:</span><span class="si">{self.ref}</span><span class="s2">[</span><span class="si">{pin_ids}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="o">**</span><span class="nb">locals</span><span class="p">()</span>
+                <span class="p">)</span>
             <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">list_or_scalar</span><span class="p">(</span><span class="n">pins</span><span class="p">)</span></div>
@@ -1231,31 +1190,16 @@
         <span class="c1"># pins may be missing because they haven&#39;t been parsed from the part definition.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
 
-        <span class="c1"># Get the names of fields to export.</span>
-        <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fields</span><span class="p">()</span>
-        <span class="n">keys</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-            <span class="p">(</span>
-                <span class="s2">&quot;ref_prefix&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;num_units&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;fplist&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;do_erc&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;aliases&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;pin&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;footprint&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;draw_cmds&quot;</span><span class="p">,</span> <span class="c1"># Add it to make sure removal doesn&#39;t cause an error.</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="c1"># Remove duplicates.</span>
-        <span class="n">keys</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;draw_cmds&quot;</span><span class="p">)</span> <span class="c1"># Don&#39;t export drawing commands.</span>
-
-        <span class="c1"># TODO: Implement export of units. Or don&#39;t allow a Part to be a unit of itself.</span>
-        <span class="c1"># Remove units because having a Part as a unit causes an error.</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">unit_label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">:</span>
-                <span class="n">keys</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">unit_label</span><span class="p">)</span>
-            <span class="n">keys</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;unit&quot;</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="k">pass</span>
+        <span class="c1"># List of attributes to export that are necessary for rebuilding a part.</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;aliases&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ref_prefix&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;fplist&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;footprint&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;keywords&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;datasheet&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
 
         <span class="c1"># Export the part as a SKiDL template.</span>
         <span class="n">attribs</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1263,13 +1207,21 @@
         <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;dest&#39;:TEMPLATE&quot;</span><span class="p">)</span>
         <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;tool&#39;:SKIDL&quot;</span><span class="p">)</span>
 
-        <span class="c1"># Collect all the part attributes and the list of pins as Python code.</span>
+        <span class="c1"># Collect all the part attributes and the list of pins and units as Python code.</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
             <span class="n">v</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39;:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">v</span><span class="p">)))</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
             <span class="n">pin_strs</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">export</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">]</span>
             <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;pins&#39;:[</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pin_strs</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">:</span>
+            <span class="c1"># TODO: How to handle a Part that is also a unit?</span>
+            <span class="n">unit_strs</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">unit</span><span class="o">.</span><span class="n">export</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">PartUnit</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;unit_defs&#39;:[</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unit_strs</span><span class="p">)))</span>
 
         <span class="c1"># Return the string after removing all the non-ascii stuff (like ohm symbols).</span>
         <span class="c1"># This string is a Part instantiation with parameters that will create the part when executed.</span>
@@ -1477,6 +1429,8 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">):</span>
 
+        <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
+
         <span class="c1"># Don&#39;t use super() for this.</span>
         <span class="n">SkidlBaseObject</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
@@ -1495,19 +1449,31 @@
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
 
+        <span class="c1"># Setup the pin number and name search objects for this unit</span>
+        <span class="c1"># so the equivalent ones in the parent aren&#39;t used which will search</span>
+        <span class="c1"># *all* pins rather than just the unit&#39;s pins.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">PinNumberSearch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">PinNameSearch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
         <span class="c1"># Don&#39;t associate any units from the parent with this unit itself.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1"># Remove the pins copied from the parent and replace them with</span>
         <span class="c1"># pins selected from the parent.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pins</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_pins_from_parent</span><span class="p">(</span><span class="o">*</span><span class="n">pin_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">)</span>
-        <span class="c1"># Add pins from global unit.</span>
+
+        <span class="c1"># A unit may have no pins but gets them from the global unit 0,</span>
+        <span class="c1"># so suppress errors if no pins from this unit are found.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_pins_from_parent</span><span class="p">(</span><span class="o">*</span><span class="n">pin_ids</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">)</span>
+
+        <span class="c1"># Now Add pins from the global unit 0. Suppress errors if it doesn&#39;t exist.</span>
         <span class="c1"># TODO: KiCad uses unit 0 for global unit. What about other tools?</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_pins_from_parent</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return attribute from parent Part if it wasn&#39;t found in the PartUnit.&quot;&quot;&quot;</span>
+        <span class="c1"># FIXME: This allows the unit to access *all* the attributes of the parent</span>
+        <span class="c1">#        even those it shouldn&#39;t be able to (like pins not assigned to it).</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
 
 <div class="viewcode-block" id="PartUnit.add_pins_from_parent">
@@ -1519,7 +1485,6 @@
 
         <span class="c1"># Get new pins selected from the parent.</span>
         <span class="n">new_pins</span> <span class="o">=</span> <span class="n">to_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">get_pins</span><span class="p">(</span><span class="o">*</span><span class="n">pin_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">))</span>
-
         <span class="c1"># Remove None if that&#39;s gotten into the list.</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">new_pins</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
@@ -1560,6 +1525,18 @@
 
         <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
             <span class="n">pin</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span></div>
+
+
+<div class="viewcode-block" id="PartUnit.export">
+<a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.PartUnit.export">[docs]</a>
+    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a string describing the PartUnit for exporting purposes.&quot;&quot;&quot;</span>
+
+        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span>
+        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;num&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num</span>
+        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;pin_nums&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span> <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></div>
 
 
     <span class="nd">@property</span>
@@ -1642,7 +1619,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part</a></li> 
       </ul>
