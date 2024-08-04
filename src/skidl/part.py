@@ -1042,8 +1042,17 @@ class Part(SkidlBaseObject):
         """Create description of part for ERC and other error reporting."""
         return "{p.name}/{p.ref}".format(p=self)
 
-    def export(self):
-        """Return a string to recreate a Part object."""
+        """"""
+
+    def export(self, addtl_part_attrs=None):
+        """Return a string to recreate a Part object.
+
+        Args:
+            addtl_part_attrs (list): List of additional part attribute names to include in export.
+
+        Returns:
+            str: String that can be evaluated to rebuild the Part object.
+        """
 
         # Make sure the part is fully instantiated. Otherwise, attributes like
         # pins may be missing because they haven't been parsed from the part definition.
@@ -1059,6 +1068,10 @@ class Part(SkidlBaseObject):
             "description",
             "datasheet",
         ]
+
+        # Add any other additional part attributes
+        if addtl_part_attrs:
+            keys.extend(addtl_part_attrs)
 
         # Export the part as a SKiDL template.
         attribs = []

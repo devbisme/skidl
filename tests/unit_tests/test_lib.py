@@ -54,10 +54,14 @@ def test_lib_import_1():
 def test_lib_export_1():
     SchLib.reset()
     lib = SchLib("Device")
-    lib.export("my_device", tool=SKIDL)
+    lib.export("my_device", tool=SKIDL, addtl_part_attrs=["value","search_text"])
     my_lib = SchLib("my_device", tool=SKIDL)
     assert len(lib) == len(my_lib)
     assert active_logger.error.count == 0
+    my_res = Part(my_lib, "R")
+    assert hasattr(my_res, "value")
+    assert hasattr(my_res, "search_text")
+    assert hasattr(my_res, "name")
 
 
 def test_lib_creation_1():
@@ -109,7 +113,6 @@ def test_backup_2():
     for nm in num_pins_per_net_1:
         assert num_pins_per_net_1[nm] == num_pins_per_net_2[nm]
 
-# @pytest.mark.skip(reason="Part export doesn't support units.")
 def test_backup_3():
     SchLib.reset()
     rn1 = Part("Device", "R_Pack08_Split", footprint="null")

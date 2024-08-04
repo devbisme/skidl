@@ -8,6 +8,7 @@ History
 ______________________
 - No longer compatible with Python 2.
 - `@package` decorator removed.
+- Additional `Part`` attributes can be specified when exporting libraries.
 
 
 1.2.2 (2024-07-13)

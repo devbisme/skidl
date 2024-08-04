@@ -211,7 +211,7 @@ class SchLib(object):
 
         return parts
 
-    def export(self, libname, file_=None, tool=None):
+    def export(self, libname, file_=None, tool=None, addtl_part_attrs=None):
         """
         Export a library into a file.
 
@@ -223,6 +223,7 @@ class SchLib(object):
                 suffix appended.
             tool: The CAD tool library format to be used. Currently, this can
                 only be SKIDL.
+            addtl_part_attrs (list): List of additional part attribute names to include in export.
         """
 
         def prettify(s):
@@ -242,7 +243,7 @@ class SchLib(object):
         export_str = "from collections import defaultdict\n"
         export_str += "from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE\n\n"
         export_str += "SKIDL_lib_version = '0.0.1'\n\n"
-        part_export_str = ",".join([p.export() for p in self.parts])
+        part_export_str = ",".join([p.export(addtl_part_attrs=addtl_part_attrs) for p in self.parts])
         export_str += "{} = SchLib(tool=SKIDL).add_parts(*[{}])".format(
             cnvt_to_var_name(libname), part_export_str
         )
