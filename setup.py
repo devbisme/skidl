@@ -7,7 +7,7 @@ import setuptools
 
 __version__ = "2.0.0"
 __author__ = "Dave Vandenbout"
-__email__ = "devb@xess.com"
+__email__ = "dave@vdb.name"
 
 if "sdist" in sys.argv[1:]:
     with open("src/skidl/pckg_info.py", "w") as f:

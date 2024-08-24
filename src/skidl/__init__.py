@@ -18,6 +18,7 @@ The script can also check the resulting circuitry for electrical rule violations
 """
 
 
+from .pckg_info import __version__
 from .alias import Alias
 from .bus import Bus
 from .circuit import HIER_SEP, Circuit
