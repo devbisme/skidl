@@ -92,9 +92,9 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                 for p in val.get_parts():
                     if 'search_text' not in p.__dict__:
                         sitems = [p.name]
-                        if "description" in p:
+                        if "description" in p.__dict__:
                             sitems.append(p.description)
-                        if 'keywords' in p:
+                        if 'keywords' in p.__dict__:
                             sitems.append(p.keywords)
                         p.search_text = "\n".join(sitems)
                 # Overwrite self with the new library.
