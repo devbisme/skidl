@@ -126,7 +126,7 @@ class SkidlLogger(logging.getLoggerClass()):
         super().warning(msg + self.get_trace(), *args, **kwargs)
 
     def error(self, msg, *args, **kwargs):
-        super().error(msg + self.get_trace(), *args, **kwargs)
+        super().error(str(msg) + str(self.get_trace()), *args, **kwargs)
 
     def critical(self, msg, *args, **kwargs):
         super().critical(msg + self.get_trace(), *args, **kwargs)

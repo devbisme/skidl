@@ -142,7 +142,7 @@ def search_parts(terms, tool=None):
         print(
             "{}: {} ({})".format(
                 lib_file, part_name, getattr(part, "description", "???")
-            )
+            ),
         )
 
 

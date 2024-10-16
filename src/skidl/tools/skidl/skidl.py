@@ -89,6 +89,14 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         # Now look through the dict to find the library object.
         for val in vars_.values():
             if isinstance(val, SchLib):
+                for p in val.get_parts():
+                    if 'search_text' not in p.__dict__:
+                        sitems = [p.name]
+                        if "description" in p:
+                            sitems.append(p.description)
+                        if 'keywords' in p:
+                            sitems.append(p.keywords)
+                        p.search_text = "\n".join(sitems)
                 # Overwrite self with the new library.
                 self.__dict__.update(val.__dict__)
                 return
