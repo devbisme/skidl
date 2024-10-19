@@ -3,5 +3,6 @@
     "python.pythonPath": "/home/devb/.pyenv/versions/3.8.9/bin/python",
     "python.languageServer": "Pylance",
     "esbonio.server.enabled": true,
-    "esbonio.sphinx.confDir": "${workspaceFolder}/docs"
+    "esbonio.sphinx.confDir": "${workspaceFolder}/docs",
+    "makefile.configureOnOpen": false
 }
